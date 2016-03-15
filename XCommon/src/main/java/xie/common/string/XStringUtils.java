@@ -1,6 +1,7 @@
 package xie.common.string;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,7 +94,7 @@ public class XStringUtils {
 	}
 
 	/**
-	 * 字符串转换成数组�? 默认用�?�号区分，如果为空，
+	 * 字符串转换成数组�? 默认用�?�号区分，如果为空，
 	 * 
 	 * @param key
 	 * @return
@@ -145,7 +146,7 @@ public class XStringUtils {
 	 * 将List转换成字符串形式
 	 * 
 	 * @param array
-	 * @param d 分隔�?
+	 * @param d 分隔�?
 	 * @return
 	 * @since 2015-8-24 下午9:36:33
 	 */
@@ -171,7 +172,7 @@ public class XStringUtils {
 	}
 
 	/**
-	 * string中是否有以startArray�?头的字符�?
+	 * string中是否有以startArray�?头的字符�?
 	 * 
 	 * @param string
 	 * @param startArray
@@ -220,14 +221,14 @@ public class XStringUtils {
 	 * 字符串转换unicode
 	 * 
 	 * @param string
-	 * @param escapeNumberOrLetterFlg 是否转换英文或�?�数�?
+	 * @param escapeNumberOrLetterFlg 是否转换英文或�?�数�?
 	 * @return
 	 * @since 2014-11-12上午1:41:55
 	 */
 	public static String string2Unicode(String string, boolean escapeNumberOrLetterFlg) {
 		StringBuffer unicode = new StringBuffer();
 		for (int i = 0; i < string.length(); i++) {
-			// 取出每一个字�?
+			// 取出每一个字�?
 			char c = string.charAt(i);
 
 			if (!escapeNumberOrLetterFlg) {
@@ -269,6 +270,61 @@ public class XStringUtils {
 			str = str.replace(matcher.group(1), ch + "");
 		}
 		return str;
+	}
+
+	/**
+	 * 替换文本 "A[[0]]AABB[[1]]B",[C,D] --> "ACAABBDB"
+	 */
+	public static List formatStr(List list, String[] paramArray) {
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				Object value = list.get(i);
+				if (value instanceof String) {
+					String formattedValue = formatStr((String) value, paramArray);
+					list.set(i, formattedValue);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * 替换文本 "A[[0]]AABB[[1]]B",[C,D] --> "ACAABBDB"
+	 */
+	public static Map formatStr(Map map, String[] paramArray) {
+		if (map != null && map.size() > 0) {
+			for (Object key : map.keySet()) {
+				Object value = map.get(key);
+				if (value instanceof String) {
+					String formattedValue = formatStr((String) value, paramArray);
+					map.put(key, formattedValue);
+				}
+			}
+		}
+
+		return map;
+	}
+
+	/**
+	 * 替换文本 "A[[0]]AABB[[1]]B",[C,D] --> "ACAABBDB"
+	 */
+	public static String formatStr(String formatStr, String[] paramArray) {
+		if (formatStr == null || formatStr.length() == 0) {
+			return formatStr;
+		}
+
+		if (paramArray == null || paramArray.length == 0) {
+			return formatStr;
+		}
+
+		String returnStr = formatStr;
+		for (int i = 0; i < paramArray.length; i++) {
+			String param = paramArray[i];
+			returnStr = returnStr.replaceAll("\\[\\[" + i + "\\]\\]", param);
+		}
+
+		return returnStr;
 	}
 
 	public static void main(String[] args) {

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -14,7 +13,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -24,6 +22,11 @@ import com.tietuku.entity.token.Token;
 import com.tietuku.entity.util.PathConfig;
 
 public class PostImage {
+
+	public static String doUpload(File file){
+		String token = "1b20a4281d6dd14cff67c2c9cfefed3c2808f38e:bTdiR2tIZDZmVmluUjZQM0xFYWZjVmNIczhFPQ==:eyJkZWFkbGluZSI6MTQ1NDI5MDA2NywiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTQxOTUwIiwiYWlkIjoiMTE3NTEyMCIsImZyb20iOiJmaWxlIn0=";
+		return doUpload(file, token);
+	}
 	/**
 	 * 提交图片给图库
 	 * @param image
@@ -31,14 +34,14 @@ public class PostImage {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public static String doUpload(File f , String token){
+	public static String doUpload(File file , String token){
 		//贴图库数据加密请求
 		String url = PathConfig.getProperty("tie.tu.ku.post.api");
 		
 		HttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost(url);  
 		
-		FileBody bin = new FileBody(f); 
+		FileBody bin = new FileBody(file); 
 		MultipartEntityBuilder multipartEntityBuilder =  MultipartEntityBuilder.create(); //关键
         multipartEntityBuilder.addPart("file", bin); 
 		multipartEntityBuilder.addPart("Token", new StringBody(token, ContentType.APPLICATION_FORM_URLENCODED));
