@@ -1,4 +1,4 @@
-package xie.common;
+package xie.common.number;
 
 import xie.common.string.XStringUtils;
 
@@ -49,9 +49,9 @@ public class XNumberUtils {
 		return longArray;
 	}
 
-	public static int getIntegerValue(Object object) {
+	public static Integer getIntegerValue(Object object) {
 		if (object == null) {
-			throw new RuntimeException("FAmf.getIntegerValue with null param.");
+			return null;
 		}
 		if (object instanceof Integer) {
 			return (Integer) object;
@@ -64,9 +64,9 @@ public class XNumberUtils {
 		}
 	}
 
-	public static double getDoubleValue(Object object) {
+	public static Double getDoubleValue(Object object) {
 		if (object == null) {
-			throw new RuntimeException("FAmf.getDoubleValue with null param.");
+			return null;
 		}
 		if (object instanceof Integer) {
 			return ((Integer) object).doubleValue();
@@ -79,9 +79,9 @@ public class XNumberUtils {
 		}
 	}
 
-	public static long getLongValue(Object object) {
+	public static Long getLongValue(Object object) {
 		if (object == null) {
-			throw new RuntimeException("FAmf.getLongValue with null param.");
+			return null;
 		}
 		if (object instanceof Integer) {
 			return ((Integer) object).longValue();
