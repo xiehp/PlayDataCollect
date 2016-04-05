@@ -1,6 +1,10 @@
 package com.tietuku.entity.vo;
 
 public class TietukuUploadResponse {
+	/** 错误码 */
+	String code;
+	/** 错误信息 */
+	String info;
 
 	/** 图片的宽 */
 	int width;
@@ -18,6 +22,22 @@ public class TietukuUploadResponse {
 	String s_url;
 	/** 图片缩略图地址 */
 	String t_url;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
 
 	public int getWidth() {
 		return width;

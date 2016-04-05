@@ -23,58 +23,59 @@ import com.tietuku.entity.util.PathConfig;
 
 public class PostImage {
 
-	public static String doUpload(File file){
-		String token = "1b20a4281d6dd14cff67c2c9cfefed3c2808f38e:bTdiR2tIZDZmVmluUjZQM0xFYWZjVmNIczhFPQ==:eyJkZWFkbGluZSI6MTQ1NDI5MDA2NywiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTQxOTUwIiwiYWlkIjoiMTE3NTEyMCIsImZyb20iOiJmaWxlIn0=";
+	public static String doUpload(File file) {
+		String token = PathConfig.getProperty("tie.tu.ku.token");
 		return doUpload(file, token);
 	}
+
 	/**
 	 * 提交图片给图库
+	 * 
 	 * @param image
 	 * @return
-	 * @throws IOException 
-	 * @throws ClientProtocolException 
+	 * @throws IOException
+	 * @throws ClientProtocolException
 	 */
-	public static String doUpload(File file , String token){
-		//贴图库数据加密请求
+	public static String doUpload(File file, String token) {
+		// 贴图库数据加密请求
 		String url = PathConfig.getProperty("tie.tu.ku.post.api");
-		
+
 		HttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost(url);  
-		
-		FileBody bin = new FileBody(file); 
-		MultipartEntityBuilder multipartEntityBuilder =  MultipartEntityBuilder.create(); //关键
-        multipartEntityBuilder.addPart("file", bin); 
+		HttpPost httppost = new HttpPost(url);
+
+		FileBody bin = new FileBody(file);
+		MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create(); // 关键
+		multipartEntityBuilder.addPart("file", bin);
 		multipartEntityBuilder.addPart("Token", new StringBody(token, ContentType.APPLICATION_FORM_URLENCODED));
-        
-        try{
-	        httppost.setEntity(multipartEntityBuilder.build());
-	        HttpResponse response = httpclient.execute(httppost);
-	        HttpEntity entity = response.getEntity();  
-	        
-	        StringBuffer buffer = new StringBuffer();   
-	        if (entity != null) {              
-	            //start 读取整个页面内容  
-	            InputStream is = entity.getContent();  
-	            BufferedReader in = new BufferedReader(new InputStreamReader(is));   
-	            
-	            String line = "";  
-	            while ((line = in.readLine()) != null) {  
-	                buffer.append(line);  
-	            }   
-	        } 
-	        return buffer.toString();
-        }catch (Exception e){
-        	e.printStackTrace();
-        }
-        return "";
+
+		try {
+			httppost.setEntity(multipartEntityBuilder.build());
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+
+			StringBuffer buffer = new StringBuffer();
+			if (entity != null) {
+				// start 读取整个页面内容
+				InputStream is = entity.getContent();
+				BufferedReader in = new BufferedReader(new InputStreamReader(is));
+
+				String line = "";
+				while ((line = in.readLine()) != null) {
+					buffer.append(line);
+				}
+			}
+			return buffer.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
-	
-	public static void main(String []args) throws ClientProtocolException, IOException{
-		String token = Token.createToken(new Date().getTime()+3600, 1340 , "{\"height\":\"h\",\"width\":\"w\",\"s_url\":\"url\"}");
-		token = "1b20a4281d6dd14cff67c2c9cfefed3c2808f38e:bTdiR2tIZDZmVmluUjZQM0xFYWZjVmNIczhFPQ==:eyJkZWFkbGluZSI6MTQ1NDI5MDA2NywiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTQxOTUwIiwiYWlkIjoiMTE3NTEyMCIsImZyb20iOiJmaWxlIn0=";
-		//token = "1b20a4281d6dd14cff67c2c9cfefed3c2808f38e:dm5YSkl5dzNKdjBNWHdvNFhMZjF5Q0ZqRHJrPQ==:eyJkZWFkbGluZSI6MTQ1NDI4ODY0MCwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTQxOTUwIiwiYWlkIjoiMTE3NTEyMCIsImZyb20iOiJmaWxlIn0=";
+
+	public static void main(String[] args) throws ClientProtocolException, IOException {
+		String token = Token.createToken(new Date().getTime() + 3600, 1340, "{\"height\":\"h\",\"width\":\"w\",\"s_url\":\"url\"}");
+		token = PathConfig.getProperty("tie.tu.ku.token");
 		String result = PostImage.doUpload(new File("D:/work/temp/bbb2/300013.jpg"), token);
 		System.out.println(result);
 	}
-	
+
 }

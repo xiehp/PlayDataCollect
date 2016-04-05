@@ -14,7 +14,10 @@ public class XWaitChange {
 
 	private long beginTime;
 
-	private boolean isChangedFlg;
+	private boolean changedFlg;
+
+	private boolean changedByValueFlg;
+	private boolean changedByTimeFlg;
 
 	public XWaitChange(Object compareValue) {
 		init(compareValue, 0);
@@ -23,8 +26,7 @@ public class XWaitChange {
 	/**
 	 * 
 	 * @param compareValue
-	 * @param timeout
-	 *            毫秒
+	 * @param timeout 毫秒
 	 */
 	public XWaitChange(Object compareValue, long timeout) {
 		init(compareValue, timeout);
@@ -34,7 +36,9 @@ public class XWaitChange {
 		this.compareValue = compareValue;
 		this.timeout = timeout;
 		beginTime = (new Date()).getTime();
-		isChangedFlg = false;
+		changedFlg = false;
+		changedByValueFlg = false;
+		changedByTimeFlg = false;
 		logger.debug("beginTime: {}, compareValue: {}", beginTime, compareValue);
 	}
 
@@ -43,18 +47,33 @@ public class XWaitChange {
 	}
 
 	public boolean isChanged() {
-		return isChangedFlg;
+		return changedFlg;
+	}
+
+	public boolean isChangedByValueFlg() {
+		return changedByValueFlg;
+	}
+
+	public boolean isChangedByTimeFlg() {
+		return changedByTimeFlg;
+	}
+
+	/**
+	 * @return 经过的时间
+	 */
+	public long getPastTime() {
+		return new Date().getTime() - beginTime;
 	}
 
 	public boolean isChanged(Object value) {
 
-		if (isChangedFlg) {
+		if (changedFlg) {
 			return true;
 		}
 
 		doCompare(value);
 
-		return isChangedFlg;
+		return changedFlg;
 	}
 
 	protected void doCompare(Object value) {
@@ -63,12 +82,14 @@ public class XWaitChange {
 				// 设置超时的话， 如果超时，则认为已经改变了
 				long nowTime = (new Date()).getTime();
 				if (nowTime - beginTime > timeout) {
-					isChangedFlg = true;
+					changedFlg = true;
+					changedByTimeFlg = true;
 					logger.debug("isChanged timeout: {}, {}", compareValue, value);
 				}
 			}
 		} else {
-			isChangedFlg = true;
+			changedFlg = true;
+			changedByValueFlg = true;
 			logger.debug("isChanged value: {}, {}", compareValue, value);
 		}
 	}

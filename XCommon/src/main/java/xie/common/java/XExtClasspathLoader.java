@@ -41,6 +41,10 @@ public class XExtClasspathLoader {
 		this.dirNotExistThrowFlg = dirNotExistThrowFlg;
 	}
 
+	public void setClassLoader(URLClassLoader classloader) {
+		this.classloader = classloader;
+	}
+
 	protected File getJarFileDir() {
 		if (XStringUtils.isBlank(jarFileDir)) {
 			return null;
@@ -152,7 +156,9 @@ public class XExtClasspathLoader {
 	 */
 	private void addURL(File file) {
 		try {
-			addURL.invoke(classloader, new Object[] { file.toURI().toURL() });
+			URL url = file.toURI().toURL();
+			addURL.invoke(classloader, new Object[] { url });
+			logger.info("载入jar:" + url.getPath() + " " + url.getFile());
 		} catch (Exception e) {
 			System.out.println(e);
 			logger.error("载入jar文件发生错误。", e);
@@ -180,7 +186,7 @@ public class XExtClasspathLoader {
 	public File getJarDir() {
 		File jarDir = getJarFileDir();
 		if (jarDir == null || !jarDir.exists() || jarDir.isFile()) {
-			FileSystemNotFoundException e = new FileSystemNotFoundException("jarDir不存在:"+jarDir == null ? "null" : jarDir.getAbsolutePath());
+			FileSystemNotFoundException e = new FileSystemNotFoundException("jarDir不存在:" + jarDir == null ? "null" : jarDir.getAbsolutePath());
 			if (dirNotExistThrowFlg) {
 				throw e;
 			} else {

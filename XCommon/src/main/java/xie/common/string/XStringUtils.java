@@ -1,5 +1,8 @@
 package xie.common.string;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -325,6 +328,61 @@ public class XStringUtils {
 		}
 
 		return returnStr;
+	}
+
+	/**
+	 * 首字母变大写
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String upperFirstLetter(String str) {
+		if (str == null || str.length() < 1) {
+			return str;
+		}
+
+		if (str.length() == 1) {
+			return str.toUpperCase();
+		}
+
+		String firstLetter = str.substring(0, 1);
+		firstLetter = firstLetter.toUpperCase();
+
+		return firstLetter + str.substring(1, str.length());
+	}
+
+	/**
+	 * 将String转换成另外一种对象
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <X> X convert(String str, Class<X> clazz) {
+		if (str == null) {
+			return null;
+		}
+		if (XStringUtils.isBlank(str)) {
+			if (clazz != String.class) {
+				return null;
+			}
+		}
+
+		if (clazz == String.class) {
+			return (X) str;
+		} else if (clazz == Integer.class) {
+			return (X) Integer.valueOf(str);
+		} else if (clazz == Long.class) {
+			return (X) Long.valueOf(str);
+		} else if (clazz == Date.class) {
+			SimpleDateFormat sdf = new SimpleDateFormat();
+			try {
+				return (X) sdf.parse(str);
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+		} else {
+			throw new RuntimeException("不支持的转换类型:" + clazz);
+		}
 	}
 
 	public static void main(String[] args) {
