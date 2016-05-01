@@ -9,6 +9,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class XStringUtils {
+	
+	public static void println(Object object) {
+		if (object == null) {
+			System.out.println(object);
+			return;
+		}
+
+		if (object instanceof Map) {
+			Map objectMap = (Map)object;
+			System.out.println(objectMap + ", size: " + objectMap.size());
+			for (Object key : objectMap.keySet()) {
+				System.out.println(key + ":" + objectMap.get(key));
+			}
+		}
+	}
 
 	public static boolean isEmpty(String value) {
 		if (value == null || value.length() == 0) {
@@ -293,7 +308,14 @@ public class XStringUtils {
 	}
 
 	/**
-	 * 替换文本 "A[[0]]AABB[[1]]B",[C,D] --> "ACAABBDB"
+	 * 将Map中的值进行文本替换<br>
+	 * 替换方式：[[0]] -> <br>
+	 * "A[[0]]B + [啊] --> "A啊B"<br>
+	 * "A[[0]]AABB[[1]]B" + [啊,哦] --> "A啊AABB哦B"<br>
+	 * 
+	 * @param map 需要替换的数值
+	 * @param paramArray 替换参数
+	 * @return
 	 */
 	public static Map formatStr(Map map, String[] paramArray) {
 		if (map != null && map.size() > 0) {

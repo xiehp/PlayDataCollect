@@ -2,6 +2,7 @@ package xie.common.date;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -115,7 +116,7 @@ public class DateUtil {
 		return new SimpleDateFormat(pattern);
 	}
 
-	public static Date convertFromString(String date, String format) throws Exception {
+	public static Date convertFromString(String date, String format) throws ParseException {
 		if (date == null)
 			return null;
 		if (format == null)
@@ -124,15 +125,15 @@ public class DateUtil {
 		return sdf.parse(date);
 	}
 
-	public static Date convertFromString(String date) throws Exception {
+	public static Date convertFromString(String date) throws ParseException {
 		return convertFromString(date, null);
 	}
 
-	public static Date convertDate(String date) throws Exception {
+	public static Date convertDate(String date) throws ParseException {
 		return convertFromString(date, YMD1);
 	}
 
-	public static Date convertDateMutip(String date) throws Exception {
+	public static Date convertDateMutip(String date) throws ParseException {
 		if (null == date)
 			return null;
 		if (date.length() > 10) {

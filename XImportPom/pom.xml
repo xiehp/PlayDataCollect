@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>xie</groupId>
 	<artifactId>XImportPom</artifactId>
@@ -24,7 +23,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- spring.io -->
+			<!-- junit-io -->
 			<dependency>
 				<groupId>io.spring.platform</groupId>
 				<artifactId>platform-bom</artifactId>
@@ -39,29 +38,35 @@
 				<artifactId>xcommon</artifactId>
 				<version>1.0.0</version>
 			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>tietuku-api</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>XSubtitle</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>video2img-parent</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>AnimeShotSite-parent</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<!-- 定义使用jdk编译版本 UTF-8编译 -->
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
-					<configuration>
-						<source>${java.version}</source>
-						<target>${java.version}</target>
-						<encoding>${project.build.sourceEncoding}</encoding>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
 		<plugins>
 			<!-- 定义使用jdk编译版本 UTF-8编译 -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -70,4 +75,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

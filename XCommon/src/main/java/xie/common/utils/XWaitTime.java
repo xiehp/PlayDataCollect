@@ -2,12 +2,7 @@ package xie.common.utils;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class XWaitTime {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	private long startTime;
 	private long timeout;
 
@@ -16,14 +11,27 @@ public class XWaitTime {
 		this.timeout = timeout;
 	}
 
+	/**
+	 * 设置超时时间
+	 * 
+	 * @param timeout 微妙
+	 */
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
 
+	/**
+	 * 重置时计算的起始时间设为当前时间
+	 */
 	public void resetNowtime() {
 		startTime = new Date().getTime();
 	}
 
+	/**
+	 * 当前是否超时了
+	 * 
+	 * @return
+	 */
 	public boolean isTimeout() {
 		if (new Date().getTime() - startTime > timeout) {
 			return true;
