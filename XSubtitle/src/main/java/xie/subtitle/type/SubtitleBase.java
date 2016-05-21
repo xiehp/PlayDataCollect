@@ -3,17 +3,29 @@ package xie.subtitle.type;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xie.common.date.DateUtil;
 import xie.common.io.XFileWriter;
 import xie.subtitle.Subtitle;
 import xie.subtitle.line.XSubtitleLine;
 
 public abstract class SubtitleBase implements Subtitle {
 
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private int index = -1;
+	/** 从文件中获取的每一行的文本 */
 	private List<String> lineList = null;
-	protected List<XSubtitleLine> subtitleList = new ArrayList<>();
+	/** 经过分析获得的字幕行信息 */
+	private List<XSubtitleLine> subtitleList = new ArrayList<>();
+
+	private Map<String, List<XSubtitleLine>> checkDuplicateMap = new HashMap<String, List<XSubtitleLine>>();
 
 	public List<String> getLineList() {
 		return lineList;
@@ -23,9 +35,115 @@ public abstract class SubtitleBase implements Subtitle {
 		this.lineList = lineList;
 	}
 
+	protected void addSubtitleLine(XSubtitleLine subtitleLine) {
+		if (isNotAvalible(subtitleLine)) {
+			logger.info("无效字幕行：" + DateUtil.formatTime(subtitleLine.getStartTime(), 2) + "," + DateUtil.formatTime(subtitleLine.getEndTime(), 2) + "," + subtitleLine.getText());
+			return;
+		}
+
+		if (isDuplicate(subtitleLine)) {
+			logger.info("重复字幕行：" + DateUtil.formatTime(subtitleLine.getStartTime(), 2) + "," + DateUtil.formatTime(subtitleLine.getEndTime(), 2) + "," + subtitleLine.getText());
+			return;
+		}
+
+		subtitleList.add(subtitleLine);
+	}
+
+	private boolean isNotAvalible(XSubtitleLine subtitleLine) {
+		if (subtitleLine == null || subtitleLine.getText() == null) {
+			return true;
+		}
+
+		long absTime = Math.abs(subtitleLine.getStartTime() - subtitleLine.getEndTime());
+		if (absTime > 1000) {
+			// 超过1秒的，认为有效
+			return false;
+		}
+
+		// 根据字数不同，判断相差时间，在需要最少时间内， 则认为是无效的
+		long requiredMinTime = subtitleLine.getText().length() * 100; // 每个字至少需要100毫秒
+		if (absTime < requiredMinTime) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean isDuplicate(XSubtitleLine subtitleLine) {
+		String text = subtitleLine.getText();
+		if (text == null) {
+			return false;
+		}
+
+		text = text.trim();
+
+		List<XSubtitleLine> list = checkDuplicateMap.get(text);
+		if (list == null) {
+			list = new ArrayList<XSubtitleLine>();
+			list.add(subtitleLine);
+			checkDuplicateMap.put(text, list);
+			return false;
+		} else {
+			boolean duplicateFlg = false;
+			for (XSubtitleLine subtitleLine2 : list) {
+				if (isDuplicate(subtitleLine, subtitleLine2)) {
+					duplicateFlg = true;
+					break;
+				}
+			}
+			list.add(subtitleLine);
+			return duplicateFlg;
+		}
+	}
+
+	private boolean isDuplicate(XSubtitleLine subtitleLine1, XSubtitleLine subtitleLine2) {
+		// 同时为null或者地址相同
+		if (subtitleLine1 == subtitleLine2) {
+			return true;
+		}
+
+		String text1 = subtitleLine1.getText();
+		String text2 = subtitleLine2.getText();
+
+		if (text1 == null || text2 == null) {
+			// null认为不相同
+			return false;
+		}
+
+		text1 = text1.trim();
+		text2 = text2.trim();
+
+		// 文本不同， 则不重复
+		if (!text1.equals(text2)) {
+			return false;
+		}
+
+		// 文本相同，时间完全相同，认为重复
+		if (subtitleLine1.getStartTime() == subtitleLine2.getStartTime() && subtitleLine1.getEndTime() == subtitleLine2.getEndTime()) {
+			return true;
+		}
+
+		// 文本相同，时间不完全相同的情况下
+		{
+			// 根据字数不同，判断相差时间，在需要最少时间内， 则认为重复
+			long requiredMinTime = text1.length() * 100; // 每个字至少需要100毫秒
+			if (Math.abs(subtitleLine2.getStartTime() - subtitleLine1.getStartTime()) < requiredMinTime) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	@Override
 	public void readFile(File file) throws IOException {
 		List<String> lineList = XFileWriter.readList(file.getAbsolutePath());
+		if (lineList == null || lineList.size() == 0) {
+			logger.error("文件不存在，" + file.getAbsolutePath());
+		}
+		if (lineList.size() < 10) {
+			logger.warn("文件行数过少，当前行数，" + lineList.size() + ", 文件：" + file.getAbsolutePath());
+		}
 		setLineList(lineList);
 		index = 0;
 
@@ -171,6 +289,6 @@ public abstract class SubtitleBase implements Subtitle {
 		System.out.println(subtitleASS.isDialogue("asdas 10:21:22 asd"));
 		System.out.println(subtitleASS.isDialogue("0:2:22"));
 		System.out.println(subtitleASS.isDialogue("as"));
-		
+
 	}
 }

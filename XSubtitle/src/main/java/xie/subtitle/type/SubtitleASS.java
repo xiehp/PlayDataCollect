@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import xie.common.date.XTimeUtils;
+import xie.common.string.XStringUtils;
 import xie.common.utils.XRegularUtils;
 import xie.subtitle.line.LineASS;
 
 public class SubtitleASS extends SubtitleBase {
 
-	public static final String TIME_FORMAT = "HH:mm:ss.SS";
+	public static final String TIME_FORMAT = "H:mm:ss.SSS";
 	public static final String REG_TEXT_CODE = "\\{.*?\\\\.*?\\}";
 
 	Map<String, String> paramMap = new HashMap<>();
@@ -106,10 +107,10 @@ public class SubtitleASS extends SubtitleBase {
 						if (textLineFormat[i].equals("Layer")) {
 							lineASS.setLayer(textLineValue);
 						} else if (textLineFormat[i].equals("Start")) {
-							lineASS.setStartTime(XTimeUtils.parseFromTimeStr(textLineValue, TIME_FORMAT));
+							lineASS.setStartTime(XTimeUtils.parseFromTimeStr(textLineValue + 0, TIME_FORMAT));
 							hasStartFlg = true;
 						} else if (textLineFormat[i].equals("End")) {
-							lineASS.setEndTime(XTimeUtils.parseFromTimeStr(textLineValue, TIME_FORMAT));
+							lineASS.setEndTime(XTimeUtils.parseFromTimeStr(textLineValue + 0, TIME_FORMAT));
 							hasEndFlg = true;
 						} else if (textLineFormat[i].equals("Style")) {
 							lineASS.setStyle(textLineValue);
@@ -124,17 +125,22 @@ public class SubtitleASS extends SubtitleBase {
 						} else if (textLineFormat[i].equals("Effect")) {
 
 						} else if (textLineFormat[i].equals("Text")) {
-							String text = textLineValue.replaceAll(REG_TEXT_CODE, "").trim();
-							text = text.replace("\\n", " ");
-							text = text.replace("\\N", " ");
-							text = text.replace("\\h", " ");
-							lineASS.setText(text);
-							lineASS.setTextEffect(XRegularUtils.find(textLineValue, REG_TEXT_CODE));
-							hasTextFlg = true;
+							if (XStringUtils.isNotBlank(textLineValue)) {
+								String text = textLineValue.replaceAll(REG_TEXT_CODE, "").trim();
+								text = text.replace("\\n", " ");
+								text = text.replace("\\N", " ");
+								text = text.replace("\\h", " ");
+								lineASS.setText(text);
+								lineASS.setTextEffect(XRegularUtils.find(textLineValue, REG_TEXT_CODE));
+								hasTextFlg = true;
+							} else {
+								hasTextFlg = false;
+							}
 						}
 					}
+					
 					if (hasStartFlg && hasEndFlg && hasTextFlg) {
-						subtitleList.add(lineASS);
+						addSubtitleLine(lineASS);
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();

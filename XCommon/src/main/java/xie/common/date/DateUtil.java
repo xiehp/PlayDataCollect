@@ -19,6 +19,17 @@ public class DateUtil {
 	public static final String YMD_FULL = "yyyy-MM-dd HH:mm:ss";
 	public static final String YMD_FULL2 = "yyyyMMddHHmmssSSS";
 
+	public static void main(String[] args) throws ParseException {
+		;
+		System.out.println(formatTime(XTimeUtils.parseFromTimeStr("0:04:13.31", "H:mm:ss.SS"), 2));
+		System.out.println(formatTime(XTimeUtils.parseFromTimeStr("0:04:13.31", "H:mm:ss.SSS"), 2));
+		System.out.println(formatTime(XTimeUtils.parseFromTimeStr("0:04:13.031", "H:mm:ss.SS"), 2));
+		System.out.println(formatTime(XTimeUtils.parseFromTimeStr("0:04:13.310", "H:mm:ss.SS"), 2));
+		System.out.println(formatTime(11L, 2));
+		System.out.println(formatTime(111L, 2));
+		System.out.println(formatTime(1111L, 2));
+	}
+
 	/**
 	 * 
 	 * @param time 一个以0开始的时间，精确到微秒
@@ -40,10 +51,23 @@ public class DateUtil {
 		if (style == 1) {
 			return String.format("%03d", micro);
 		} else if (style == 2) {
-			return String.format("%02d:%02d:%03d", minutes, seconds, micro);
+			return String.format("%02d:%02d.%03d", minutes, seconds, micro);
+		} else if (style == 3) {
+			return String.format("%02d:%02d", minutes, seconds);
 		} else {
 			return String.format("%02d:%02d", minutes, seconds);
 		}
+	}
+
+	/**
+	 * 
+	 * @param time 一个以0开始的时间，精确到微秒
+	 * @param pattern
+	 * @return
+	 */
+	public static String formatTime(Long time, String pattern) {
+		Date date = new Date(time);
+		return convertToString(date, pattern);
 	}
 
 	/**
@@ -117,10 +141,14 @@ public class DateUtil {
 	}
 
 	public static Date convertFromString(String date, String format) throws ParseException {
-		if (date == null)
+		if (date == null) {
 			return null;
-		if (format == null)
+		}
+
+		if (format == null) {
 			format = YMD_FULL;
+		}
+
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.parse(date);
 	}

@@ -13,6 +13,7 @@ public class SubtitleFactory {
 
 	public static Subtitle createSubtitle(File file) throws IOException {
 		if (file == null) {
+			logger.error("文件不能为null");
 			return null;
 		}
 

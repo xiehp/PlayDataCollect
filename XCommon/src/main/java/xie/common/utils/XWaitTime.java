@@ -3,7 +3,10 @@ package xie.common.utils;
 import java.util.Date;
 
 public class XWaitTime {
+	/** 开始计算时间 微妙 */
 	private long startTime;
+
+	/** 超时时间 微妙 */
 	private long timeout;
 
 	public XWaitTime(long timeout) {
