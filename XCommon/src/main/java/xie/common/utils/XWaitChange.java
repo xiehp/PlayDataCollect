@@ -42,20 +42,11 @@ public class XWaitChange {
 		logger.debug("beginTime: {}, compareValue: {}", beginTime, compareValue);
 	}
 
-	public void setCompareValue(Object compareValue) {
+	/**
+	 * 重新设置比较对象，并且重置比较时间
+	 */
+	public void resetCompareValue(Object compareValue) {
 		init(compareValue, timeout);
-	}
-
-	public boolean isChanged() {
-		return changedFlg;
-	}
-
-	public boolean isChangedByValueFlg() {
-		return changedByValueFlg;
-	}
-
-	public boolean isChangedByTimeFlg() {
-		return changedByTimeFlg;
 	}
 
 	/**
@@ -92,5 +83,19 @@ public class XWaitChange {
 			changedByValueFlg = true;
 			logger.debug("isChanged value: {}, {}", compareValue, value);
 		}
+	}
+
+	/**
+	 * 必须调用isChanged后，该方法才有效
+	 */
+	public boolean isChangedByValueFlg() {
+		return changedByValueFlg;
+	}
+
+	/**
+	 * 必须调用isChanged后，该方法才有效
+	 */
+	public boolean isChangedByTimeFlg() {
+		return changedByTimeFlg;
 	}
 }

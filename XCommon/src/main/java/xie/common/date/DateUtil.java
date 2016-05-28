@@ -28,12 +28,17 @@ public class DateUtil {
 		System.out.println(formatTime(11L, 2));
 		System.out.println(formatTime(111L, 2));
 		System.out.println(formatTime(1111L, 2));
+		System.out.println(formatTime(5000L, 3));
+		System.out.println(formatTime(555000L, 3));
+		System.out.println(formatTime(555001L, 3));
+		System.out.println(formatTime(555010L, 3));
+		System.out.println(formatTime(555100L, 3));
 	}
 
 	/**
 	 * 
 	 * @param time 一个以0开始的时间，精确到微秒
-	 * @param style 0: "mm:ss" 1: "SSS" 2: "mm:ss:SSS"
+	 * @param style 0: "mm:ss" 1: "SSS" 2: "mm:ss:SSS" 3: "mm分ss秒SSS", SSS为0时省略
 	 * @return
 	 */
 	public static String formatTime(Long time, int style) {
@@ -53,7 +58,13 @@ public class DateUtil {
 		} else if (style == 2) {
 			return String.format("%02d:%02d.%03d", minutes, seconds, micro);
 		} else if (style == 3) {
-			return String.format("%02d:%02d", minutes, seconds);
+			String result = "";
+			if (micro == 0) {
+				result = String.format("%02d分%02d秒", minutes, seconds);
+			} else {
+				result = String.format("%02d分%02d秒%03d", minutes, seconds, micro);
+			}
+			return result;
 		} else {
 			return String.format("%02d:%02d", minutes, seconds);
 		}

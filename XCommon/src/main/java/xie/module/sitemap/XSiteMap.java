@@ -46,7 +46,7 @@ public class XSiteMap {
 		addUrlChild(urlElement, "lastmod", lastmod);
 		addUrlChild(urlElement, "changefreq", changefreq);
 		addUrlChild(urlElement, "priority", priority);
-		addUrlChild(urlElement, "title", title);
+		//addUrlChild(urlElement, "title", title);
 
 		urlset.appendChild(urlElement);
 	}
