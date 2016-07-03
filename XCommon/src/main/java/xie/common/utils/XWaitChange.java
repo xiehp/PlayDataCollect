@@ -45,7 +45,7 @@ public class XWaitChange {
 	/**
 	 * 重新设置比较对象，并且重置比较时间
 	 */
-	public void resetCompareValue(Object compareValue) {
+	public synchronized void resetCompareValue(Object compareValue) {
 		init(compareValue, timeout);
 	}
 
@@ -56,7 +56,7 @@ public class XWaitChange {
 		return new Date().getTime() - beginTime;
 	}
 
-	public boolean isChanged(Object value) {
+	public synchronized boolean isChanged(Object value) {
 
 		if (changedFlg) {
 			return true;

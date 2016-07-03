@@ -49,6 +49,14 @@ public abstract class SubtitleBase implements Subtitle {
 		subtitleList.add(subtitleLine);
 	}
 
+	/**
+	 * 判断是否是无效字幕行<br>
+	 * 1:字幕持续时间超过1秒的，认为有效<br>
+	 * 2:根据字数不同，判断相差时间，在需要最少时间内， 则认为是无效的，每个字至少需要50毫秒<br>
+	 * 
+	 * @param subtitleLine
+	 * @return
+	 */
 	private boolean isNotAvalible(XSubtitleLine subtitleLine) {
 		if (subtitleLine == null || subtitleLine.getText() == null) {
 			return true;
@@ -61,7 +69,9 @@ public abstract class SubtitleBase implements Subtitle {
 		}
 
 		// 根据字数不同，判断相差时间，在需要最少时间内， 则认为是无效的
-		long requiredMinTime = subtitleLine.getText().length() * 100; // 每个字至少需要100毫秒
+		String text = subtitleLine.getText() + "";
+		text = text.replaceAll("[\\s\\pP\\p{Punct}\\p{Sc}]", "");
+		long requiredMinTime = text.length() * 50; // 每个字至少需要50毫秒
 		if (absTime < requiredMinTime) {
 			return true;
 		}
@@ -289,6 +299,23 @@ public abstract class SubtitleBase implements Subtitle {
 		System.out.println(subtitleASS.isDialogue("asdas 10:21:22 asd"));
 		System.out.println(subtitleASS.isDialogue("0:2:22"));
 		System.out.println(subtitleASS.isDialogue("as"));
+
+		String str = "!!！？？!!!!%*）%￥！KTV去	符号  标号！  ！当然,，。!!..**半角";
+		System.out.println(str);
+		String str1 = str.replaceAll("[\\pP\\p{Punct}]", "");
+		System.out.println("str1:" + str1);
+
+		String str2 = str.replaceAll("[//pP]", "");
+		System.out.println("str2:" + str2);
+
+		String str3 = str.replaceAll("[//p{P}]", "");
+		System.out.println("str3:" + str3);
+
+		String str4 = str.replaceAll("[\\p{Punct}]", "");
+		System.out.println("str4:" + str4);
+
+		String str5 = str.replaceAll("[\\s\\pP\\p{Punct}\\p{Sc}]", "");
+		System.out.println("str5:" + str5);
 
 	}
 }

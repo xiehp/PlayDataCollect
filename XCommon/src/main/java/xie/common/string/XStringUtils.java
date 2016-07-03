@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import xie.common.date.DateUtil;
+
 public class XStringUtils {
-	
+
 	public static void println(Object object) {
 		if (object == null) {
 			System.out.println(object);
@@ -17,7 +19,7 @@ public class XStringUtils {
 		}
 
 		if (object instanceof Map) {
-			Map objectMap = (Map)object;
+			Map<?, ?> objectMap = (Map<?, ?>) object;
 			System.out.println(objectMap + ", size: " + objectMap.size());
 			for (Object key : objectMap.keySet()) {
 				System.out.println(key + ":" + objectMap.get(key));
@@ -293,7 +295,7 @@ public class XStringUtils {
 	/**
 	 * 替换文本 "A[[0]]AABB[[1]]B",[C,D] --> "ACAABBDB"
 	 */
-	public static List formatStr(List list, String[] paramArray) {
+	public static List<Object> formatStr(List<Object> list, String[] paramArray) {
 		if (list != null && list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				Object value = list.get(i);
@@ -317,9 +319,9 @@ public class XStringUtils {
 	 * @param paramArray 替换参数
 	 * @return
 	 */
-	public static Map formatStr(Map map, String[] paramArray) {
+	public static Map<String, Object> formatStr(Map<String, Object> map, String[] paramArray) {
 		if (map != null && map.size() > 0) {
-			for (Object key : map.keySet()) {
+			for (String key : map.keySet()) {
 				Object value = map.get(key);
 				if (value instanceof String) {
 					String formattedValue = formatStr((String) value, paramArray);
@@ -396,7 +398,7 @@ public class XStringUtils {
 		} else if (clazz == Long.class) {
 			return (X) Long.valueOf(str);
 		} else if (clazz == Date.class) {
-			SimpleDateFormat sdf = new SimpleDateFormat();
+			SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.YMD_FULL);
 			try {
 				return (X) sdf.parse(str);
 			} catch (ParseException e) {
@@ -405,6 +407,107 @@ public class XStringUtils {
 		} else {
 			throw new RuntimeException("不支持的转换类型:" + clazz);
 		}
+	}
+
+	/**
+	 * 替换字符串中字符 例子： 身份证中间留9个，前后为3个*： str="330112197810115231" originalFromLast="false" star="5" end="14" replaceNumStar="3" replaceMiddle="false" 结果： ***219781011*** 银行卡留后4位，前面4个*： str="12345678980567865" start="4" replaceNumStar="4" 结果； ****7865 邮箱： str="kenst.xu@excel-gits.com" start="1" end=”-6”
+	 * posFromLast="false" replaceNumStar="4" 结果： k****ts.com
+	 * 
+	 * @param str 要处理的原始字符串
+	 * @param startPos 开始位置，默认0
+	 * @param endPos 结束位置，默认字符串的长度 -1为倒数
+	 * @param posFromLast 计算位置的起点：true从字符串最右边开始算起，false从字符串左边开始计算位置
+	 * @param replaceMiddle 是替换中间还是替换2头的字符串，true替换中间，false替换2头
+	 * @param replaceNumStar 用几个“*”替换被替换的字符串, 默认值为1
+	 * @param star 用来替换的字符，默认为"*"
+	 * @return
+	 * 
+	 */
+	public static String hideChar(final String str, final Integer startPos, Integer endPos, final boolean posFromLast, final boolean replaceMiddle, final Integer replaceNumStar, final String star) {
+		int start1 = 0;
+		if (startPos != null) {
+			start1 = startPos;
+			if (start1 < 0) {
+				start1 = 0;
+			}
+			if (start1 >= str.length()) {
+				start1 = str.length();
+			}
+		}
+
+		int end1 = str.length();
+		if (endPos != null) {
+			end1 = endPos;
+			if (end1 < 0) {
+				end1 = str.length() + end1;
+			}
+			if (end1 >= str.length()) {
+				end1 = str.length();
+			}
+		}
+
+		if (start1 > end1) {
+			int tmp = end1;
+			end1 = start1;
+			start1 = tmp;
+		}
+
+		final int start;
+		final int end;
+		if (posFromLast) {
+			start = str.length() - end1;
+			end = str.length() - start1;
+		} else {
+			start = start1;
+			end = end1;
+		}
+
+		String s = "";
+		if (str.length() > 0) {
+			if (replaceMiddle) {
+				final String s1 = str.substring(0, start);
+				final String s2 = replaceStrByStar(str.substring(start, end), replaceNumStar, star, true);
+				final String s3 = str.substring(end);
+
+				s = s1 + s2 + s3;
+			} else {
+				final String s1 = replaceStrByStar(str.substring(0, start), replaceNumStar, star, false);
+				final String s2 = str.substring(start, end);
+				final String s3 = replaceStrByStar(str.substring(end), replaceNumStar, star, false);
+
+				s = s1 + s2 + s3;
+			}
+		}
+
+		return s;
+	}
+
+	private static String replaceStrByStar(final String s, final Integer replaceNumStar, final String star, final boolean force) {
+		String rtn;
+
+		if ((!force) && s.length() == 0) {
+			rtn = "";
+		} else {
+			if (replaceNumStar == null) {
+				rtn = s.replaceAll("(.)", star);
+			} else {
+				int num = replaceNumStar;
+				if (num <= 0) {
+					num = 1;
+				}
+				rtn = getStar(num, star);
+			}
+		}
+
+		return rtn;
+	}
+
+	private static String getStar(final int len, final String star) {
+		final StringBuffer sb = new StringBuffer(100);
+		for (int i = 0; i < len; i++) {
+			sb.append(star);
+		}
+		return sb.toString();
 	}
 
 	public static void main(String[] args) {

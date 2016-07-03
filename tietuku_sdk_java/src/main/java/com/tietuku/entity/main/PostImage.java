@@ -43,9 +43,9 @@ public class PostImage {
 
 		httpclient = HttpClients.custom().setConnectionManager(httpClientPoolManager.getPoolingHttpClientConnectionManager()).build();
 		requestConfig = RequestConfig.custom()
-				.setConnectionRequestTimeout(30000)
-				.setConnectTimeout(30000)
-				.setSocketTimeout(30000)
+				.setConnectionRequestTimeout(120000)
+				.setConnectTimeout(120000)
+				.setSocketTimeout(120000)
 				.build();
 	}
 
