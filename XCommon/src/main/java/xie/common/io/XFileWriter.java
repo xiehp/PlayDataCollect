@@ -11,9 +11,14 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xie.common.constant.XConst;
 
 public class XFileWriter {
+
+	private static final Logger logger = LoggerFactory.getLogger(XFileWriter.class);
 
 	public static void writeListWithTrim(String filePath, List<String> stringList, boolean addMode) throws IOException {
 		writeList(filePath, stringList, true, addMode);
@@ -62,7 +67,9 @@ public class XFileWriter {
 	}
 
 	public static List<String> readList(String filePath) throws IOException {
-		return readList(filePath, XConst.CHARSET_UTF8);
+		String encode = XFileUtils.testFileEncoding(filePath);
+		logger.info("获得文件[{}]的编码：{}", filePath, encode);
+		return readList(filePath, encode);
 	}
 
 	public static List<String> readList(String filePath, String charset) throws IOException {

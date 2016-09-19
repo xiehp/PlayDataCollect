@@ -157,12 +157,38 @@ public class XFileUtils {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
-		copyFile(new File("E:\\ggg.txt"), new File("E:\\ggg2.txt"));
-		File file = new File("E:\\ggg");
+	/**
+	 * 获取某文件的编码
+	 */
+	public static String testFileEncoding(File file) {
+		return testFileEncoding(file.getAbsolutePath());
+	}
 
-		copyDirectory(file, new File("E:\\fff1"));
-		copyDirectory(new File("E:\\fff1"), new File("E:\\fff2"));
-		deleteDirectory(new File("E:\\fff1"));
+	/**
+	 * 获取某文件的编码
+	 */
+	public static String testFileEncoding(String filePath) {
+		FileCharsetDetector fileCharsetDetector = new FileCharsetDetector();
+		try {
+			return fileCharsetDetector.guestFileEncoding(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void main(String[] args) throws IOException {
+		// copyFile(new File("E:\\\\ggg.txt"), new File("E:\\\\ggg2.txt"));
+		// File file = new File("E:\\\\ggg");
+		//
+		// copyDirectory(file, new File("E:\\\\fff1"));
+		// copyDirectory(new File("E:\\\\fff1"), new File("E:\\\\fff2"));
+		// deleteDirectory(new File("E:\\\\fff1"));
+
+		System.out.println(testFileEncoding("E:\\AnimeShotSIte\\anime\\M\\秒速五厘米\\字幕\\[诸神字幕组][秒速5厘米][5_Centimeters_per_Second][1280x720][5DualAudio(jp-it-ger-ru-en)][x264_aac][8Sub(gb-BIG5-jp-en-it-ger-ru-uk)][BDrip]_jp.ass"));
+		System.out.println(testFileEncoding("E:\\AnimeShotSIte\\anime\\M\\秒速五厘米\\字幕\\unicode.txt"));
+		System.out.println(testFileEncoding("E:\\AnimeShotSIte\\anime\\M\\秒速五厘米\\字幕\\unicode1.txt"));
+		System.out.println(testFileEncoding("E:\\AnimeShotSIte\\anime\\M\\秒速五厘米\\字幕\\gb.txt"));
+		System.out.println(testFileEncoding("E:\\AnimeShotSIte\\anime\\C\\超时空要塞\\Δ\\字幕\\[dmhy][Macross_Delta][18][x264_aac][GB_BIG5][1080P_mkv]_track3_und.ass"));
 	}
 }

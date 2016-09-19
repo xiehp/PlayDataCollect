@@ -18,6 +18,7 @@ public class DateUtil {
 	public static final String YMD7 = "yyyy/MM/dd";
 	public static final String YMD_FULL = "yyyy-MM-dd HH:mm:ss";
 	public static final String YMD_FULL2 = "yyyyMMddHHmmssSSS";
+	public static final String YMD_FULL3 = "yyyyMMdd HHmmss";
 
 	public static void main(String[] args) throws ParseException {
 		;
@@ -33,6 +34,15 @@ public class DateUtil {
 		System.out.println(formatTime(555001L, 3));
 		System.out.println(formatTime(555010L, 3));
 		System.out.println(formatTime(555100L, 3));
+
+		System.out.println(seekDate(new Date(), 111));
+		;
+		System.out.println(seekDate(new Date(), 333));
+		;
+		System.out.println(seekDate(new Date(), -111));
+		;
+		System.out.println(seekDate(new Date(), -333));
+		;
 	}
 
 	/**
@@ -99,7 +109,7 @@ public class DateUtil {
 	}
 
 	public static Date seekDate(Date date, int dayNum) {
-		return new Date(date.getTime() + (long) (dayNum * 86400000));
+		return new Date(date.getTime() + (long) dayNum * 86400000L);
 	}
 
 	public static Date trimDate(Date date) {

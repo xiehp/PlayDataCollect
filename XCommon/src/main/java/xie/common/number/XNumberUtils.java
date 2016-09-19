@@ -1,5 +1,7 @@
 package xie.common.number;
 
+import java.math.BigDecimal;
+
 import xie.common.string.XStringUtils;
 
 public class XNumberUtils {
@@ -92,6 +94,14 @@ public class XNumberUtils {
 		} else {
 			throw new RuntimeException("data is not Integer or Double or String.");
 		}
+	}
+
+	public static BigDecimal getBigDecimal(String str) {
+		if (str == null || "".equals(str.trim())) {
+			return BigDecimal.ZERO;
+		}
+
+		return new BigDecimal(str);
 	}
 
 }

@@ -27,12 +27,34 @@ public abstract class SubtitleBase implements Subtitle {
 
 	private Map<String, List<XSubtitleLine>> checkDuplicateMap = new HashMap<String, List<XSubtitleLine>>();
 
+	/** 包含某种属性文字 */
+	private String filterInclude;
+
+	/** 排除某种属性文字 */
+	private String filterRemove;
+
 	public List<String> getLineList() {
 		return lineList;
 	}
 
 	public void setLineList(List<String> lineList) {
 		this.lineList = lineList;
+	}
+
+	public String getFilterInclude() {
+		return filterInclude;
+	}
+
+	public void setFilterInclude(String filterInclude) {
+		this.filterInclude = filterInclude;
+	}
+
+	public String getFilterRemove() {
+		return filterRemove;
+	}
+
+	public void setFilterRemove(String filterRemove) {
+		this.filterRemove = filterRemove;
 	}
 
 	protected void addSubtitleLine(XSubtitleLine subtitleLine) {
@@ -148,15 +170,19 @@ public abstract class SubtitleBase implements Subtitle {
 	@Override
 	public void readFile(File file) throws IOException {
 		List<String> lineList = XFileWriter.readList(file.getAbsolutePath());
-		if (lineList == null || lineList.size() == 0) {
-			logger.error("文件不存在，" + file.getAbsolutePath());
-		}
-		if (lineList.size() < 10) {
-			logger.warn("文件行数过少，当前行数，" + lineList.size() + ", 文件：" + file.getAbsolutePath());
-		}
 		setLineList(lineList);
 		index = 0;
 
+		if (lineList == null) {
+			logger.error("文件不存在，" + file.getAbsolutePath());
+			return;
+		}
+		if (lineList.size() < 10) {
+			logger.warn("文件行数过少，当前行数，" + lineList.size() + ", 文件：" + file.getAbsolutePath());
+			return;
+		}
+
+		logger.info("文件读取成功，总行数：{}", lineList.size());
 		initData();
 	}
 

@@ -17,28 +17,36 @@ public interface Subtitle {
 	// void saveFile() throws IOException;
 	//
 	// void saveAs(File file, String subtitleType) throws IOException;
-	
+
 	void initPorcessInfo();
-	
+
 	int nextIndex();
-	
+
 	String nextLine();
-	
+
 	XSubtitleLine nextSubtitle();
-	
+
 	int getNextIndex();
-	
+
 	String getNextLine();
-	
+
 	XSubtitleLine getNextSubtitle();
-	
+
 	int getNowIndex();
-	
+
 	String getNowLine();
-	
+
 	XSubtitleLine getNowSubtitle();
-	
+
 	boolean isDialogue(String line);
-	
+
 	List<XSubtitleLine> getSubtitleLineList();
+
+	String getFilterInclude();
+
+	void setFilterInclude(String filterInclude);
+
+	String getFilterRemove();
+
+	void setFilterRemove(String filterRemove);
 }

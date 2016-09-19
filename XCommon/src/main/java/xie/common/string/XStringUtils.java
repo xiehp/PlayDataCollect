@@ -12,6 +12,29 @@ import xie.common.date.DateUtil;
 
 public class XStringUtils {
 
+	/**
+	 * 默认false，特殊字符解释为true
+	 * 
+	 * @param value
+	 * @return "1","on","yes","true",返回true
+	 */
+	public static boolean parseToBoolean(String value) {
+		if ("1".equalsIgnoreCase(value)) {
+			return true;
+		}
+		if ("on".equalsIgnoreCase(value)) {
+			return true;
+		}
+		if ("yes".equalsIgnoreCase(value)) {
+			return true;
+		}
+		if ("true".equalsIgnoreCase(value)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public static void println(Object object) {
 		if (object == null) {
 			System.out.println(object);

@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -19,6 +21,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.pool.PoolStats;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 
 import com.tietuku.entity.token.Token;
@@ -69,16 +72,18 @@ public class PostImage {
 	public String doUpload(File file, String token) throws ClientProtocolException, IOException {
 		// 贴图库数据加密请求
 		HttpPost httppost = new HttpPost(uploadUrl);
+		// HttpPost httppost = new HttpPost("http://192.168.4.50:9400/officialsite/attachmentUploader/aaaaaaaaa");
 		RequestConfig requestConfig = RequestConfig.copy(this.requestConfig).build();
 		httppost.setConfig(requestConfig);
 
 		FileBody bin = new FileBody(file);
-		MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create(); // 关键
+		MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE).setCharset(Consts.UTF_8);
 		multipartEntityBuilder.addPart("file", bin);
 		multipartEntityBuilder.addPart("Token", new StringBody(token, ContentType.APPLICATION_FORM_URLENCODED));
 
+		BasicHttpContext httpContext = new BasicHttpContext();
 		httppost.setEntity(multipartEntityBuilder.build());
-		HttpResponse response = httpclient.execute(httppost);
+		HttpResponse response = httpclient.execute(httppost, httpContext);
 		HttpEntity entity = response.getEntity();
 
 		return EntityUtils.toString(entity);
@@ -88,22 +93,22 @@ public class PostImage {
 
 		PostImage postImage = new PostImage();
 		postImage.test1();
-		postImage.test2();
+		// postImage.test2();
 	}
 
 	private void test1() throws ClientProtocolException, IOException {
 		String token = Token.createToken(new Date().getTime() + 3600, 1340, "{\"height\":\"h\",\"width\":\"w\",\"s_url\":\"url\"}");
 		token = PathConfig.getProperty("tie.tu.ku.token");
 		PostImage postImage = new PostImage();
-		String result = postImage.doUpload(new File("D:/work/temp/bbb2/300013.jpg"), token);
+		String result = postImage.doUpload(new File("D:/work/temp/心灵想要大声呼喊。  第01集15000.jpg"), token);
 		System.out.println(result);
-		result = postImage.doUpload(new File("D:/work/temp/bbb2/300013.jpg"), token);
+		// result = postImage.doUpload(new File("D:/work/temp/bbb2/300013.jpg"), token);
 		System.out.println(result);
 	}
 
 	private void test2() throws ClientProtocolException, IOException {
 
-		String[] urls = new String[] { "http://www.baidu.com", "http://www.sina.com", "http://www.yahoo.com", "http://www.acgimage.com", "http://www.163.com", "http://www.cdna.com" };
+		String[] urls = new String[] { "http://www.acgwiki.pub", "http://www.acgimage.com", "http://www.baidu.com", "http://www.sina.com", "http://www.yahoo.com", "http://www.acgimage.com", "http://www.163.com", "http://www.cdna.com" };
 		for (int i = 0; i < 100; i++) {
 			HttpPost httppost = new HttpPost(urls[new Random().nextInt(urls.length)]);
 			RequestConfig requestConfig = RequestConfig.copy(this.requestConfig).build();
