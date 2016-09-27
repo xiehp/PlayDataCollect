@@ -21,9 +21,15 @@ public class TietukuUtils {
 	 * @param linkUrl
 	 * @return
 	 */
-	public static String getImageUrlPrefix(String linkUrl) {
+	public static String getImageUrlPrefix(String linkUrl, boolean safeHttpFlag) {
 		int startIndex = linkUrl.lastIndexOf("/");
-		return linkUrl.substring(0, startIndex + 1);
+		String urlPrefix = linkUrl.substring(0, startIndex + 1);
+		if (safeHttpFlag) {
+			urlPrefix = urlPrefix.replace("http://", "https://");
+		} else {
+			urlPrefix = urlPrefix.replace("https://", "http://");
+		}
+		return urlPrefix;
 	}
 
 	public static String getImageOriginalUrl(String imageUrlPrefix, String imageUrlId) {
@@ -52,6 +58,8 @@ public class TietukuUtils {
 
 	public static void main(String[] args) {
 		System.out.println(getImageUrlID("http://aaa.xxx.ccc/123456.jpgd"));
-		System.out.println(getImageUrlPrefix("http://aaa.xxx.ccc/123456.jpgd"));
+		System.out.println(getImageUrlPrefix("http://aaa.xxx.ccc/123456.jpgd", true));
+		System.out.println(getImageUrlPrefix("http://aaa.xxx.ccc/123456.jpgd", false));
+		System.out.println(getImageUrlPrefix("https://aaa.xxx.ccc/123456.jpgd", false));
 	}
 }
