@@ -32,12 +32,24 @@ public class TietukuUtils {
 		return urlPrefix;
 	}
 
-	public static String getImageOriginalUrl(String imageUrlPrefix, String imageUrlId) {
+	/**
+	 * 获得贴图库原始文件URL
+	 * 
+	 * @param imageUrlPrefix
+	 * @param imageUrlId
+	 * @param ext 带点的扩展名，默认.jpg
+	 * @return
+	 */
+	public static String getImageOriginalUrl(String imageUrlPrefix, String imageUrlId, String ext) {
 		if (imageUrlPrefix == null || imageUrlId == null) {
 			return null;
 		}
 
-		return imageUrlPrefix + imageUrlId + TietukuConstants.ImageUrl_Original + ".jpg";
+		return imageUrlPrefix + imageUrlId + TietukuConstants.ImageUrl_Original + ext;
+	}
+
+	public static String getImageOriginalUrl(String imageUrlPrefix, String imageUrlId) {
+		return getImageOriginalUrl(imageUrlPrefix, imageUrlId, ".jpg");
 	}
 
 	public static String getImageShowUrl(String imageUrlPrefix, String imageUrlId) {

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -23,17 +22,22 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.pool.PoolStats;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tietuku.entity.token.Token;
 import com.tietuku.entity.util.PathConfig;
+import com.tietuku.entity.vo.TietukuUploadResponse;
 
+import xie.common.date.XTimeUtils;
+import xie.common.json.XJsonUtil;
 import xie.tietuku.httpclient.HttpClientPoolManager;
 
 public class PostImage {
 
 	CloseableHttpClient httpclient = HttpClients.custom().setConnectionManager(null).build();
 	HttpClientPoolManager httpClientPoolManager = new HttpClientPoolManager();
-	Logger logger = Logger.getLogger(this.getClass().getName());
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private String uploadUrl;
 	RequestConfig requestConfig;
@@ -59,6 +63,61 @@ public class PostImage {
 	public String doUpload(File file) throws ClientProtocolException, IOException {
 		String token = PathConfig.getProperty("tie.tu.ku.token");
 		return doUpload(file, token);
+	}
+
+	public TietukuUploadResponse uploadToTietuku(File file, String tietukuToken) {
+		String responseStr = null;
+		TietukuUploadResponse responseUpload = null;
+		String tietukuUrl = null;
+		try {
+			responseStr = doUpload(file, tietukuToken);
+		} catch (Exception e) {
+			logger.error("贴图库上传失败，", e);
+		}
+		logger.info("贴图库上传responseStr:" + responseStr);
+		if (responseStr != null) {
+			responseUpload = XJsonUtil.fromJsonString(responseStr, TietukuUploadResponse.class);
+			tietukuUrl = responseUpload.getLinkurl();
+		}
+		logger.info("tietukuUrl:" + tietukuUrl);
+		if (tietukuUrl == null) {
+			if (responseUpload != null) {
+				logger.error("贴图库上传失败，返回值：{},{}", responseUpload.getCode(), responseUpload.getInfo());
+				try {
+					if ("4019".equals(responseUpload.getCode())) {
+						long sleepTime = XTimeUtils.getNeedTimeNextHour();
+						sleepTime += 300 * 1000;
+						logger.error("暂停" + (sleepTime / 1000) + "秒");
+						Thread.sleep(sleepTime);
+						logger.error("暂停结束");
+					}
+				} catch (InterruptedException e) {
+					logger.error("InterruptedException，", e);
+				}
+			}
+
+			logger.error("贴图库上传失败，等待2分钟再次上传");
+			try {
+				Thread.sleep(60 * 2000);
+				responseStr = doUpload(file, tietukuToken);
+			} catch (Exception e) {
+				logger.error("贴图库再次上传失败，", e);
+			}
+			logger.info("贴图库再次上传responseStr:" + responseStr);
+			if (responseStr != null) {
+				responseUpload = XJsonUtil.fromJsonString(responseStr, TietukuUploadResponse.class);
+				tietukuUrl = responseUpload.getLinkurl();
+			}
+			if (tietukuUrl == null) {
+				if (responseUpload != null) {
+					logger.error("贴图库上传失败，返回值：{},{}", responseUpload.getCode(), responseUpload.getInfo());
+					throw new RuntimeException("贴图库上传失败，返回值：" + responseUpload.getCode() + "," + responseUpload.getInfo());
+				} else {
+					throw new RuntimeException("贴图库上传失败");
+				}
+			}
+		}
+		return responseUpload;
 	}
 
 	/**

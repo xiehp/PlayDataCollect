@@ -14,7 +14,7 @@
 		<java.version>1.8</java.version>
 
 		<!-- spring.io版本 -->
-		<spring.io.version>2.0.2.RELEASE</spring.io.version>
+		<spring.io.version>2.0.7.RELEASE</spring.io.version>
 	</properties>
 
 	<dependencyManagement>
@@ -47,6 +47,15 @@
 			<groupId>net.sourceforge.jchardet</groupId>
 			<artifactId>jchardet</artifactId>
 			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
 		</dependency>
 	</dependencies>
 

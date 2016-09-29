@@ -36,11 +36,20 @@ public class XWaitTime {
 	 * @return
 	 */
 	public boolean isTimeout() {
-		if (new Date().getTime() - startTime > timeout) {
+		if (getPastTime() > timeout) {
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * 经过时间
+	 * 
+	 * @return
+	 */
+	public long getPastTime() {
+		return new Date().getTime() - startTime;
 	}
 
 }
