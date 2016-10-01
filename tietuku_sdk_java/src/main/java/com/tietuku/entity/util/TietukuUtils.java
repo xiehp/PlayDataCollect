@@ -33,6 +33,20 @@ public class TietukuUtils {
 	}
 
 	/**
+	 * 根据linkUrl获得贴图库图片的url的前缀， http://www.XXX.com部分，并且去掉http部分
+	 * 
+	 * @param linkUrl
+	 * @return
+	 */
+	public static String getImageUrlPrefixWithoutHttp(String linkUrl) {
+		int startIndex = linkUrl.lastIndexOf("/");
+		String urlPrefix = linkUrl.substring(0, startIndex + 1);
+		urlPrefix = urlPrefix.replace("http://", "//");
+		urlPrefix = urlPrefix.replace("https://", "//");
+		return urlPrefix;
+	}
+
+	/**
 	 * 获得贴图库原始文件URL
 	 * 
 	 * @param imageUrlPrefix
@@ -73,5 +87,6 @@ public class TietukuUtils {
 		System.out.println(getImageUrlPrefix("http://aaa.xxx.ccc/123456.jpgd", true));
 		System.out.println(getImageUrlPrefix("http://aaa.xxx.ccc/123456.jpgd", false));
 		System.out.println(getImageUrlPrefix("https://aaa.xxx.ccc/123456.jpgd", false));
+		System.out.println(getImageUrlPrefixWithoutHttp("https://aaa.xxx.ccc/123456.jpgd"));
 	}
 }
