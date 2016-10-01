@@ -7,32 +7,52 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xie.module.command.XCommandBase;
 import xie.module.command.XCommandFactory;
 import xie.module.command.option.XOption;
 import xie.module.command.option.impl.XWindowsOption;
 
 public class XWindowsCommand extends XCommandBase<XWindowsOption> {
+	final private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public Process runCmd(String cmd) {
 		Process process = null;
 		Runtime runtime = Runtime.getRuntime();
 		try {
-			process = runtime.exec(cmd);
+			process = runtime.exec("cmd /c " + cmd);
 			// 将调用结果打印到控制台上
 			InputStream in = process.getInputStream();
+			InputStream errorIn = process.getErrorStream();
 
-			InputStreamReader inputStreamReader = new InputStreamReader(in, Charset.defaultCharset());
+			new Thread(new Runnable() {
+				public void run() {
+					try {
+						InputStreamReader inputStreamReader = new InputStreamReader(errorIn, "utf-8");
+						BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+						String line = null;
+						while ((line = bufferedReader.readLine()) != null) {
+							logger.error(line);
+						}
+					} catch (Exception e) {
+						logger.error("进程错误流读取发生错误", e);
+					}
+				}
+			}).start(); // 启动单独的线程来清空p.getInputStream()的缓冲区
+
+			InputStreamReader inputStreamReader = new InputStreamReader(in, "gb2312");
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			String line = null;
 			while ((line = bufferedReader.readLine()) != null) {
-				System.out.println(line);
+				logger.info(line);
 			}
 			in.close();
 			process.waitFor();
 		} catch (Exception e) {
-			System.out.println("Error!");
+			logger.error("进程错误", e);
 		}
 
 		return process;
@@ -66,6 +86,8 @@ public class XWindowsCommand extends XCommandBase<XWindowsOption> {
 		// xWindowsCommand.runCmd("ping baidu.com");
 		xWindowsCommand.runCmd("tasklist ");
 
+		xWindowsCommand.runCmd(
+				"ffmpeg -ss 1067 -t 5 -i \"E:\\AnimeShotSite\\anime\\C\\超时空要塞\\Δ\\[dmhy][Macross_Delta][25][x264_aac][GB_BIG5][1080P_mkv].mkv\" -s 394x216 -f gif -r 10 \"E:\\AnimeShotSite\\gif\\C\\超时空要塞\\Δ\\25\\超时空要塞Δ 第25集 17分47秒_5秒ggg.gif\" ");
 		// xWindowsCommand.aaa();
 	}
 
