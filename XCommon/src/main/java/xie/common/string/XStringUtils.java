@@ -533,6 +533,22 @@ public class XStringUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * 数组中是否存在某个字符串
+	 */
+	public static boolean existIgnoreCase(List<String> list, String value) {
+		if (value == null) {
+			return list.contains(value);
+		}
+
+		for (String str : list) {
+			if (value.equalsIgnoreCase(str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		String aaa = "aaabbbccc1dddeeefff2ggghhhiii3jjjkkklll4mmmnnnooo5";
 		System.out.println(subString(aaa, -1, "aaa", "kkk"));
