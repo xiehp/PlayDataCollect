@@ -1,6 +1,9 @@
 package xie.module.language;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.hankcs.hanlp.HanLP;
 
@@ -21,6 +24,44 @@ public class XLanguageUtils {
 	 */
 	public static String convertToTC(String Value) {
 		return HanLP.convertToTraditionalChinese(Value);
+	}
+
+	/**
+	 * 全文搜索的简繁对应，将搜索文本进行简繁转换，如果转换出不同版本，则追加到后面去，以使当前全文搜索具有搜索简繁的功能。<br>
+	 * PS:此方法由于追加多余文本，会导致搜索结果的排序出现偏差。如果有其他更好的办法，则替换。<br>
+	 * 
+	 * @return 原文本基础上，增加了简繁对应的文本
+	 */
+	public static String chineseFullTextChange(String sourceText) {
+		if (sourceText == null) {
+			sourceText = "";
+		}
+
+		StringBuilder newSb = new StringBuilder(sourceText);
+		String scText = null;
+		String tcText = null;
+		Set<String> sourceTextSet = new HashSet<>();
+		for (String oneText : sourceText.split(" ")) {
+			sourceTextSet.add(oneText);
+		}
+
+		Set<String> newTextSet = new HashSet<>();
+		newTextSet.addAll(sourceTextSet);
+		for (String oneText : sourceTextSet) {
+			scText = convertToSC(oneText);
+			if (!newTextSet.contains(scText)) {
+				newSb.append(" " + scText);
+				newTextSet.add(scText);
+			}
+
+			tcText = convertToTC(oneText);
+			if (!newTextSet.contains(tcText)) {
+				newSb.append(" " + tcText);
+				newTextSet.add(tcText);
+			}
+		}
+
+		return newSb.toString();
 	}
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
