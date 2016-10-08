@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -547,6 +548,36 @@ public class XStringUtils {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 将待删列表中除了保留列表中存在的文字，都删除掉
+	 * 
+	 * @param removeList 待删列表
+	 * @param leaveList 保留列表
+	 * @return
+	 */
+	public static List<String> removeIfNotEqualIgnoreCase(List<String> removeList, List<String> leaveList) {
+		if (removeList == null || removeList.size() == 0) {
+			return removeList;
+		}
+		if (leaveList == null || leaveList.size() == 0) {
+			return removeList;
+		}
+
+		Predicate<String> predicate = new Predicate<String>() {
+			@Override
+			public boolean test(String value) {
+				if (XStringUtils.existIgnoreCase(leaveList, value)) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		};
+
+		removeList.removeIf(predicate);
+		return removeList;
 	}
 
 	public static void main(String[] args) {

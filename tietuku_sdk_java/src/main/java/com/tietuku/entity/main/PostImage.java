@@ -31,7 +31,7 @@ import com.tietuku.entity.vo.TietukuUploadResponse;
 
 import xie.common.date.XTimeUtils;
 import xie.common.json.XJsonUtil;
-import xie.tietuku.httpclient.HttpClientPoolManager;
+import xie.module.httpclient.HttpClientPoolManager;
 
 public class PostImage {
 

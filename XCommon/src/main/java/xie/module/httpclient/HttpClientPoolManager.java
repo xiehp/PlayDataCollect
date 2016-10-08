@@ -1,4 +1,4 @@
-package xie.tietuku.httpclient;
+package xie.module.httpclient;
 
 import org.apache.http.HttpHost;
 import org.apache.http.conn.routing.HttpRoute;
