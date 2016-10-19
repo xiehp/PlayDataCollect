@@ -9,6 +9,9 @@ public class XWaitTime {
 	/** 超时时间 微妙 */
 	private long timeout;
 
+	/**
+	 * @param timeout 超时时间 微妙
+	 */
 	public XWaitTime(long timeout) {
 		startTime = new Date().getTime();
 		this.timeout = timeout;
