@@ -2,6 +2,9 @@ package xie.module.test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import xie.base.XEnum;
+import xie.module.language.translate.baidu.XELangBaidu;
+
 public class XTestUtils {
 
 	public static <X> X getBean(Class<X> clazz, Class<?>... otherClazzs) {
@@ -19,4 +22,16 @@ public class XTestUtils {
 		return x;
 	}
 
+
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println(XEnum.parseValue("ara", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("ara", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("ara", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("auto", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("auto", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("auto", XELangBaidu.class));
+		System.out.println(XEnum.parseValue("auto", XELangBaidu.class));
+		//System.out.println(XEnum.parseValue("1"));
+
+	}
 }
