@@ -48,14 +48,18 @@ public class SubtitleFactory {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("F:\\AnimeShotSite\\anime\\2016\\91Days\\字幕\\[HaSub&Airota] 91Days - 07 [1080].cht.ass"),
-				null, null);
+		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("M:\\AnimeShotSite\\anime\\B\\白色相簿\\第1季\\字幕\\[SumiSora][White_Album][BDRip][01][1920x1080][x264_flac].big5.ass"),
+				null, "Style=(OP)|(IN)");
+//		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("M:\\AnimeShotSite\\anime\\B\\白色相簿\\第1季\\字幕\\[SumiSora][White_Album][BDRip][01][1920x1080][x264_flac].big5.ass"),
+//				"Style#(ED)|(IN)|(OP)", null);
 		System.out.println(subtitle.getSubtitleLineList().size());
 		for (XSubtitleLine xSubtitleLine : subtitle.getSubtitleLineList()) {
 			System.out.println(xSubtitleLine.getTextLine());
 		}
 		for (XSubtitleLine xSubtitleLine : subtitle.getSubtitleLineList()) {
-			System.out.println(xSubtitleLine.getText());
+			//System.out.println(xSubtitleLine.getText());
 		}
+		
+		
 	}
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import xie.common.date.XTimeUtils;
 import xie.common.string.XStringUtils;
@@ -24,10 +26,10 @@ public class SubtitleASS extends SubtitleBase {
 	/** 字幕行的ASS格式化方式 */
 	String[] textLineFormat;
 
-	Map<String, String> filterRemoveEqualMap;
-	Map<String, String> filterRemoveLikeMap;
-	Map<String, String> filterIncludeEqualMap;
-	Map<String, String> filterIncludeLikeMap;
+	Map<String, Pattern> filterRemoveEqualMap;
+	Map<String, Pattern> filterRemoveLikeMap;
+	Map<String, Pattern> filterIncludeEqualMap;
+	Map<String, Pattern> filterIncludeLikeMap;
 
 	@Override
 	protected void initData() {
@@ -90,11 +92,11 @@ public class SubtitleASS extends SubtitleBase {
 		}
 
 		if (textLineFormat != null) {
-			// 包含排除文字
-			filterRemoveEqualMap = convertFilterStr(getFilterRemove(), "=");
-			filterRemoveLikeMap = convertFilterStr(getFilterRemove(), "#");
-			filterIncludeEqualMap = convertFilterStr(getFilterInclude(), "=");
-			filterIncludeLikeMap = convertFilterStr(getFilterInclude(), "#");
+			// 包含排除文字, =完全相等 #包含
+			filterRemoveEqualMap = convertFilterStr(getFilterRemove(), "=", true);
+			filterRemoveLikeMap = convertFilterStr(getFilterRemove(), "#", false);
+			filterIncludeEqualMap = convertFilterStr(getFilterInclude(), "=", true);
+			filterIncludeLikeMap = convertFilterStr(getFilterInclude(), "#", false);
 
 			int lineIndex = -1;
 			for (String textLine : textLineList) {
@@ -192,23 +194,55 @@ public class SubtitleASS extends SubtitleBase {
 	 * 
 	 * @param filtersStr
 	 * @param relation =或者#,区分name和value关系的字符
+	 * @param addFullFlag 是否进行完全匹配
 	 * @return
 	 */
-	private Map<String, String> convertFilterStr(String filtersStr, String relation) {
-		Map<String, String> filterMap = new HashMap<>();
+	private Map<String, Pattern> convertFilterStr(String filtersStr, String relation, boolean addFullFlag) {
+		// Map<String, String> filterMap = new HashMap<>();
+		// if (XStringUtils.isNotBlank(filtersStr)) {
+		// String[] filtersArray = filtersStr.split(",");
+		// for (String filterStr : filtersArray) {
+		// if (filterStr.contains(relation)) {
+		// String[] filter = filterStr.split(relation, 2);
+		// if (filter.length > 1) {
+		// filterMap.put(filter[0].toLowerCase(), filter[1]);
+		// } else if (filter.length > 0) {
+		// filterMap.put(filter[0].toLowerCase(), "");
+		// }
+		// }
+		// }
+		// }
+
+		Map<String, Pattern> filterMap = new HashMap<>();
 		if (XStringUtils.isNotBlank(filtersStr)) {
 			String[] filtersArray = filtersStr.split(",");
 			for (String filterStr : filtersArray) {
 				if (filterStr.contains(relation)) {
 					String[] filter = filterStr.split(relation, 2);
 					if (filter.length > 1) {
-						filterMap.put(filter[0].toLowerCase(), filter[1]);
-					} else if (filter.length > 0) {
-						filterMap.put(filter[0].toLowerCase(), "");
+						String compareStr = filter[1];
+						if (addFullFlag) {
+							compareStr = "^" + compareStr + "$";
+						}
+						Pattern pattern = Pattern.compile(compareStr, Pattern.CASE_INSENSITIVE);
+						filterMap.put(filter[0].toLowerCase(), pattern);
+						logger.info("增加过滤条件：{}, {}", relation, pattern);
 					}
 				}
 			}
 		}
+
+		// String str = "service@xsoftlab.net";
+		// // 邮箱验证规则
+		// String regEx = "[a-zA-Z_]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}";
+		// // 编译正则表达式
+		// Pattern pattern = Pattern.compile(regEx);
+		// // 忽略大小写的写法
+		// Pattern pat = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+		// Matcher matcher = pattern.matcher(str);
+		// // 字符串是否与正则表达式相匹配
+		// boolean rs = matcher.matches();
+		// System.out.println(rs);
 
 		return filterMap;
 	}
@@ -221,25 +255,43 @@ public class SubtitleASS extends SubtitleBase {
 	 * @return true 需要排除
 	 */
 	private boolean checkNeedRemove(String name, String value) {
-		String lowerCalseName = name.toLowerCase();
+		String lowerCaseName = name.toLowerCase();
 		// 判断字幕行需要排除
 		{
-			String filterValue = filterRemoveEqualMap.get(lowerCalseName);
-			if (XStringUtils.isNotEmpty(filterValue)) {
-				if (value.equalsIgnoreCase(filterValue)) {
+			// String filterValue = filterRemoveEqualMap.get(lowerCalseName);
+			// if (XStringUtils.isNotEmpty(filterValue)) {
+			// if (value.equalsIgnoreCase(filterValue)) {
+			// // 排除字段一致
+			// // logger.info("一致排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// return true;
+			// }
+			// }
+			Pattern pattern = filterRemoveEqualMap.get(lowerCaseName);
+			if (pattern != null) {
+				Matcher matcher = pattern.matcher(value);
+				if (matcher != null && matcher.find()) {
 					// 排除字段一致
-					//logger.info("包含排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+					// logger.info("一致排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
 					return true;
 				}
 			}
 		}
 
 		{
-			String filterValue = filterRemoveLikeMap.get(lowerCalseName);
-			if (XStringUtils.isNotEmpty(filterValue)) {
-				if (value.toLowerCase().contains(filterValue.toLowerCase())) {
+			// String filterValue = filterRemoveLikeMap.get(lowerCaseName);
+			// if (XStringUtils.isNotEmpty(filterValue)) {
+			// if (value.toLowerCase().contains(filterValue.toLowerCase())) {
+			// // 排除字段包含
+			// // logger.info("包含排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// return true;
+			// }
+			// }
+			Pattern pattern = filterRemoveLikeMap.get(lowerCaseName);
+			if (pattern != null) {
+				Matcher matcher = pattern.matcher(value);
+				if (matcher != null && matcher.find()) {
 					// 排除字段包含
-					//logger.info("包含排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+					// logger.info("包含排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
 					return true;
 				}
 			}
@@ -247,21 +299,39 @@ public class SubtitleASS extends SubtitleBase {
 
 		// 判断字幕行需要包含
 		{
-			String filterValue = filterIncludeEqualMap.get(lowerCalseName);
-			if (XStringUtils.isNotEmpty(filterValue)) {
-				if (!value.equalsIgnoreCase(filterValue)) {
-					// 没有一致字段
-					//logger.info("没有包含字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// String filterValue = filterIncludeEqualMap.get(lowerCaseName);
+			// if (XStringUtils.isNotEmpty(filterValue)) {
+			// if (!value.equalsIgnoreCase(filterValue)) {
+			// // 没有一致字段
+			// // logger.info("没有一致字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// return true;
+			// }
+			// }
+			Pattern pattern = filterIncludeEqualMap.get(lowerCaseName);
+			if (pattern != null) {
+				Matcher matcher = pattern.matcher(value);
+				if (matcher != null && !matcher.find()) {
+					// 排除字段一致
+					// logger.info("一致排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
 					return true;
 				}
 			}
 		}
 		{
-			String filterValue = filterIncludeLikeMap.get(lowerCalseName);
-			if (XStringUtils.isNotEmpty(filterValue)) {
-				if (!value.toLowerCase().contains(filterValue.toLowerCase())) {
-					// 没有包含字段
-					//logger.info("没有包含字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// String filterValue = filterIncludeLikeMap.get(lowerCaseName);
+			// if (XStringUtils.isNotEmpty(filterValue)) {
+			// if (!value.toLowerCase().contains(filterValue.toLowerCase())) {
+			// // 没有包含字段
+			// // logger.info("没有包含字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
+			// return true;
+			// }
+			// }
+			Pattern pattern = filterIncludeLikeMap.get(lowerCaseName);
+			if (pattern != null) {
+				Matcher matcher = pattern.matcher(value);
+				if (matcher != null && !matcher.find()) {
+					// 排除字段一致
+					// logger.info("一致排除字段：name:" + name + ", value:" + value + ", filterValue:" + filterValue);
 					return true;
 				}
 			}
