@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -36,6 +37,7 @@ public class XPoolingHttpClientConnectionManager {
 				.setConnectionRequestTimeout(120000)
 				.setConnectTimeout(120000)
 				.setSocketTimeout(120000)
+				.setProxy(getProxyHost())
 				.build();
 
 		// 创建ssl工厂
@@ -56,6 +58,33 @@ public class XPoolingHttpClientConnectionManager {
 		// 从连接池管理创建HttpClient
 		httpClient = HttpClients.custom().setConnectionManager(httpClientPoolManager).setDefaultRequestConfig(requestConfig).build();
 		logger.info("创建了httpClient：{}", httpClient);
+	}
+
+	private HttpHost getProxyHost() {
+		{
+			// 首先查看java参数是否有设定
+			String proxyHostStr = System.getProperty("http.proxyHost");
+			String proxyPortStr = System.getProperty("http.proxyPort");
+			proxyPortStr = proxyPortStr == null ? "80" : proxyPortStr;
+			if (proxyHostStr != null) {
+				HttpHost proxyHost = new HttpHost(proxyHostStr, Integer.valueOf(proxyPortStr));
+				return proxyHost;
+			}
+		}
+
+		{
+			// 查看系统是否配置 （linux）
+			String http_proxy = System.getenv("http_proxy");
+			if (http_proxy != null) {
+				String[] proxyArr = http_proxy.split(":");
+				String hostname = proxyArr[0];
+				String port = proxyArr.length > 1 ? proxyArr[1] : "80";
+				HttpHost proxyHost = new HttpHost(hostname, Integer.valueOf(port));
+				return proxyHost;
+			}
+		}
+
+		return null;
 	}
 
 	public HttpClient getHttpClient() {
