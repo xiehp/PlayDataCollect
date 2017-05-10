@@ -22,8 +22,15 @@ public class XWaitTime {
 	 * 
 	 * @param timeout 微妙
 	 */
-	public void setTimeout(int timeout) {
+	public void setTimeout(long timeout) {
 		this.timeout = timeout;
+	}
+
+	/**
+	 * 设置开始时间
+	 */
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
 	}
 
 	/**
@@ -40,6 +47,20 @@ public class XWaitTime {
 	 */
 	public boolean isTimeout() {
 		if (getPastTime() > timeout) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * 当前是否超时了
+	 * 
+	 * @return
+	 */
+	public boolean isTimeoutAndResetStartTime() {
+		if (isTimeout()) {
+			resetNowtime();
 			return true;
 		}
 
