@@ -15,7 +15,6 @@ import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
@@ -26,9 +25,10 @@ import org.springframework.stereotype.Component;
 public class XPoolingHttpClientConnectionManager {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private CloseableHttpClient httpClient;
 	private PoolingHttpClientConnectionManager httpClientPoolManager;
+
 	private RequestConfig requestConfig;
+	private HttpClient httpClient;
 
 	public XPoolingHttpClientConnectionManager() throws NoSuchAlgorithmException, KeyManagementException {
 		// 首先设置全局的标准cookie策略
@@ -56,7 +56,11 @@ public class XPoolingHttpClientConnectionManager {
 		httpClientPoolManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
 
 		// 从连接池管理创建HttpClient
-		httpClient = HttpClients.custom().setConnectionManager(httpClientPoolManager).setDefaultRequestConfig(requestConfig).build();
+		httpClient = HttpClients
+				.custom()
+				.setConnectionManager(httpClientPoolManager)
+				.setDefaultRequestConfig(requestConfig)
+				.build();
 		logger.info("创建了httpClient：{}", httpClient);
 	}
 
