@@ -1,4 +1,4 @@
-package xie.module.httpclient;
+package xie.module.httpclient.study;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

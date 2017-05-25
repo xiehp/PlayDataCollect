@@ -54,7 +54,7 @@ public class XHttpClientUtils {
 		return EntityUtils.toString(entity, Charset.forName(charset));
 	}
 
-	public String getHtml(String url) throws ClientProtocolException, IOException {
+	public String getHtml(String url) throws IOException {
 		return getHtml(url, XConst.CHARSET_UTF8);
 	}
 
