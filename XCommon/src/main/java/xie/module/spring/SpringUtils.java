@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -14,7 +15,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SpringUtils.class);
 
-	private static ConfigurableListableBeanFactory beanFactory; // Spring应用上下文环境
+	private static BeanFactory beanFactory; // Spring应用上下文环境
 
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		LOG.info("初期化SpringUtils， ConfigurableListableBeanFactory：" + beanFactory);
