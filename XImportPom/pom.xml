@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+xmlns="http://maven.apache.org/POM/4.0.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>xie</groupId>
 	<artifactId>XImportPom</artifactId>
@@ -6,7 +9,6 @@
 	<packaging>pom</packaging>
 	<name>XImportPom</name>
 	<description>XImportPom</description>
-
 
 	<properties>
 		<!-- 文件拷贝时的编码 -->
@@ -18,7 +20,7 @@
 		<java.version>1.8</java.version>
 
 		<!-- spring.io版本 -->
-		<spring.io.version>2.0.7.RELEASE</spring.io.version>
+		<spring.io.version>Brussels-SR2</spring.io.version>
 	</properties>
 
 	<dependencyManagement>
@@ -31,7 +33,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
+
 			<!-- 本项目 -->
 			<dependency>
 				<groupId>xie</groupId>
@@ -57,6 +59,13 @@
 				<groupId>xie</groupId>
 				<artifactId>AnimeShotSite-parent</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<!-- html -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.10.2</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
