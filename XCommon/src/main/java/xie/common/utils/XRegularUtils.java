@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class XRegularUtils {
+
 	public static List<String> find(String str, String reg) {
 		Pattern pattern = Pattern.compile(reg);
 		Matcher matcher = pattern.matcher(str);
@@ -13,10 +14,10 @@ public class XRegularUtils {
 		while (matcher.find()) {
 			findList.add(matcher.group());
 		}
-		
+
 		return findList;
 	}
-	
+
 	public static void main(String[] args) {
 		find("{\\blur4}ここなら 楽しく暮らせそう", "\\{\\\\.*\\}");
 		find("{\\blur4}{\\an8}你說什麼？", "\\{\\\\.*\\}");
@@ -36,4 +37,3 @@ public class XRegularUtils {
 		System.out.println("{\\blur4}   {\\an8}  {an8}  你說什麼？".replaceAll("\\{.*?\\\\.*?\\}", ""));
 	}
 }
-

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.stereotype.Component;
 
+@Component(value = "springUtils")
 public final class SpringUtils implements BeanFactoryPostProcessor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SpringUtils.class);
@@ -21,7 +23,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
 		LOG.info("初期化SpringUtils， ConfigurableListableBeanFactory：" + beanFactory);
 		SpringUtils.beanFactory = beanFactory;
 	}
-	
+
 	/**
 	 * 获取对象
 	 *
