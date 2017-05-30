@@ -12,11 +12,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import xie.common.utils.XRegularUtils;
 
 public class CollectKamigami {
-	public static List<String> getTorrentUrlList(String url) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+	public static List<String> getTorrentUrlList(String url) throws FailingHttpStatusCodeException, IOException {
 		return getTorrentUrlList(url, "http.*1080.*torrent");
 	}
 
-	public static List<String> getTorrentUrlList(String url, String findRegStr) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+	public static List<String> getTorrentUrlList(String url, String findRegStr) throws FailingHttpStatusCodeException, IOException {
 		WebClient webClient = new WebClient(BrowserVersion.CHROME);
 		webClient.getOptions().setUseInsecureSSL(true);
 		webClient.getOptions().setJavaScriptEnabled(false);
@@ -28,9 +28,7 @@ public class CollectKamigami {
 		HtmlPage page = webClient.getPage(url);
 		String xmlStr = page.asXml();
 		List<String> listTorrent = XRegularUtils.find(xmlStr, findRegStr);
-		listTorrent.forEach(str -> {
-			System.out.println(str);
-		});
+		// listTorrent.forEach(str -> System.out.println(str));
 
 		return listTorrent;
 	}
