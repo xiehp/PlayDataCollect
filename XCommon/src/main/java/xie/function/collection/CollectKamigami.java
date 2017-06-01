@@ -27,6 +27,8 @@ public class CollectKamigami {
 
 		HtmlPage page = webClient.getPage(url);
 		String xmlStr = page.asXml();
+		webClient.close();
+
 		List<String> listTorrent = XRegularUtils.find(xmlStr, findRegStr);
 		// listTorrent.forEach(str -> System.out.println(str));
 

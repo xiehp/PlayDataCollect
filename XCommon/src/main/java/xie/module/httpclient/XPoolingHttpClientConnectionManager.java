@@ -21,6 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import xie.common.trust.XNoCheckX509HostnameVerifier;
+import xie.common.trust.XNoCheckX509TrustManager;
+
 @Component
 public class XPoolingHttpClientConnectionManager {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -42,8 +45,8 @@ public class XPoolingHttpClientConnectionManager {
 
 		// 创建ssl工厂
 		SSLContext sslContext = SSLContext.getInstance("TLS");
-		sslContext.init(null, new TrustManager[] { new NoCheckX509TrustManager() }, null);
-		SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new NoCheckX509HostnameVerifier());
+		sslContext.init(null, new TrustManager[] { new XNoCheckX509TrustManager() }, null);
+		SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new XNoCheckX509HostnameVerifier());
 
 		// 创建http和https的注册类
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder
