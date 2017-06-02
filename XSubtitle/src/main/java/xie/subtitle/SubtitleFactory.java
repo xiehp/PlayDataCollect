@@ -57,7 +57,7 @@ public class SubtitleFactory {
 			System.out.println(xSubtitleLine.getTextLine());
 		}
 		for (XSubtitleLine xSubtitleLine : subtitle.getSubtitleLineList()) {
-			//System.out.println(xSubtitleLine.getText());
+			System.out.println(xSubtitleLine.getText());
 		}
 		
 		

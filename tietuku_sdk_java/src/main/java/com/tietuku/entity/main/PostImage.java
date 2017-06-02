@@ -152,7 +152,7 @@ public class PostImage {
 
 		PostImage postImage = new PostImage();
 		postImage.test1();
-		// postImage.test2();
+		postImage.test2();
 	}
 
 	private void test1() throws ClientProtocolException, IOException {

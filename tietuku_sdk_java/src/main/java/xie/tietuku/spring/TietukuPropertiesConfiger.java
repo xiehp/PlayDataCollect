@@ -1,15 +1,6 @@
 package xie.tietuku.spring;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 @Component
 public class TietukuPropertiesConfiger  {

@@ -25,14 +25,20 @@
 			<groupId>xie</groupId>
 			<artifactId>xcommon</artifactId>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>Vuze</artifactId>
 			<version>5750</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/Vuze-5750.jar</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,7 +1,6 @@
 package xie.module.command;
 
 import xie.module.command.option.XOption;
-import xie.module.command.option.impl.XWindowsOption;
 
 /**
  * 执行cmd命令

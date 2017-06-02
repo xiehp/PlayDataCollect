@@ -1,6 +1,5 @@
 package xie.common.image;
 
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -13,8 +12,6 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.ImageOutputStream;
-
-import org.w3c.dom.Node;
 
 public class XImageUtils {
 	// public static void setJpegQuality(float quality) {
@@ -58,8 +55,6 @@ public class XImageUtils {
 		if ( nametiveName == null) {
 			nametiveName = "javax_imageio_jpeg_stream_1.0";
 		}
-		Node rootNode = iioMetadata.getAsTree(nametiveName);
-		
 
 		// Write the JPEG to our ByteArray stream
 		ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(output);
