@@ -10,8 +10,11 @@ public class XCommandFactory {
 		return new XWindowsCommand();
 	}
 
+	public static XWindowsCommand createWindowsInstance() {
+		return new XWindowsCommand();
+	}
+
 	public static XOption createOption(String name) {
-		// TODO 根据环境创建cmd实例
 		return new XWindowsOption(name);
 	}
 }

@@ -22,3 +22,15 @@ MANIFEST.MF
 
 # idea file
 *.iml
+
+
+
+
+# vuze的执行临时目录
+jcpuid.dll
+jbigi.dll
+aereg64.dll
+Azureus.exe
+Azureus.exe.manifest
+AzureusUpdater.exe
+/*/plugins/

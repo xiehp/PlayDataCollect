@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,19 @@ public class XWindowsCommand extends XCommandBase<XWindowsOption> {
 
 	@Override
 	public Process runCmd(String cmd) {
+		List<String> list = null;
+		return runCmd(cmd, list);
+	}
+
+	@Override
+	public List<String> runCmdAndGetResult(String cmd) {
+		List<String> list = new ArrayList<>();
+		runCmd(cmd, list);
+		return list;
+	}
+
+	@Override
+	public Process runCmd(String cmd, List<String> printInfoList) {
 		Process process = null;
 		Runtime runtime = Runtime.getRuntime();
 		try {
@@ -43,11 +58,15 @@ public class XWindowsCommand extends XCommandBase<XWindowsOption> {
 				}
 			}).start(); // 启动单独的线程来清空p.getInputStream()的缓冲区
 
-			InputStreamReader inputStreamReader = new InputStreamReader(in, "gb2312");
+			InputStreamReader inputStreamReader = new InputStreamReader(in, "utf-8"); // gb2312 gbk
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			String line = null;
 			while ((line = bufferedReader.readLine()) != null) {
-				logger.info(line);
+				if (printInfoList != null) {
+					printInfoList.add(line);
+				} else {
+					logger.info(line);
+				}
 			}
 			in.close();
 			process.waitFor();
@@ -82,7 +101,7 @@ public class XWindowsCommand extends XCommandBase<XWindowsOption> {
 	}
 
 	public static void main(String[] args) throws IOException {
-		XWindowsCommand xWindowsCommand = (XWindowsCommand) XCommandFactory.createInstance();
+		XWindowsCommand xWindowsCommand = (XWindowsCommand) XCommandFactory.createWindowsInstance();
 		// xWindowsCommand.runCmd("ping baidu.com");
 		xWindowsCommand.runCmd("tasklist ");
 

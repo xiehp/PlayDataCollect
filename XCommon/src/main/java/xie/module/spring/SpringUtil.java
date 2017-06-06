@@ -12,6 +12,7 @@ import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -32,7 +33,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author 020191
  * @version 1.0
  */
-public final class SpringUtil implements BeanFactoryAware {
+@Component
+public class SpringUtil implements BeanFactoryAware {
 	public final static String WEB_TYPE = "W";
 	public final static String BEAN_TYPE = "B";
 
@@ -170,8 +172,14 @@ public final class SpringUtil implements BeanFactoryAware {
 
 	@Override
 	public void setBeanFactory(final BeanFactory factory) throws BeansException {
-		SpringUtil.factory = factory;
+		if (SpringUtil.factory == null) {
+			SpringUtil.factory = factory;
 
-		LOG.info("由系统自动设置BeanFactory：" + factory);
+			LOG.info("由系统自动设置BeanFactory：" + factory);
+		} else {
+			LOG.warn("输入的BeanFactory：" + factory.getClass());
+			LOG.warn("已存在BeanFactory：" + SpringUtil.factory.getClass());
+			LOG.warn("不进行BeanFactory处理");
+		}
 	}
 }

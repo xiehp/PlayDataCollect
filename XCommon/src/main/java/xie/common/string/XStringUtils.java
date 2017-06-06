@@ -1,5 +1,6 @@
 package xie.common.string;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -578,6 +579,28 @@ public class XStringUtils {
 
 		removeList.removeIf(predicate);
 		return removeList;
+	}
+
+	public static String toString2(Object obj) {
+		StringBuffer strBuf = new StringBuffer();
+		try {
+			Field[] fields = obj.getClass().getDeclaredFields();
+			strBuf.append(obj.getClass().getName());
+			strBuf.append("(");
+			for (int i = 0; i < fields.length; i++) {
+				Field fd = fields[i];
+				fd.setAccessible(true);
+				strBuf.append(fd.getName() + ":");
+				strBuf.append(fd.get(obj));
+				fd.setAccessible(false);
+				if (i != fields.length - 1)
+					strBuf.append("|");
+			}
+			strBuf.append(")");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return strBuf.toString();
 	}
 
 	public static void main(String[] args) {

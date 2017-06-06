@@ -19,6 +19,21 @@ public class XUrlUtils {
 	 * 
 	 * @param url
 	 * @return
+	 * @throws MalformedURLException 
+	 */
+	public static String getFileName(String url) throws MalformedURLException {
+		return getFileName(new URL(url));
+	}
+
+	/**
+	 * 获得url的文件名 <br>
+	 * http://xxx.com/aaa/bbb.txt -> bbb.txt <br>
+	 * http://xxx.com/aaa -> aaa <br>
+	 * http://xxx.com/ -> "" <br>
+	 * http://xxx.com -> "" <br>
+	 * 
+	 * @param url
+	 * @return
 	 */
 	public static String getFileName(URL url) {
 		String fileName = null;

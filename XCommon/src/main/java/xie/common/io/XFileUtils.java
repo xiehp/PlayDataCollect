@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 import xie.common.stage.XNumberListener;
+import xie.common.string.XStringUtils;
 
 /**
  * @since 2014-11-29 下午10:50:57
@@ -175,6 +176,18 @@ public class XFileUtils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 取出扩展名后的文件名
+	 */
+	public static String getNameRemoveExt(String fileName) {
+		if (XStringUtils.isBlank(fileName)) {
+			return fileName;
+		}
+
+		String nameNoExt = fileName.substring(0, fileName.lastIndexOf("."));
+		return nameNoExt;
 	}
 
 	public static void main(String[] args) throws IOException {
