@@ -29,7 +29,12 @@ public class XJsonUtil {
 	public final static String TIMSTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss.SSSSSS";
 
 	private static final Logger LOG = LoggerFactory.getLogger(XJsonUtil.class);
-	private static ObjectMapper objectMapper = new ObjectMapper();
+	private static ObjectMapper objectMapper;
+
+	public static void main(String[] args) throws Exception {
+		XObjectMapperFactoryBean xObjectMapperFactoryBean = new XObjectMapperFactoryBean();
+		System.out.println(getObjectMapper().equals(xObjectMapperFactoryBean.getObject()));
+	}
 
 	public static ObjectMapper getObjectMapper() {
 		if (objectMapper == null) {

@@ -62,10 +62,16 @@ public class TietukuUtils {
 		return imageUrlPrefix + imageUrlId + TietukuConstants.ImageUrl_Original + ext;
 	}
 
+	/**
+	 * 获得大图片（原始图片，URL中无附加标识）
+	 */
 	public static String getImageOriginalUrl(String imageUrlPrefix, String imageUrlId) {
 		return getImageOriginalUrl(imageUrlPrefix, imageUrlId, ".jpg");
 	}
 
+	/**
+	 * 获得中图片（显示用图片，URL中附加S标识）
+	 */
 	public static String getImageShowUrl(String imageUrlPrefix, String imageUrlId) {
 		if (imageUrlPrefix == null || imageUrlId == null) {
 			return null;
@@ -74,6 +80,9 @@ public class TietukuUtils {
 		return imageUrlPrefix + imageUrlId + TietukuConstants.ImageUrl_Show + ".jpg";
 	}
 
+	/**
+	 * 获得小图片（缩略图，URL中附加T标识）
+	 */
 	public static String getImageThumbnailUrl(String imageUrlPrefix, String imageUrlId) {
 		if (imageUrlPrefix == null || imageUrlId == null) {
 			return null;
