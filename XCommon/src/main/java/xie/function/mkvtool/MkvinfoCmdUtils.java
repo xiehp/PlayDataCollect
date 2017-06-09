@@ -102,6 +102,10 @@ public class MkvinfoCmdUtils {
 					mkvInfo.setSize(Long.valueOf(result));
 				}
 
+				if (mkvInfo.getLang() == null && "英文".equals(mkvInfo.getLangName())) {
+					mkvInfo.setLang("eng");
+				}
+
 				mkvInfoList.add(mkvInfo);
 			}
 		}
