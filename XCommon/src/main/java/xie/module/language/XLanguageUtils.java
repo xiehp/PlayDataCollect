@@ -75,5 +75,9 @@ public class XLanguageUtils {
 		System.out.println(HanLP.convertToTraditionalChinese(aaa));
 		System.out.println(HanLP.convertToTraditionalChinese(aaa2));
 		System.out.println(HanLP.convertToTraditionalChinese(aaa3));
+
+		String pin = HanLP.convertToPinyinString("以后等你当上皇后12313后asdasd等你当sd@#$@#4dsf上皇后", "", false);
+		System.out.println(pin);
+
 	}
 }
