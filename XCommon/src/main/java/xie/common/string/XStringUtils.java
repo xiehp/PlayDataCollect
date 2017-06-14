@@ -203,17 +203,17 @@ public class XStringUtils {
 		if (array.length == 0) {
 			return "";
 		}
-
-		StringBuilder sb = new StringBuilder("");
-		for (int i = 0; i < array.length; i++) {
-			String str = array[i];
-			sb.append(str);
-			if (i != array.length - 1) {
-				sb.append(d);
-			}
-		}
-
-		return sb.toString();
+		return String.join(",", array);
+//		StringBuilder sb = new StringBuilder("");
+//		for (int i = 0; i < array.length; i++) {
+//			String str = array[i];
+//			sb.append(str);
+//			if (i != array.length - 1) {
+//				sb.append(d);
+//			}
+//		}
+//
+//		return sb.toString();
 	}
 
 	/**

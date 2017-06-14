@@ -48,8 +48,8 @@ public class SubtitleFactory {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("M:\\AnimeShotSite\\anime\\B\\白色相簿\\第1季\\字幕\\[SumiSora][White_Album][BDRip][01][1920x1080][x264_flac].big5.ass"),
-				null, "Style=(OP)|(IN)");
+		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("M:\\AnimeShotSite\\anime\\X\\星之梦\\字幕\\Planetarian 2016 - EP01 [BD 1920x1080 AVC-yuv444p10 FLAC Chap] - LittleBakas!.POPGO-SC.ass"),
+				null, null);
 //		Subtitle subtitle = SubtitleFactory.createSubtitle(new File("M:\\AnimeShotSite\\anime\\B\\白色相簿\\第1季\\字幕\\[SumiSora][White_Album][BDRip][01][1920x1080][x264_flac].big5.ass"),
 //				"Style#(ED)|(IN)|(OP)", null);
 		System.out.println(subtitle.getSubtitleLineList().size());
