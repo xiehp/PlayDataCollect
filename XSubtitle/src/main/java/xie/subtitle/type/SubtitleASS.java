@@ -33,11 +33,14 @@ public class SubtitleASS extends SubtitleBase {
 
 	@Override
 	protected void initData() {
-		boolean sriptInfoFlg = false; // 是否进入Sript Info 部分
+		boolean sriptInfoFlg = false; // 是否进入Script Info 部分
 		// boolean AegisubProjectGarbage = false; // 是否进入Aegisub Project Garbage部分
 		boolean V4StylesFlg = false; // 是否进入V4+ Styles部分
 
 		boolean eventsFlg = false; // 是否进入Events部分
+		
+		// 1:Script Info 部分 2:Aegisub Project Garbage部分 3:V4+ Styles部分 4:Events部分
+		int sectionMark = 0;
 
 		List<String> lineList = getLineList();
 		if (lineList == null) {
@@ -55,12 +58,15 @@ public class SubtitleASS extends SubtitleBase {
 				sriptInfoFlg = false;
 				V4StylesFlg = false;
 				eventsFlg = false;
-				if (line.contains("Sript Info")) {
+				if (line.contains("Script Info")) {
 					sriptInfoFlg = true;
+					sectionMark = 1;
 				} else if (line.contains("V4+ Styles")) {
 					V4StylesFlg = true;
+					sectionMark = 3;
 				} else if (line.contains("Events")) {
 					eventsFlg = true;
+					sectionMark = 4;
 				}
 			}
 
@@ -70,7 +76,7 @@ public class SubtitleASS extends SubtitleBase {
 				String value = keyValue[1];
 				paramMap.put(key, value);
 
-				if (eventsFlg) {
+				if (sectionMark == 4) {
 					if ("Dialogue".equals(key) && isDialogue(value)) {
 						textLineList.add(value);
 					} else if (key.equals("Format")) {
