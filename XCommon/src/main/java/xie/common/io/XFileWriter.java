@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xie.common.constant.XConst;
+import xie.common.string.XStringUtils;
 
 public class XFileWriter {
 
@@ -67,12 +68,25 @@ public class XFileWriter {
 	}
 
 	public static List<String> readList(String filePath) throws IOException {
-		String encode = XFileUtils.testFileEncoding(filePath);
-		logger.info("获得文件[{}]的编码：{}", filePath, encode);
-		return readList(filePath, encode);
+		return readList(filePath, false);
 	}
 
-	public static List<String> readList(String filePath, String charset) throws IOException {
+	public static List<String> readList(String filePath, boolean removeBlankLine) throws IOException {
+		String encode = XFileUtils.testFileEncoding(filePath);
+		logger.info("获得文件[{}]的编码：{}", filePath, encode);
+		return readList(filePath, encode, removeBlankLine);
+	}
+
+	/**
+	 * 读取整个文件到List
+	 * 
+	 * @param filePath
+	 * @param charset
+	 * @param removeBlankLine 是否去除空行
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<String> readList(String filePath, String charset, boolean removeBlankLine) throws IOException {
 		List<String> lineList = new ArrayList<String>();
 		File file = new File(filePath);
 		if (!file.exists()) {
@@ -93,6 +107,10 @@ public class XFileWriter {
 				// XDebugPrint.printlnNowTime("转换前：" + line);
 				// line = new String(line.getBytes(), XConst.CHARSET_UTF8);
 				// System.out.println("转换后：" + line);
+
+				if (removeBlankLine && XStringUtils.isBlank(line)) {
+					continue;
+				}
 
 				lineList.add(line);
 			}
