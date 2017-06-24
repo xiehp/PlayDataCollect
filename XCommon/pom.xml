@@ -94,13 +94,6 @@
 		<dependency>
 			<groupId>com.turn</groupId>
 			<artifactId>ttorrent-core</artifactId>
-			<version>1.5</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.turn</groupId>
-			<artifactId>ttorrent-cli</artifactId>
-			<version>1.5</version>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
