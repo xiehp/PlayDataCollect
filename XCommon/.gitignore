@@ -18,3 +18,7 @@ hs_err_pid*
 *.prefs
 */target/classes/*
 */.settings/*
+
+
+# python
+*.pydevproject
