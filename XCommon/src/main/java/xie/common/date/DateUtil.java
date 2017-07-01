@@ -204,4 +204,41 @@ public class DateUtil {
 		return b1.add(b2).doubleValue();
 	}
 
+	public static final String[] PATTERNS_ALL = new String[] {
+			"yyyy-MM-dd HH:mm:ss",
+			"yyyy/MM/dd HH:mm:ss",
+			"yyyy年MM月dd HH:mm:ss",
+			"yyyy-MM-dd",
+			"yyyy/MM/dd",
+			"yyyy年MM年dd",
+			"yyyy-MM",
+			"yyyy/MM",
+			"yyyy年MM",
+			"yyyyMM"
+	};
+
+	/**
+	 * 使用多种方式转换
+	 * 
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date fromString(String date) throws ParseException {
+		if (date == null) {
+			return null;
+		}
+
+		for (String pattern : PATTERNS_ALL) {
+			if (date.length() == pattern.length()) {
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+					return sdf.parse(date);
+				} catch (Exception e) {
+				}
+			}
+		}
+
+		throw new ParseException("[" + date + "]无法转换成日期", 0);
+	}
 }
