@@ -210,12 +210,31 @@ public class DateUtil {
 			"yyyy年MM月dd HH:mm:ss",
 			"yyyy-MM-dd",
 			"yyyy/MM/dd",
-			"yyyy年MM年dd",
+			"yyyy年MM月dd日",
 			"yyyy-MM",
 			"yyyy/MM",
-			"yyyy年MM",
+			"yyyy年MM月",
 			"yyyyMM"
 	};
+
+	/**
+	 * 使用多种方式转换，允许为日期或字符串类型
+	 */
+	public static Date fromString(Object date) throws ParseException {
+		if (date == null) {
+			return null;
+		}
+
+		if (date instanceof Date) {
+			return (Date) date;
+		}
+
+		if (date instanceof String) {
+			return fromString((String) date);
+		}
+
+		throw new ParseException("[" + date + "]必须是日期或字符串格式才能转换成日期", 0);
+	}
 
 	/**
 	 * 使用多种方式转换
@@ -240,5 +259,109 @@ public class DateUtil {
 		}
 
 		throw new ParseException("[" + date + "]无法转换成日期", 0);
+	}
+
+	/**
+	 * 获取某一天的 00:00:00
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getStartTimeOfDay(Date date) {
+
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(date);
+		day.set(Calendar.HOUR_OF_DAY, 0);
+		day.set(Calendar.MINUTE, 0);
+		day.set(Calendar.SECOND, 0);
+		day.set(Calendar.MILLISECOND, 0);
+
+		return day.getTime();
+	}
+
+	/**
+	 * 获取某天的 23:59:59.999
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getEndTimeOfDay(Date date) {
+
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(date);
+		day.set(Calendar.HOUR_OF_DAY, 23);
+		day.set(Calendar.MINUTE, 59);
+		day.set(Calendar.SECOND, 59);
+		day.set(Calendar.MILLISECOND, 999);
+
+		return day.getTime();
+	}
+
+	/**
+	 * 获取这个时间的月初
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getStartTimeOfMonth(Date date) {
+		Date startDay = getStartTimeOfDay(date);
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(startDay);
+		day.set(Calendar.DATE, 1);
+
+		return day.getTime();
+	}
+
+	/**
+	 * 获取这段时间的月底
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getEndTimeOfMonth(Date date) {
+		Date endDay = getEndTimeOfDay(date);
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(endDay);
+		day.set(Calendar.DATE, day.getActualMaximum(Calendar.DATE));
+
+		return day.getTime();
+	}
+
+	/**
+	 * 获取这段时间的年初
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getStartTimeOfYear(Date date) {
+		Date startDay = getStartTimeOfDay(date);
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(startDay);
+		day.set(Calendar.DATE, 1);
+		day.set(Calendar.MONTH, day.getActualMinimum(Calendar.MONTH));
+
+		return day.getTime();
+	}
+
+	/**
+	 * 获取这段时间的年底
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getEndTimeOfYear(Date date) {
+		Date endDay = getEndTimeOfDay(date);
+		Calendar day = Calendar.getInstance();
+
+		day.setTime(endDay);
+		day.set(Calendar.DATE, day.getActualMaximum(Calendar.DATE));
+		day.set(Calendar.MONTH, day.getActualMaximum(Calendar.MONTH));
+
+		return day.getTime();
 	}
 }
