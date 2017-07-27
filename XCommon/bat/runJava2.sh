@@ -36,7 +36,7 @@ echo CLASSPATH: $CLASSPATH
 echo
 echo
 
-java -Xms50m -Xmx250m -Dhttp.proxyHost=10.144.224.190 -Dhttp.proxyPort=7888 -Dhttps.proxyHost=10.144.224.190 -Dhttps.proxyPort=7888 xie.animeshotsite.utils.ResourceCollectUtils
+java -Xms50m -Xmx250m -Dhttp.proxyHost=10.31.229.157 -Dhttp.proxyPort=7888 -Dhttps.proxyHost=10.31.229.157 -Dhttps.proxyPort=7888 xie.animeshotsite.utils.ResourceCollectUtils
 
 echo Process End
 

@@ -17,7 +17,7 @@
 		<java.version>1.8</java.version>
 
 		<!-- spring.io版本 -->
-		<spring.io.version>Brussels-SR2</spring.io.version>
+		<spring.io.version>Brussels-SR3</spring.io.version>
 	</properties>
 
 	<dependencyManagement>
