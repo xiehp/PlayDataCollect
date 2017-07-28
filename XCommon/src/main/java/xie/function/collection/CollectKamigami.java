@@ -3,6 +3,7 @@ package xie.function.collection;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -31,6 +32,8 @@ public class CollectKamigami {
 
 		List<String> listTorrent = XRegularUtils.find(xmlStr, findRegStr);
 		// listTorrent.forEach(str -> System.out.println(str));
+		// 去重复
+		listTorrent = listTorrent.stream().distinct().collect(Collectors.toList());
 
 		return listTorrent;
 	}
