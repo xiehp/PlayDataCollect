@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TietukuConfig {
-	@Value("#{tietuku.token}")
+	@Value(value = "#{tietuku.token}")
 	private String tietukuToken;
 
 	/** 存放gif的token */
-	@Value("#{tietuku.tokengif}")
+	@Value(value = "#{tietuku.tokengif}")
 	private String tietukuTokenGif;
 
 	public String getTietukuToken() {
