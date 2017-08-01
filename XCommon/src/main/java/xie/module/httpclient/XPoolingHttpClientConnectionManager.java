@@ -34,6 +34,7 @@ public class XPoolingHttpClientConnectionManager {
 	private HttpClient httpClient;
 
 	public XPoolingHttpClientConnectionManager() throws NoSuchAlgorithmException, KeyManagementException {
+		logger.info("初始化httpClient");
 		// 首先设置全局的标准cookie策略
 		requestConfig = RequestConfig.custom()
 				.setCookieSpec(CookieSpecs.STANDARD_STRICT)
@@ -75,6 +76,7 @@ public class XPoolingHttpClientConnectionManager {
 			proxyPortStr = proxyPortStr == null ? "80" : proxyPortStr;
 			if (proxyHostStr != null) {
 				HttpHost proxyHost = new HttpHost(proxyHostStr, Integer.valueOf(proxyPortStr));
+				logger.info("发现java参数中代理设置：{}, {}", proxyHostStr, proxyPortStr);
 				return proxyHost;
 			}
 		}
@@ -87,6 +89,7 @@ public class XPoolingHttpClientConnectionManager {
 				String hostname = proxyArr[0];
 				String port = proxyArr.length > 1 ? proxyArr[1] : "80";
 				HttpHost proxyHost = new HttpHost(hostname, Integer.valueOf(port));
+				logger.info("发现linux系统参数中代理设置：{}, {}", hostname, port);
 				return proxyHost;
 			}
 		}

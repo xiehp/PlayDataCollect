@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
+import java.util.function.Function;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -65,7 +66,7 @@ public class PostImage {
 		return doUpload(file, token);
 	}
 
-	public TietukuUploadResponse uploadToTietuku(File file, String tietukuToken) {
+	public TietukuUploadResponse uploadToTietuku(File file, String tietukuToken, Function<TietukuUploadResponse, Object> fun) {
 		String responseStr = null;
 		TietukuUploadResponse responseUpload = null;
 		String tietukuUrl = null;
@@ -85,6 +86,12 @@ public class PostImage {
 				logger.error("贴图库上传失败，返回值：{},{}", responseUpload.getCode(), responseUpload.getInfo());
 				try {
 					if ("4019".equals(responseUpload.getCode())) {
+						// 暂停前执行操作
+						if (fun != null) {
+							fun.apply(responseUpload);
+						}
+
+						// 暂停
 						long sleepTime = XTimeUtils.getNeedTimeNextHour();
 						sleepTime += 300 * 1000;
 						logger.error("暂停" + (sleepTime / 1000) + "秒");
