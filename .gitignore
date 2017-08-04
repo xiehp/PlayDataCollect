@@ -1,4 +1,4 @@
-*.class
+ï»¿*.class
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -32,10 +32,11 @@ sitemap_detail.xml
 
 # idea file
 *.iml
+.idea
 
 
 
-# vuzeµÄÖ´ÐÐÁÙÊ±Ä¿Â¼
+# vuzeçš„æ‰§è¡Œä¸´æ—¶ç›®å½•
 jcpuid.dll
 jbigi.dll
 aereg64.dll
@@ -46,5 +47,5 @@ AzureusUpdater.exe
 
 
 
-# python ÉèÖÃ
+# python è®¾ç½®
 .pydevproject
