@@ -1,0 +1,27 @@
+spring:
+  thymeleaf:
+    cache: false
+
+  datasource:
+    url: jdbc:h2:file:/home/software/carprice/db/test;AUTO_SERVER=TRUE
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: 7080
+
+
+img:
+  downPath: /home/software/carprice/tmp/imgs
+  remoteAddress: http://www.yjysh.com/carloan/attachment/img/
+
+carloan:
+#  removeApiAddress: http://192.168.100.178:6080/carPriceApi/
+  removeApiAddress: http://yjytest.yjysh.com:10090/carloan-manage/carPriceApi/

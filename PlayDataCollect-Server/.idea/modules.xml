@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../PlayDataCollect-Collector/PlayDataCollect-Collector.iml" filepath="$PROJECT_DIR$/../PlayDataCollect-Collector/PlayDataCollect-Collector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PlayDataCollect-Parent/Parent.iml" filepath="$PROJECT_DIR$/../PlayDataCollect-Parent/Parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayDataCollect-Server.iml" filepath="$PROJECT_DIR$/PlayDataCollect-Server.iml" />
+    </modules>
+  </component>
+</project>
