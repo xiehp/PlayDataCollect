@@ -49,3 +49,8 @@ AzureusUpdater.exe
 
 # python 设置
 .pydevproject
+
+
+
+# 运行生成的文件
+logs/**
