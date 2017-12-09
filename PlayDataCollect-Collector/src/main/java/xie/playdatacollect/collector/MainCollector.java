@@ -6,12 +6,11 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@Controller
+@RestController
 @EnableAutoConfiguration
 public class MainCollector {
 
     @RequestMapping("/aaaa")
-    @ResponseBody
     String home() {
         return "Hello World!";
     }
