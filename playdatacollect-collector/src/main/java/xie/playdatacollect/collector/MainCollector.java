@@ -18,7 +18,14 @@ public class MainCollector {
     public static void main(String[] args) throws Exception {
         // 完全不使用开发辅助工具热重启
         //System.setProperty("spring.devtools.restart.enabled", "false");
-
+        int a =1;
+        while(true) {
+            a++;
+            if (a > 10) {
+                break;
+            }
+            System.out.println(0111);
+        }
         SpringApplication.run(MainCollector.class, args);
     }
 }
