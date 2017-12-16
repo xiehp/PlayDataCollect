@@ -1,10 +1,9 @@
 package xie.playdatacollect.collector;
 
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
@@ -18,8 +17,8 @@ public class MainCollector {
     public static void main(String[] args) throws Exception {
         // 完全不使用开发辅助工具热重启
         //System.setProperty("spring.devtools.restart.enabled", "false");
-        int a =1;
-        while(true) {
+        int a = 1;
+        while (true) {
             a++;
             if (a > 10) {
                 break;
