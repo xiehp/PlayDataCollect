@@ -10,7 +10,7 @@
 	</parent>
 
 	<!-- 通用模块 -->
-	<artifactId>playdatacollect-commons</artifactId>
+	<artifactId>playdatacollect-commons-parent</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>

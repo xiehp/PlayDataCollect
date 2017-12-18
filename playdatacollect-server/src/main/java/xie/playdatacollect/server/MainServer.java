@@ -5,17 +5,19 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @EnableAutoConfiguration
-public class ServerMain {
+public class MainServer {
 
 	@RequestMapping("/")
-	@ResponseBody
-	public String home() {
-		return "Hello World!";
+	public String index() {
+		return "This is Server!";
 	}
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(ServerMain.class, args);
+		// 完全不使用开发辅助工具热重启
+		//System.setProperty("spring.devtools.restart.enabled", "false");
+
+		SpringApplication.run(MainServer.class, args);
 	}
 }
