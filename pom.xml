@@ -30,25 +30,6 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- Inherit defaults from Spring Boot -->
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.M7</version>
-	</parent>
-
-	<!-- 采集器模块父类 -->
-	<groupId>xie.playdatacollect</groupId>
-	<artifactId>playdatacollect-parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
-	<modules>
-		<module>commons</module>
-		<module>playdatacollect-collector</module>
-		<module>playdatacollect-server</module>
-	</modules>
-
 	<properties>
 		<!-- 文件拷贝时的编码 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -59,8 +40,28 @@
 		<java.version>1.8</java.version>
 
 		<!-- spring.io版本 -->
-		<spring.io.version>Brussels-SR5</spring.io.version>
+		<spring.io.version>Brussels-SR6</spring.io.version>
+		<spring.boot.parent.version>2.0.0.M7</spring.boot.parent.version>
 	</properties>
+
+	<!-- Inherit defaults from Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.M7</version>
+	</parent>
+
+	<!-- 父类 -->
+	<groupId>xie.playdatacollect</groupId>
+	<artifactId>playdatacollect-parent</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>commons</module>
+		<module>playdatacollect-collector</module>
+		<module>playdatacollect-server</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
