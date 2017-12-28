@@ -58,6 +58,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>config</module>
 		<module>commons</module>
 		<module>playdatacollect-collector</module>
 		<module>playdatacollect-server</module>
