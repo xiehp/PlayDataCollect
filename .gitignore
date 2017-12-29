@@ -1,9 +1,8 @@
 ﻿# eclipse file
 .classpath
 .project
-/*/.settings
+.settings
 /*/.externalToolBuilders
-
 
 # idea file
 *.iml
