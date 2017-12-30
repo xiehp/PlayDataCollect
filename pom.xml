@@ -60,8 +60,9 @@
 	<modules>
 		<module>config</module>
 		<module>commons</module>
-		<module>playdatacollect-collector</module>
 		<module>playdatacollect-server</module>
+		<module>playdatacollect-monitor</module>
+		<module>playdatacollect-collector</module>
 	</modules>
 
 	<dependencyManagement>
