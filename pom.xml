@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -58,11 +58,14 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>base</module>
 		<module>config</module>
 		<module>commons</module>
 		<module>playdatacollect-server</module>
 		<module>playdatacollect-monitor</module>
 		<module>playdatacollect-collector</module>
+
+		<module>dummy</module>
 	</modules>
 
 	<dependencyManagement>
@@ -77,6 +80,12 @@
 			</dependency>
 			-->
 
+			<!-- 自己工程的依赖 -->
+			<dependency>
+				<groupId>xie.playdatacollect</groupId>
+				<artifactId>playdatacollect-base-db</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

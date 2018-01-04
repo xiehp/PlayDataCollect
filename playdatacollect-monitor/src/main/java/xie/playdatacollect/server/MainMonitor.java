@@ -2,7 +2,6 @@ package xie.playdatacollect.server;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,10 +13,10 @@ public class MainMonitor {
 		return "This is Server!";
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");
 
-		SpringApplication.run(MainServer.class, args);
+		SpringApplication.run(MainMonitor.class, args);
 	}
 }
