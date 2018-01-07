@@ -86,8 +86,22 @@
 				<artifactId>playdatacollect-base-db</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+
+			<!-- 自己基础项目的依赖 -->
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xcommon</artifactId>
+				<version>1.0.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xcommon</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

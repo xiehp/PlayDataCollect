@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -23,8 +22,8 @@ public class MainDummyServer {
 	}
 
 
-	int site1_getPayCount_request_count = 0;
-	Random random = new Random(100);
+	private int site1_getPayCount_request_count = 0;
+	private Random random = new Random(100);
 	@RequestMapping("/site1/getPayCount")
 	@ResponseBody
 	public Map<String, Object> site1_getPayCount(
