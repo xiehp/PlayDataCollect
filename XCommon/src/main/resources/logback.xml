@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<property name="LOG_HOME" value="logs/" />
-	<property name="LOG_MSG_PATTERN_WITH_DATE" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
-	<property name="LOG_MSG_PATTERN_NO_DATE" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %class{40} - %msg%n" />
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %caller{1} - %msg%n" />
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %logger{40} - %msg%n" />
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %-40logger{40}:%4L - %msg%n" />
+
+	<property name="LOG_MSG_PATTERN_WITH_DATE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}" />
+	<property name="LOG_MSG_PATTERN_NO_DATE" value="%d{HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}" />
 	<property name="MAX_FILE_SIZE" value="20MB" />
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- 典型的日志pattern -->
 		<encoder>
-			<pattern>${LOG_MSG_PATTERN_WITH_DATE}</pattern>
+			<pattern>${LOG_MSG_PATTERN_NO_DATE}</pattern>
 		</encoder>
 	</appender>
-	
+
 	<!-- 演示按时间滚动的策略 -->
-	<appender name="defaultlogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="defaultLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_HOME}framework.log</file>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
