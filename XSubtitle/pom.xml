@@ -1,59 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>xie</groupId>
+
+	<parent>
+		<groupId>xie</groupId>
+		<artifactId>common-parent</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>XSubtitle</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>XSubtitle</name>
 	<description>XSubtitle</description>
 
-	<properties>
-		<!-- 文件拷贝时的编码 -->
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<!-- 编译时的编码 -->
-		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- 版本管理 -->
-			<dependency>
-				<groupId>xie</groupId>
-				<artifactId>XImportPom</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>xcommon</artifactId>
+			<version>${xie.common.version}</version>
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<!-- 定义使用jdk编译版本 UTF-8编译 -->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

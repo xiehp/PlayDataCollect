@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>xie</groupId>
+	<artifactId>common-parent</artifactId>
+	<version>${xie.common.version}</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- common版本 -->
+		<xie.common.version>2.0-SNAPSHOT</xie.common.version>
+
+		<!-- 文件拷贝时的编码 -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- 编译时的编码 -->
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- spring.io版本 -->
+		<spring.io.version>Brussels-SR6</spring.io.version>
+		<spring.boot.parent.version>2.0.0.M7</spring.boot.parent.version>
+	</properties>
+
+	<modules>
+		<module>XCommon</module>
+		<module>XSubtitle</module>
+		<module>tietuku_sdk_java</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.spring.platform</groupId>
+				<artifactId>platform-bom</artifactId>
+				<version>${spring.io.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
+			<!-- 自己基础项目的依赖 -->
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xcommon</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+
+
+			<!-- 其他第三方依赖 -->
+			<!-- html -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.10.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.turn</groupId>
+				<artifactId>ttorrent-core</artifactId>
+				<version>1.5</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.turn</groupId>
+				<artifactId>ttorrent-cli</artifactId>
+				<version>1.5</version>
+				<optional>true</optional>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<!-- 定义使用jdk编译版本 UTF-8编译 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- Generate Git Information -->
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
