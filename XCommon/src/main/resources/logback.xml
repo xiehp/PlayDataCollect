@@ -22,7 +22,7 @@
 		<file>${LOG_HOME}framework.log</file>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}framework.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${LOG_HOME}framework.%d.%i{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 保留 30天数据，默认无限-->
 			<maxHistory>7</maxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
