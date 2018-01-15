@@ -18,7 +18,6 @@
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>xcommon</artifactId>
-			<version>${xie.common.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -12,6 +12,9 @@
 	<properties>
 		<!-- common版本 -->
 		<xie.common.version>2.0-SNAPSHOT</xie.common.version>
+		<xie.xcommon.version>2.0-SNAPSHOT</xie.xcommon.version>
+		<xie.tietuku.sdk.version>0.0.1-SNAPSHOT</xie.tietuku.sdk.version>
+		<xie.XSubtitle.version>0.0.1-SNAPSHOT</xie.XSubtitle.version>
 
 		<!-- 文件拷贝时的编码 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

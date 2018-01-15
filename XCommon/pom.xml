@@ -8,6 +8,7 @@
 	</parent>
 
 	<artifactId>xcommon</artifactId>
+	<version>${xie.xcommon.version}</version>
 
 	<dependencies>
 		<!-- Compile -->
