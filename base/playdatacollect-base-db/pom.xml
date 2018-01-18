@@ -19,11 +19,16 @@
 
     <!-- Add typical dependencies for a web application -->
     <dependencies>
+		<!-- 自己工程的依赖 -->
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xcommon</artifactId>
+		</dependency>
+
         <!-- 数据库，可更换 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- spring -->
