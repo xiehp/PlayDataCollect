@@ -1,4 +1,4 @@
-package xie.playdatacollect.collector.fun.test1.Test2;
+package xie.playdatacollect.testandstudy.db.app.fun.test1.Test2;
 
 import xie.playdatacollect.base.db.repository.BaseRepository;
 

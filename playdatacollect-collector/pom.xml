@@ -24,6 +24,10 @@
 			<groupId>xie.playdatacollect</groupId>
 			<artifactId>playdatacollect-base-db</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-testandstudy</artifactId>
+		</dependency>
 
 		<!-- 开发辅助工具
 		<dependency>

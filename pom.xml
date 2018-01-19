@@ -58,6 +58,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>testAndStudy</module>
 		<module>base</module>
 		<module>config</module>
 		<module>commons</module>
@@ -84,6 +85,11 @@
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-base-db</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie.playdatacollect</groupId>
+				<artifactId>playdatacollect-testandstudy</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

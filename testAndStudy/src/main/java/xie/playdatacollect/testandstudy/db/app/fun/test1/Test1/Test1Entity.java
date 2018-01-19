@@ -1,4 +1,4 @@
-package xie.playdatacollect.collector.fun.test1.Test2;
+package xie.playdatacollect.testandstudy.db.app.fun.test1.Test1;
 
 import xie.playdatacollect.base.db.entity.BaseEntity;
 
@@ -6,11 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test2")
+@Table(name = "test1")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Test2Entity extends BaseEntity {
+public class Test1Entity extends BaseEntity {
 	private String col1;
-	private String col2;
 
 
 	public String getCol1() {
@@ -19,13 +18,5 @@ public class Test2Entity extends BaseEntity {
 
 	public void setCol1(String col1) {
 		this.col1 = col1;
-	}
-
-	public String getCol2() {
-		return col2;
-	}
-
-	public void setCol2(String col2) {
-		this.col2 = col2;
 	}
 }

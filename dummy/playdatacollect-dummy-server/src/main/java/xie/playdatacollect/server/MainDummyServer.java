@@ -1,5 +1,7 @@
 package xie.playdatacollect.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -15,6 +17,7 @@ import java.util.Random;
 @RestController
 @EnableAutoConfiguration
 public class MainDummyServer {
+	Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping("/")
 	public String index() {
@@ -28,12 +31,14 @@ public class MainDummyServer {
 	@ResponseBody
 	public Map<String, Object> site1_getPayCount(
 			@RequestParam(required = false) String title) {
-		int aaa = random.nextInt(10) + site1_getPayCount_request_count;
-		site1_getPayCount_request_count = aaa;
+		int count = random.nextInt(10) + site1_getPayCount_request_count;
+		site1_getPayCount_request_count = count;
 
 		Map<String, Object> getPayCount = new HashMap<>();
 		getPayCount.put("title", StringUtils.isEmpty(title) ? "the title" : title);
-		getPayCount.put("payCount", aaa);
+		getPayCount.put("payCount", count);
+
+		log.info(getPayCount.toString());
 		return getPayCount;
 	}
 
