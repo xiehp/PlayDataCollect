@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import xie.module.log.XLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,9 @@ public class MainDummyServer {
 		getPayCount.put("payCount", count);
 
 		log.info(getPayCount.toString());
+
+		XLog.info(getPayCount.toString());
+		XLog.getLog().info(getPayCount.toString());
 		return getPayCount;
 	}
 

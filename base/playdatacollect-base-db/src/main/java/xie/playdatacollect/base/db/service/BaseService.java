@@ -49,16 +49,16 @@ public abstract class BaseService<M extends IdEntity, ID extends Serializable> {
 	}
 
 	public M findOne(ID id) {
-		return getBaseRepository().findById(id).get();
+		return getBaseRepository().findById(id).orElse(null);
 	}
 
 	@Deprecated
 	public M findOne(ID id, boolean useCache) {
-		return getBaseRepository().findById(id).get();
+		return getBaseRepository().findById(id).orElse(null);
 	}
 
 	public M findById(ID id) {
-		return getBaseRepository().findById(id).get();
+		return getBaseRepository().findById(id).orElse(null);
 	}
 
 	public List<M> findAll() {
@@ -239,9 +239,8 @@ public abstract class BaseService<M extends IdEntity, ID extends Serializable> {
 	 * 随机获得数据
 	 * 
 	 * @param range 范围，-1或小于0时，自动获得最大值
-	 * @param number
+	 * @param number number
 	 * @param addSearchParams EQ_COLUMN,Value格式的搜索条件，可以为null
-	 * @return
 	 */
 	public List<M> findRandom(int range, int number, Class<M> clazz, Map<String, Object> addSearchParams) {
 		if (range == 0 || number == 0 || clazz == null) {
