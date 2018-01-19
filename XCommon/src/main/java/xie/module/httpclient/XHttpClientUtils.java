@@ -1,14 +1,8 @@
 package xie.module.httpclient;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-
-import javax.annotation.Resource;
-
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
@@ -18,8 +12,11 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-
 import xie.common.constant.XConst;
+
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 @Component
 public class XHttpClientUtils {
@@ -27,12 +24,12 @@ public class XHttpClientUtils {
 	@Resource
 	XPoolingHttpClientConnectionManager manager;
 
+	public  XHttpClientUtils(XPoolingHttpClientConnectionManager manager) {
+		this.manager = manager;
+	}
+
 	/**
 	 * 获得默认的HttpClient
-	 * 
-	 * @return
-	 * @throws ClientProtocolException
-	 * @throws IOException
 	 */
 	public HttpClient getHttpClient()  {
 		return manager.getHttpClient();

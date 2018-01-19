@@ -75,4 +75,8 @@ public class XConst {
 	public static final String PROPERTIES_VALUE_FALSE = "0";
 
 	public static final long NOW_TIME_RATE = 10000;
+
+	public static final int FLAG_INT_YES = 1;
+	public static final int FLAG_INT_NO = 0;
+
 }
