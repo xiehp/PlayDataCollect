@@ -1,20 +1,14 @@
 package xie.module.httpclient;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class XHttpClientProperties {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	/** 百度翻译key */
-	@Value("${xie.http.proxy.host}")
+	@Value("${xie.httpclient.proxy.httpProxyHost:}")
 	private String httpProxyHost;
 
-	/** 百度翻译key */
-	@Value("${xie.http.proxy.port}")
+	@Value("${xie.httpclient.proxy.httpProxyPort:}")
 	private String httpProxyPort;
 
 	public String getHttpProxyHost() {

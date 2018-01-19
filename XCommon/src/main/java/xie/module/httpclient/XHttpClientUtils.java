@@ -18,10 +18,8 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-@Component
 public class XHttpClientUtils {
 
-	@Resource
 	XPoolingHttpClientConnectionManager manager;
 
 	public  XHttpClientUtils(XPoolingHttpClientConnectionManager manager) {

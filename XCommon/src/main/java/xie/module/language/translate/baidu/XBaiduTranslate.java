@@ -10,11 +10,11 @@ import xie.module.language.translate.XTranslate;
 public class XBaiduTranslate implements XTranslate {
 
 	/** APP ID */
-	@Value("${xie.baidu.translate.appid}")
+	@Value("${xie.baidu.translate.appid:}")
 	private String appId;
 
 	/** 密钥 */
-	@Value("${xie.baidu.translate.key}")
+	@Value("${xie.baidu.translate.key:}")
 	private String key;
 
 	public String getAppId() {

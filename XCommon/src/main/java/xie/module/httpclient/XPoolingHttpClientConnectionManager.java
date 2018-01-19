@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import xie.common.trust.XNoCheckX509HostnameVerifier;
 import xie.common.trust.XNoCheckX509TrustManager;
 
-@Component
+//@Component
 public class XPoolingHttpClientConnectionManager {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 

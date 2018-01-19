@@ -33,10 +33,10 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 
 	public void putIntoMap(String value, XEnum<E> a) {
 		Class<?> c = (Class<?>) a.getClass();
-		Map<String, XEnum<?>> valueMap = VALUE_TO_EUMN_MAP.get(c);
+		Map<String, XEnum<?>> valueMap = VALUE_TO_ENUM_MAP.get(c);
 		if (valueMap == null) {
 			valueMap = new LinkedHashMap<>();
-			VALUE_TO_EUMN_MAP.put(c, valueMap);
+			VALUE_TO_ENUM_MAP.put(c, valueMap);
 		}
 
 		valueMap.put(value.toLowerCase(), a);
@@ -45,7 +45,7 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 	// private final Map<String, XEnum<T>> valueMap = new LinkedHashMap<>();
 	// private final Map<String, XEnum<T>> nameMap = new LinkedHashMap<>();
 	/** 用于存放所有枚举的值和类的对应关系，value -> XENUM枚举实例 */
-	private static final Map<Class<?>, Map<String, XEnum<?>>> VALUE_TO_EUMN_MAP = new LinkedHashMap<>();
+	private static final Map<Class<?>, Map<String, XEnum<?>>> VALUE_TO_ENUM_MAP = new LinkedHashMap<>();
 
 	/**
 	 * 获得标识ID
@@ -68,7 +68,7 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 	 * @return
 	 */
 	public static <T extends XEnum<?>> Map<String, XEnum<?>> getValueMap(Class<T> c) {
-		Map<String, XEnum<?>> map = VALUE_TO_EUMN_MAP.get(c);
+		Map<String, XEnum<?>> map = VALUE_TO_ENUM_MAP.get(c);
 		if (map != null) {
 			return map;
 		}
@@ -85,13 +85,13 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 			//e.printStackTrace();
 		}
 
-		map = VALUE_TO_EUMN_MAP.get(c);
+		map = VALUE_TO_ENUM_MAP.get(c);
 		if (map == null) {
 			map = new LinkedHashMap<>();
-			VALUE_TO_EUMN_MAP.put(c, map);
+			VALUE_TO_ENUM_MAP.put(c, map);
 		}
 
-		return VALUE_TO_EUMN_MAP.get(c);
+		return VALUE_TO_ENUM_MAP.get(c);
 	}
 
 	public static <T extends XEnum<T>> T parseValue(String value, Class<T> c) {

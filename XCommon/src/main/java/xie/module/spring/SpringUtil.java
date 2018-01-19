@@ -1,18 +1,16 @@
 package xie.module.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -43,11 +41,11 @@ public class SpringUtil implements BeanFactoryAware {
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(SpringUtil.class);
 
-	/** The locator. */
-	private static volatile BeanFactoryLocator locator;
-
-	/** The bfr. */
-	private static BeanFactoryReference bfr;
+//	/** The locator. */
+//	private static volatile BeanFactoryLocator locator;
+//
+//	/** The bfr. */
+//	private static BeanFactoryReference bfr;
 
 	/** The factory. */
 	private static ApplicationContext ctx;

@@ -4,6 +4,32 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- Add Spring repositories -->
+	<!-- (you don't need this if you are using a .RELEASE version) -->
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<groupId>xie</groupId>
 	<artifactId>common-parent</artifactId>
 	<version>${xie.common.version}</version>
@@ -29,6 +55,13 @@
 		<spring.boot.parent.version>2.0.0.M7</spring.boot.parent.version>
 	</properties>
 
+	<!-- Inherit defaults from Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.M7</version>
+	</parent>
+
 	<modules>
 		<module>XCommon</module>
 		<module>XSubtitle</module>
@@ -37,13 +70,13 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>io.spring.platform</groupId>
-				<artifactId>platform-bom</artifactId>
-				<version>${spring.io.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>io.spring.platform</groupId>-->
+				<!--<artifactId>platform-bom</artifactId>-->
+				<!--<version>${spring.io.version}</version>-->
+				<!--<type>pom</type>-->
+				<!--<scope>import</scope>-->
+			<!--</dependency>-->
 
 
 			<!-- 自己基础项目的依赖 -->
