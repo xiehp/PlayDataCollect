@@ -128,7 +128,7 @@ public class DateUtil {
 	}
 
 	public static Long getCurrentTime() {
-		return new Date().getTime();
+		return System.currentTimeMillis();
 	}
 
 	public static int getAge(String birth, String format) {

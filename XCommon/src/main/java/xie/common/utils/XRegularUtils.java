@@ -69,7 +69,7 @@ public class XRegularUtils {
 		urlList.add("xxx01XXX");
 		urlList.add("xxx02XXX");
 		urlList.add("xxx03XXX");
-		Pattern pattern = Pattern.compile("xxx([0-9]+)XXX");
+		final Pattern pattern = Pattern.compile("xxx([0-9]+)XXX");
 		// Pattern pattern = Pattern.compile("[0-9]+");
 		for (String str : urlList) {
 			Matcher matcher = pattern.matcher(str);

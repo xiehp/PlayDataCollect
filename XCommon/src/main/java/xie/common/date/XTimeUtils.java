@@ -1,10 +1,11 @@
 package xie.common.date;
 
+import ch.qos.logback.core.util.TimeUtil;
+
 import java.text.ParseException;
 import java.util.Date;
 
-import ch.qos.logback.core.util.TimeUtil;
-
+@SuppressWarnings("ALL")
 public class XTimeUtils {
 
 	public static long timeDif;
@@ -68,7 +69,7 @@ public class XTimeUtils {
 	 * @return
 	 */
 	public static long getNeedTimeNextTime(long cycleTime) {
-		long nowTime = new Date().getTime();
+		long nowTime = System.currentTimeMillis();
 		long sleepTime = cycleTime - nowTime % cycleTime;
 		return sleepTime;
 	}
@@ -86,11 +87,11 @@ public class XTimeUtils {
 		System.out.println(XTimeUtils.parseFromTimeStr("00:01:10.111", "HH:mm:ss.SSS"));
 		System.out.println(XTimeUtils.parseFromTimeStr("01:00:10.11", "H:m:s.S"));
 		;
-		System.out.println(getNeedTimeNextMSec() + new Date().getTime());
-		System.out.println(TimeUtil.computeStartOfNextSecond(new Date().getTime()));
-		System.out.println(getNeedTimeNextHour() + new Date().getTime());
-		System.out.println(TimeUtil.computeStartOfNextHour(new Date().getTime()));
-		System.out.println(getNeedTimeNextDay() + new Date().getTime());
-		System.out.println(TimeUtil.computeStartOfNextDay(new Date().getTime()));
+		System.out.println(getNeedTimeNextMSec() + System.currentTimeMillis());
+		System.out.println(TimeUtil.computeStartOfNextSecond(System.currentTimeMillis()));
+		System.out.println(getNeedTimeNextHour() + System.currentTimeMillis());
+		System.out.println(TimeUtil.computeStartOfNextHour(System.currentTimeMillis()));
+		System.out.println(getNeedTimeNextDay() + System.currentTimeMillis());
+		System.out.println(TimeUtil.computeStartOfNextDay(System.currentTimeMillis()));
 	}
 }

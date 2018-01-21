@@ -1,7 +1,5 @@
 package xie.common.utils;
 
-import java.util.Date;
-
 public class XWaitTime {
 	/** 开始计算时间 微妙 */
 	private long startTime;
@@ -13,7 +11,7 @@ public class XWaitTime {
 	 * @param timeout 超时时间 微妙
 	 */
 	public XWaitTime(long timeout) {
-		startTime = new Date().getTime();
+		startTime = System.currentTimeMillis();
 		this.timeout = timeout;
 	}
 
@@ -37,7 +35,7 @@ public class XWaitTime {
 	 * 重置时计算的起始时间设为当前时间
 	 */
 	public void resetNowtime() {
-		startTime = new Date().getTime();
+		startTime = System.currentTimeMillis();
 	}
 
 	/**
@@ -73,7 +71,7 @@ public class XWaitTime {
 	 * @return
 	 */
 	public long getPastTime() {
-		return new Date().getTime() - startTime;
+		return System.currentTimeMillis() - startTime;
 	}
 
 }

@@ -1,9 +1,9 @@
 package xie.common.utils;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 public class XWaitChange {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -53,7 +53,7 @@ public class XWaitChange {
 	 * @return 经过的时间
 	 */
 	public long getPastTime() {
-		return new Date().getTime() - beginTime;
+		return System.currentTimeMillis() - beginTime;
 	}
 
 	public synchronized boolean isChanged(Object value) {
