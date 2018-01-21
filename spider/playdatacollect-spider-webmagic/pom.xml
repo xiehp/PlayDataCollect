@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>xie.playdatacollect</groupId>
+		<artifactId>playdatacollect-spider</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- 服务器模块 -->
+	<artifactId>playdatacollect-spider-webmagic</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- 自己的公共依赖 -->
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xcommon</artifactId>
+		</dependency>
+
+		<!-- 开发辅助工具 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- spring依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 爬虫框架依赖 -->
+		<dependency>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-core</artifactId>
+			<version>0.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-extension</artifactId>
+			<version>0.7.3</version>
+		</dependency>
+
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 是否可以让spring dev tool 运行在开发环境之外，如生产环境  -->
+					<!--<excludeDevtools>false</excludeDevtools>-->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
