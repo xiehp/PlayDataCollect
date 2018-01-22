@@ -10,8 +10,13 @@
 	</parent>
 
 	<!-- 通用模块 -->
-	<artifactId>playdatacollect-testandstudy</artifactId>
+	<artifactId>playdatacollect-core</artifactId>
 	<packaging>pom</packaging>
+
+	<modules>
+		<module>playdatacollect-core-db</module>
+		<module>playdatacollect-core-spring</module>
+	</modules>
 
 	<properties>
 
@@ -19,14 +24,6 @@
 
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
-		<dependency>
-			<groupId>xie.playdatacollect</groupId>
-			<artifactId>playdatacollect-core-db</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>xie.playdatacollect</groupId>
-			<artifactId>playdatacollect-spider-webmagic</artifactId>
-		</dependency>
 
 	</dependencies>
 

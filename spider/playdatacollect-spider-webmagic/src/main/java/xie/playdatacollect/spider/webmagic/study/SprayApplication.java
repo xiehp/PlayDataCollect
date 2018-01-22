@@ -3,8 +3,6 @@ package xie.playdatacollect.spider.webmagic.study;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,12 +16,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan
 @SpringBootApplication
 @EnableScheduling
-public class SprayApplication extends SpringBootServletInitializer {
+public class SprayApplication {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SprayApplication.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//		return application.sources(SprayApplication.class);
+//	}
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SprayApplication.class, args);
