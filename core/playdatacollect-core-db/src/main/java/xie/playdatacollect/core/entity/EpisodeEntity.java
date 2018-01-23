@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "test1")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProjectEntity extends BaseEntity {
+public class EpisodeEntity extends BaseEntity {
 	/** 名字 */
 	private String name;
+
 }

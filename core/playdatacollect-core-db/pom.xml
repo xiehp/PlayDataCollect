@@ -34,6 +34,10 @@
 		<!-- 自己基础项目的依赖 -->
 
         <!-- spring -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 
 	</dependencies>
 

@@ -1,0 +1,13 @@
+<!-- http://shalnsrv02.corp.ats.net/test/mn_sha.nsf/DATA_IQS_TO_SAP -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:DefaultNamespace">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<urn:PLZ_KEY>MAINY-00</urn:PLZ_KEY>
+		<urn:WERK_KEY>8000</urn:WERK_KEY>
+		<urn:ID_KEY>SV-361-02-41</urn:ID_KEY>
+		<urn:ERNAM>2878654</urn:ERNAM>
+		<urn:KTEXT>H-生产过程吸嘴异常</urn:KTEXT>
+		<urn:EQ_KEY></urn:EQ_KEY>
+	</soapenv:Body>
+</soapenv:Envelope>
+

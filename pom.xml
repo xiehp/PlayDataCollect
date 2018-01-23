@@ -91,6 +91,11 @@
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
+				<artifactId>playdatacollect-base-spring</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-core-db</artifactId>
 				<version>${project.version}</version>
 			</dependency>
