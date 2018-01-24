@@ -6,15 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 测量标签
+ * 指标
  */
 @Entity
 @Table(name = "test1")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TagEntity extends BaseEntity {
-	/** 标签名字 */
+public class MetricEntity extends BaseEntity {
+	/** 指标名字 */
 	private String name;
 
-	/** 标签关键字 */
+	/** 指标关键字 */
 	private String key;
 }

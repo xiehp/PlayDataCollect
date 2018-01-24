@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -108,6 +109,14 @@ public class MainCollector {
 		return aaaa;
 	}
 
+
+	/**
+	 * 从0点开始,每2个小时执行一次
+	 */
+	@Scheduled(cron = "0 0 0 1 * ? ")
+	public void runScheduled() {
+		System.out.println("----开始执行简书定时任务");
+	}
 
 	public static void main(String[] args) {
 		// 完全不使用开发辅助工具热重启

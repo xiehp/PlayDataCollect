@@ -1,5 +1,7 @@
 package xie.playdatacollect.spider.webmagic.study2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 public class Test2Processor implements PageProcessor {
 
-	private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setUseGzip(true);
+	private Site site = Site.me().setRetryTimes(2).setSleepTime(500).setUseGzip(true);
 
 	@Override
 	public void process(Page page) {
@@ -54,9 +56,10 @@ public class Test2Processor implements PageProcessor {
 		list.add("https://bangumi.bilibili.com/anime/6445"); // 3月的狮子 第二季
 		list.add("https://www.bilibili.com/bangumi/play/ep115339"); // 3月的狮子 第二季 第24话 混沌/隈仓
 
+		Logger log = LoggerFactory.getLogger(Test2Processor.class);
 		List<ResultItems> resultItemses = spider.getAll(list);
 		for (ResultItems resultItemse : resultItemses) {
-			System.out.println(resultItemse.getAll());
+			log.info(resultItemse.getAll().toString());
 		}
 		spider.close();
 	}
