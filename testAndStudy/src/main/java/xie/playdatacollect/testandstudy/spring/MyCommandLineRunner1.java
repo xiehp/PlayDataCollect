@@ -26,19 +26,23 @@ public class MyCommandLineRunner1 implements CommandLineRunner {
 	ValueService valueService;
 
 	@Override
-	public void run(String... args) throws InstantiationException, IllegalAccessException {
-		System.out.println("MyCommandLineRunner1 start");
+	public void run(String... args) {
+		try {
+			System.out.println("MyCommandLineRunner1 start");
 
-		tagService.insertNewKeyName("bilibili", "bilibili", TagEntity.class);
-		tagService.insertNewKeyName("youku", "优酷", TagEntity.class);
-		tagService.insertNewKeyName("iqiyi", "爱奇艺", TagEntity.class);
+			tagService.insertNewKeyName("bilibili", "bilibili", TagEntity.class);
+			tagService.insertNewKeyName("youku", "优酷", TagEntity.class);
+			tagService.insertNewKeyName("iqiyi", "爱奇艺", TagEntity.class);
 
-		metricService.insertNewKeyName("play","播放量", MetricEntity.class);
-		metricService.insertNewKeyName("fans","追番量", MetricEntity.class);
-		metricService.insertNewKeyName("review","弹幕量", MetricEntity.class);
+			metricService.insertNewKeyName("play", "播放量", MetricEntity.class);
+			metricService.insertNewKeyName("fans", "追番量", MetricEntity.class);
+			metricService.insertNewKeyName("review", "弹幕量", MetricEntity.class);
 
-		Map<String, String> map = new HashMap<>();
-		System.out.println(metricService.findByKey("review").copyTo(map));
-		System.out.println("MyCommandLineRunner1 end");
+			Map<String, String> map = new HashMap<>();
+			System.out.println(metricService.findByKey("review").copyTo(map));
+			System.out.println("MyCommandLineRunner1 end");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
