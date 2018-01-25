@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import xie.common.utils.XWaitTime;
-import xie.playdatacollect.base.db.repository.BaseRepository;
+import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.base.db.service.BaseService;
 
 import java.util.*;
@@ -210,10 +210,10 @@ public class EntityCache {
 	}
 
 	public <T extends IdEntity> T findOne(BaseService<T, String> service, String id) {
-		return findOne(service.getBaseRepository(), id);
+		return findOne(service.getBaseDao(), id);
 	}
 
-	public <T> T findOne(BaseRepository<T, String> dao, String id) {
+	public <T> T findOne(BaseDao<T, String> dao, String id) {
 		String cacheId = dao.getClass().getSimpleName() + id;
 		// System.out.println(cacheId + " nowSize:" + cacheMap.size());
 		T value = get(cacheId);

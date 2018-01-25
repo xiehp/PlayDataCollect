@@ -118,7 +118,7 @@ public class BaseEntity extends IdEntity implements IBaseEntity {
 	/**
 	 * 从vo中将内容拷贝过来
 	 */
-	public <X> BaseEntity copyFrom(X vo) {
+	public BaseEntity copyFrom(Object vo) {
 		BeanUtils.copyProperties(vo, this);
 		return this;
 	}

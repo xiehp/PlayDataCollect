@@ -13,7 +13,7 @@ import xie.playdatacollect.base.db.entity.BaseEntity;
 import xie.playdatacollect.base.db.entity.EntityCache;
 import xie.playdatacollect.base.db.entity.IdEntity;
 import xie.playdatacollect.base.db.page.PageRequestUtil;
-import xie.playdatacollect.base.db.repository.BaseRepository;
+import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.base.db.repository.BaseSearchFilter;
 import xie.playdatacollect.base.db.repository.BaseSearchParams;
 import xie.playdatacollect.base.db.repository.BaseSpecifications;
@@ -30,47 +30,47 @@ public abstract class BaseService<M extends IdEntity, ID extends Serializable> {
 	@Resource
 	protected EntityCache entityCache;
 
-	public abstract BaseRepository<M, ID> getBaseRepository();
+	public abstract BaseDao<M, ID> getBaseDao();
 
 	public M save(M t) {
-		return getBaseRepository().save(t);
+		return getBaseDao().save(t);
 	}
 
 	public M update(M m) {
-		return getBaseRepository().save(m);
+		return getBaseDao().save(m);
 	}
 
 	public void delete(ID id) {
-		getBaseRepository().deleteById(id);
+		getBaseDao().deleteById(id);
 	}
 
 	public void delete(M m) {
-		getBaseRepository().delete(m);
+		getBaseDao().delete(m);
 	}
 
 	public M findOne(ID id) {
-		return getBaseRepository().findById(id).orElse(null);
+		return getBaseDao().findById(id).orElse(null);
 	}
 
 	@Deprecated
 	public M findOne(ID id, boolean useCache) {
-		return getBaseRepository().findById(id).orElse(null);
+		return getBaseDao().findById(id).orElse(null);
 	}
 
 	public M findById(ID id) {
-		return getBaseRepository().findById(id).orElse(null);
+		return getBaseDao().findById(id).orElse(null);
 	}
 
 	public List<M> findAll() {
-		return getBaseRepository().findAll();
+		return getBaseDao().findAll();
 	}
 
 	public List<M> findAll(Sort sort) {
-		return getBaseRepository().findAll(sort);
+		return getBaseDao().findAll(sort);
 	}
 
 	public Page<M> findAll(Pageable pageable) {
-		return getBaseRepository().findAll(pageable);
+		return getBaseDao().findAll(pageable);
 	}
 
 	public Page<M> searchPageByParams(Map<String, Object> searchParams, Class<M> c) {
@@ -147,10 +147,10 @@ public abstract class BaseService<M extends IdEntity, ID extends Serializable> {
 		Specification<M> spec = BaseSpecifications.bySearchFilter(filters.values(), c);
 		Page<M> page = null;
 		if (pageRequest == null) {
-			List<M> list = getBaseRepository().findAll(spec);
+			List<M> list = getBaseDao().findAll(spec);
 			page = new PageImpl<>(list);
 		} else {
-			page = getBaseRepository().findAll(spec, pageRequest);
+			page = getBaseDao().findAll(spec, pageRequest);
 		}
 
 		return page;

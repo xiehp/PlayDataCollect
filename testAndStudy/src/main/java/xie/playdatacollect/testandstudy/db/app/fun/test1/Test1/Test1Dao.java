@@ -1,6 +1,6 @@
 package xie.playdatacollect.testandstudy.db.app.fun.test1.Test1;
 
-import xie.playdatacollect.base.db.repository.BaseRepository;
+import xie.playdatacollect.base.db.repository.BaseDao;
 
-public interface Test1Dao extends BaseRepository<Test1Entity, String> {
+public interface Test1Dao extends BaseDao<Test1Entity, String> {
 }

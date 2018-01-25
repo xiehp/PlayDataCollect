@@ -11,12 +11,6 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * info:简书首页爬虫
- *
- * @author shang
- * @date 16/9/9
- */
 public class Test2Processor implements PageProcessor {
 
 	private Site site = Site.me().setRetryTimes(2).setSleepTime(500).setUseGzip(true);
@@ -57,10 +51,21 @@ public class Test2Processor implements PageProcessor {
 		list.add("https://www.bilibili.com/bangumi/play/ep115339"); // 3月的狮子 第二季 第24话 混沌/隈仓
 
 		Logger log = LoggerFactory.getLogger(Test2Processor.class);
+		Logger logSpider = LoggerFactory.getLogger(Spider.class);
 		List<ResultItems> resultItemses = spider.getAll(list);
-		for (ResultItems resultItemse : resultItemses) {
-			log.info(resultItemse.getAll().toString());
+		while (true) {
+			for (ResultItems resultItemse : resultItemses) {
+				log.info(resultItemse.getAll().toString());
+			}
+			log.warn("warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test ");
+			log.debug("debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test ");
+			log.error("error test error test error test error test error test error test error test error test error test error test error test ");
+			logSpider.warn("warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test warn test ");
+			logSpider.debug("debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test debug test ");
+			logSpider.error("error test error test error test error test error test error test error test error test error test error test error test ");
+
+			break;
 		}
-		spider.close();
+		//spider.close();
 	}
 }

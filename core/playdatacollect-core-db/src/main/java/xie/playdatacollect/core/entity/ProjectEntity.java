@@ -11,4 +11,12 @@ import javax.persistence.Table;
 public class ProjectEntity extends BaseEntity {
 	/** 名字 */
 	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

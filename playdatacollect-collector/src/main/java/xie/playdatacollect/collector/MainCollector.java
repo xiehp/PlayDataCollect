@@ -1,6 +1,5 @@
 package xie.playdatacollect.collector;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -31,9 +30,9 @@ import java.util.Map;
 @EnableJpaRepositories(basePackages = "xie")
 public class MainCollector {
 
-	@Autowired
+	@Resource
 	RestTemplate restTemplate;
-	@Autowired
+	@Resource
 	XHttpClientUtils xHttpClientUtils;
 
 	@Resource
@@ -57,7 +56,6 @@ public class MainCollector {
 	public Object getAndSaveData() throws IOException {
 
 		Map aaa = restTemplate.postForObject("http://localhost:15001/site1/getPayCount", null, HashMap.class);
-
 
 		Test1Entity entity = new Test1Entity();
 		entity.setCol1(aaa.toString());
@@ -121,14 +119,6 @@ public class MainCollector {
 	public static void main(String[] args) {
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");
-		int a = 1;
-		while (true) {
-			a++;
-			if (a > 10) {
-				break;
-			}
-			System.out.println(0111);
-		}
 		SpringApplication.run(MainCollector.class, args);
 	}
 }
