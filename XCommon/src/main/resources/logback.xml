@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property name="LOG_HOME" value="logs" />
-	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %class{40} - %msg%n" />
-	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %caller{1} - %msg%n" />
-	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %logger{40} - %msg%n" />
-	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %-40logger{40}:%4L - %msg%n" />
+	<property name="LOG_HOME" value="logs"/>
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %class{40} - %msg%n"/>
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %caller{1} - %msg%n"/> <!-- 可以在控制台直接点击，但是有分行问题 -->
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %logger{40} - %msg%n"/>
+	<property name="LOG_MSG_PATTERN" value=" %-5level [%-11thread] %-40logger{40}:%4L - %msg%n"/>
 
-	<property name="LOG_MSG_PATTERN_WITH_DAY" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}" />
-	<property name="LOG_MSG_PATTERN_NO_DAY" value="%d{HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}" />
-	<property name="MAX_FILE_SIZE" value="20MB" />
+	<property name="LOG_MSG_PATTERN_WITH_DAY" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}"/>
+	<property name="LOG_MSG_PATTERN_NO_DAY" value="%d{HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}"/>
+	<property name="MAX_FILE_SIZE" value="2MB"/>
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- 控制台日志pattern -->
@@ -21,24 +21,8 @@
 	<appender name="businessLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_HOME}/business.log</file>
 
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/business-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-
-		<encoder>
-			<pattern>${LOG_MSG_PATTERN_WITH_DAY}</pattern>
-		</encoder>
-	</appender>
-
-	<!-- 全部 -->
-	<appender name="frameworkLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_HOME}/framework/framework.log</file>
-
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/framework/framework.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<fileNamePattern>${LOG_HOME}/business/business-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
 			<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
 		</rollingPolicy>
 
@@ -47,66 +31,63 @@
 		</encoder>
 	</appender>
 
-	<!-- DEBUG 综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于10mb时再按大小滚动 -->
-	<appender name="debugLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_HOME}/debug/debug.log</file>
+	<!-- 全部 -->
+	<appender name="infoLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/info.log</file>
 
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>DEBUG</level>
-		</filter>
-
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/debug-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/info/info.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
 		</rollingPolicy>
 
 		<encoder>
 			<pattern>${LOG_MSG_PATTERN_WITH_DAY}</pattern>
 		</encoder>
 	</appender>
-	
+
 	<!-- 只打印warn信息，综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于10mb时再按大小滚动 -->
 	<appender name="warnLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_HOME}/warn/warn.log</file>
+		<file>${LOG_HOME}/warn.log</file>
 
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>WARN</level>
 		</filter>
 
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_HOME}/warn-%d{yyyy-MM}.%i.log.zip</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/warn/warn-%d{yyyy-MM}.%i.log.zip</fileNamePattern>
+			<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
 		</rollingPolicy>
 
 		<encoder>
 			<pattern>${LOG_MSG_PATTERN_WITH_DAY}</pattern>
 		</encoder>
 	</appender>
-	
+
+	<!-- 只打印error信息，综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于10mb时再按大小滚动 -->
+	<appender name="errorLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/error.log</file>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/error/error-%d{yyyy-MM}.%i.log.zip</fileNamePattern>
+			<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${LOG_MSG_PATTERN_WITH_DAY}</pattern>
+		</encoder>
+	</appender>
+
 	<!-- project level -->
 	<logger name="xie" level="INFO" additivity="true">
-		<appender-ref ref="businessLogFile" />
+		<appender-ref ref="businessLogFile"/>
 	</logger>
-	
-	<!-- debug log 使用独立的appender，不继承Root的appender (additivity="false")
-	<logger name="xie.animeshotsite.timer.timer.ShotTaskTimer" level="debug" additivity="false">
-		<appender-ref ref="debugLogFile" />
-	</logger> -->
-
-	<!-- business log 使用独立的appender，不继承Root的appender
-	<logger name="business" level="INFO" additivity="false">
-		<appender-ref ref="businessLogFile" />
-	</logger>-->
 
 	<!--log4jdbc
 	<logger name="jdbc.sqltiming" level="INFO" />-->
-
-	<!-- springside modules
-	<logger name="org.springside.modules" level="WARN" />-->
 
 	<!-- cxf inbound/outbound logger
 	<logger name="org.apache.cxf.services" level="WARN" />
@@ -116,9 +97,9 @@
 
 	<!-- root -->
 	<root level="INFO">
-		<appender-ref ref="console" />
-		<!-- <appender-ref ref="debugLogFile" /> -->
-		<appender-ref ref="frameworkLogFile" />
-		<appender-ref ref="warnLogFile" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="infoLogFile"/>
+		<appender-ref ref="warnLogFile"/>
+		<appender-ref ref="errorLogFile"/>
 	</root>
 </configuration>
