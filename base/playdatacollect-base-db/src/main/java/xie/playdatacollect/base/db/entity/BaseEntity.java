@@ -1,16 +1,16 @@
 package xie.playdatacollect.base.db.entity;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import xie.common.collect.XCollectUtils;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import java.util.Date;
+import java.util.*;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
@@ -24,7 +24,7 @@ public class BaseEntity extends IdEntity implements IBaseEntity {
 	public static final String COLUMN_UPDATE_DATE = "updateDate";
 	public static final String COLUMN_DELETE_FLAG = "deleteFlag";
 	public static final String COLUMN_VERSION = "version";
-	
+
 	//private String getTableName();
 
 	@CreatedBy
@@ -100,18 +100,18 @@ public class BaseEntity extends IdEntity implements IBaseEntity {
 	 * 将内容拷贝到vo中
 	 */
 	public <X> X copyTo(X vo) {
-		BeanUtils.copyProperties(this, vo);
+		dozerMapper.map(this, vo);
 		return vo;
 	}
 
 	/**
 	 * 将除了baseEntity中的所有内容拷贝到vo中
 	 */
-	public <X extends BaseEntity> X copyToWithOutBaseInfo(X vo) {
+	public <X> X copyToWithOutBaseInfo(X vo) {
 		BaseEntity tempBaseEntity = new BaseEntity();
-		BeanUtils.copyProperties(vo, tempBaseEntity);
-		BeanUtils.copyProperties(this, vo);
-		BeanUtils.copyProperties(tempBaseEntity, vo);
+		dozerMapper.map(vo, tempBaseEntity);
+		dozerMapper.map(this, vo);
+		dozerMapper.map(tempBaseEntity, vo);
 		return vo;
 	}
 
@@ -119,18 +119,25 @@ public class BaseEntity extends IdEntity implements IBaseEntity {
 	 * 从vo中将内容拷贝过来
 	 */
 	public BaseEntity copyFrom(Object vo) {
-		BeanUtils.copyProperties(vo, this);
+		dozerMapper.map(vo, this);
 		return this;
 	}
 
 	/**
 	 * 从vo中将除了baseEntity的所有内容拷贝过来
 	 */
-	public <X extends BaseEntity> BaseEntity copyFromWithOutBaseInfo(X vo) {
+	public BaseEntity copyFromWithOutBaseInfo(Object vo) {
 		BaseEntity tempBaseEntity = new BaseEntity();
-		BeanUtils.copyProperties(this, tempBaseEntity);
-		BeanUtils.copyProperties(vo, this);
-		BeanUtils.copyProperties(tempBaseEntity, this);
+		dozerMapper.map(this, tempBaseEntity);
+		dozerMapper.map(vo, this);
+		dozerMapper.map(tempBaseEntity, this);
 		return this;
+	}
+
+	public Map<String, Object> toMapWithOutBase() {
+		Map<String, Object> map = toMap();
+		List<String> list = Arrays.asList(COLUMN_CREATE_BY, COLUMN_CREATE_DATE, COLUMN_UPDATE_BY, COLUMN_UPDATE_DATE, COLUMN_DELETE_FLAG, COLUMN_VERSION);
+		XCollectUtils.removeKey(map, list, true);
+		return map;
 	}
 }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test1")
+@Table(name = "episode")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class EpisodeEntity extends BaseEntity {
 	/** 名字 */

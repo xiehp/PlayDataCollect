@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test1")
+@Table(name = "project")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProjectEntity extends BaseEntity {
+
 	/** 名字 */
 	private String name;
 
@@ -19,4 +20,5 @@ public class ProjectEntity extends BaseEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

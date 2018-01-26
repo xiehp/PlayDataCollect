@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * 测量标签
  */
 @Entity
-@Table(name = "test1")
+@Table(name = "tag")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TagEntity extends BaseEntity {
 

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * 系列表
  */
 @Entity
-@Table(name = "test1")
+@Table(name = "series")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SeriesEntity extends BaseEntity {
 	/** 名字 */
