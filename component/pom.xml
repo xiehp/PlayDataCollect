@@ -10,14 +10,12 @@
 	</parent>
 
 	<!-- 通用模块 -->
-	<artifactId>playdatacollect-base</artifactId>
+	<artifactId>playdatacollect-component</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>commons</module>
-
-		<module>playdatacollect-base-db</module>
-		<module>playdatacollect-base-spring</module>
+		<module>core</module>
+		<module>spider</module>
 	</modules>
 
 	<properties>
