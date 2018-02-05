@@ -14,12 +14,12 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>testAndStudy</module>
+		<module>dummy</module>
+
 		<module>playdatacollect-server</module>
 		<module>playdatacollect-collector</module>
 		<module>playdatacollect-monitor</module>
-		
-		<module>testAndStudy</module>
-		<module>dummy</module>
 	</modules>
 
 	<properties>
