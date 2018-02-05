@@ -12,6 +12,5 @@
 
 
 
-# Maven Files
-*/target/test-classes/*
-*/target/classes/*
+# Package Files #
+/**/target
