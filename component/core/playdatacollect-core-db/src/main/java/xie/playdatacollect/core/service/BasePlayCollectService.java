@@ -30,14 +30,14 @@ public abstract class BasePlayCollectService<M extends BaseEntity, ID extends Se
 		entity.copyFromWithOutBaseInfo(map);
 		entity = save(entity);
 
-		System.out.println("insertNewKeyName: " + entity.toMapWithOutNullAndBase());
+//		System.out.println("insertNewKeyName: " + entity.toMapWithOutNullAndBase());
 		DozerBeanMapper dozerMapper = new DozerBeanMapper();
-		System.out.println(dozerMapper.map(entity, Map.class));
-		System.out.println(entity.toString());
-		System.out.println(entity.toMapWithOutNull());
-		System.out.println(entity.toMapWithOutBase());
-		System.out.println(entity.toMapWithOutNullAndBase());
-		System.out.println();
+//		System.out.println(dozerMapper.map(entity, Map.class));
+//		System.out.println(entity.toString());
+//		System.out.println(entity.toMapWithOutNull());
+//		System.out.println(entity.toMapWithOutBase());
+//		System.out.println(entity.toMapWithOutNullAndBase());
+//		System.out.println();
 		return entity;
 	}
 }
