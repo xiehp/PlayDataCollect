@@ -128,7 +128,7 @@ public class MainCollector {
 	/**
 	 * 从0点开始,每2个小时执行一次
 	 */
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "0/10 * * * * ?")
 //	@Scheduled(cron = "0 0/10 * * * ?")
 	public void runScheduled() {
 		System.out.println(new Date() + "----开始执行定时抓取任务");
@@ -157,6 +157,8 @@ public class MainCollector {
 	}
 
 	private void runSpider() {
+		long dateTime = System.currentTimeMillis();
+
 		Spider spider = Spider.create(new BilibiliAnimePageProcessor()).thread(2);
 
 		// multi download
@@ -188,13 +190,13 @@ public class MainCollector {
 		list.add("https://www.bilibili.com/bangumi/play/ep173249"); // OVERLORDⅡ 2
 		list.add("https://www.bilibili.com/bangumi/play/ep173250"); // OVERLORDⅡ 3
 		list.add("https://www.bilibili.com/bangumi/play/ep173251"); // OVERLORDⅡ 4
+		list.add("https://www.bilibili.com/bangumi/play/ep173252"); // OVERLORDⅡ 5
 
 
 
 
 
 
-		long dateTime = System.currentTimeMillis();
 		Logger log = LoggerFactory.getLogger(BilibiliAnimePageProcessor.class);
 		Logger logSpider = LoggerFactory.getLogger(Spider.class);
 		List<ResultItems> resultItemses = spider.getAll(list);
