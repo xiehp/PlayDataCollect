@@ -29,7 +29,6 @@ import xie.playdatacollect.testandstudy.db.app.fun.test1.Test2.Test2Entity;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test2.Test2Service;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -69,7 +68,7 @@ public class MainCollector {
 	static String tempId = "";
 
 	@RequestMapping("/getAndSaveData")
-	public Object getAndSaveData() throws IOException {
+	public Object getAndSaveData() {
 
 		Map aaa = restTemplate.postForObject("http://localhost:15001/site1/getPayCount", null, HashMap.class);
 
@@ -206,6 +205,7 @@ public class MainCollector {
 		List<String> aidList = new ArrayList<>();
 		List<String> nameList = new ArrayList<>();
 		List<String> siteList = new ArrayList<>();
+		List<Integer> 追番人数List = new ArrayList<>();
 		while (true) {
 			for (ResultItems resultItemse : resultItemses) {
 				try {
@@ -229,6 +229,7 @@ public class MainCollector {
 						siteList.add("bilibili");
 						nameList.add(名字);
 						aidList.add(aid.toString());
+						追番人数List.add(parseValue(resultItemse.getAll().get("追番人数")));
 					} else {
 						final int 播放数 = parseValue(resultItemse.getAll().get("播放数"));
 						final int 追番人数 = parseValue(resultItemse.getAll().get("追番人数"));
@@ -292,6 +293,8 @@ public class MainCollector {
 				int 当前排名 = (int) map.get("now_rank");
 				int 历史排名 = (int) map.get("his_rank");
 
+				int 追番人数 = 追番人数List.get(i);
+
 				influxDB.write(Point.measurement("base_data")
 						.tag("网站", siteList.get(i))
 						.tag("名字", nameList.get(i))
@@ -305,6 +308,7 @@ public class MainCollector {
 						.addField("喜欢数", 喜欢数)
 						.addField("当前排名", 当前排名)
 						.addField("历史排名", 历史排名)
+						.addField("追番人数", 追番人数)
 						.time(dateTime, TimeUnit.MILLISECONDS)
 						.build());
 			} catch (Exception e) {
