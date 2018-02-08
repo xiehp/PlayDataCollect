@@ -17,8 +17,13 @@ replay_pid*.log
 
 
 # Package Files #
-/**/target
-
+/**/target/*.jar
+/**/target/*.original
+/**/target/classes
+/**/target/test-classes
+/**/target/generated-sources
+/**/target/maven-archiver
+/**/target/maven-status
 
 # 运行生成的文件
 logs/**

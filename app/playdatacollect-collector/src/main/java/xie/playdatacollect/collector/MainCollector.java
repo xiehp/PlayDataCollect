@@ -20,6 +20,8 @@ import us.codecraft.webmagic.Spider;
 import xie.common.json.XJsonUtil;
 import xie.common.string.XStringUtils;
 import xie.module.httpclient.XHttpClientUtils;
+import xie.playdatacollect.core.entity.MetricEntity;
+import xie.playdatacollect.core.entity.TagEntity;
 import xie.playdatacollect.core.service.MetricService;
 import xie.playdatacollect.core.service.TagService;
 import xie.playdatacollect.core.service.ValueService;
@@ -129,21 +131,21 @@ public class MainCollector {
 	 * 从0点开始,每2个小时执行一次
 	 */
 	@Scheduled(cron = "0/10 * * * * ?")
-//	@Scheduled(cron = "0 0/10 * * * ?")
+//	@Scheduled(cron = "0 0/1 * * * ?")
 	public void runScheduled() {
 		System.out.println(new Date() + "----开始执行定时抓取任务");
 
 		try {
 
-//			tagService.insertNewKeyName("bilibili", "bilibili", TagEntity.class);
-//			tagService.insertNewKeyName("bilibili" + new Date(), "bilibili" + new Date(), TagEntity.class);
-//			tagService.insertNewKeyName("youku", "优酷", TagEntity.class);
-//			tagService.insertNewKeyName("iqiyi", "爱奇艺", TagEntity.class);
-//
-//			metricService.insertNewKeyName("play", "播放量", MetricEntity.class);
-//			metricService.insertNewKeyName("fans", "追番量", MetricEntity.class);
-//			metricService.insertNewKeyName("review", "弹幕量", MetricEntity.class);
-//			metricService.insertNewKeyName(new Date() + "", new Date() + "", MetricEntity.class);
+			tagService.insertNewKeyName("bilibili", "bilibili", TagEntity.class);
+			tagService.insertNewKeyName("bilibili" + new Date(), "bilibili" + new Date(), TagEntity.class);
+			tagService.insertNewKeyName("youku", "优酷", TagEntity.class);
+			tagService.insertNewKeyName("iqiyi", "爱奇艺", TagEntity.class);
+
+			metricService.insertNewKeyName("play", "播放量", MetricEntity.class);
+			metricService.insertNewKeyName("fans", "追番量", MetricEntity.class);
+			metricService.insertNewKeyName("review", "弹幕量", MetricEntity.class);
+			metricService.insertNewKeyName(new Date() + "", new Date() + "", MetricEntity.class);
 
 //			System.out.println(metricService.findByKey("review"));
 		} catch (Exception e) {
@@ -191,10 +193,6 @@ public class MainCollector {
 		list.add("https://www.bilibili.com/bangumi/play/ep173250"); // OVERLORDⅡ 3
 		list.add("https://www.bilibili.com/bangumi/play/ep173251"); // OVERLORDⅡ 4
 		list.add("https://www.bilibili.com/bangumi/play/ep173252"); // OVERLORDⅡ 5
-
-
-
-
 
 
 		Logger log = LoggerFactory.getLogger(BilibiliAnimePageProcessor.class);
@@ -283,7 +281,7 @@ public class MainCollector {
 			try {
 				String result = restTemplate.getForObject(baseApiUrl + aidList.get(i), String.class);
 				Map<String, Object> map = XJsonUtil.fromJsonString(result);
-				map = (Map<String, Object>)map.get("data");
+				map = (Map<String, Object>) map.get("data");
 				int aid = (int) map.get("aid");
 				int 播放数 = (int) map.get("view");
 				int 弹幕总数 = (int) map.get("danmaku");
@@ -297,22 +295,24 @@ public class MainCollector {
 
 				int 追番人数 = 追番人数List.get(i);
 
-				influxDB.write(Point.measurement("base_data")
-						.tag("网站", siteList.get(i))
-						.tag("名字", nameList.get(i))
-						.tag("aid", String.valueOf(aid))
-						.addField("播放数", 播放数)
-						.addField("弹幕总数", 弹幕总数)
-						.addField("评论数", 评论数)
-						.addField("收藏数", 收藏数)
-						.addField("硬币数", 硬币数)
-						.addField("分享数", 分享数)
-						.addField("喜欢数", 喜欢数)
-						.addField("当前排名", 当前排名)
-						.addField("历史排名", 历史排名)
-						.addField("追番人数", 追番人数)
-						.time(dateTime, TimeUnit.MILLISECONDS)
-						.build());
+				influxDB.write(
+						Point.measurement("base_data_test")
+								.tag("网站", siteList.get(i))
+								.tag("名字", nameList.get(i))
+								.tag("aid", String.valueOf(aid))
+								.addField("播放数", 播放数)
+								.addField("弹幕总数", 弹幕总数)
+								.addField("评论数", 评论数)
+								.addField("收藏数", 收藏数)
+								.addField("硬币数", 硬币数)
+								.addField("分享数", 分享数)
+								.addField("喜欢数", 喜欢数)
+								.addField("当前排名", 当前排名)
+								.addField("历史排名", 历史排名)
+								.addField("追番人数", 追番人数)
+								.time(dateTime, TimeUnit.MILLISECONDS)
+								.build()
+				);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

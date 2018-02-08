@@ -2,6 +2,7 @@ package xie.playdatacollect.core.entity;
 
 import xie.playdatacollect.base.db.entity.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 public class TagEntity extends BaseEntity {
 
 	/** 标签关键字 */
+	@Column(name = "key1")
 	private String key;
 	/** 标签名字 */
 	private String name;
