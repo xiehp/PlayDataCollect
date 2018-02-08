@@ -49,7 +49,7 @@
 
 		<!-- spring.io版本 -->
 		<spring.io.version>Brussels-SR6</spring.io.version>
-		<spring.boot.parent.version>2.0.0.M7</spring.boot.parent.version>
+		<spring.boot.parent.version>${project.parent.version}</spring.boot.parent.version>
 	</properties>
 
 	<!-- Inherit defaults from Spring Boot -->
