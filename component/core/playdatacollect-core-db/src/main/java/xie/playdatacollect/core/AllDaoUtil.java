@@ -1,16 +1,23 @@
 package xie.playdatacollect.core;
 
 import org.springframework.stereotype.Component;
-import xie.playdatacollect.core.dao.SourceDao;
+import xie.playdatacollect.core.dao.ProcessUrlDao;
+import xie.playdatacollect.core.dao.SourcesDao;
 
 import javax.annotation.Resource;
 
 @Component
 public class AllDaoUtil {
 	@Resource
-	SourceDao sourceDao;
+	SourcesDao sourcesDao;
+	@Resource
+	ProcessUrlDao processUrlDao;
 
-	public SourceDao getSourceDao() {
-		return sourceDao;
+	public SourcesDao getSourcesDao() {
+		return sourcesDao;
+	}
+
+	public ProcessUrlDao getProcessUrlDao() {
+		return processUrlDao;
 	}
 }

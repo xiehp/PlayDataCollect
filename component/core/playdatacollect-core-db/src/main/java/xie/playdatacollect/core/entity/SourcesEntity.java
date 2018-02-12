@@ -21,7 +21,10 @@ public class SourcesEntity extends BasePlayCollectEntity {
 	/** 英文缩写 */
 	private String abName;
 
-	/** 英文缩写 */
+	/** 类型 */
+	private String type;
+
+	/** 网址 */
 	private String url;
 
 	/** 自定义的版本 */
@@ -44,6 +47,14 @@ public class SourcesEntity extends BasePlayCollectEntity {
 
 	public void setSimpleName(String simpleName) {
 		this.simpleName = simpleName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getUrl() {
