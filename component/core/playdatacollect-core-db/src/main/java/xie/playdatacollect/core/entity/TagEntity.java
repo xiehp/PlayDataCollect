@@ -1,8 +1,5 @@
 package xie.playdatacollect.core.entity;
 
-import xie.playdatacollect.base.db.entity.BaseEntity;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,21 +9,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tag")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TagEntity extends BaseEntity {
+public class TagEntity extends BasePlayCollectEntity {
 
-	/** 标签关键字 */
-	@Column(name = "key1")
-	private String key;
 	/** 标签名字 */
 	private String name;
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
 
 	public String getName() {
 		return name;

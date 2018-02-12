@@ -5,14 +5,20 @@ import xie.playdatacollect.base.db.entity.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * 有数据的URL
+ */
 @Entity
-@Table(name = "episode")
+@Table(name = "process_url")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class EpisodeEntity extends BaseEntity {
-	/** 名字 */
-	private String name;
+public class ProcessUrlEntity extends BaseEntity {
 
-	private String url;
+	/** 所属来源 */
+	String parentSource;
 
-	private String site;
+	String type;
+	
+
+	String url;
+
 }

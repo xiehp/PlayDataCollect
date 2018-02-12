@@ -8,5 +8,5 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface BasePlayCollectDao<T, ID extends Serializable> extends BaseDao<T, ID> {
 
-	T findByKey(String key);
+	T findByKeyword(String key);
 }

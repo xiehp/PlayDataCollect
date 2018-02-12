@@ -14,12 +14,12 @@ import java.util.Map;
 @Service
 public abstract class BasePlayCollectService<M extends BaseEntity, ID extends Serializable> extends BaseService<M, ID> {
 
-	public M findByKey(String key) {
-		return (M) ((BasePlayCollectDao) getBaseDao()).findByKey(key);
+	public M findByKeyword(String key) {
+		return (M) ((BasePlayCollectDao) getBaseDao()).findByKeyword(key);
 	}
 
 	public M insertNewKeyName(String key, String name, Class<M> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-		M entity = findByKey(key);
+		M entity = findByKeyword(key);
 		if (entity == null) {
 			entity = clazz.newInstance();
 		}
