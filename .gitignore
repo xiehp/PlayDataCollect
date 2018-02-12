@@ -24,6 +24,7 @@ replay_pid*.log
 /**/target/generated-sources
 /**/target/maven-archiver
 /**/target/maven-status
+/**/bin
 
 # 运行生成的文件
 logs/**
