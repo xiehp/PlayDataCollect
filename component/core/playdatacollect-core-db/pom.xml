@@ -39,6 +39,16 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
+		<!-- 数据库，可更换 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
 		<!-- 第三方基础依赖 -->
 		<dependency>
 			<groupId>commons-io</groupId>

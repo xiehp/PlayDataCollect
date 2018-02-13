@@ -2,8 +2,10 @@ package xie.playdatacollect.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import xie.common.date.DateUtil;
 import xie.playdatacollect.core.entity.ProcessUrlEntity;
 import xie.playdatacollect.core.entity.SourcesEntity;
@@ -15,8 +17,9 @@ import java.util.Date;
 /**
  * 用于初始化一些基础数据
  */
-@Configuration
-public class InitEntityData implements CommandLineRunner {
+@Component
+@Order(0)
+public class InitEntityData implements ApplicationRunner {
 
 	Logger log = LoggerFactory.getLogger(InitEntityData.class);
 
@@ -24,7 +27,7 @@ public class InitEntityData implements CommandLineRunner {
 	AllDaoUtil allDaoUtil;
 
 	@Override
-	public void run(String... args) throws ParseException {
+	public void run(ApplicationArguments args) throws ParseException {
 		log.info("InitEntityData start");
 
 		// 网站信息

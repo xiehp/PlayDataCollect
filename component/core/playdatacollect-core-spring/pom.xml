@@ -20,7 +20,10 @@
 
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
-
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-base-spring</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

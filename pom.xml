@@ -46,10 +46,12 @@
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<java.target>${java.version}</java.target>
+		<java.encoding>UTF-8</java.encoding>
 
 		<!-- spring.io版本 -->
-		<spring.io.version>Brussels-SR6</spring.io.version>
-		<spring.boot.parent.version>${project.parent.version}</spring.boot.parent.version>
+		<spring.io.version>no version</spring.io.version>
+		<spring.boot.version>2.0.0.RC1</spring.boot.version>
 	</properties>
 
 	<!-- Inherit defaults from Spring Boot -->
@@ -74,17 +76,29 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- ★★spring io★★ -->
 			<!--
 			<dependency>
 				<groupId>io.spring.platform</groupId>
 				<artifactId>platform-bom</artifactId>
-				<version>Brussels-SR6</version>
+				<version>${spring.io.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			-->
 
-			<!-- 自己工程的依赖 -->
+			<!-- ★★spring依赖★★ -->
+
+
+			<!-- ★★自己基础项目的依赖★★ -->
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xcommon</artifactId>
+				<version>2.0-SNAPSHOT</version>
+			</dependency>
+
+
+			<!-- ★★自己工程的依赖★★ -->
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-base-db</artifactId>
@@ -117,34 +131,27 @@
 			</dependency>
 
 
-			<!-- 自己基础项目的依赖 -->
-			<dependency>
-				<groupId>xie</groupId>
-				<artifactId>xcommon</artifactId>
-				<version>2.0-SNAPSHOT</version>
-			</dependency>
-
-
-			<!-- 第三方基础依赖 -->
+			<!-- ★★第三方基础依赖★★ -->
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>2.6</version>
 			</dependency>
+			<!-- html解析 -->
 			<dependency>
-				<!-- html解析 -->
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
 				<version>1.10.2</version>
 			</dependency>
+			<!-- deep copy 深度对象复制 -->
 			<dependency>
-				<!-- deep copy 深度对象复制 -->
 				<groupId>net.sf.dozer</groupId>
 				<artifactId>dozer</artifactId>
 				<version>5.5.1</version>
 			</dependency>
 
 
+			<!-- ★★第三方框架依赖★★ -->
 			<!-- 爬虫框架依赖 -->
 			<dependency>
 				<groupId>us.codecraft</groupId>
@@ -155,6 +162,12 @@
 				<groupId>us.codecraft</groupId>
 				<artifactId>webmagic-extension</artifactId>
 				<version>0.7.3</version>
+			</dependency>
+			<!-- influxdb数据库依赖 -->
+			<dependency>
+				<groupId>org.influxdb</groupId>
+				<artifactId>influxdb-java</artifactId>
+				<version>2.8</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -174,8 +187,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<target>${java.target}</target>
+					<encoding>${java.encoding}</encoding>
 				</configuration>
 			</plugin>
 
