@@ -5,17 +5,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * 
  * Spring组件工具类
- *
+ * <p>
  * <pre>
  * Pattern : Value Object
  * Thread Safe : No
@@ -38,8 +40,8 @@ public class SpringUtil implements BeanFactoryAware {
 
 	public final static String BEAN_CONTENT_TYPE = "B";
 
-	/** The Constant LOG. */
-	private static final Logger LOG = LoggerFactory.getLogger(SpringUtil.class);
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringUtil.class);
 
 //	/** The locator. */
 //	private static volatile BeanFactoryLocator locator;
@@ -53,10 +55,12 @@ public class SpringUtil implements BeanFactoryAware {
 	/** The factory. */
 	private static BeanFactory factory;
 
+	@Autowired
+	private ConfigurableEnvironment environment;
+
 	/**
-	 * 
 	 * 根据对象名获得对象
-	 * 
+	 *
 	 * @param beanRef 对象名
 	 * @return Object对象
 	 */
@@ -66,9 +70,8 @@ public class SpringUtil implements BeanFactoryAware {
 	}
 
 	/**
-	 * 
 	 * 根据对象类型获得对象
-	 * 
+	 *
 	 * @param clazz 对象类型
 	 * @return <X> X 对象
 	 */
@@ -111,25 +114,55 @@ public class SpringUtil implements BeanFactoryAware {
 		List<String> list = getNowProfilesList();
 
 		String[] defaultProfiles = SpringUtil.getCtx().getEnvironment().getDefaultProfiles();
-		LOG.info("当前默认的profile：" + defaultProfiles.length + "个");
+		LOGGER.info("当前默认的profile：" + defaultProfiles.length + "个");
 		for (String value : defaultProfiles) {
-			LOG.info(value);
+			LOGGER.info(value);
 		}
 
 		String[] activeProfiles = SpringUtil.getCtx().getEnvironment().getActiveProfiles();
-		LOG.info("当前激活的profile：" + activeProfiles.length + "个");
+		LOGGER.info("当前激活的profile：" + activeProfiles.length + "个");
 		for (String value : activeProfiles) {
-			LOG.info(value);
+			LOGGER.info(value);
 		}
 
-		LOG.info("当前实际profile：");
+		LOGGER.info("当前实际profile：");
 		for (String str : list) {
-			LOG.info(str);
+			LOGGER.info(str);
 		}
 	}
 
+	public void printNowProfilesListByEnvironment() {
+		printNowProfilesListByEnvironment(environment);
+	}
+
+	public void printNowProfilesListByEnvironment(ConfigurableEnvironment environment) {
+		LOGGER.info("-------------------------");
+		LOGGER.info("-------------------------");
+
+		String[] defaultProfiles = environment.getDefaultProfiles();
+		String[] activeProfiles = environment.getActiveProfiles();
+		LOGGER.info("当前默认的profile：{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
+		LOGGER.info("当前激活的profile：{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
+
+		LOGGER.info("info.java.source				:" + environment.getProperty("info.java.source"));
+		LOGGER.info("info.java.target				:" + environment.getProperty("info.java.target"));
+		LOGGER.info("info.java.encoding				:" + environment.getProperty("info.java.encoding"));
+		LOGGER.info("info.spring.io.version			:" + environment.getProperty("info.spring.io.version"));
+		LOGGER.info("info.spring.boot.version		:" + environment.getProperty("info.spring.boot.version"));
+		LOGGER.info("info.project.parent.version	:" + environment.getProperty("info.project.parent.version"));
+		LOGGER.info("info.project.version			:" + environment.getProperty("info.project.version"));
+
+		LOGGER.info("info							: " + environment.getPropertySources());
+
+		LOGGER.info("-------------------------");
+		LOGGER.info("spring.datasource.driver-class-name:" + environment.getProperty("spring.datasource.driver-class-name"));
+		LOGGER.info("spring.datasource.url				:" + environment.getProperty("spring.datasource.url"));
+
+		LOGGER.info("-------------------------");
+		LOGGER.info("-------------------------");
+	}
+
 	/**
-	 * 
 	 * 初始化Factory
 	 */
 	private static BeanFactory getBeanFactory() {
@@ -148,17 +181,17 @@ public class SpringUtil implements BeanFactoryAware {
 					// factory = bfr.getFactory();
 					// }
 					// } catch (Exception e) {
-					// LOG.error(e.getMessage(), e);
+					// LOGGER.error(e.getMessage(), e);
 					// }
 					// } else {
 					// // factory = SpringWebUtil.getBeanFactory();
 					// }
 
-					LOG.warn("未发现自动设置bean，开始手动加载applicationContext.xml");
+					LOGGER.warn("未发现自动设置bean，开始手动加载applicationContext.xml");
 
 					ctx = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
 					factory = ((ClassPathXmlApplicationContext) ctx).getBeanFactory();
-					LOG.info("手动加载结束，xml：" + factory + ", ctx.getApplicationName():" + ctx.getApplicationName() + ", ctx.getDisplayName():" + ctx.getDisplayName());
+					LOGGER.info("手动加载结束，xml：" + factory + ", ctx.getApplicationName():" + ctx.getApplicationName() + ", ctx.getDisplayName():" + ctx.getDisplayName());
 
 					printNowProfilesList();
 				}
@@ -173,11 +206,13 @@ public class SpringUtil implements BeanFactoryAware {
 		if (SpringUtil.factory == null) {
 			SpringUtil.factory = factory;
 
-			LOG.info("由系统自动设置BeanFactory：" + factory);
+			LOGGER.info("由系统自动设置BeanFactory：" + factory);
 		} else {
-			LOG.warn("输入的BeanFactory：" + factory.getClass());
-			LOG.warn("已存在BeanFactory：" + SpringUtil.factory.getClass());
-			LOG.warn("不进行BeanFactory处理");
+			LOGGER.warn("输入的BeanFactory：" + factory.getClass());
+			LOGGER.warn("已存在BeanFactory：" + SpringUtil.factory.getClass());
+			LOGGER.warn("不进行BeanFactory处理");
 		}
+
+		printNowProfilesListByEnvironment();
 	}
 }
