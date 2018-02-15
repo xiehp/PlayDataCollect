@@ -40,6 +40,13 @@ public class BilibiliAnimePageProcessor implements PageProcessor {
 			page.putField("弹幕总数", page.getHtml().$(".v-title-line #dm_count", "text"));
 		}
 
+		page.putField("承包数", page.getHtml().$(".sponsor-tosponsor-img span", "text"));
+		if (page.getResultItems().getAll().get("承包数") == null || page.getResultItems().getAll().get("承包数").toString() == null) {
+			page.putField("承包数", page.getHtml().$(".btn-sponsor-wrapper .sponsor-count span", "text"));
+		}
+		if (page.getResultItems().getAll().get("承包数") == null || page.getResultItems().getAll().get("承包数").toString() == null) {
+			page.putField("承包数", page.getHtml().$(".elecrank-header .title span:nth-child(2)", "text"));
+		}
 
 		page.putField("正在观看人数", page.getHtml().$(".bilibili-player-watching-number", "text"));
 		page.putField("评论数", page.getHtml().$(".comment-title span", "text"));
