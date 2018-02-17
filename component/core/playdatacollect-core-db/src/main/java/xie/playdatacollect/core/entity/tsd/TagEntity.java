@@ -1,4 +1,6 @@
-package xie.playdatacollect.core.entity;
+package xie.playdatacollect.core.entity.tsd;
+
+import xie.playdatacollect.core.entity.BasePlayCollectEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

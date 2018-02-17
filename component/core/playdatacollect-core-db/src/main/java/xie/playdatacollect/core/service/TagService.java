@@ -2,9 +2,8 @@ package xie.playdatacollect.core.service;
 
 import org.springframework.stereotype.Service;
 import xie.playdatacollect.base.db.repository.BaseDao;
-import xie.playdatacollect.base.db.service.BaseService;
 import xie.playdatacollect.core.dao.TagDao;
-import xie.playdatacollect.core.entity.TagEntity;
+import xie.playdatacollect.core.entity.tsd.TagEntity;
 
 import javax.annotation.Resource;
 

@@ -23,6 +23,8 @@ import xie.module.httpclient.XHttpClientUtils;
 import xie.playdatacollect.core.service.MetricService;
 import xie.playdatacollect.core.service.TagService;
 import xie.playdatacollect.core.service.ValueService;
+import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
+import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test1.Test1Entity;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test1.Test1Service;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test2.Test2Entity;

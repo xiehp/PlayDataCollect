@@ -1,8 +1,9 @@
-package xie.playdatacollect.core.entity;
+package xie.playdatacollect.core.entity.url;
 
 import xie.playdatacollect.base.db.entity.BaseEntity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 最终需要处理的有数据的URL
@@ -13,7 +14,7 @@ import javax.persistence.*;
 public class ProcessUrlEntity extends BaseEntity {
 
 	/** 所属数据来源 */
-	String sourceKey;
+	private String sourceKey;
 
 	/** 所属数据来源 */
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -21,14 +22,17 @@ public class ProcessUrlEntity extends BaseEntity {
 	SourcesEntity sources;
 
 	/** url名称 */
-	String name;
+	private String name;
+
+	private Date beginDate;
+
+	/** program episode */
+	private String type;
+
+	private String url;
 
 	/** url备注 */
-	String remark;
-
-	String type;
-
-	String url;
+	private String remark;
 
 	public String getSourceKey() {
 		return sourceKey;
@@ -54,12 +58,12 @@ public class ProcessUrlEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getRemark() {
-		return remark;
+	public Date getBeginDate() {
+		return beginDate;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
 	}
 
 	public String getType() {
@@ -76,5 +80,13 @@ public class ProcessUrlEntity extends BaseEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

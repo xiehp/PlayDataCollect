@@ -1,4 +1,4 @@
-package xie.playdatacollect.core;
+package xie.playdatacollect.core.utils;
 
 import org.springframework.stereotype.Component;
 import xie.playdatacollect.core.dao.ProcessUrlDao;

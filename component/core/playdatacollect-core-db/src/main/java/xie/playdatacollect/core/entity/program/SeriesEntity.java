@@ -1,4 +1,4 @@
-package xie.playdatacollect.core.entity;
+package xie.playdatacollect.core.entity.program;
 
 import xie.playdatacollect.base.db.entity.BaseEntity;
 
@@ -6,12 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 测量数据
+ * 系列表
  */
 @Entity
-@Table(name = "measurement")
+@Table(name = "series")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MeasurementEntity extends BaseEntity {
+public class SeriesEntity extends BaseEntity {
 	/** 名字 */
 	private String name;
 

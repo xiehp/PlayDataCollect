@@ -3,7 +3,7 @@ package xie.playdatacollect.core.service;
 import org.springframework.stereotype.Service;
 import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.core.dao.MetricDao;
-import xie.playdatacollect.core.entity.MetricEntity;
+import xie.playdatacollect.core.entity.tsd.MetricEntity;
 
 import javax.annotation.Resource;
 

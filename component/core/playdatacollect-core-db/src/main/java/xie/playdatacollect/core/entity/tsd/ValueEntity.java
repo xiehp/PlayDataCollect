@@ -1,4 +1,4 @@
-package xie.playdatacollect.core.entity;
+package xie.playdatacollect.core.entity.tsd;
 
 import xie.playdatacollect.base.db.entity.BaseEntity;
 

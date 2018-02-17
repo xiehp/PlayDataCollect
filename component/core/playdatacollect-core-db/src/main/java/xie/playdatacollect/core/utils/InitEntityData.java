@@ -1,4 +1,4 @@
-package xie.playdatacollect.core;
+package xie.playdatacollect.core.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xie.common.date.DateUtil;
-import xie.playdatacollect.core.entity.ProcessUrlEntity;
-import xie.playdatacollect.core.entity.SourcesEntity;
+import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
+import xie.playdatacollect.core.entity.url.SourcesEntity;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -44,6 +44,8 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData("bilibili", "OverloadII 3", "episode", "OVERLORDⅡ 3", "https://www.bilibili.com/bangumi/play/ep173250");
 		saveProcessUrlData("bilibili", "OverloadII 4", "episode", "OVERLORDⅡ 4", "https://www.bilibili.com/bangumi/play/ep173251");
 		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 5", "https://www.bilibili.com/bangumi/play/ep173252");
+		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 6", "https://www.bilibili.com/bangumi/play/ep173253");
+		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 7", "https://www.bilibili.com/bangumi/play/ep173254");
 
 		saveProcessUrlData("bilibili", "紫罗兰", "program", "", "https://bangumi.bilibili.com/anime/21542");
 		saveProcessUrlData("bilibili", "紫罗兰 1", "episode", "紫罗兰 1", "https://www.bilibili.com/bangumi/play/ep173286");
@@ -51,6 +53,8 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData("bilibili", "紫罗兰 3", "episode", "紫罗兰 3", "https://www.bilibili.com/bangumi/play/ep173288");
 		saveProcessUrlData("bilibili", "紫罗兰 4", "episode", "紫罗兰 4", "https://www.bilibili.com/bangumi/play/ep173289");
 		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 5", "https://www.bilibili.com/bangumi/play/ep173290");
+		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 6", "https://www.bilibili.com/bangumi/play/ep173291");
+		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 7", "https://www.bilibili.com/bangumi/play/ep173292");
 
 		saveProcessUrlData("bilibili", "3月的狮子 第二季", "program", "", "https://bangumi.bilibili.com/anime/6445");
 		saveProcessUrlData("bilibili", "3月的狮子 第二季 第24话 混沌/隈仓", "episode", "3月的狮子 第二季 第24话 混沌/隈仓", "https://www.bilibili.com/bangumi/play/ep115339");
@@ -86,7 +90,7 @@ public class InitEntityData implements ApplicationRunner {
 		allDaoUtil.getSourcesDao().save(sourcesEntity);
 	}
 
-	private void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url) throws ParseException {
+	private void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url) {
 		ProcessUrlEntity processUrlEntity = allDaoUtil.getProcessUrlDao().findByName(name);
 		if (processUrlEntity == null) {
 			processUrlEntity = new ProcessUrlEntity();
@@ -96,8 +100,9 @@ public class InitEntityData implements ApplicationRunner {
 		processUrlEntity.setSourceKey(sourceKey);
 		processUrlEntity.setName(name);
 		processUrlEntity.setType(type);
-		processUrlEntity.setRemark(desc);
+		processUrlEntity.setBeginDate(new Date());
 		processUrlEntity.setUrl(url);
+		processUrlEntity.setRemark(desc);
 
 
 		allDaoUtil.getProcessUrlDao().save(processUrlEntity);

@@ -1,4 +1,4 @@
-package xie.playdatacollect.collector;
+package xie.playdatacollect.spider.webmagic.processor.bilibili;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
