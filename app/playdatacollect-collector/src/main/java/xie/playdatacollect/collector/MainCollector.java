@@ -179,6 +179,7 @@ public class MainCollector {
 		listBLNormal.add("https://bangumi.bilibili.com/anime/21755"); // 刻刻
 		listBLNormal.add("https://bangumi.bilibili.com/anime/21554"); // 龙王的工作
 		listBLNormal.add("https://bangumi.bilibili.com/anime/21466"); // OVERLORDⅡ
+		listBLNormal.add("https://bangumi.bilibili.com/anime/21719"); // pop子和pipi美的日常
 
 
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173286"); // 紫罗兰 1
@@ -187,6 +188,7 @@ public class MainCollector {
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173289"); // 紫罗兰 4
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173290"); // 紫罗兰 5
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173291"); // 紫罗兰 6
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173292"); // 紫罗兰 7
 
 
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173248"); // OVERLORDⅡ 1
@@ -195,7 +197,15 @@ public class MainCollector {
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173251"); // OVERLORDⅡ 4
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173252"); // OVERLORDⅡ 5
 		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173253"); // OVERLORDⅡ 6
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep173254"); // OVERLORDⅡ 7
 
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172166"); // pop子和pipi美的日常 1
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172167"); // pop子和pipi美的日常 2
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172168"); // pop子和pipi美的日常 3
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172169"); // pop子和pipi美的日常 4
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172170"); // pop子和pipi美的日常 5
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172171"); // pop子和pipi美的日常 6
+		listBLNormal.add("https://www.bilibili.com/bangumi/play/ep172172"); // pop子和pipi美的日常 7
 
 		List<String> listBLNY2018 = new ArrayList<>();
 		listBLNY2018.add("https://www.bilibili.com/blackboard/bnj2018.html");
