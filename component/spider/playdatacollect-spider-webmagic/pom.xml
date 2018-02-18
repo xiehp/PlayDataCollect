@@ -56,16 +56,4 @@
 		</dependency>-->
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<!-- 是否可以让spring dev tool 运行在开发环境之外，如生产环境  -->
-					<!--<excludeDevtools>false</excludeDevtools>-->
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
