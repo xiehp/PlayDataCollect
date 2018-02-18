@@ -68,6 +68,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>common</module>
 		<module>base</module>
 		<module>component</module>
 		<module>app</module>
