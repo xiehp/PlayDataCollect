@@ -208,7 +208,8 @@ public class SpringUtil implements BeanFactoryAware {
 		if (SpringUtil.factory == null) {
 			SpringUtil.factory = factory;
 
-			LOGGER.info("由系统自动设置BeanFactory：" + factory);
+//			LOGGER.info("由系统自动设置BeanFactory：" + factory);
+			LOGGER.info("由系统自动设置BeanFactory：");
 		} else {
 			LOGGER.warn("输入的BeanFactory：" + factory.getClass());
 			LOGGER.warn("已存在BeanFactory：" + SpringUtil.factory.getClass());
