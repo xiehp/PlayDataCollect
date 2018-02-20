@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
+import xie.common.java.JVMResource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,12 +136,17 @@ public class SpringUtil implements BeanFactoryAware {
 		printNowProfilesListByEnvironment(environment);
 	}
 
-	public void printNowProfilesListByEnvironment(ConfigurableEnvironment environment) {
-		LOGGER.info("-------------------------");
+	public static void printNowProfilesListByEnvironment(ConfigurableEnvironment environment) {
 		LOGGER.info("-------------------------");
 
 		String[] defaultProfiles = environment.getDefaultProfiles();
 		String[] activeProfiles = environment.getActiveProfiles();
+		LOGGER.info("--------jvm信息----------");
+		JVMResource jvmResource = new JVMResource();
+		jvmResource.printAllSummary();
+
+		LOGGER.info("");
+		LOGGER.info("--------spring信息-------");
 		LOGGER.info("当前默认的profile：{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
 		LOGGER.info("当前激活的profile：{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
 
@@ -209,13 +215,13 @@ public class SpringUtil implements BeanFactoryAware {
 			SpringUtil.factory = factory;
 
 //			LOGGER.info("由系统自动设置BeanFactory：" + factory);
-			LOGGER.info("由系统自动设置BeanFactory：");
+			LOGGER.info("由系统自动设置BeanFactory");
 		} else {
 			LOGGER.warn("输入的BeanFactory：" + factory.getClass());
 			LOGGER.warn("已存在BeanFactory：" + SpringUtil.factory.getClass());
 			LOGGER.warn("不进行BeanFactory处理");
 		}
 
-		printNowProfilesListByEnvironment();
+		// printNowProfilesListByEnvironment();
 	}
 }

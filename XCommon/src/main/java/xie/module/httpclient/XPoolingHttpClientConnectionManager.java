@@ -1,11 +1,5 @@
 package xie.module.httpclient;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-
 import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -19,10 +13,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import xie.common.trust.XNoCheckX509HostnameVerifier;
 import xie.common.trust.XNoCheckX509TrustManager;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 //@Component
 public class XPoolingHttpClientConnectionManager {

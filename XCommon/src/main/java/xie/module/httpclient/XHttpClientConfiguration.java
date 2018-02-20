@@ -2,6 +2,7 @@ package xie.module.httpclient;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xie.module.spring.SpringUtil;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -10,12 +11,12 @@ import java.security.NoSuchAlgorithmException;
 public class XHttpClientConfiguration {
 
 	@Bean
-	public XPoolingHttpClientConnectionManager getXPoolingHttpClientConnectionManager() throws KeyManagementException, NoSuchAlgorithmException {
+	public XPoolingHttpClientConnectionManager getXPoolingHttpClientConnectionManager(SpringUtil springUtil) throws KeyManagementException, NoSuchAlgorithmException {
 		return new XPoolingHttpClientConnectionManager();
 	}
 
 	@Bean
 	public XHttpClientUtils getXHttpClientUtils() throws NoSuchAlgorithmException, KeyManagementException {
-		return new XHttpClientUtils(getXPoolingHttpClientConnectionManager());
+		return new XHttpClientUtils(getXPoolingHttpClientConnectionManager(null));
 	}
 }
