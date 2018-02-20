@@ -1,20 +1,21 @@
-package xie.playdatacollect.base.spring.listener;
+package xie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
- * spring boot 启动成功监听类
+ * spring boot 启动监听类
  */
 @Component
-public class MyApplicationStartedEventListener extends XApplicationListener<ApplicationStartedEvent> {
+public class MyApplicationStartedEventListener implements ApplicationListener<ApplicationStartedEvent> {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public void onApplicationEvent(ApplicationStartedEvent event) {
-		logger.info("Environment:" + event.getApplicationContext().getEnvironment());
+		logger.error("getEnvironment:" + event.getApplicationContext().getEnvironment());
 	}
 }

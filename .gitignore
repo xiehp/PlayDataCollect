@@ -1,4 +1,9 @@
-﻿# eclipse file
+﻿#
+application-local.properties
+
+
+
+# eclipse file
 .classpath
 .project
 .settings

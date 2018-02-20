@@ -1,18 +1,17 @@
 package xie.playdatacollect.base.spring.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import xie.module.spring.SpringUtil;
 
 /**
- * spring boot 启动监听类
+ * spring boot 环境准备后好后监听事件<br>
+ * 由于还未开始创建bean，因此该方法由META-INF\spring.factories文件进行配置<br>
+ * key为org.springframework.context.ApplicationListener<br>
  */
 public class MyApplicationEnvironmentPreparedEventListener extends XApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-		logger.info("getEnvironment:" + event.getEnvironment());
+		SpringUtil.printNowProfilesListByEnvironment(event.getEnvironment());
 	}
 }

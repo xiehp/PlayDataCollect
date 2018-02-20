@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -378,6 +379,8 @@ public class MainCollector {
 	public static void main(String[] args) {
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");
-		SpringApplication.run(MainCollector.class, args);
+		ConfigurableApplicationContext run = SpringApplication.run(MainCollector.class, args);
+		String property = run.getEnvironment().getProperty("ds.password");
+		System.out.println(property);
 	}
 }
