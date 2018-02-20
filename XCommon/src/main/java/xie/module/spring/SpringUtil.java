@@ -146,24 +146,24 @@ public class SpringUtil implements BeanFactoryAware {
 
 		LOGGER.info("");
 		LOGGER.info("--------spring信息-------");
-		LOGGER.info("当前默认的profile：{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
-		LOGGER.info("当前激活的profile：{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
+		LOGGER.info("当前默认的profile              ：{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
+		LOGGER.info("当前激活的profile              ：{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
 
-		LOGGER.info("info							:" + environment.getProperty("info"));
-		LOGGER.info("info.java.source				:" + environment.getProperty("info.java.source"));
-		LOGGER.info("info.java.target				:" + environment.getProperty("info.java.target"));
-		LOGGER.info("info.java.encoding				:" + environment.getProperty("info.java.encoding"));
-		LOGGER.info("info.spring.version			:" + environment.getProperty("info.spring.version"));
-		LOGGER.info("info.spring.io.version			:" + environment.getProperty("info.spring.io.version"));
-		LOGGER.info("info.spring.boot.version		:" + environment.getProperty("info.spring.boot.version"));
-		LOGGER.info("info.project.parent.version	:" + environment.getProperty("info.project.parent.version"));
-		LOGGER.info("info.project.version			:" + environment.getProperty("info.project.version"));
+		LOGGER.info("info                          :" + environment.getProperty("info"));
+		LOGGER.info("info                          :" + environment.getProperty("info.java.source"));
+		LOGGER.info("info.java.target              :" + environment.getProperty("info.java.target"));
+		LOGGER.info("info.java.encoding            :" + environment.getProperty("info.java.encoding"));
+		LOGGER.info("info.spring.version           :" + environment.getProperty("info.spring.version"));
+		LOGGER.info("info.spring.io.version        :" + environment.getProperty("info.spring.io.version"));
+		LOGGER.info("info.spring.boot.version      :" + environment.getProperty("info.spring.boot.version"));
+		LOGGER.info("info.project.parent.version   :" + environment.getProperty("info.project.parent.version"));
+		LOGGER.info("info.project.version          :" + environment.getProperty("info.project.version"));
 
-		LOGGER.info("info							: " + environment.getPropertySources());
+		LOGGER.info("info                          :" + environment.getPropertySources());
 
 		LOGGER.info("-------------------------");
 		LOGGER.info("spring.datasource.driver-class-name:" + environment.getProperty("spring.datasource.driver-class-name"));
-		LOGGER.info("spring.datasource.url				:" + environment.getProperty("spring.datasource.url"));
+		LOGGER.info("spring.datasource.url              :" + environment.getProperty("spring.datasource.url"));
 
 		LOGGER.info("-------------------------");
 		LOGGER.info("-------------------------");

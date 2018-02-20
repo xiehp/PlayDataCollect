@@ -46,12 +46,12 @@ public class JVMResource {
 //		System.out.printf("clsCurrLoaded:%s%n", cl.getLoadedClassCount());
 //		System.out.printf("clsLoaded:%s%n", cl.getTotalLoadedClassCount());
 //		System.out.printf("clsUnloaded:%s%n", cl.getUnloadedClassCount());
-		logger.info(String.format("uptime:			%s", toDuration(runtime.getUptime())));
-		logger.info(String.format("os:				%s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
-		logger.info(String.format("jvm:				%s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
-		logger.info(String.format("heapUsage:		%s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
-		logger.info(String.format("threads:			Live %d, Daemon %d, Peak %d, Total %d", threads.getThreadCount(), threads.getDaemonThreadCount(), threads.getPeakThreadCount(), threads.getTotalStartedThreadCount()));
-		logger.info(String.format("class:			Loaded %s, Unloaded %s, total %s", cl.getLoadedClassCount(), cl.getUnloadedClassCount(), cl.getTotalLoadedClassCount()));
+		logger.info(String.format("uptime:    %s", toDuration(runtime.getUptime())));
+		logger.info(String.format("os:        %s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
+		logger.info(String.format("jvm:       %s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
+		logger.info(String.format("heapUsage: %s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
+		logger.info(String.format("threads:   Live %d, Daemon %d, Peak %d, Total %d", threads.getThreadCount(), threads.getDaemonThreadCount(), threads.getPeakThreadCount(), threads.getTotalStartedThreadCount()));
+		logger.info(String.format("class:     Loaded %s, Unloaded %s, total %s", cl.getLoadedClassCount(), cl.getUnloadedClassCount(), cl.getTotalLoadedClassCount()));
 	}
 
 	public void printBaseSummary() {
@@ -59,10 +59,10 @@ public class JVMResource {
 		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
 		MemoryMXBean mem = ManagementFactory.getMemoryMXBean();
 		MemoryUsage heapUsage = mem.getHeapMemoryUsage();
-		logger.info(String.format("uptime:			%s", toDuration(runtime.getUptime())));
-		logger.info(String.format("os:				%s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
-		logger.info(String.format("jvm:				%s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
-		logger.info(String.format("heapUsage:		%s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
+		logger.info(String.format("uptime:    %s", toDuration(runtime.getUptime())));
+		logger.info(String.format("os:        %s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
+		logger.info(String.format("jvm:       %s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
+		logger.info(String.format("heapUsage: %s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
 	}
 
 	protected String printSizeInKb(double size) {
