@@ -142,8 +142,7 @@ public class SpringUtil implements BeanFactoryAware {
 		String[] defaultProfiles = environment.getDefaultProfiles();
 		String[] activeProfiles = environment.getActiveProfiles();
 		LOGGER.info("--------jvm信息----------");
-		JVMResource jvmResource = new JVMResource();
-		jvmResource.printAllSummary();
+		new JVMResource().printAllSummary();
 
 		LOGGER.info("");
 		LOGGER.info("--------spring信息-------");

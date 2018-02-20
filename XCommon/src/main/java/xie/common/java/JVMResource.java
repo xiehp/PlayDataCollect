@@ -14,6 +14,7 @@ public class JVMResource {
 
 	public static void main(String[] args) {
 		new JVMResource().printAllSummary();
+		new JVMResource().printBaseSummary();
 	}
 
 	private NumberFormat fmtI = new DecimalFormat("###,###", new DecimalFormatSymbols(Locale.ENGLISH));
@@ -46,7 +47,7 @@ public class JVMResource {
 //		System.out.printf("clsLoaded:%s%n", cl.getTotalLoadedClassCount());
 //		System.out.printf("clsUnloaded:%s%n", cl.getUnloadedClassCount());
 		logger.info(String.format("uptime:			%s", toDuration(runtime.getUptime())));
-		logger.info(String.format("os:				%s %s %s, %s %s, %s %s ", os.getName(), "version", os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
+		logger.info(String.format("os:				%s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
 		logger.info(String.format("jvm:				%s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
 		logger.info(String.format("heapUsage:		%s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
 		logger.info(String.format("threads:			Live %d, Daemon %d, Peak %d, Total %d", threads.getThreadCount(), threads.getDaemonThreadCount(), threads.getPeakThreadCount(), threads.getTotalStartedThreadCount()));
@@ -59,7 +60,7 @@ public class JVMResource {
 		MemoryMXBean mem = ManagementFactory.getMemoryMXBean();
 		MemoryUsage heapUsage = mem.getHeapMemoryUsage();
 		logger.info(String.format("uptime:			%s", toDuration(runtime.getUptime())));
-		logger.info(String.format("os:				%s %s %s, %s %s, %s %s ", os.getName(), "version", os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
+		logger.info(String.format("os:				%s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
 		logger.info(String.format("jvm:				%s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
 		logger.info(String.format("heapUsage:		%s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
 	}
