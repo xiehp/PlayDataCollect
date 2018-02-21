@@ -6,9 +6,10 @@ FROM maven:3
 # Adding HelloWorld page into Nginx server
 WORKDIR /playdata
 
-RUN git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
-    git pull \
-    git submodule update \
+RUN rm PlayDataCollect
+    git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
+    #git pull \
+    #git submodule update \
 
 WORKDIR PlayDataCollect
 
