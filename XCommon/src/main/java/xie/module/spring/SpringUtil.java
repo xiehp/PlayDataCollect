@@ -162,8 +162,9 @@ public class SpringUtil implements BeanFactoryAware {
 		LOGGER.info("info                          :" + environment.getPropertySources());
 
 		LOGGER.info("-------------------------");
-		LOGGER.info("spring.datasource.driver-class-name:" + environment.getProperty("spring.datasource.driver-class-name"));
-		LOGGER.info("spring.datasource.url              :" + environment.getProperty("spring.datasource.url"));
+		LOGGER.info("spring.datasource.url               :" + environment.getProperty("spring.datasource.url"));
+		LOGGER.info("spring.datasource.driver-class-name :" + environment.getProperty("spring.datasource.driver-class-name"));
+		LOGGER.info("spring.datasource.driverClassName   :" + environment.getProperty("spring.datasource.driverClassName"));
 
 		LOGGER.info("-------------------------");
 		LOGGER.info("-------------------------");

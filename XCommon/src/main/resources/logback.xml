@@ -86,14 +86,25 @@
 		<appender-ref ref="businessLogFile"/>
 	</logger>
 
-	<!--log4jdbc
-	<logger name="jdbc.sqltiming" level="INFO" />-->
+	<!-- 日志过滤 -->
 
 	<!-- cxf inbound/outbound logger
 	<logger name="org.apache.cxf.services" level="WARN" />
 	<logger name="org.hibernate" level="WARN" />
 	<logger name="org.hibernate.engine.internal" level="WARN" />
 	<logger name="xie.common.exception.ExceptionHandler" level="WARN" />-->
+
+	<!-- log4jdbc配置
+	<logger name="jdbc.sqlonly" level="WARN">
+	</logger>
+	<logger name="jdbc.audit" level="WARN">
+	</logger>
+	<logger name="jdbc.resultset" level="WARN">
+	</logger>
+	<logger name="jdbc.connection" level="WARN">
+	</logger>
+	<logger name="jdbc.sqltiming" level="INFO"/>
+	-->
 
 	<!-- root -->
 	<root level="INFO">
