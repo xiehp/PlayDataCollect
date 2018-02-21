@@ -50,9 +50,10 @@
 			<artifactId>log4jdbc</artifactId>
 			<version>1.2</version>
 		</dependency> -->
+		<!-- https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
+			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.8</version>
 		</dependency>
 	</dependencies>
