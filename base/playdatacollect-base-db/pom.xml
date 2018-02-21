@@ -38,11 +38,22 @@
 
 
 		<!-- 第三方基础依赖 -->
+		<!-- deep copy 深度对象复制 -->
 		<dependency>
-			<!-- deep copy 深度对象复制 -->
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
 			<version>5.5.1</version>
+		</dependency>
+		<!-- 完整sql打印
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<version>1.2</version>
+		</dependency> -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.8</version>
 		</dependency>
 	</dependencies>
 

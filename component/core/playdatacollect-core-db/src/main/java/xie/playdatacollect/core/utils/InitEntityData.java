@@ -7,12 +7,14 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xie.common.date.DateUtil;
+import xie.playdatacollect.base.db.entity.BaseEntity;
+import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.entity.url.SourcesEntity;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 用于初始化一些基础数据
@@ -26,9 +28,46 @@ public class InitEntityData implements ApplicationRunner {
 	@Resource
 	AllDaoUtil allDaoUtil;
 
+	private boolean batchFlag = false;
+	private Map<BaseDao, List<BaseEntity>> batchDataMap = new LinkedHashMap<>();
+
+	private void beginBatch() {
+		log.info("beginBatch");
+		batchFlag = true;
+	}
+
+	private void putBatchData(BaseDao dao, BaseEntity entity) {
+		List<BaseEntity> list;
+		if (batchDataMap.containsKey(dao)) {
+			list = batchDataMap.get(dao);
+		} else {
+			list = new ArrayList<>();
+			batchDataMap.put(dao, list);
+		}
+
+		list.add(entity);
+	}
+
+	private void updateBatch() {
+		log.info("begin updateBatch, batchData dao size:{}", batchDataMap.size());
+
+		if (batchDataMap.size() > 0) {
+			for (BaseDao dao : batchDataMap.keySet()) {
+				List<BaseEntity> list = batchDataMap.get(dao);
+				log.info("update {}, size:{}", dao.getClass().getInterfaces()[0].getSimpleName(), list.size());
+				dao.saveAll(list);
+			}
+		}
+
+		batchDataMap.clear();
+		batchFlag = false;
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws ParseException {
 		log.info("InitEntityData start");
+
+		beginBatch();
 
 		// 网站信息
 		saveSourcesData("bilibili", "哔哩哔哩弹幕网", "哔哩哔哩", "BL", "https://www.bilibili.com/");
@@ -65,6 +104,8 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData("bilibili", "刻刻", "program", "", "https://bangumi.bilibili.com/anime/21755");
 		saveProcessUrlData("bilibili", "龙王的工作", "program", "", "https://bangumi.bilibili.com/anime/21554");
 
+		updateBatch();
+
 		log.info("InitEntityData End");
 	}
 
@@ -86,8 +127,11 @@ public class InitEntityData implements ApplicationRunner {
 		sourcesEntity.setVersionDef(versionDef);
 		sourcesEntity.setVersionDate(versionDate);
 
-
-		allDaoUtil.getSourcesDao().save(sourcesEntity);
+		if (!batchFlag) {
+			allDaoUtil.getSourcesDao().save(sourcesEntity);
+		} else {
+			putBatchData(allDaoUtil.getSourcesDao(), sourcesEntity);
+		}
 	}
 
 	private void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url) {
@@ -104,7 +148,12 @@ public class InitEntityData implements ApplicationRunner {
 		processUrlEntity.setUrl(url);
 		processUrlEntity.setRemark(desc);
 
-
-		allDaoUtil.getProcessUrlDao().save(processUrlEntity);
+		if (!batchFlag) {
+			allDaoUtil.getProcessUrlDao().save(processUrlEntity);
+		} else {
+			putBatchData(allDaoUtil.getProcessUrlDao(), processUrlEntity);
+		}
 	}
+
+
 }
