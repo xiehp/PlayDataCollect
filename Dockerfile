@@ -4,10 +4,17 @@ FROM maven:3
 
 # The RUN instruction will execute any commands
 # Adding HelloWorld page into Nginx server
-RUN git clone --recursive https://github.com/xiehp/PlayDataCollect.git
-WORKDIR $PWD/PlayDataCollect
-RUN mvn clean package
-RUN cp app/playdatacollect-collector/target/playdatacollect-collector-1.0-SNAPSHOT.jar playdatacollect-collector-1.0.jar
+WORKDIR /playdata
+
+RUN git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
+    git pull \
+    git submodule update \
+
+WORKDIR PlayDataCollect
+
+RUN mvn clean package \
+    cp app/playdatacollect-collector/target/playdatacollect-collector-1.0-SNAPSHOT.jar playdatacollect-collector-1.0.jar
+    mvn clean
 
 # The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime
 EXPOSE 13001
