@@ -1,6 +1,7 @@
 # The FROM instruction sets the Base Image for subsequent instructions.
 # Using Nginx as Base Image
-FROM maven:3
+# docker login daocloud.io
+FROM daocloud.io/94540413/play_data_collect:master-74a8e61
 MAINTAINER xie@qq.com
 
 # The RUN instruction will execute any commands
