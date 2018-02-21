@@ -199,7 +199,7 @@
 				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 
-			<!-- docker -->
+			<!-- docker
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
@@ -215,7 +215,7 @@
 						</resource>
 					</resources>
 				</configuration>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
