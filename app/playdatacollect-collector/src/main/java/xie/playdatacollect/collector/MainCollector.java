@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -100,27 +101,27 @@ public class MainCollector {
 		tempId = newEntity2_.getId();
 
 
-		try {
-			// 获取视频数据
-			String 紫罗兰剧集2html = xHttpClientUtils.getHtml("https://www.bilibili.com/bangumi/play/ep173286");
-			//String 紫罗兰剧集2html = restTemplate.postForObject("https://www.bilibili.com/bangumi/play/ep173286", null, String.class);
-			//String 紫罗兰动画html = restTemplate.postForObject("https://bangumi.bilibili.com/anime/21542", null, String.class);
-
-			String 一人之下动画html = restTemplate.postForObject("http://www.iqiyi.com/a_19rrhcxxf9.html#vfrm=2-4-0-1", null, String.class);
-			String 声之形动画html = restTemplate.postForObject("http://www.iqiyi.com/v_19rrdx0s04.html#vfrm=2-4-0-1", null, String.class);
-
-
-			List<Object> 动画html列表 = new ArrayList<>();
-			//	动画html列表.add(紫罗兰剧集2html);
-			//	动画html列表.add(紫罗兰动画html);
-			动画html列表.add(一人之下动画html);
-			动画html列表.add(声之形动画html);
-
-
-			aaaa.add(动画html列表);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			// 获取视频数据
+//			String 紫罗兰剧集2html = xHttpClientUtils.getHtml("https://www.bilibili.com/bangumi/play/ep173286");
+//			//String 紫罗兰剧集2html = restTemplate.postForObject("https://www.bilibili.com/bangumi/play/ep173286", null, String.class);
+//			//String 紫罗兰动画html = restTemplate.postForObject("https://bangumi.bilibili.com/anime/21542", null, String.class);
+//
+//			String 一人之下动画html = restTemplate.postForObject("http://www.iqiyi.com/a_19rrhcxxf9.html#vfrm=2-4-0-1", null, String.class);
+//			String 声之形动画html = restTemplate.postForObject("http://www.iqiyi.com/v_19rrdx0s04.html#vfrm=2-4-0-1", null, String.class);
+//
+//
+//			List<Object> 动画html列表 = new ArrayList<>();
+//			//	动画html列表.add(紫罗兰剧集2html);
+//			//	动画html列表.add(紫罗兰动画html);
+//			动画html列表.add(一人之下动画html);
+//			动画html列表.add(声之形动画html);
+//
+//
+//			aaaa.add(动画html列表);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		return aaaa;
 	}
@@ -132,7 +133,7 @@ public class MainCollector {
 	 * 从0点开始,每2个小时执行一次
 	 */
 //	@Scheduled(cron = "0/10 * * * * ?")
-	@Scheduled(cron = "0 0/1 * * * ?")
+//	@Scheduled(cron = "0 0/1 * * * ?")
 	public void runScheduled() {
 		System.out.println(new Date() + "----开始执行定时抓取任务");
 
@@ -222,7 +223,7 @@ public class MainCollector {
 		Logger logSpider = LoggerFactory.getLogger(Spider.class);
 		List<ResultItems> resultItemses = spider.getAll(list);
 
-		InfluxDB influxDB = InfluxDBFactory.connect("http://linux2.acgimage.cn:48086");
+		InfluxDB influxDB = InfluxDBFactory.connect("https://influxdb.acgimage.cn/");
 		influxDB.setDatabase("play_data");
 
 		List<String> aidList = new ArrayList<>();

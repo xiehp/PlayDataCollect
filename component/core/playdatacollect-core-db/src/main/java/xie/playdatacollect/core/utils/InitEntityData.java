@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xie.common.date.DateUtil;
+import xie.module.log.XLog;
 import xie.playdatacollect.base.db.entity.BaseEntity;
 import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
@@ -23,7 +24,7 @@ import java.util.*;
 @Order(0)
 public class InitEntityData implements ApplicationRunner {
 
-	Logger log = LoggerFactory.getLogger(InitEntityData.class);
+	Logger log = XLog.getLogger(InitEntityData.class);
 
 	@Resource
 	AllDaoUtil allDaoUtil;
@@ -61,6 +62,7 @@ public class InitEntityData implements ApplicationRunner {
 
 		batchDataMap.clear();
 		batchFlag = false;
+		log.info("end updateBatch");
 	}
 
 	@Override
@@ -111,7 +113,7 @@ public class InitEntityData implements ApplicationRunner {
 
 
 	private void saveSourcesData(String key, String name, String simpleName, String abName, String url) throws ParseException {
-		String versionDef = "0.02";
+		String versionDef = "0.03";
 		Date versionDate = DateUtil.fromString("2018-02-12 15:55:00");
 
 		SourcesEntity sourcesEntity = allDaoUtil.getSourcesDao().findByKeyword(key);

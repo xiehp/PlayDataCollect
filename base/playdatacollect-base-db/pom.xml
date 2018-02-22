@@ -36,7 +36,6 @@
 			<version>1.4.0</version>
 		</dependency>
 
-
 		<!-- 第三方基础依赖 -->
 		<!-- deep copy 深度对象复制 -->
 		<dependency>

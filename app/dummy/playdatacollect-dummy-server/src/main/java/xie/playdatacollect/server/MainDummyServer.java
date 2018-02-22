@@ -18,7 +18,7 @@ import java.util.Random;
 @RestController
 @EnableAutoConfiguration
 public class MainDummyServer {
-	Logger log = LoggerFactory.getLogger(this.getClass());
+	Logger log = XLog.getLogger(this.getClass());
 
 	@RequestMapping("/")
 	public String index() {
@@ -28,6 +28,7 @@ public class MainDummyServer {
 
 	private int site1_getPayCount_request_count = 0;
 	private Random random = new Random(100);
+
 	@RequestMapping("/site1/getPayCount")
 	@ResponseBody
 	public Map<String, Object> site1_getPayCount(
@@ -39,10 +40,12 @@ public class MainDummyServer {
 		getPayCount.put("title", StringUtils.isEmpty(title) ? "the title" : title);
 		getPayCount.put("payCount", count);
 
-		log.info(getPayCount.toString());
+		//log.info(getPayCount.toString());
 
-		XLog.info(getPayCount.toString());
-		XLog.getLog().info(getPayCount.toString());
+		//XLog.info(getPayCount.toString());
+		//XLog.getXLogger().info(getPayCount.toString());
+
+		XLog.info(this, getPayCount.toString());
 		return getPayCount;
 	}
 
