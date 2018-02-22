@@ -69,9 +69,11 @@
 			<artifactId>htmlunit</artifactId>
 		</dependency>
 
+		<!-- bt下载器 -->
 		<dependency>
 			<groupId>com.turn</groupId>
 			<artifactId>ttorrent-core</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

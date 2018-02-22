@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 import xie.common.java.JVMResource;
+import xie.module.log.XLog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class SpringUtil implements BeanFactoryAware {
 	public final static String BEAN_CONTENT_TYPE = "B";
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SpringUtil.class);
+	private static final Logger LOGGER = XLog.getLogger(SpringUtil.class);
 
 //	/** The locator. */
 //	private static volatile BeanFactoryLocator locator;
