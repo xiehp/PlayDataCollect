@@ -1,0 +1,11 @@
+# The FROM instruction sets the Base Image for subsequent instructions.
+# Using Nginx as Base Image
+# docker login daocloud.io
+#FROM resin/raspberrypi3-openjdk:jdk
+FROM resin/raspberrypi3-alpine-openjdk:jre
+MAINTAINER xie@qq.com
+
+COPY /playdata /playdata
+WORKDIR /playdata/PlayDataCollect
+
+CMD ["java", "-jar", "playdatacollect-collector-1.0.jar"]
