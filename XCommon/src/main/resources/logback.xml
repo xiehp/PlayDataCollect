@@ -105,9 +105,10 @@
 	</logger>
 	<logger name="jdbc.sqltiming" level="INFO"/>
 	-->
+	<logger name="druid.sql.Statement" level="DEBUG"/>
 
 	<!-- root -->
-	<root level="INFO">
+	<root level="info">
 		<appender-ref ref="console"/>
 		<appender-ref ref="infoLogFile"/>
 		<appender-ref ref="warnLogFile"/>

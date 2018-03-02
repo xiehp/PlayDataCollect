@@ -8,6 +8,10 @@
 	<!-- (you don't need this if you are using a .RELEASE version) -->
 	<repositories>
 		<repository>
+			<id>aliyun-maven</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
 			<id>spring-snapshots</id>
 			<url>http://repo.spring.io/snapshot</url>
 			<snapshots>
@@ -24,6 +28,10 @@
 		</repository>
 	</repositories>
 	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-maven</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</pluginRepository>
 		<pluginRepository>
 			<id>spring-snapshots</id>
 			<url>http://repo.spring.io/snapshot</url>
@@ -69,7 +77,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RC1</version>
+		<version>2.0.0.RELEASE</version>
 	</parent>
 
 	<modules>

@@ -138,6 +138,11 @@ public class SpringUtil implements BeanFactoryAware {
 	}
 
 	public static void printNowProfilesListByEnvironment(ConfigurableEnvironment environment) {
+
+		System.setProperty("druid.log.stmt", "false");
+		System.setProperty("druid.log.stmt.executableSql", "true");
+
+
 		LOGGER.info("-------------------------");
 
 		String[] defaultProfiles = environment.getDefaultProfiles();
