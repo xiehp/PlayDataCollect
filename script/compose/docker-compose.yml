@@ -1,0 +1,17 @@
+version: '3'
+services:
+  #
+  playdata:
+    image: xie/playdatacollect
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro # 如果/etc/localtime没用尝试这个
+      - $PWD/volumes/var/lib/influxdb:/var/lib/influxdb
+      - $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+#    ports:
+#      - "48083:8083"
+#      - "48086:8086"
+    environment:
+      #- TZ=Asia/Shanghai # 如果/etc/localtime没用尝试这个
+#      - INFLUXDB_DATA_QUERY_LOG_ENABLED=false
+    restart: always

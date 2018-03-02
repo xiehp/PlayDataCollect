@@ -85,8 +85,9 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData("bilibili", "OverloadII 3", "episode", "OVERLORDⅡ 3", "https://www.bilibili.com/bangumi/play/ep173250");
 		saveProcessUrlData("bilibili", "OverloadII 4", "episode", "OVERLORDⅡ 4", "https://www.bilibili.com/bangumi/play/ep173251");
 		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 5", "https://www.bilibili.com/bangumi/play/ep173252");
-		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 6", "https://www.bilibili.com/bangumi/play/ep173253");
-		saveProcessUrlData("bilibili", "OverloadII 5", "episode", "OVERLORDⅡ 7", "https://www.bilibili.com/bangumi/play/ep173254");
+		saveProcessUrlData("bilibili", "OverloadII 6", "episode", "OVERLORDⅡ 6", "https://www.bilibili.com/bangumi/play/ep173253");
+		saveProcessUrlData("bilibili", "OverloadII 7", "episode", "OVERLORDⅡ 7", "https://www.bilibili.com/bangumi/play/ep173254");
+		saveProcessUrlData("bilibili", "OverloadII 8", "episode", "OVERLORDⅡ 8", "https://www.bilibili.com/bangumi/play/ep173255");
 
 		saveProcessUrlData("bilibili", "紫罗兰", "program", "", "https://bangumi.bilibili.com/anime/21542");
 		saveProcessUrlData("bilibili", "紫罗兰 1", "episode", "紫罗兰 1", "https://www.bilibili.com/bangumi/play/ep173286");
@@ -94,8 +95,9 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData("bilibili", "紫罗兰 3", "episode", "紫罗兰 3", "https://www.bilibili.com/bangumi/play/ep173288");
 		saveProcessUrlData("bilibili", "紫罗兰 4", "episode", "紫罗兰 4", "https://www.bilibili.com/bangumi/play/ep173289");
 		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 5", "https://www.bilibili.com/bangumi/play/ep173290");
-		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 6", "https://www.bilibili.com/bangumi/play/ep173291");
-		saveProcessUrlData("bilibili", "紫罗兰 5", "episode", "紫罗兰 7", "https://www.bilibili.com/bangumi/play/ep173292");
+		saveProcessUrlData("bilibili", "紫罗兰 6", "episode", "紫罗兰 6", "https://www.bilibili.com/bangumi/play/ep173291");
+		saveProcessUrlData("bilibili", "紫罗兰 7", "episode", "紫罗兰 7", "https://www.bilibili.com/bangumi/play/ep173292");
+		saveProcessUrlData("bilibili", "紫罗兰 8", "episode", "紫罗兰 8", "https://www.bilibili.com/bangumi/play/ep173293");
 
 		saveProcessUrlData("bilibili", "3月的狮子 第二季", "program", "", "https://bangumi.bilibili.com/anime/6445");
 		saveProcessUrlData("bilibili", "3月的狮子 第二季 第24话 混沌/隈仓", "episode", "3月的狮子 第二季 第24话 混沌/隈仓", "https://www.bilibili.com/bangumi/play/ep115339");
@@ -137,10 +139,10 @@ public class InitEntityData implements ApplicationRunner {
 	}
 
 	private void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url) {
+		allDaoUtil.getProcessUrlDao().findAll();
 		ProcessUrlEntity processUrlEntity = allDaoUtil.getProcessUrlDao().findByName(name);
 		if (processUrlEntity == null) {
 			processUrlEntity = new ProcessUrlEntity();
-			processUrlEntity.setName(name);
 		}
 
 		processUrlEntity.setSourceKey(sourceKey);
