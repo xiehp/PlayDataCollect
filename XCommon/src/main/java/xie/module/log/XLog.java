@@ -28,31 +28,31 @@ public class XLog {
 
 	private static Map<Object, Logger> logMap = new HashMap<>();
 
-	public static Logger getLogger(Object obj) {
-		Logger logger = logMap.get(obj);
+	public static Logger getLogger(Object logTarget) {
+		Logger logger = logMap.get(logTarget);
 		if (logger == null) {
 			synchronized (logMap) {
-				Class c = obj.getClass();
-				if (obj instanceof Class) {
-					c = (Class) obj;
+				Class c = logTarget.getClass();
+				if (logTarget instanceof Class) {
+					c = (Class) logTarget;
 				}
 				logger = LoggerFactory.getLogger(c);
-				logMap.put(obj, logger);
+				logMap.put(logTarget, logger);
 			}
 		}
 
 		return logger;
 	}
 
-	public static void info(Object obj, String message) {
-		getLogger(obj).info(message);
+	public static void info(Object logTarget, String message) {
+		getLogger(logTarget).info(message);
 	}
 
-	public static void info(Object obj, String message, Throwable e) {
-		getLogger(obj).info(message, e);
+	public static void info(Object logTarget, String message, Throwable e) {
+		getLogger(logTarget).info(message, e);
 	}
 
-	public static void info(Object obj, String message, Object... args) {
-		getLogger(obj).info(message, args);
+	public static void info(Object logTarget, String message, Object... args) {
+		getLogger(logTarget).info(message, args);
 	}
 }
