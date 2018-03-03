@@ -6,7 +6,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 
 public class BilibiliNewYear2018Processor implements PageProcessor {
 
-	private Site site = Site.me().setRetryTimes(2).setSleepTime(100).setUseGzip(true);
+	private Site site = Site.me().setRetryTimes(2).setSleepTime(300).setUseGzip(true);
 
 	@Override
 	public void process(Page page) {

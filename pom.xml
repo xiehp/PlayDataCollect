@@ -110,6 +110,11 @@
 			<!-- ★★自己工程的依赖★★ -->
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
+				<artifactId>playdatacollect-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-base-db</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -182,10 +187,17 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- 自己基础项目的依赖 -->
+		<!-- ★★自己基础项目的依赖★★ -->
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>xcommon</artifactId>
+		</dependency>
+
+
+		<!-- ★★自己工程的依赖★★ -->
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-common</artifactId>
 		</dependency>
 	</dependencies>
 
