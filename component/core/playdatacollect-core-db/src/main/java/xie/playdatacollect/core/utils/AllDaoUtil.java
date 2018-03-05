@@ -1,6 +1,7 @@
 package xie.playdatacollect.core.utils;
 
 import org.springframework.stereotype.Component;
+import xie.playdatacollect.core.dao.MarkRecordDao;
 import xie.playdatacollect.core.dao.ProcessUrlDao;
 import xie.playdatacollect.core.dao.SourcesDao;
 
@@ -12,13 +13,18 @@ public class AllDaoUtil {
 	SourcesDao sourcesDao;
 	@Resource
 	ProcessUrlDao processUrlDao;
+	@Resource
+	MarkRecordDao markRecordDao;
 
 	public SourcesDao getSourcesDao() {
-		//
 		return sourcesDao;
 	}
 
 	public ProcessUrlDao getProcessUrlDao() {
 		return processUrlDao;
+	}
+
+	public MarkRecordDao getMarkRecordDao() {
+		return markRecordDao;
 	}
 }

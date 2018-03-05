@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import xie.common.string.XStringUtils;
 import xie.module.log.XLog;
+import xie.playdatacollect.collector.quartz.job.BiliBiliGetProcessUrl;
 import xie.playdatacollect.collector.quartz.job.Study1Job;
 
 /**
@@ -15,7 +16,7 @@ import xie.playdatacollect.collector.quartz.job.Study1Job;
 @ConfigurationProperties("xie.playdata.cron")
 public class QuartzConfig {
 
-	String cronStudy1;
+	private String cronStudy1;
 
 	public String getCronStudy1() {
 		return cronStudy1;
@@ -25,15 +26,15 @@ public class QuartzConfig {
 		this.cronStudy1 = cronStudy1;
 	}
 
-	public JobDetail createJobDetail(Class clazz, String identity, JobDataMap jobDataMap) {
+	private JobDetail createJobDetail(Class clazz, String identity, JobDataMap jobDataMap) {
 		return JobBuilder.newJob(clazz).withIdentity(identity)
 				.usingJobData(jobDataMap)
 				.storeDurably()
 				.build();
 	}
 
-	public Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
-		ScheduleBuilder scheduleBuilder = CronScheduleBuilder
+	private Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
+		ScheduleBuilder<CronTrigger> scheduleBuilder = CronScheduleBuilder
 				.cronSchedule(cron)
 				.withMisfireHandlingInstructionDoNothing();
 
@@ -67,22 +68,34 @@ public class QuartzConfig {
 
 
 	@Bean
-	public JobDetail JobDetail_BiliBili_GetProcessUrl() {
+	public JobDetail jobDetail_BiliBili_GetProcessUrl() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "JobDetail_BiliBili_GetProcessUrl");
-		return createJobDetail(Study1Job.class, "JobDetail_BiliBili_GetProcessUrl", map);
+		return createJobDetail(BiliBiliGetProcessUrl.class, "JobDetail_BiliBili_GetProcessUrl", map);
 	}
 
 	@Bean
-	public Trigger Trigger_BiliBili_GetProcessUrl() {
-		String cron = "0 0/1 * * * ?";
-		if (XStringUtils.isNotBlank(cronStudy1)) {
-			cron = cronStudy1;
-			XLog.info(this, "cron: {}", cron);
-		} else {
-			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
-		}
+	public Trigger trigger_BiliBili_GetProcessUrl() {
+		String cron = "0 0 0 1/1 * ? *";
+//		if (XStringUtils.isNotBlank(cronStudy1)) {
+//			cron = cronStudy1;
+//			XLog.info(this, "cron: {}", cron);
+//		} else {
+//			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
+//		}
 
-		return createCronTrigger(JobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", cron);
+		return createCronTrigger(jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", cron);
+	}
+
+	@Bean
+	public Trigger trigger_BiliBili_GetProcessUrl_OnStart() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatHourlyForTotalCount(1);
+
+		return TriggerBuilder
+				.newTrigger()
+				.forJob(jobDetail_BiliBili_GetProcessUrl())
+				.withIdentity("trigger_BiliBili_GetProcessUrl_OnStart")
+				.withSchedule(scheduleBuilder)
+				.build();
 	}
 }

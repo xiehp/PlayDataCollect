@@ -79,7 +79,7 @@ public class InitEntityData implements ApplicationRunner {
 		saveSourcesData(PlayDataConst.SOURCE_KEY_SOHU, "搜狐视频", "搜狐视频", "SH", "https://tv.sohu.com/");
 
 		// 初始化要抓取的页面
-		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII", "program", "", "https://bangumi.bilibili.com/anime/21466");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OVERLORDⅡ", "program", "", "https://bangumi.bilibili.com/anime/21466");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 1", "episode", "OVERLORDⅡ 1", "https://www.bilibili.com/bangumi/play/ep173248");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 2", "episode", "OVERLORDⅡ 2", "https://www.bilibili.com/bangumi/play/ep173249");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 3", "episode", "OVERLORDⅡ 3", "https://www.bilibili.com/bangumi/play/ep173250");
@@ -153,8 +153,7 @@ public class InitEntityData implements ApplicationRunner {
 	}
 
 	private void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url) {
-		allDaoUtil.getProcessUrlDao().findAll();
-		ProcessUrlEntity processUrlEntity = allDaoUtil.getProcessUrlDao().findByName(name);
+		ProcessUrlEntity processUrlEntity = allDaoUtil.getProcessUrlDao().findBySourceKeyAndName(sourceKey, name);
 		if (processUrlEntity == null) {
 			processUrlEntity = new ProcessUrlEntity();
 		}

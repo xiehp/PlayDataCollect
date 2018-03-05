@@ -5,6 +5,7 @@ import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 
 public interface ProcessUrlDao extends BaseDao<ProcessUrlEntity, String> {
 
+	ProcessUrlEntity findBySourceKeyAndName(String sourceKey, String name);
 	ProcessUrlEntity findByName(String name);
 	ProcessUrlEntity findByUrl(String url);
 }
