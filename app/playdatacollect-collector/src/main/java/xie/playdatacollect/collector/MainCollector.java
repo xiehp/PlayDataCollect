@@ -1,8 +1,5 @@
 package xie.playdatacollect.collector;
 
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
-import org.influxdb.dto.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -11,16 +8,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Spider;
-import xie.common.json.XJsonUtil;
-import xie.common.string.XStringUtils;
 import xie.module.httpclient.XHttpClientUtils;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.core.service.MetricService;
@@ -32,11 +24,9 @@ import xie.playdatacollect.testandstudy.db.app.fun.test1.Test1.Test1Entity;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test1.Test1Service;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test2.Test2Entity;
 import xie.playdatacollect.testandstudy.db.app.fun.test1.Test2.Test2Service;
-import xie.playdatacollect.utils.PlayDataUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 @RestController

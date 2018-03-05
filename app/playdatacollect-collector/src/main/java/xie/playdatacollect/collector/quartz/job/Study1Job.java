@@ -1,19 +1,9 @@
-package xie.playdatacollect.collector.job;
+package xie.playdatacollect.collector.quartz.job;
 
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
-import org.influxdb.dto.Point;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.web.client.RestTemplate;
-import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Spider;
 import xie.common.date.DateUtil;
-import xie.common.json.XJsonUtil;
-import xie.common.string.XStringUtils;
 import xie.module.log.XLog;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.common.PlayDataConst;
@@ -21,11 +11,9 @@ import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.utils.AllDaoUtil;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
-import xie.playdatacollect.utils.PlayDataUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Study1Job extends QuartzJobBean {
 
@@ -38,7 +26,8 @@ public class Study1Job extends QuartzJobBean {
 	private String name;
 
 	/**
-	 * Invoked if a Job data map entry with that name
+	 * Invoked if a Job data map entry with that name<br>
+	 * 通过job的参数自动塞入数值
 	 *
 	 * @param name
 	 */
@@ -47,7 +36,7 @@ public class Study1Job extends QuartzJobBean {
 	}
 
 	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+	protected void executeInternal(JobExecutionContext context) {
 
 		XLog.info(this, DateUtil.convertToString(new Date()) + "----开始执行定时抓取任务 {} start", name);
 
