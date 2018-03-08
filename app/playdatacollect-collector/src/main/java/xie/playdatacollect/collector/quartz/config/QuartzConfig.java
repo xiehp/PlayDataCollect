@@ -75,8 +75,8 @@ public class QuartzConfig {
 	}
 
 	@Bean
-	public Trigger trigger_BiliBili_GetProcessUrl() {
-		String cron = "0 0 0 1/1 * ? *";
+	public Trigger trigger_BiliBili_GetProcessUrl_per5day() {
+		String cron = "0 0 0 1/5 * ? *";
 //		if (XStringUtils.isNotBlank(cronStudy1)) {
 //			cron = cronStudy1;
 //			XLog.info(this, "cron: {}", cron);

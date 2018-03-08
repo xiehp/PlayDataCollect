@@ -17,6 +17,9 @@ public class PlayDataUtils {
 		if (value.toString().contains("万")) {
 			value = value.toString().replace("万", "");
 			result = (int) (Double.valueOf(value.toString()) * 10000);
+		} else if (value.toString().contains("亿")) {
+			value = value.toString().replace("亿", "");
+			result = (int) (Double.valueOf(value.toString()) * 100000000);
 		} else if (value.toString().contains("AV") || value.toString().contains("av")) {
 			value = value.toString().replace("AV", "");
 			value = value.toString().replace("av", "");
