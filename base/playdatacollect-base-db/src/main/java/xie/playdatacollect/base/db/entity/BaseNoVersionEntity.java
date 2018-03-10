@@ -18,9 +18,9 @@ public class BaseNoVersionEntity implements Serializable {
 	private static final long serialVersionUID = 961871682491155339L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 32)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(name = "ID", unique = true, nullable = false, length = 36)
 	private String id;
 	@CreatedBy
 	private String createBy;

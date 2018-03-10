@@ -32,6 +32,6 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 		processUrlEntity.setUrl(url);
 		processUrlEntity.setRemark(desc);
 
-		processUrlDao.save(processUrlEntity);
+		save(processUrlEntity);
 	}
 }

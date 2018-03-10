@@ -26,9 +26,10 @@ public abstract class IdEntity implements Serializable {
 	public static final String COLUMN_ID = "id";
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 32)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	//Column(length = 36)
+	@Column(name = "ID", unique = true, nullable = false, length = 36)
 	private String id;
 
 	public String getId() {

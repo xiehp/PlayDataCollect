@@ -1,59 +1,42 @@
 package xie.playdatacollect.collector.quartz.job;
 
 import org.quartz.JobExecutionContext;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.client.RestTemplate;
-import us.codecraft.webmagic.Spider;
-import xie.common.date.DateUtil;
 import xie.common.number.XNumberUtils;
-import xie.module.log.XLog;
-import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
-import xie.playdatacollect.core.utils.AllDaoUtil;
 import xie.playdatacollect.core.utils.AllServiceUtil;
-import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
-import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
+import xie.playdatacollect.core.utils.InitEntityDataRunner;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class BiliBiliGetProcessUrl extends QuartzJobBean {
+public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 
 	public static final String TIMELINE_JP = "http://bangumi.bilibili.com/web_api/timeline_global";
 	public static final String TIMELINE_CN = "http://bangumi.bilibili.com/web_api/timeline_cn";
 
 	@Resource
-	AllDaoUtil allDaoUtil;
-	@Resource
 	AllServiceUtil allServiceUtil;
-
-	@Resource
-	ProcessBilibili processBilibili;
 
 	@Resource
 	RestTemplate restTemplate;
 
-	private String name;
-
-	/**
-	 * Invoked if a Job data map entry with that name<br>
-	 * 通过job的参数自动塞入数值
-	 *
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	@Resource
+	InitEntityDataRunner initEntityDataRunner;
 
 	@Override
-	protected void executeInternal(JobExecutionContext context) {
-		XLog.info(this, DateUtil.convertToString(new Date()) + this.getClass().getName() + " start", name);
-
+	protected void executeJob(JobExecutionContext context) {
+		try {
+			initEntityDataRunner.run(null);
+		} catch (ParseException e) {
+			logger.error(e.getMessage(), e);
+		}
 		processResult(TIMELINE_JP);
 		processResult(TIMELINE_CN);
-
-		XLog.info(this, DateUtil.convertToString(new Date()) + this.getClass().getName() + " end", name);
 	}
 
 	private void processResult(String url) {
@@ -95,6 +78,7 @@ public class BiliBiliGetProcessUrl extends QuartzJobBean {
 						null,
 						"https://bangumi.bilibili.com/anime/" + season_id,
 						new Date(pub_ts));
+
 			}
 		}
 	}

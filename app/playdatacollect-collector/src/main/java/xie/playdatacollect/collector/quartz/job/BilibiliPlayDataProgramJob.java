@@ -1,10 +1,7 @@
 package xie.playdatacollect.collector.quartz.job;
 
 import org.quartz.JobExecutionContext;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import us.codecraft.webmagic.Spider;
-import xie.common.date.DateUtil;
-import xie.module.log.XLog;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
@@ -13,9 +10,12 @@ import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageP
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Study1Job extends XBaseQuartzJobBean {
+public class BilibiliPlayDataProgramJob extends XBaseQuartzJobBean {
 
 	@Resource
 	AllDaoUtil allDaoUtil;
@@ -34,18 +34,13 @@ public class Study1Job extends XBaseQuartzJobBean {
 		Spider spiderBLNormal = Spider.create(new BilibiliAnimePageProcessor()).thread(2);
 		Spider spiderBLNY2018 = Spider.create(new BilibiliNewYear2018Processor()).thread(2);
 
-		Map<String, Spider> spiderMap = new HashMap<>();
-		spiderMap.put(PlayDataConst.SOURCE_KEY_BILIBILI + "program", spiderBLNormal);
-		spiderMap.put(PlayDataConst.SOURCE_KEY_BILIBILI + "episode", spiderBLNormal);
-		spiderMap.put(PlayDataConst.SOURCE_KEY_BILIBILI + "2018拜年祭", spiderBLNY2018);
-
 		// multi download
 		List<String> listBLNormal = new ArrayList<>();
 		List<String> listBLNY2018 = new ArrayList<>();
 
 		// http://api.bilibili.com/archive_stat/stat?aid=18168483
 
-		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findAll();
+		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findByType("program");
 		list.forEach((processUrl) -> {
 			String key = processUrl.getSourceKey() + processUrl.getType();
 

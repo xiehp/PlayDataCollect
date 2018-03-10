@@ -22,9 +22,10 @@ import java.util.*;
  */
 @Component
 @Order(0)
-public class InitEntityData implements ApplicationRunner {
+//public class InitEntityDataRunner implements ApplicationRunner {
+public class InitEntityDataRunner {
 
-	Logger log = XLog.getLogger(InitEntityData.class);
+	Logger log = XLog.getLogger(InitEntityDataRunner.class);
 
 	@Resource
 	AllDaoUtil allDaoUtil;
@@ -65,9 +66,9 @@ public class InitEntityData implements ApplicationRunner {
 		log.info("end updateBatch");
 	}
 
-	@Override
+	//@Override
 	public void run(ApplicationArguments args) throws ParseException {
-		log.info("InitEntityData start");
+		log.info("InitEntityDataRunner start");
 
 		beginBatch();
 
@@ -116,7 +117,7 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "3月的狮子 第二季 第24话 混沌/隈仓", "episode", "3月的狮子 第二季 第24话 混沌/隈仓", "https://www.bilibili.com/bangumi/play/ep115339");
 
 
-		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "极乐净土】咬人猫/有咩酱/赤九玖❤155小分队o(*≧▽≦)ツ", "video", "", "https://www.bilibili.com/video/av6117110");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "极乐净土】咬人猫/有咩酱/赤九玖❤155小分队o(*≧▽≦)ツ", "episode", "", "https://www.bilibili.com/video/av6117110");
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "刻刻", "program", "", "https://bangumi.bilibili.com/anime/21755");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "龙王的工作", "program", "", "https://bangumi.bilibili.com/anime/21554");
@@ -124,7 +125,7 @@ public class InitEntityData implements ApplicationRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "2018拜年祭", "2018拜年祭", "", "https://www.bilibili.com/blackboard/bnj2018.html");
 		updateBatch();
 
-		log.info("InitEntityData End");
+		log.info("InitEntityDataRunner End");
 	}
 
 
