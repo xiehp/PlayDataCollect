@@ -104,8 +104,8 @@
 	<logger name="jdbc.connection" level="WARN">
 	</logger>
 	<logger name="jdbc.sqltiming" level="INFO"/>
-	-->
 	<logger name="druid.sql.Statement" level="DEBUG"/>
+	-->
 
 	<!-- root -->
 	<root level="info">
