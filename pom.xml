@@ -195,10 +195,6 @@
 
 
 		<!-- ★★自己工程的依赖★★ -->
-		<dependency>
-			<groupId>xie.playdatacollect</groupId>
-			<artifactId>playdatacollect-common</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

@@ -20,6 +20,10 @@
     <!-- Add typical dependencies for a web application -->
     <dependencies>
 		<!-- 自己工程的依赖 -->
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-common</artifactId>
+		</dependency>
 
         <!-- spring -->
         <dependency>
