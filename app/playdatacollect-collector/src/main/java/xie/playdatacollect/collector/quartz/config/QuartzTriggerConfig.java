@@ -89,7 +89,7 @@ public class QuartzTriggerConfig {
 
 	@Bean
 	public Trigger trigger_ProgramJob() {
-		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", cron1);
+		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", XCronConfig.PER_05_MIN);
 	}
 
 	@Bean

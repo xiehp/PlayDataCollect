@@ -8,10 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import xie.common.string.XStringUtils;
 import xie.module.log.XLog;
-import xie.playdatacollect.collector.quartz.job.BiliBiliGetProcessUrl;
-import xie.playdatacollect.collector.quartz.job.DummyJob;
-import xie.playdatacollect.collector.quartz.job.NoJob;
-import xie.playdatacollect.collector.quartz.job.Study1Job;
+import xie.playdatacollect.collector.quartz.job.*;
 
 /**
  * @author xie
@@ -55,14 +52,14 @@ public class QuartzJobDetailConfig {
 	public JobDetail getBilibiliPlayDataEpisodeJobDetail() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "BilibiliPlayDataEpisodeJobDetail");
-		return createJobDetail(Study1Job.class, "BilibiliPlayDataEpisodeJob", map);
+		return createJobDetail(BilibiliPlayDataEpisodeJob.class, "BilibiliPlayDataEpisodeJob", map);
 	}
 
 	@Bean
 	public JobDetail getBilibiliPlayDataProgramJobDetail() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "BilibiliPlayDataProgramJobDetail");
-		return createJobDetail(Study1Job.class, "BilibiliPlayDataProgramJob", map);
+		return createJobDetail(BilibiliPlayDataProgramJob.class, "BilibiliPlayDataProgramJob", map);
 	}
 
 	@Bean
