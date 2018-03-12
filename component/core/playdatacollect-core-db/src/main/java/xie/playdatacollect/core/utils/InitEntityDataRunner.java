@@ -90,6 +90,7 @@ public class InitEntityDataRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 7", "episode", "OVERLORDⅡ 7", "https://www.bilibili.com/bangumi/play/ep173254");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 8", "episode", "OVERLORDⅡ 8", "https://www.bilibili.com/bangumi/play/ep173255");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 9", "episode", "OVERLORDⅡ 9", "https://www.bilibili.com/bangumi/play/ep173256");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 10", "episode", "OVERLORDⅡ 9", "https://www.bilibili.com/bangumi/play/ep173257");
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰", "program", "", "https://bangumi.bilibili.com/anime/21542");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 1", "episode", "", "https://www.bilibili.com/bangumi/play/ep173286");
@@ -101,6 +102,7 @@ public class InitEntityDataRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 7", "episode", "", "https://www.bilibili.com/bangumi/play/ep173292");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 8", "episode", "", "https://www.bilibili.com/bangumi/play/ep173293");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 9", "episode", "", "https://www.bilibili.com/bangumi/play/ep173294");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 10", "episode", "", "https://www.bilibili.com/bangumi/play/ep173295");
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常", "program", "", "https://bangumi.bilibili.com/anime/21719");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常 1", "episode", "", "https://www.bilibili.com/bangumi/play/ep172166");
@@ -112,6 +114,7 @@ public class InitEntityDataRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常 7", "episode", "", "https://www.bilibili.com/bangumi/play/ep172172");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常 8", "episode", "", "https://www.bilibili.com/bangumi/play/ep172173");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常 9", "episode", "", "https://www.bilibili.com/bangumi/play/ep172174");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "pop子和pipi美的日常 10", "episode", "", "https://www.bilibili.com/bangumi/play/ep172175");
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "3月的狮子 第二季", "program", "", "https://bangumi.bilibili.com/anime/6445");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "3月的狮子 第二季 第24话 混沌/隈仓", "episode", "3月的狮子 第二季 第24话 混沌/隈仓", "https://www.bilibili.com/bangumi/play/ep115339");
