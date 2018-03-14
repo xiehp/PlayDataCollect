@@ -1,4 +1,4 @@
-package xie.playdatacollect.utils;
+package xie.playdatacollect.collector.utils;
 
 import xie.common.string.XStringUtils;
 

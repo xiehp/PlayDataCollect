@@ -1,8 +1,8 @@
 # The FROM instruction sets the Base Image for subsequent instructions.
 # Using Nginx as Base Image
 # docker login daocloud.io
-#FROM resin/raspberrypi3-openjdk:jdk
-FROM resin/raspberrypi3-alpine-openjdk:jre
+FROM resin/raspberrypi3-openjdk:jdk
+#FROM resin/raspberrypi3-alpine-openjdk:jdk
 MAINTAINER xie@qq.com
 
 COPY /playdata /playdata

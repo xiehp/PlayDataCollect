@@ -12,7 +12,7 @@ import us.codecraft.webmagic.Spider;
 import xie.common.json.XJsonUtil;
 import xie.common.string.XStringUtils;
 import xie.module.log.XLog;
-import xie.playdatacollect.utils.PlayDataUtils;
+import xie.playdatacollect.collector.utils.PlayDataUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

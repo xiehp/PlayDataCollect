@@ -1,4 +1,4 @@
-package xie.playdatacollect.datasource;
+package xie.playdatacollect.collector.datasource;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 
