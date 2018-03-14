@@ -8,7 +8,8 @@ MAINTAINER xie@qq.com
 # Adding HelloWorld page into Nginx server
 WORKDIR /playdata
 
-RUN rm -rf PlayDataCollect \
+RUN date \
+    && rm -rf PlayDataCollect \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
     #&& git pull \
     #&& git submodule update \
@@ -16,7 +17,8 @@ RUN rm -rf PlayDataCollect \
 
 WORKDIR /playdata/PlayDataCollect
 
-RUN mvn clean package \
+RUN date \
+    && mvn clean package \
     && cp app/playdatacollect-collector/target/playdatacollect-collector-1.0-SNAPSHOT.jar playdatacollect-collector-1.0.jar \
     && mvn clean \
     && pwd
