@@ -1,10 +1,6 @@
-package xie.function.quartz;
+package xie.module.quartz;
 
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.impl.StdScheduler;
+import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Properties;
@@ -42,19 +38,19 @@ public class XQuartzManager {
 		scheduler.shutdown();
 	}
 
-	public void startJob(JobDetail job, Trigger trigger) throws SchedulerException {
-		scheduler.scheduleJob(job, trigger);
+	public void startJob(JobDetail jobDetail, Trigger trigger) throws SchedulerException {
+		scheduler.scheduleJob(jobDetail, trigger);
 	}
 
-	public void puaseJob() {
-
+	public void rescheduleJob(Trigger trigger) throws SchedulerException {
+		scheduler.rescheduleJob(trigger.getKey(), trigger);
 	}
 
-	public void endJob() {
-		scheduler.pa
+	public void puaseJob(JobDetail jobDetail) throws SchedulerException {
+		scheduler.pauseJob(jobDetail.getKey());
 	}
 
-	public void updateScheduler() {
-
+	public void puaseJob(JobKey jobKey) throws SchedulerException {
+		scheduler.pauseJob(jobKey);
 	}
 }

@@ -82,6 +82,7 @@
 
 	<modules>
 		<module>XCommon</module>
+		<module>XQuartz</module>
 		<module>XSubtitle</module>
 		<module>tietuku_sdk_java</module>
 	</modules>

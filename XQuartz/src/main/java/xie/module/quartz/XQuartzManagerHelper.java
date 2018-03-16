@@ -1,8 +1,6 @@
-package xie.function.quartz;
+package xie.module.quartz;
 
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Properties;
 
