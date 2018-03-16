@@ -2,14 +2,12 @@ package xie.playdatacollect.collector.quartz.config;
 
 import org.quartz.*;
 import org.quartz.impl.JobDetailImpl;
+import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xie.common.string.XStringUtils;
-import xie.module.log.XLog;
 import xie.playdatacollect.collector.quartz.utils.XCronConfig;
 
 import javax.annotation.Resource;
@@ -52,7 +50,7 @@ public class QuartzTriggerConfig {
 		return createTrigger(scheduleBuilder, jobDetail, identity);
 	}
 
-	private Trigger createTrigger(ScheduleBuilder schedule, JobDetail jobDetail, String identity) {
+	private Trigger createTrigger(ScheduleBuilder scheduleBuilder, JobDetail jobDetail, String identity) {
 
 		logger.info("job:{}, doFlag:{}", ((JobDetailImpl) jobDetail).getFullName(), doFlag);
 
@@ -67,7 +65,7 @@ public class QuartzTriggerConfig {
 				.newTrigger()
 				.forJob(jobDetail)
 				.withIdentity(identity)
-				.withSchedule(schedule)
+				.withSchedule(scheduleBuilder)
 				.build();
 
 		logger.info("trigger create: {}", trigger);
