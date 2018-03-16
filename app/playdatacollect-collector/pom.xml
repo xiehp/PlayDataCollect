@@ -77,6 +77,11 @@
 			<groupId>org.influxdb</groupId>
 			<artifactId>influxdb-java</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xquartz</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

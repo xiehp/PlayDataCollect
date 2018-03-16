@@ -90,7 +90,7 @@ public class InitEntityDataRunner {
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 7", "episode", "OVERLORDⅡ 7", "https://www.bilibili.com/bangumi/play/ep173254");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 8", "episode", "OVERLORDⅡ 8", "https://www.bilibili.com/bangumi/play/ep173255");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 9", "episode", "OVERLORDⅡ 9", "https://www.bilibili.com/bangumi/play/ep173256");
-		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 10", "episode", "OVERLORDⅡ 9", "https://www.bilibili.com/bangumi/play/ep173257");
+		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "OverloadII 10", "episode", "OVERLORDⅡ 10", "https://www.bilibili.com/bangumi/play/ep173257");
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰", "program", "", "https://bangumi.bilibili.com/anime/21542");
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "紫罗兰 1", "episode", "", "https://www.bilibili.com/bangumi/play/ep173286");
