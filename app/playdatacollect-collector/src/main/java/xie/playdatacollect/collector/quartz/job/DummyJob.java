@@ -20,7 +20,7 @@ public class DummyJob extends XBaseQuartzJobBean {
 
 	@Override
 	protected void executeJob(JobExecutionContext context) {
-		logger.warn("this is dummy job");
+		logger.warn("this is dummy job, {}", context.getJobDetail().getKey());
 	}
 
 }

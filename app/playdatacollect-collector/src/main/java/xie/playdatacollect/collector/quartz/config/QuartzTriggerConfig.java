@@ -40,7 +40,7 @@ public class QuartzTriggerConfig {
 		this.doFlag = doFlag;
 	}
 
-	private Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
+	public Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
 
 		logger.info("job:{}, cron:{}", ((JobDetailImpl) jobDetail).getFullName(), cron);
 		ScheduleBuilder<CronTrigger> scheduleBuilder = CronScheduleBuilder
@@ -50,7 +50,7 @@ public class QuartzTriggerConfig {
 		return createTrigger(scheduleBuilder, jobDetail, identity);
 	}
 
-	private Trigger createTrigger(ScheduleBuilder scheduleBuilder, JobDetail jobDetail, String identity) {
+	public Trigger createTrigger(ScheduleBuilder scheduleBuilder, JobDetail jobDetail, String identity) {
 
 		logger.info("job:{}, doFlag:{}", ((JobDetailImpl) jobDetail).getFullName(), doFlag);
 
@@ -85,22 +85,22 @@ public class QuartzTriggerConfig {
 //		return createCronTrigger(jobConfig.sampleJobDetail(), "sampleTrigger", cron);
 //	}
 
-	@Bean
+//	@Bean
 	public Trigger trigger_ProgramJob() {
 		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", XCronConfig.PER_05_MIN);
 	}
 
-	@Bean
+//	@Bean
 	public Trigger trigger_EpisodeJob() {
 		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeJobDetail(), "trigger_EpisodeJob", cron1);
 	}
 
-	@Bean
+//	@Bean
 	public Trigger trigger_BiliBili_GetProcessUrl_per5day() {
 		return createCronTrigger(jobConfig.jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", XCronConfig.PER_10_HOUR);
 	}
 
-	@Bean
+//	@Bean
 	public Trigger trigger_BiliBili_GetProcessUrl_OnStart() {
 
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatHourlyForTotalCount(1);

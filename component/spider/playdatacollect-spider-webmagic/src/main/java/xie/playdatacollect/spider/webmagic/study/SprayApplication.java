@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 @ComponentScan
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class SprayApplication {
 
 //	@Override

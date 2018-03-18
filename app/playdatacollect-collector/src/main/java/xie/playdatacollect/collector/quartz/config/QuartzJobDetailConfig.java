@@ -41,12 +41,25 @@ public class QuartzJobDetailConfig {
 	}
 
 	@Bean
-	public JobDetail sampleJobDetail() {
+	public JobDetail dummyJobDetail1() {
 		JobDataMap map = new JobDataMap();
-		map.put("name", "sampleJobDetail");
-		return createJobDetail(Study1Job.class, "sampleJob", map);
+		map.put("name", "dummyJobDetail1");
+		return createJobDetail(DummyJob.class, "dummyJob1", map);
 	}
 
+	@Bean
+	public JobDetail dummyJobDetail2() {
+		JobDataMap map = new JobDataMap();
+		map.put("name", "dummyJobDetail2");
+		return createJobDetail(DummyJob.class, "dummyJob2", map);
+	}
+
+	@Bean
+	public JobDetail dummyJobDetail3() {
+		JobDataMap map = new JobDataMap();
+		map.put("name", "dummyJobDetail3");
+		return createJobDetail(DummyJob.class, "dummyJob3", map);
+	}
 
 	@Bean
 	public JobDetail getBilibiliPlayDataEpisodeJobDetail() {
