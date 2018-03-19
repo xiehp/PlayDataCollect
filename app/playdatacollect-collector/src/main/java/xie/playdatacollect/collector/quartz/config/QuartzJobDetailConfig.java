@@ -44,6 +44,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail1() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail1");
+		map.put("sleep", 1);
 		return createJobDetail(DummyJob.class, "dummyJob1", map);
 	}
 
@@ -51,6 +52,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail2() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail2");
+		map.put("sleep", 2);
 		return createJobDetail(DummyJob.class, "dummyJob2", map);
 	}
 
@@ -58,14 +60,30 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail3() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail3");
+		map.put("sleep", 3);
 		return createJobDetail(DummyJob.class, "dummyJob3", map);
 	}
 
 	@Bean
-	public JobDetail getBilibiliPlayDataEpisodeJobDetail() {
+	public JobDetail dummyJobDetail4() {
 		JobDataMap map = new JobDataMap();
-		map.put("name", "BilibiliPlayDataEpisodeJobDetail");
-		return createJobDetail(BilibiliPlayDataEpisodeJob.class, "BilibiliPlayDataEpisodeJob", map);
+		map.put("name", "dummyJobDetail4");
+		map.put("sleep", 4);
+		return createJobDetail(DummyJob.class, "dummyJob4", map);
+	}
+
+	@Bean
+	public JobDetail getBilibiliPlayDataEpisodeNewJobDetail() {
+		JobDataMap map = new JobDataMap();
+		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
+		return createJobDetail(BilibiliPlayDataEpisodeNewJob.class, "BilibiliPlayDataEpisodeNewJob", map);
+	}
+
+	@Bean
+	public JobDetail getBilibiliPlayDataEpisodeOldJobDetail() {
+		JobDataMap map = new JobDataMap();
+		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
+		return createJobDetail(BilibiliPlayDataEpisodeOldJob.class, "BilibiliPlayDataEpisodeOldJob", map);
 	}
 
 	@Bean

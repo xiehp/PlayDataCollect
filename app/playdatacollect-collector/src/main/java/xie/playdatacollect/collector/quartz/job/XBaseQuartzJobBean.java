@@ -35,7 +35,7 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 			executeJob(context);
 		} catch (Exception e) {
 			logger.error(this.getClass().getName() + " {} error by {}, {}", name, context.getTrigger(), e.getMessage());
-			throw  e;
+			throw new JobExecutionException(e);
 		} finally {
 			logger.info(this.getClass().getName() + " {} end by {}", name, context.getTrigger());
 		}
@@ -43,5 +43,5 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 	}
 
 
-	protected abstract void executeJob(JobExecutionContext context) throws JobExecutionException;
+	protected abstract void executeJob(JobExecutionContext context) throws JobExecutionException, InterruptedException;
 }

@@ -7,6 +7,7 @@ package xie.playdatacollect.base.db.repository;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
+import xie.common.string.XStringUtils;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class BaseSpecifications {
 					List<Predicate> predicates = new ArrayList<>();
 					for (BaseSearchFilter filter : filters) {
 						String[] names = StringUtils.split(filter.fieldName, ".");
+						if (names == null || names.length == 0) {
+							names = new String[]{filter.fieldName};
+						}
 						Path expression = root.get(names[0]);
 						for (int i = 1; i < names.length; i++) {
 							expression = expression.get(names[i]);

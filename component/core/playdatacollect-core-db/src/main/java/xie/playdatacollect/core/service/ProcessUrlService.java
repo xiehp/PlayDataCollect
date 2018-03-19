@@ -28,7 +28,9 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 		processUrlEntity.setSourceKey(sourceKey);
 		processUrlEntity.setName(name);
 		processUrlEntity.setType(type);
-		processUrlEntity.setBeginDate(beginDate);
+		if (beginDate != null) {
+			processUrlEntity.setBeginDate(beginDate);
+		}
 		processUrlEntity.setUrl(url);
 		processUrlEntity.setRemark(desc);
 

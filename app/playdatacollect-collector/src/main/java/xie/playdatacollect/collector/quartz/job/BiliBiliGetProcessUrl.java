@@ -30,11 +30,11 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 
 	@Override
 	protected void executeJob(JobExecutionContext context) {
-		try {
-			initEntityDataRunner.run(null);
-		} catch (ParseException e) {
-			logger.error(e.getMessage(), e);
-		}
+//		try {
+//			initEntityDataRunner.run(null);
+//		} catch (ParseException e) {
+//			logger.error(e.getMessage(), e);
+//		}
 		processResult(TIMELINE_JP);
 		processResult(TIMELINE_CN);
 	}
@@ -53,32 +53,52 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 			List<Map> seasonsList = (List<Map>) resultMap.get("seasons");
 
 			for (Map seasons : seasonsList) {
+				// 发布时间
 				long pub_ts = XNumberUtils.getLongValue(seasons.getOrDefault("pub_ts", 0L)) * 1000;
+				// 节目ID
 				int season_id = (int) seasons.getOrDefault("season_id", 0);
+				// 剧集ID
 				int ep_id = (int) seasons.getOrDefault("ep_id", 0);
+				// 是否发布 0:未发布 1:已发布
 				int is_published = (int) seasons.getOrDefault("is_published", 1);
 				String cover = (String) seasons.getOrDefault("cover", ""); // 封面图片URL地址
 				String square_cover = (String) seasons.getOrDefault("square_cover", "");
 				String title = (String) seasons.getOrDefault("title", "");
 				String pub_index = (String) seasons.getOrDefault("pub_index", "");
 
-				// TODO 将未发布的剧集存入到URL处理列表中
-				if (is_published == 0) {
-
-				}
-
 				// TODO 将数据存入已处理标记列表
 
 
-				// TODO 将节目存入到URL处理列表中
+				// 将节目存入到URL处理列表中
 				allServiceUtil.getProcessUrlService().saveProcessUrlData(
 						PlayDataConst.SOURCE_KEY_BILIBILI,
 						title,
 						"program",
 						null,
 						"https://bangumi.bilibili.com/anime/" + season_id,
-						new Date(pub_ts));
+						null
+				);
 
+				// 将未发布的剧集存入到URL处理列表中
+				if (is_published == 0) {
+					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+							PlayDataConst.SOURCE_KEY_BILIBILI,
+							title + " " + pub_index,
+							"episode",
+							null,
+							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
+							new Date(pub_ts)
+					);
+				} else {
+					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+							PlayDataConst.SOURCE_KEY_BILIBILI,
+							title + " " + pub_index,
+							"episode",
+							null,
+							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
+							new Date(pub_ts)
+					);
+				}
 			}
 		}
 	}

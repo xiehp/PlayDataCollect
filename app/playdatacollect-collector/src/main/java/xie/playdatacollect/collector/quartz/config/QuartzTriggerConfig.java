@@ -85,19 +85,24 @@ public class QuartzTriggerConfig {
 //		return createCronTrigger(jobConfig.sampleJobDetail(), "sampleTrigger", cron);
 //	}
 
-//	@Bean
+	@Bean
 	public Trigger trigger_ProgramJob() {
 		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", XCronConfig.PER_05_MIN);
 	}
 
-//	@Bean
-	public Trigger trigger_EpisodeJob() {
-		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeJobDetail(), "trigger_EpisodeJob", cron1);
+	@Bean
+	public Trigger trigger_EpisodeNewJob() {
+		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeNewJobDetail(), "trigger_EpisodeNewJob", XCronConfig.PER_01_MIN);
 	}
 
-//	@Bean
-	public Trigger trigger_BiliBili_GetProcessUrl_per5day() {
-		return createCronTrigger(jobConfig.jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", XCronConfig.PER_10_HOUR);
+	@Bean
+	public Trigger trigger_EpisodeOldJob() {
+		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeOldJobDetail(), "trigger_EpisodeOldJob", XCronConfig.PER_05_MIN);
+	}
+
+	@Bean
+	public Trigger trigger_BiliBili_GetProcessUrl_loop() {
+		return createCronTrigger(jobConfig.jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", XCronConfig.PER_12_HOUR);
 	}
 
 //	@Bean

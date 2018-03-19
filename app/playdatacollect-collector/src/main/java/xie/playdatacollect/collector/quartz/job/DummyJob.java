@@ -19,8 +19,11 @@ import java.util.Map;
 public class DummyJob extends XBaseQuartzJobBean {
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
+	protected void executeJob(JobExecutionContext context) throws InterruptedException {
 		logger.warn("this is dummy job, {}", context.getJobDetail().getKey());
+		System.out.println("this is dummy job, sleep " + context.getMergedJobDataMap().get("sleep"));
+
+		Thread.sleep(context.getMergedJobDataMap().getLong("sleep"));
 	}
 
 }

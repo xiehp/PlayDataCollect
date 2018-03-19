@@ -26,7 +26,7 @@ public class ProcessUrlEntity extends BaseEntity {
 
 	private Date beginDate;
 
-	/** program episode */
+	/** program, episode */
 	private String type;
 
 	private String url;
