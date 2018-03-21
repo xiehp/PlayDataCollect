@@ -11,8 +11,6 @@
 	<artifactId>XSubtitle</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>XSubtitle</name>
-	<description>XSubtitle</description>
 
 	<dependencies>
 		<dependency>
