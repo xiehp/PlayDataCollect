@@ -7,8 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xie.common.utils.XPrintUtils;
-import xie.common.utils.XRegularUtils;
+import xie.common.utils.utils.XPrintUtils;
+import xie.common.utils.utils.XRegularUtils;
 import xie.module.command.XCommandFactory;
 import xie.module.command.impl.XWindowsCommand;
 

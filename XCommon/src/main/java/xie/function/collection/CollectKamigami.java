@@ -9,8 +9,7 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import xie.common.utils.XRegularUtils;
+import xie.common.utils.utils.XRegularUtils;
 
 public class CollectKamigami {
 	public static List<String> getTorrentUrlList(String url) throws FailingHttpStatusCodeException, IOException {

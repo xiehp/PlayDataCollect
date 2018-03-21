@@ -3,7 +3,7 @@ package xie.module.language.translate.baidu;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import xie.base.XEnum;
+import xie.common.utils.base.XEnum;
 import xie.module.language.XELangLocal;
 
 public class XELangBaidu extends XEnum<XELangBaidu> {

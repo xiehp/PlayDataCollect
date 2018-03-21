@@ -5,8 +5,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import xie.common.string.XStringUtils;
+import xie.common.utils.string.XStringUtils;
 import xie.subtitle.line.XSubtitleLine;
 import xie.subtitle.type.SubtitleASS;
 

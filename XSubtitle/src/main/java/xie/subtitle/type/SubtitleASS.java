@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import xie.common.date.XTimeUtils;
-import xie.common.string.XStringUtils;
-import xie.common.utils.XRegularUtils;
+import xie.common.utils.date.XTimeUtils;
+import xie.common.utils.string.XStringUtils;
+import xie.common.utils.utils.XRegularUtils;
 import xie.subtitle.line.LineASS;
 
 public class SubtitleASS extends SubtitleBase {

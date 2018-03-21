@@ -1,0 +1,35 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>xie</groupId>
+		<artifactId>xspring</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>xspring-component</artifactId>
+	<packaging>jar</packaging>
+
+	<!-- Add typical dependencies for a web application -->
+	<dependencies>
+		<!-- ★★自己基础项目的依赖★★ -->
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-utils</artifactId>
+		</dependency>
+
+		<!-- ★★spring依赖★★ -->
+
+		<!-- ★★第三方基础依赖★★ -->
+		<!-- html解析 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+		</dependency>
+	</dependencies>
+</project>

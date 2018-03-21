@@ -1,6 +1,6 @@
 package xie.module.language;
 
-import xie.base.XEnum;
+import xie.common.utils.base.XEnum;
 
 public class XELangLocal extends XEnum<XELangLocal> {
 

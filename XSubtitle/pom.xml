@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>xie</groupId>
-			<artifactId>xcommon</artifactId>
+			<artifactId>xutils</artifactId>
 		</dependency>
 	</dependencies>
 

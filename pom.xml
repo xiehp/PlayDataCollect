@@ -48,7 +48,7 @@
 
 	<groupId>xie</groupId>
 	<artifactId>common-parent</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<version>${xie.common.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -81,8 +81,12 @@
 	</parent>
 
 	<modules>
+		<module>xutils</module>
+		<module>xcomponent</module>
+		<module>xbase</module>
+		<module>xspring</module>
+		<module>webcommon</module>
 		<module>XCommon</module>
-		<module>XQuartz</module>
 		<module>XSubtitle</module>
 		<module>tietuku_sdk_java</module>
 	</modules>
@@ -102,6 +106,41 @@
 			<dependency>
 				<groupId>xie</groupId>
 				<artifactId>xcommon</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xutils</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-utils</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-jpa</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-druid</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-quartz</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-print-start-up-info</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xspring-component</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
 

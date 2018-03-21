@@ -29,10 +29,9 @@ import org.slf4j.LoggerFactory;
 import com.tietuku.entity.token.Token;
 import com.tietuku.entity.util.PathConfig;
 import com.tietuku.entity.vo.TietukuUploadResponse;
-
-import xie.common.date.XTimeUtils;
-import xie.common.json.XJsonUtil;
-import xie.module.httpclient.HttpClientPoolManager;
+import xie.common.spring.utils.XJsonUtil;
+import xie.common.utils.date.XTimeUtils;
+import xie.component.httpclient.HttpClientPoolManager;
 
 public class PostImage {
 

@@ -16,8 +16,8 @@ import java.util.function.Consumer;
 import com.turn.ttorrent.client.Client;
 import com.turn.ttorrent.client.SharedTorrent;
 
-import xie.common.string.XUrlUtils;
-import xie.common.utils.XWaitTime;
+import xie.common.utils.string.XUrlUtils;
+import xie.common.utils.utils.XWaitTime;
 import xie.module.download.XDownloadUtils;
 import xie.module.download.bt.XBTClient;
 

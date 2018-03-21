@@ -2,7 +2,7 @@ package xie.module.test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import xie.base.XEnum;
+import xie.common.utils.base.XEnum;
 import xie.module.language.translate.baidu.XELangBaidu;
 
 public class XTestUtils {

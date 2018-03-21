@@ -10,6 +10,11 @@
 	<artifactId>xcommon</artifactId>
 
 	<dependencies>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xutils</artifactId>
+		</dependency>
+
 		<!-- Compile -->
 		<dependency>
 			<groupId>org.springframework</groupId>

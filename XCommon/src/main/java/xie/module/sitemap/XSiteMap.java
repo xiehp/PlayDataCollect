@@ -9,8 +9,7 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
-import xie.common.xml.XXmlFactory;
+import xie.common.utils.xml.XXmlFactory;
 
 public class XSiteMap {
 	public static final String CHANGEFREQ_ALWAYS = "always";

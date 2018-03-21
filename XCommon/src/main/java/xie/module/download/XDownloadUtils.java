@@ -1,5 +1,8 @@
 package xie.module.download;
 
+import org.apache.commons.io.FileUtils;
+import xie.common.utils.trust.XNoCheckX509TrustManager;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -13,10 +16,6 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-
-import org.apache.commons.io.FileUtils;
-
-import xie.common.trust.XNoCheckX509TrustManager;
 
 public class XDownloadUtils {
 

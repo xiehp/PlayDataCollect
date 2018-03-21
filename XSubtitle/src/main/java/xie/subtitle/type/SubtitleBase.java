@@ -10,8 +10,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xie.common.date.DateUtil;
-import xie.common.io.XFileWriter;
+import xie.common.utils.date.DateUtil;
+import xie.common.utils.io.XFileWriter;
 import xie.subtitle.Subtitle;
 import xie.subtitle.line.XSubtitleLine;
 
