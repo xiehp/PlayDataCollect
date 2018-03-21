@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import us.codecraft.webmagic.Spider;
-import xie.module.httpclient.XHttpClientUtils;
+import xie.component.httpclient.XHttpClientUtils;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.core.service.MetricService;
 import xie.playdatacollect.core.service.TagService;

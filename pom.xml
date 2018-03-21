@@ -47,6 +47,9 @@
 	</pluginRepositories>
 
 	<properties>
+		<!-- 项目版本 -->
+		<playdata.version>1.0-SNAPSHOT</playdata.version>
+
 		<!-- 文件拷贝时的编码 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -72,7 +75,7 @@
 	<!-- 父类 -->
 	<groupId>xie.playdatacollect</groupId>
 	<artifactId>playdatacollect-parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>${playdata.version}</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -86,15 +89,13 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- ★★spring io★★ -->
-			<!--
-			<dependency>
-				<groupId>io.spring.platform</groupId>
-				<artifactId>platform-bom</artifactId>
-				<version>${spring.io.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			-->
+			<!--<dependency>-->
+				<!--<groupId>io.spring.platform</groupId>-->
+				<!--<artifactId>platform-bom</artifactId>-->
+				<!--<version>${spring.io.version}</version>-->
+				<!--<type>pom</type>-->
+				<!--<scope>import</scope>-->
+			<!--</dependency>-->
 
 			<!-- ★★spring依赖★★ -->
 
@@ -102,51 +103,58 @@
 			<!-- ★★自己基础项目的依赖★★ -->
 			<dependency>
 				<groupId>xie</groupId>
-				<artifactId>xcommon</artifactId>
+				<artifactId>common-parent</artifactId>
 				<version>2.0-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>xie</groupId>
-				<artifactId>xquartz</artifactId>
-				<version>2.0-SNAPSHOT</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>xie</groupId>-->
+				<!--<artifactId>xcommon</artifactId>-->
+				<!--<version>2.0-SNAPSHOT</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>xie</groupId>-->
+				<!--<artifactId>xquartz</artifactId>-->
+				<!--<version>2.0-SNAPSHOT</version>-->
+			<!--</dependency>-->
 
 
 			<!-- ★★自己工程的依赖★★ -->
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-common</artifactId>
-				<version>${project.version}</version>
+				<version>${playdata.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>xie.playdatacollect</groupId>
-				<artifactId>playdatacollect-base-db</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>xie.playdatacollect</groupId>
-				<artifactId>playdatacollect-base-spring</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>xie.playdatacollect</groupId>-->
+				<!--<artifactId>playdatacollect-base-db</artifactId>-->
+				<!--<version>${playdata.version}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>xie.playdatacollect</groupId>-->
+				<!--<artifactId>playdatacollect-base-spring</artifactId>-->
+				<!--<version>${playdata.version}</version>-->
+			<!--</dependency>-->
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-core-db</artifactId>
-				<version>${project.version}</version>
+				<version>${playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-core-spring</artifactId>
-				<version>${project.version}</version>
+				<version>${playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-testandstudy</artifactId>
-				<version>${project.version}</version>
+				<version>${playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-spider-webmagic</artifactId>
-				<version>${project.version}</version>
+				<version>${playdata.version}</version>
 			</dependency>
 
 
@@ -226,7 +234,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.13</version>
 				<configuration>
-					<imageName>xie/${project.artifactId}:${project.version}</imageName>
+					<imageName>xie/${project.artifactId}:${playdata.version}</imageName>
 					<dockerDirectory>${project.basedir}</dockerDirectory>
 					<resources>
 						<resource>

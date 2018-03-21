@@ -4,14 +4,13 @@ import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Spider;
-import xie.common.json.XJsonUtil;
-import xie.common.string.XStringUtils;
-import xie.module.log.XLog;
+import xie.common.spring.utils.XJsonUtil;
+import xie.common.utils.log.XLog;
+import xie.common.utils.string.XStringUtils;
 import xie.playdatacollect.collector.utils.PlayDataUtils;
 
 import javax.annotation.Resource;
@@ -25,10 +24,10 @@ public class ProcessBilibili {
 
 	@Resource
 	RestTemplate restTemplate;
+	Logger logger = XLog.getLog(this);
 
 	public void spiderGetAll(Spider spider, List<String> list, long dateTime) {
 
-		Logger logSpider = LoggerFactory.getLogger(Spider.class);
 		List<ResultItems> resultItemses = spider.getAll(list);
 
 		InfluxDB influxDB = InfluxDBFactory.connect("https://influxdb.acgimage.cn/");
@@ -42,7 +41,7 @@ public class ProcessBilibili {
 		while (true) {
 			for (ResultItems resultItemse : resultItemses) {
 				try {
-					logSpider.info(resultItemse.getAll().toString());
+					logger.info(resultItemse.getAll().toString());
 
 					String 名字 = resultItemse.getAll().get("名字").toString();
 //				int 播放数 = 0;
@@ -82,7 +81,7 @@ public class ProcessBilibili {
 						influxDB.write(point);
 					}
 				} catch (Exception e) {
-					XLog.getLogger(this).error("保存influxDB发生错误", e);
+					logger.error("保存influxDB发生错误", e);
 				}
 
 //				resultItemse.getAll().forEach((key, value) -> {
@@ -150,10 +149,9 @@ public class ProcessBilibili {
 						.build();
 				influxDB.write(point);
 			} catch (Exception e) {
-				XLog.getLogger(this).error("保存influxDB发生错误", e);
+				logger.error("保存influxDB发生错误, aid:{}", aidList.get(i), e);
 			}
 		}
-
 
 		influxDB.close();
 		spider.close();

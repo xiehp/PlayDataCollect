@@ -1,7 +1,0 @@
-# 一些在bean创建前运行的东西
-org.springframework.context.ApplicationListener=\
-xie.playdatacollect.base.spring.listener.MyApplicationEnvironmentPreparedEventListener
-
-# Environment Post Processors
-org.springframework.boot.env.EnvironmentPostProcessor=\
-xie.playdatacollect.base.spring.listener.MyEnvironmentPostProcessor

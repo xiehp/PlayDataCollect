@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-import xie.module.spring.SpringUtil;
+import xie.common.spring.utils.SpringUtil;
 
 /**
  * spring boot 启动监听类

@@ -21,8 +21,8 @@
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
 		<dependency>
-			<groupId>xie.playdatacollect</groupId>
-			<artifactId>playdatacollect-base-spring</artifactId>
+			<groupId>xie</groupId>
+			<artifactId>xspring-utils</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xie.common.string.XStringUtils;
-import xie.module.log.XLog;
 import xie.playdatacollect.collector.quartz.job.*;
 
 /**
@@ -44,7 +42,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail1() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail1");
-		map.put("sleep", 1);
+		map.put("sleep", 10);
 		return createJobDetail(DummyJob.class, "dummyJob1", map);
 	}
 
@@ -52,7 +50,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail2() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail2");
-		map.put("sleep", 2);
+		map.put("sleep", 20);
 		return createJobDetail(DummyJob.class, "dummyJob2", map);
 	}
 
@@ -60,7 +58,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail3() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail3");
-		map.put("sleep", 3);
+		map.put("sleep", 30);
 		return createJobDetail(DummyJob.class, "dummyJob3", map);
 	}
 
@@ -68,7 +66,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail4() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail4");
-		map.put("sleep", 4);
+		map.put("sleep", 40);
 		return createJobDetail(DummyJob.class, "dummyJob4", map);
 	}
 

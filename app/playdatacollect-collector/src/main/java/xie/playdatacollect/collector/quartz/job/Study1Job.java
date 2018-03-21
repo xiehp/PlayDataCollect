@@ -1,10 +1,7 @@
 package xie.playdatacollect.collector.quartz.job;
 
 import org.quartz.JobExecutionContext;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import us.codecraft.webmagic.Spider;
-import xie.common.date.DateUtil;
-import xie.module.log.XLog;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;

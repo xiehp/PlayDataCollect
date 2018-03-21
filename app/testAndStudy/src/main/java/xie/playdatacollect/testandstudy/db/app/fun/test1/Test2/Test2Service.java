@@ -2,8 +2,8 @@ package xie.playdatacollect.testandstudy.db.app.fun.test1.Test2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xie.playdatacollect.base.db.repository.BaseDao;
-import xie.playdatacollect.base.db.service.BaseService;
+import xie.common.spring.jpa.repository.BaseDao;
+import xie.common.spring.jpa.service.BaseService;
 
 @Service
 public class Test2Service extends BaseService<Test2Entity, String> {

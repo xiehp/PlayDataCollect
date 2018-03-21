@@ -6,18 +6,14 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.stereotype.Component;
-import xie.module.log.XLog;
+import xie.common.utils.log.XLog;
 import xie.module.quartz.XQuartzManager;
-import xie.playdatacollect.base.db.entity.BaseEntity;
-import xie.playdatacollect.base.db.repository.BaseDao;
 import xie.playdatacollect.collector.quartz.config.QuartzJobDetailConfig;
 import xie.playdatacollect.collector.quartz.config.QuartzTriggerConfig;
 import xie.playdatacollect.collector.quartz.utils.XCronConfig;
 import xie.playdatacollect.core.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
-import java.util.*;
 
 /**
  * 用于初始化一些基础数据
@@ -26,7 +22,7 @@ import java.util.*;
 @Order(0)
 public class QuartzTriggerTest implements ApplicationRunner {
 
-	Logger log = XLog.getLogger(QuartzTriggerTest.class);
+	Logger log = XLog.getLog(QuartzTriggerTest.class);
 
 	@Resource
 	AllDaoUtil allDaoUtil;

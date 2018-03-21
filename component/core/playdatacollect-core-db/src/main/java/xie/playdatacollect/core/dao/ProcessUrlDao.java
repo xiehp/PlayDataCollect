@@ -1,9 +1,8 @@
 package xie.playdatacollect.core.dao;
 
-import xie.playdatacollect.base.db.repository.BaseDao;
+import xie.common.spring.jpa.repository.BaseDao;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ProcessUrlDao extends BaseDao<ProcessUrlEntity, String> {

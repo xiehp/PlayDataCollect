@@ -1,7 +1,7 @@
 package xie.playdatacollect.core.dao;
 
 import org.springframework.data.repository.NoRepositoryBean;
-import xie.playdatacollect.base.db.repository.BaseDao;
+import xie.common.spring.jpa.repository.BaseDao;
 
 import java.io.Serializable;
 

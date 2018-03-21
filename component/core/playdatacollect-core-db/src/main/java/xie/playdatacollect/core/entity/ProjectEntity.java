@@ -1,6 +1,6 @@
 package xie.playdatacollect.core.entity;
 
-import xie.playdatacollect.base.db.entity.BaseEntity;
+import xie.common.spring.jpa.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

@@ -15,9 +15,6 @@
 
 	<modules>
 		<module>commons</module>
-
-		<module>playdatacollect-base-db</module>
-		<module>playdatacollect-base-spring</module>
 	</modules>
 
 	<properties>

@@ -1,7 +1,6 @@
 package xie.playdatacollect.server;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import xie.module.log.XLog;
+import xie.common.utils.log.XLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.Random;
 @RestController
 @EnableAutoConfiguration
 public class MainDummyServer {
-	Logger log = XLog.getLogger(this.getClass());
+	Logger log = XLog.getLog(this.getClass());
 
 	@RequestMapping("/")
 	public String index() {

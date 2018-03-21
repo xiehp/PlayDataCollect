@@ -1,6 +1,6 @@
 package xie.playdatacollect.collector.utils;
 
-import xie.common.string.XStringUtils;
+import xie.common.utils.string.XStringUtils;
 
 public class PlayDataUtils {
 	public static int parseValue(Object value) {

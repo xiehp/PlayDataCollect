@@ -19,7 +19,29 @@
 
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
-		<!-- 自己工程的依赖 -->
+		<!-- ★★自己基础项目的依赖★★ -->
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-component</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-quartz</artifactId>
+		</dependency>
+
+		<!-- ★★自己工程的依赖★★ -->
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-common</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>xie.playdatacollect</groupId>
 			<artifactId>playdatacollect-core-db</artifactId>
@@ -53,10 +75,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-quartz</artifactId>
-		</dependency>
 
 		<!--<dependency>-->
 		<!--<groupId>us.codecraft</groupId>-->
@@ -73,15 +91,12 @@
 		<!--<artifactId>json-path</artifactId>-->
 		<!--</dependency>-->
 
+		<!-- ★★第三方基础依赖★★ -->
 		<dependency>
 			<groupId>org.influxdb</groupId>
 			<artifactId>influxdb-java</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>xie</groupId>
-			<artifactId>xquartz</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

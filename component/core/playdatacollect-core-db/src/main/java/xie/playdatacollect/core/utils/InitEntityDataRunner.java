@@ -2,13 +2,13 @@ package xie.playdatacollect.core.utils;
 
 import org.slf4j.Logger;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import xie.common.date.DateUtil;
-import xie.module.log.XLog;
-import xie.playdatacollect.base.db.entity.BaseEntity;
-import xie.playdatacollect.base.db.repository.BaseDao;
+import xie.common.spring.jpa.entity.BaseEntity;
+import xie.common.utils.date.DateUtil;
+import xie.common.utils.log.XLog;
+
+import xie.common.spring.jpa.repository.BaseDao;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.entity.url.SourcesEntity;
@@ -25,7 +25,7 @@ import java.util.*;
 //public class InitEntityDataRunner implements ApplicationRunner {
 public class InitEntityDataRunner {
 
-	Logger log = XLog.getLogger(InitEntityDataRunner.class);
+	Logger log = XLog.getLog(InitEntityDataRunner.class);
 
 	@Resource
 	AllDaoUtil allDaoUtil;

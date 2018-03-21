@@ -1,7 +1,7 @@
 package xie.playdatacollect.core.service;
 
 import org.springframework.stereotype.Service;
-import xie.playdatacollect.base.db.repository.BaseDao;
+import xie.common.spring.jpa.repository.BaseDao;
 import xie.playdatacollect.core.dao.ValueDao;
 import xie.playdatacollect.core.entity.tsd.ValueEntity;
 

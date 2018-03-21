@@ -1,6 +1,6 @@
 package xie.playdatacollect.testandstudy.db.app.fun.test1.Test2;
 
-import xie.playdatacollect.base.db.entity.BaseEntity;
+import xie.common.spring.jpa.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

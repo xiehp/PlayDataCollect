@@ -1,8 +1,7 @@
 package xie.playdatacollect.core.entity;
 
-import xie.playdatacollect.base.db.entity.BaseEntity;
+import xie.common.spring.jpa.entity.BaseEntity;
 
-import javax.persistence.Basic;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

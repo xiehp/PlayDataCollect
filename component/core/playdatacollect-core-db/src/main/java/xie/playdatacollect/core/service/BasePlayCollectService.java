@@ -2,8 +2,8 @@ package xie.playdatacollect.core.service;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Service;
-import xie.playdatacollect.base.db.entity.BaseEntity;
-import xie.playdatacollect.base.db.service.BaseService;
+import xie.common.spring.jpa.entity.BaseEntity;
+import xie.common.spring.jpa.service.BaseService;
 import xie.playdatacollect.core.dao.BasePlayCollectDao;
 
 import java.io.Serializable;
