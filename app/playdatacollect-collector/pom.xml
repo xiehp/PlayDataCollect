@@ -26,15 +26,15 @@
 		</dependency>
 		<dependency>
 			<groupId>xie</groupId>
-			<artifactId>xutils</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>xie</groupId>
 			<artifactId>xspring-component</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>xspring-quartz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-print-start-up-info</artifactId>
 		</dependency>
 
 		<!-- ★★自己工程的依赖★★ -->
