@@ -1,6 +1,9 @@
-﻿#
+﻿# 本地配置文件
 application-local.properties
 
+
+# maven versions-maven-plugin
+pom.xml.versionsBackup
 
 
 # eclipse file

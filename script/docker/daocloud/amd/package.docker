@@ -13,4 +13,4 @@ MAINTAINER xie@qq.com
 COPY /playdata /playdata
 WORKDIR /playdata/PlayDataCollect
 
-CMD ["java", "-jar", "playdatacollect-collector-1.0.jar"]
+CMD ["java", "-jar", "playdatacollect-collector.jar"]

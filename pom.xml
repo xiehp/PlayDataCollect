@@ -1,54 +1,30 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- Add Spring repositories -->
-	<!-- (you don't need this if you are using a .RELEASE version) -->
-	<repositories>
-		<repository>
-			<id>aliyun-maven</id>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>aliyun-maven</id>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/snapshot</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+	<!-- 父类 -->
+	<!-- Inherit defaults from Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+	</parent>
+
+	<groupId>xie.playdatacollect</groupId>
+	<artifactId>playdatacollect-parent</artifactId>
+	<!-- 修改版本号请使用xie.playdata.version -->
+	<version>1.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
 
 	<properties>
-		<!-- 项目版本 -->
-		<playdata.version>${project.version}</playdata.version>
+		<!-- 项目版本号，修改后，需要在root目录中运行mvn versions:set才能生效 -->
+		<xie.playdata.version>1.1-SNAPSHOT</xie.playdata.version>
 
 		<!-- 文件拷贝时的编码 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -63,20 +39,11 @@
 		<!-- spring.io版本 -->
 		<spring.io.version>no version</spring.io.version>
 		<spring.boot.version>2.0.0.RELEASE</spring.boot.version>
+
+		<!-- spring.io版本 -->
+		<info.project.version>${project.parent.version}</info.project.version>
+		<info.project.parent.version>${project.version}</info.project.parent.version>
 	</properties>
-
-	<!-- Inherit defaults from Spring Boot -->
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-	</parent>
-
-	<!-- 父类 -->
-	<groupId>xie.playdatacollect</groupId>
-	<artifactId>playdatacollect-parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
 
 	<modules>
 		<module>common</module>
@@ -90,11 +57,11 @@
 		<dependencies>
 			<!-- ★★spring io★★ -->
 			<!--<dependency>-->
-				<!--<groupId>io.spring.platform</groupId>-->
-				<!--<artifactId>platform-bom</artifactId>-->
-				<!--<version>${spring.io.version}</version>-->
-				<!--<type>pom</type>-->
-				<!--<scope>import</scope>-->
+			<!--<groupId>io.spring.platform</groupId>-->
+			<!--<artifactId>platform-bom</artifactId>-->
+			<!--<version>${spring.io.version}</version>-->
+			<!--<type>pom</type>-->
+			<!--<scope>import</scope>-->
 			<!--</dependency>-->
 
 			<!-- ★★spring依赖★★ -->
@@ -104,19 +71,19 @@
 			<dependency>
 				<groupId>xie</groupId>
 				<artifactId>common-parent</artifactId>
-				<version>2.0-SNAPSHOT</version>
+				<version>2.1-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<!--<dependency>-->
-				<!--<groupId>xie</groupId>-->
-				<!--<artifactId>xcommon</artifactId>-->
-				<!--<version>2.0-SNAPSHOT</version>-->
+			<!--<groupId>xie</groupId>-->
+			<!--<artifactId>xcommon</artifactId>-->
+			<!--<version>2.0-SNAPSHOT</version>-->
 			<!--</dependency>-->
 			<!--<dependency>-->
-				<!--<groupId>xie</groupId>-->
-				<!--<artifactId>xquartz</artifactId>-->
-				<!--<version>2.0-SNAPSHOT</version>-->
+			<!--<groupId>xie</groupId>-->
+			<!--<artifactId>xquartz</artifactId>-->
+			<!--<version>2.0-SNAPSHOT</version>-->
 			<!--</dependency>-->
 
 
@@ -124,37 +91,27 @@
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-common</artifactId>
-				<version>${playdata.version}</version>
+				<version>${xie.playdata.version}</version>
 			</dependency>
-			<!--<dependency>-->
-				<!--<groupId>xie.playdatacollect</groupId>-->
-				<!--<artifactId>playdatacollect-base-db</artifactId>-->
-				<!--<version>${playdata.version}</version>-->
-			<!--</dependency>-->
-			<!--<dependency>-->
-				<!--<groupId>xie.playdatacollect</groupId>-->
-				<!--<artifactId>playdatacollect-base-spring</artifactId>-->
-				<!--<version>${playdata.version}</version>-->
-			<!--</dependency>-->
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-core-db</artifactId>
-				<version>${playdata.version}</version>
+				<version>${xie.playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-core-spring</artifactId>
-				<version>${playdata.version}</version>
+				<version>${xie.playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-testandstudy</artifactId>
-				<version>${playdata.version}</version>
+				<version>${xie.playdata.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie.playdatacollect</groupId>
 				<artifactId>playdatacollect-spider-webmagic</artifactId>
-				<version>${playdata.version}</version>
+				<version>${xie.playdata.version}</version>
 			</dependency>
 
 
@@ -222,10 +179,10 @@
 			</plugin>
 
 			<!-- Generate Git Information -->
-			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
-			</plugin>
+			<!--<plugin>-->
+			<!--<groupId>pl.project13.maven</groupId>-->
+			<!--<artifactId>git-commit-id-plugin</artifactId>-->
+			<!--</plugin>-->
 
 			<!-- docker
 			<plugin>
@@ -245,15 +202,91 @@
 				</configuration>
 			</plugin> -->
 
+			<!--新版本号设定, 需要在root目录中运行mvn versions:set才能生效-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.2</version>
 				<configuration>
-					<!--这是新版本号-->
-					<newVersion>2.2.2</newVersion>
+					<newVersion>${xie.playdata.version}</newVersion>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.0</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<!--<plugin>-->
+			<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--<artifactId>maven-project-info-reports-plugin</artifactId>-->
+			<!--<version>2.1.2</version>-->
+			<!--<inherited>false</inherited>-->
+			<!--</plugin>-->
+		</plugins>
+	</reporting>
+
+	<!-- Add Spring repositories -->
+	<!-- (you don't need this if you are using a .RELEASE version) -->
+	<repositories>
+		<repository>
+			<id>aliyun-maven</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+		<!--
+		<repository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		-->
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-maven</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</pluginRepository>
+		<!--
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		-->
+	</pluginRepositories>
 </project>
