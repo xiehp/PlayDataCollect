@@ -11,6 +11,9 @@
 *.iml
 
 
+# maven versions-maven-plugin
+pom.xml.versionsBackup
+
 
 # Package Files #
 /**/target

@@ -1,9 +1,8 @@
 package xie.common.spring.utils;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,11 +70,7 @@ public class XJsonUtil {
 			if (obj != null) {
 				str = getObjectMapper().writeValueAsString(obj);
 			}
-		} catch (JsonGenerationException e) {
-			LOG.error("", e);
-		} catch (JsonMappingException e) {
-			LOG.error("", e);
-		} catch (IOException e) {
+		} catch (JsonProcessingException e) {
 			LOG.error("", e);
 		}
 		return str;
