@@ -1,6 +1,6 @@
 # 一些在bean创建前运行的东西
 org.springframework.context.ApplicationListener=\
-xie.common.spring.printstartupinfo.listener.MyApplicationEnvironmentPreparedEventListener
+xie.common.spring.printstartupinfo.listener.PrintInfoBeforeAppStart
 
 # Environment Post Processors
 org.springframework.boot.env.EnvironmentPostProcessor=\

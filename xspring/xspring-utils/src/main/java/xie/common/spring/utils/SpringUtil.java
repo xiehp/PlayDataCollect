@@ -91,7 +91,7 @@ public class SpringUtil implements BeanFactoryAware {
 	public static List<String> getNowProfilesList() {
 		getBeanFactory();
 
-		List<String> nowProfilesList = new ArrayList<String>();
+		List<String> nowProfilesList = new ArrayList<>();
 		String[] activeProfiles = SpringUtil.getCtx().getEnvironment().getActiveProfiles();
 		if (activeProfiles != null && activeProfiles.length > 0) {
 			for (String profile : activeProfiles) {
