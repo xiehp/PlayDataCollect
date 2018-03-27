@@ -18,7 +18,9 @@ RUN date \
 WORKDIR /playdata/PlayDataCollect
 
 RUN date \
+    && ls \
     && mvn clean package \
+    && ls \
     && cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
     && mvn clean \
     && pwd
