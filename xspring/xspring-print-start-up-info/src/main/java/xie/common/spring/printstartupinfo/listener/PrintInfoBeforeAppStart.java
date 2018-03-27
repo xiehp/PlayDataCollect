@@ -3,6 +3,7 @@ package xie.common.spring.printstartupinfo.listener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.stereotype.Component;
 import xie.common.spring.printstartupinfo.PrintInfoOnStartProperties;
+import xie.common.spring.utils.InfoProperties;
 import xie.common.spring.utils.SpringUtil;
 
 import javax.annotation.Resource;
@@ -20,10 +21,13 @@ public class PrintInfoBeforeAppStart extends XApplicationListener<ApplicationEnv
 	@Resource
 	PrintInfoOnStartProperties printInfoOnStartProperties;
 
+	@Resource
+	InfoProperties infoProperties;
+
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
 		if (printInfoOnStartProperties == null || !printInfoOnStartProperties.isNoPrintInfoBeforeAppStart()) {
-			SpringUtil.printNowProfilesListByEnvironment(event.getEnvironment());
+			SpringUtil.printNowProfilesListByEnvironment(event.getEnvironment(), infoProperties);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 import xie.common.spring.printstartupinfo.PrintInfoOnStartProperties;
+import xie.common.spring.utils.InfoProperties;
 import xie.common.spring.utils.SpringUtil;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class PrintInfoAfterAppStart implements ApplicationRunner {
 	private ConfigurableEnvironment environment;
 	@Resource
 	private SpringUtil springUtil;
-	@Autowired(required = false)
+	@Resource
 	PrintInfoOnStartProperties printInfoOnStartProperties;
 
 	@Override

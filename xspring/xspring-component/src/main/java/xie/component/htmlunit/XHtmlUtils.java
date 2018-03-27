@@ -56,5 +56,6 @@ public class XHtmlUtils {
 		System.setProperty("spring.profiles.default", "development");
 		XHtmlUtils xHtmlUtils = SpringUtil.getBean(XHtmlUtils.class);
 		xHtmlUtils.run();
+
 	}
 }
