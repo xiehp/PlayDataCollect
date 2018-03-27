@@ -3,7 +3,6 @@ package xie.playdatacollect.collector.quartz.job;
 import org.springframework.data.domain.Page;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
