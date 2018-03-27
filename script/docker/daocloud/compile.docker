@@ -13,6 +13,9 @@ RUN rm -rfv PlayDataCollect
 RUN ls
 
 RUN date \
+    && ls \
+    && rm -rfv PlayDataCollect \
+    && ls \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
     #&& git pull \
     #&& git submodule update \
