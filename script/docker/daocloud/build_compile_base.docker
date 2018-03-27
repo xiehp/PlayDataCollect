@@ -1,13 +1,11 @@
 # The FROM instruction sets the Base Image for subsequent instructions.
-# Using Nginx as Base Image
 # docker login daocloud.io
-#FROM maven:3-jdk-8
+FROM maven:3-jdk-8
 #FROM daocloud.io/94540413/play_data_collect_compile:master-74071c5
-FROM daocloud.io/94540413/play_data_collect_compile:latest
+#FROM daocloud.io/94540413/play_data_collect_compile:latest
 MAINTAINER xie@qq.com
 
 # The RUN instruction will execute any commands
-# Adding HelloWorld page into Nginx server
 WORKDIR /playdata
 
 RUN date \
