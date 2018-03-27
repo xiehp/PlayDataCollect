@@ -10,7 +10,7 @@ WORKDIR /playdata
 
 RUN ls
 RUN ls \
-    && rm -rf PlayDataCollect \
+    && rm -r PlayDataCollect \
     && ls
 RUN ls
 

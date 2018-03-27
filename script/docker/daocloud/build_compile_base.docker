@@ -12,7 +12,7 @@ WORKDIR /playdata
 
 RUN ls
 RUN ls \
-    && rm -rf PlayDataCollect \
+    && rm -r PlayDataCollect \
     && ls
 RUN ls
 
@@ -35,7 +35,7 @@ RUN date \
 
 WORKDIR /playdata
 RUN ls
-RUN rm -rf PlayDataCollect
+RUN rm -r PlayDataCollect
 RUN ls
 
 # The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime
