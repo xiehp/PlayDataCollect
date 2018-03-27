@@ -9,7 +9,9 @@ MAINTAINER xie@qq.com
 WORKDIR /playdata
 
 RUN ls
-RUN rm -rf PlayDataCollect
+RUN ls \
+    && rm -rf PlayDataCollect \
+    && ls
 RUN ls
 
 RUN date \
