@@ -2,7 +2,6 @@ package xie.playdatacollect.collector.quartz.config;
 
 import org.quartz.*;
 import org.quartz.impl.JobDetailImpl;
-import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
