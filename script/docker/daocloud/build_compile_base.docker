@@ -11,9 +11,7 @@ MAINTAINER xie@qq.com
 WORKDIR /playdata
 
 RUN ls
-RUN ls \
-    && rm -r PlayDataCollect \
-    && ls
+RUN rm -rfv PlayDataCollect
 RUN ls
 
 RUN date \
@@ -27,10 +25,10 @@ WORKDIR /playdata/PlayDataCollect
 
 RUN date \
     && ls \
-    && mvn clean package \
+    && mvn package \
     && ls \
     && cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
-    && mvn clean \
+    #&& mvn clean \
     && pwd
 
 WORKDIR /playdata
