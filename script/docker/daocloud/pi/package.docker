@@ -7,5 +7,6 @@ MAINTAINER xie@qq.com
 
 COPY /playdata /playdata
 WORKDIR /playdata/PlayDataCollect
+RUN ls
 
 CMD ["java", "-jar", "playdatacollect-collector.jar"]
