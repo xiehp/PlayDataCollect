@@ -9,11 +9,13 @@ MAINTAINER xie@qq.com
 # Adding HelloWorld page into Nginx server
 WORKDIR /playdata
 
+RUN ls
+RUN rm -rf PlayDataCollect
+RUN ls
+
 RUN date \
-    && ls \
-    && rm -rf PlayDataCollect \
-    && ls \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
+    && ls \
     #&& git pull \
     #&& git submodule update \
     && pwd
@@ -27,6 +29,11 @@ RUN date \
     && cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
     && mvn clean \
     && pwd
+
+WORKDIR /playdata
+RUN ls
+RUN rm -rf PlayDataCollect
+RUN ls
 
 # The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime
 EXPOSE 13001

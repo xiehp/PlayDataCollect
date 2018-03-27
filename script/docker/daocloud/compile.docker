@@ -8,10 +8,11 @@ MAINTAINER xie@qq.com
 # Adding HelloWorld page into Nginx server
 WORKDIR /playdata
 
+RUN ls
+RUN rm -rf PlayDataCollect
+RUN ls
+
 RUN date \
-    && ls \
-    && rm -rf PlayDataCollect \
-    && ls \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
     #&& git pull \
     #&& git submodule update \
