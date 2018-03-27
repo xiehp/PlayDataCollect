@@ -1,17 +1,23 @@
 version: '3'
 services:
-  #
-  playdata:
-    image: xie/playdatacollect
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      #- /etc/timezone:/etc/timezone:ro # 如果/etc/localtime没用尝试这个
-      - $PWD/volumes/var/lib/influxdb:/var/lib/influxdb
-      - $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro
-#    ports:
-#      - "48083:8083"
-#      - "48086:8086"
-    environment:
-      #- TZ=Asia/Shanghai # 如果/etc/localtime没用尝试这个
-#      - INFLUXDB_DATA_QUERY_LOG_ENABLED=false
-    restart: always
+  #gogs-caddy:
+  #  container_name: gogs-caddy
+  #  image: abiosoft/caddy
+  #  volumes:
+  #    - "/xie/docker/gogs/caddy/Caddyfile:/etc/Caddyfile"
+  #  restart: always
+  collector:
+    image: daocloud.io/94540413/play_data_collect_pi
+    #deploy:
+      #replicas: 1
+      #resources:
+      #  limits:
+      #   cpus: "0.1"
+      #    memory: 50M
+      #restart_policy:
+      #  condition: on-failure
+    ports:
+      - "13001:13001"
+        #volumes:
+        #- &:/
+    restart: on-failure
