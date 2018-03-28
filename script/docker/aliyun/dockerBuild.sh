@@ -1,7 +1,24 @@
-docker rm -f playdata
 
-docker rmi daocloud.io/94540413/play_data_collect_pi:latest
+echo export JAVA_HOME
+java -version
 
-docker run -d --name playdata -p 13001:13001  daocloud.io/94540413/play_data_collect_pi
+git clone --recursive https://github.com/xiehp/PlayDataCollect.git
+cd PlayDataCollect
+git submodule update
+mvn clean package
 
-docker logs -f playdata
+
+echo 复制文件 $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector.jar
+cp $PWD/app/playdatacollect-collector/target/playdatacollect-collector.jar ../playdatacollect-collector.jar
+
+echo 回到先前目录
+cd ..
+
+::git clone https://github.com/xiehp/PlayDataCollect.git
+::cd PlayDataCollect
+::git submodule init
+::git submodule update
+::cd common
+::git checkout SplitProject
+
+pause
