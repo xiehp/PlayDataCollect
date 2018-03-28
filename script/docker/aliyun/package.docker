@@ -10,7 +10,7 @@ FROM java:8-jdk-alpine
 
 MAINTAINER xie@qq.com
 
-COPY /playdata /playdata
-# WORKDIR /playdata/PlayDataCollect
+COPY playdata playdata
+WORKDIR playdata
 
 CMD ["java", "-jar", "playdatacollect-collector.jar"]
