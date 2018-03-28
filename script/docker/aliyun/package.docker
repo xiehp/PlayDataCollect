@@ -1,0 +1,16 @@
+# The FROM instruction sets the Base Image for subsequent instructions.
+# Using Nginx as Base Image
+# docker login daocloud.io
+# 52M
+FROM java:8-jdk-alpine
+# 245M
+#FROM java:8-jdk
+# 122M
+#FROM java:8-jre
+
+MAINTAINER xie@qq.com
+
+COPY /playdata /playdata
+# WORKDIR /playdata/PlayDataCollect
+
+CMD ["java", "-jar", "playdatacollect-collector.jar"]
