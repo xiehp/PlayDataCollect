@@ -12,8 +12,8 @@ git submodule update
 mvn clean package
 
 
-echo 复制文件 $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector-1.0-SNAPSHOT.jar
-cp $PWD/app/playdatacollect-collector/target/playdatacollect-collector-1.0-SNAPSHOT.jar ../playdatacollect-collector-1.0.jar
+echo 复制文件 $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector.jar
+cp $PWD/app/playdatacollect-collector/target/playdatacollect-collector.jar ../playdatacollect-collector.jar
 
 echo 回到先前目录
 cd ..
