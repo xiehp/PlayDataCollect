@@ -8,8 +8,6 @@ echo
 ls -l
 echo
 
-bash script/docker/aliyun/dockerBuild.sh
-
 # aliyun不会自动下载子项目
 git submodule init
 git submodule update
