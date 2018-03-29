@@ -160,10 +160,13 @@
 		<!-- ★★自己基础项目的依赖★★ -->
 		<dependency>
 			<groupId>xie</groupId>
-			<artifactId>xcommon</artifactId>
+			<artifactId>xutils</artifactId>
 		</dependency>
 
 		<!-- ★★自己工程的依赖★★ -->
+
+
+		<!-- ★★spring工具★★ -->
 	</dependencies>
 
 	<build>

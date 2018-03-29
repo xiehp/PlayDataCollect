@@ -11,9 +11,7 @@ import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear201
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BilibiliPlayDataProgramJob extends XBaseQuartzJobBean {
 

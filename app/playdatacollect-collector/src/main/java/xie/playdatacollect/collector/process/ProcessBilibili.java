@@ -26,7 +26,7 @@ public class ProcessBilibili {
 	RestTemplate restTemplate;
 	Logger logger = XLog.getLog(this);
 
-	public void spiderGetAll(Spider spider, List<String> list, long dateTime) {
+	public void spiderGetAll(Spider spider, List<String> list, long collectTime) {
 
 		List<ResultItems> resultItemses = spider.getAll(list);
 
@@ -76,7 +76,7 @@ public class ProcessBilibili {
 						builder.addField("硬币数", PlayDataUtils.parseValue(resultItemse.getAll().get("硬币数")));
 						builder.addField("承包数", PlayDataUtils.parseValue(resultItemse.getAll().get("承包数")));
 						builder.addField("评论数", PlayDataUtils.parseValue(resultItemse.getAll().get("评论数")));
-						builder.time(dateTime, TimeUnit.MILLISECONDS);
+						builder.time(collectTime, TimeUnit.MILLISECONDS);
 						Point point = builder.build();
 						influxDB.write(point);
 					}
@@ -145,7 +145,7 @@ public class ProcessBilibili {
 						.addField("历史排名", 历史排名)
 						.addField("追番人数", 追番人数)
 						.addField("承包数", 承包数)
-						.time(dateTime, TimeUnit.MILLISECONDS)
+						.time(collectTime, TimeUnit.MILLISECONDS)
 						.build();
 				influxDB.write(point);
 			} catch (Exception e) {

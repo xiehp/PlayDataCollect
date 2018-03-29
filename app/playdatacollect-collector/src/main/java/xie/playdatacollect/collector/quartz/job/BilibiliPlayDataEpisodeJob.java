@@ -3,18 +3,14 @@ package xie.playdatacollect.collector.quartz.job;
 import org.quartz.JobExecutionContext;
 import us.codecraft.webmagic.Spider;
 import xie.playdatacollect.collector.process.ProcessBilibili;
-import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.utils.AllDaoUtil;
 import xie.playdatacollect.core.utils.AllServiceUtil;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
-import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class BilibiliPlayDataEpisodeJob extends XBaseQuartzJobBean {
 

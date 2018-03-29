@@ -16,10 +16,10 @@
 
 	<dependencies>
 		<!-- 自己的公共依赖 -->
-		<dependency>
-			<groupId>xie</groupId>
-			<artifactId>xcommon</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>xie</groupId>-->
+			<!--<artifactId>xcommon</artifactId>-->
+		<!--</dependency>-->
 
 		<!-- spring依赖 -->
 		<dependency>
