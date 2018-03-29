@@ -8,15 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Component;
 import xie.common.utils.java.JVMResource;
 import xie.common.utils.log.XLog;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Spring组件工具类
@@ -150,38 +148,54 @@ public class SpringUtil implements BeanFactoryAware {
 		System.setProperty("druid.log.stmt.executableSql", "true");
 
 
-		LOGGER.info("-------------------------");
+		LOGGER.info("-----------------------------------------------");
 
 		String[] defaultProfiles = environment.getDefaultProfiles();
 		String[] activeProfiles = environment.getActiveProfiles();
-		LOGGER.info("--------jvm信息----------");
+		LOGGER.info("--------jvm信息--------------------------------");
 		new JVMResource().printAllSummary();
 
 		LOGGER.info("");
-		LOGGER.info("--------spring信息-------");
-		LOGGER.info("当前默认的profile              ：{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
-		LOGGER.info("当前激活的profile              ：{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
-		if (infoProperties == null) {
-
-			LOGGER.info("info.app.java.source            :" + environment.getProperty("info.app.java.source"));
-			LOGGER.info("info.app.java.target:           :" + environment.getProperty("info.app.java.target"));
-			LOGGER.info("info.spring.io.version:         :" + environment.getProperty("info.spring.io.version"));
-			LOGGER.info("info.spring.boot.parent.version :" + environment.getProperty("info.spring.boot.parent.version"));
-			LOGGER.info("info.project.parent.version:    :" + environment.getProperty("info.project.parent.version"));
-			LOGGER.info("info.project.version            :" + environment.getProperty("info.project.version"));
-		} else {
-			LOGGER.info("info                            :" + infoProperties.getProperties());
+		LOGGER.info("--------spring信息-----------------------------");
+		{
+			LOGGER.info("当前默认的profile                    :{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
+			LOGGER.info("当前激活的profile                    :{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
 		}
+		if (infoProperties == null) {
+			LOGGER.info("info.project.groupId                :" + environment.getProperty("info.project.groupId"));
+			LOGGER.info("info.project.artifactId             :" + environment.getProperty("info.project.artifactId"));
+			LOGGER.info("info.project.version                :" + environment.getProperty("info.project.version"));
+			LOGGER.info("info.project.parent.version         :" + environment.getProperty("info.project.parent.version"));
+			LOGGER.info("info.project.compile.version        :" + environment.getProperty("info.project.compile.version"));
+			LOGGER.info("info.project.compile.encoding       :" + environment.getProperty("info.project.compile.encoding"));
+			LOGGER.info("info.project.spring.version         :" + environment.getProperty("info.project.spring.version"));
+			LOGGER.info("info.project.spring.io.version      :" + environment.getProperty("info.project.spring.io.version"));
+			LOGGER.info("info.project.spring.boot.version    :" + environment.getProperty("info.project.spring.boot.version"));
+		} else {
+			LOGGER.info("info                                :{}", infoProperties.getInfo());
+			for (String key : infoProperties.getInfo().keySet()) {
+				LOGGER.info("{} : {}", key, infoProperties.getInfo().get(key));
+			}
+		}
+		{
+			LOGGER.info("environment.propertySources         :");
+			// LOGGER.info("environment.propertySources         :" + environment.getPropertySources());
+			Iterator<PropertySource<?>> it = environment.getPropertySources().iterator();
+			while (it.hasNext()) {
+				PropertySource propertySource = it.next();
+				LOGGER.info(propertySource.getName());
+//					LOGGER.info("{} : {}", propertySource.getName(), propertySource.getSource());
+			}
+		}
+		{
+			LOGGER.info("---------db信息----------");
+			LOGGER.info("spring.datasource.url               :" + environment.getProperty("spring.datasource.url"));
+			LOGGER.info("spring.datasource.driver-class-name :" + environment.getProperty("spring.datasource.driver-class-name"));
+			LOGGER.info("spring.datasource.driverClassName   :" + environment.getProperty("spring.datasource.driverClassName"));
 
-		LOGGER.info("environment.propertySources   :" + environment.getPropertySources());
-
-		LOGGER.info("---------db信息----------");
-		LOGGER.info("spring.datasource.url               :" + environment.getProperty("spring.datasource.url"));
-		LOGGER.info("spring.datasource.driver-class-name :" + environment.getProperty("spring.datasource.driver-class-name"));
-		LOGGER.info("spring.datasource.driverClassName   :" + environment.getProperty("spring.datasource.driverClassName"));
-
-		LOGGER.info("-------------------------");
-		LOGGER.info("-------------------------");
+			LOGGER.info("-------------------------");
+			LOGGER.info("-------------------------");
+		}
 	}
 
 	/**
