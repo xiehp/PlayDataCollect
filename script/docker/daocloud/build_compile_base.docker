@@ -1,41 +1,40 @@
 # The FROM instruction sets the Base Image for subsequent instructions.
 # docker login daocloud.io
-#FROM maven:3-jdk-8
+FROM maven:3-jdk-8
 #FROM daocloud.io/94540413/play_data_collect_compile:rebuild_base_docker1.0
-FROM daocloud.io/94540413/play_data_collect_compile:latest
+#FROM daocloud.io/94540413/play_data_collect_compile:latest
 MAINTAINER xie@qq.com
 
 # The RUN instruction will execute any commands
 WORKDIR /playdata
 
 RUN date \
-    && ls \
-    && rm -rfv PlayDataCollect \
-    && ls \
+    && rm -rf PlayDataCollect \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
-    && ls \
     #&& git pull \
     #&& git submodule update \
-    && pwd
+    && pwd \
+    && ls
 
 WORKDIR /playdata/PlayDataCollect
 
 RUN date \
-    && ls \
     && mvn package \
-    && ls \
-    && cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
+    #&& cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
     #&& mvn clean \
-    && pwd
+    && pwd \
+    && ls
 
 WORKDIR /playdata
-RUN ls
-RUN rm -r PlayDataCollect
-RUN ls
+
+RUN date \
+    && rm -rf PlayDataCollect \
+    && pwd \
+    && ls
 
 # The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime
 EXPOSE 13001
 
 # The CMD instruction provides default execution command for an container
 # Start Nginx and keep it from running background
-CMD ["java", "-jar", "playdatacollect-collector.jar"]
+CMD ["bash"]

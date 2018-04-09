@@ -11,23 +11,27 @@ RUN rm -rfv PlayDataCollect
 RUN ls
 
 RUN date \
-    && ls \
-    && rm -rfv PlayDataCollect \
-    && ls \
+    && rm -rf PlayDataCollect \
     && git clone --recursive https://github.com/xiehp/PlayDataCollect.git \
     #&& git pull \
     #&& git submodule update \
-    && pwd
+    && pwd \
+    && ls
 
 WORKDIR /playdata/PlayDataCollect
 
 RUN date \
-    && ls \
-    && mvn clean package \
-    && ls \
-    && cp app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
+    && mvn package
+    && pwd \
+    && ls
+
+WORKDIR /playdata
+
+RUN date \
+    && cp PlayDataCollect/app/playdatacollect-collector/target/playdatacollect-collector.jar playdatacollect-collector.jar \
     && mvn clean \
-    && pwd
+    && pwd \
+    && ls
 
 # The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime
 EXPOSE 13001
