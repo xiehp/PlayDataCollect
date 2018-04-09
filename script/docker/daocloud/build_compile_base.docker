@@ -1,7 +1,7 @@
 # The FROM instruction sets the Base Image for subsequent instructions.
 # docker login daocloud.io
-FROM maven:3-jdk-8
-#FROM daocloud.io/94540413/play_data_collect_compile:rebuild_base_docker1.0
+#FROM maven:3-jdk-8
+FROM daocloud.io/94540413/play_data_collect_compile:rebuild_base_docker1.0
 #FROM daocloud.io/94540413/play_data_collect_compile:latest
 MAINTAINER xie@qq.com
 
