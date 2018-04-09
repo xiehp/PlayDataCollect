@@ -1,4 +1,4 @@
-package xie.playdatacollect.collector;
+package xie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +30,9 @@ import java.util.*;
 
 @SpringBootApplication
 @RestController
-@ComponentScan("xie")
-@EntityScan("xie")
-@EnableJpaRepositories(basePackages = "xie")
+//@ComponentScan("xie")
+//@EntityScan("xie")
+//@EnableJpaRepositories(basePackages = "xie")
 public class MainCollector {
 
 	@Resource

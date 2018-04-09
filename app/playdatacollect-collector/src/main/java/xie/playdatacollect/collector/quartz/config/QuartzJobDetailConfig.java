@@ -6,7 +6,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xie.playdatacollect.collector.quartz.job.*;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+import xie.playdatacollect.collector.quartz.job.DummyJob;
+import xie.playdatacollect.collector.quartz.job.NoJob;
+import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
+import xie.playdatacollect.collector.quartz.job.bilibili.BiliBiliGetProcessUrl;
+import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeNewJob;
+import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeOldJob;
+import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataProgramJob;
+import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
 
 /**
  * @author xie
@@ -17,7 +25,7 @@ public class QuartzJobDetailConfig {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public JobDetail createJobDetail(Class clazz, String identity, JobDataMap jobDataMap) {
+	public JobDetail createJobDetail(Class<? extends XBaseQuartzJobBean> clazz, String identity, JobDataMap jobDataMap) {
 		return JobBuilder.newJob(clazz).withIdentity(identity)
 				.usingJobData(jobDataMap)
 				.storeDurably()
@@ -42,7 +50,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail1() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail1");
-		map.put("sleep", 10);
+		map.put("sleep", 10L);
 		return createJobDetail(DummyJob.class, "dummyJob1", map);
 	}
 
@@ -50,7 +58,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail2() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail2");
-		map.put("sleep", 20);
+		map.put("sleep", 20L);
 		return createJobDetail(DummyJob.class, "dummyJob2", map);
 	}
 
@@ -58,7 +66,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail3() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail3");
-		map.put("sleep", 30);
+		map.put("sleep", 30L);
 		return createJobDetail(DummyJob.class, "dummyJob3", map);
 	}
 
@@ -66,7 +74,7 @@ public class QuartzJobDetailConfig {
 	public JobDetail dummyJobDetail4() {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "dummyJobDetail4");
-		map.put("sleep", 40);
+		map.put("sleep", 40L);
 		return createJobDetail(DummyJob.class, "dummyJob4", map);
 	}
 
@@ -96,5 +104,13 @@ public class QuartzJobDetailConfig {
 		JobDataMap map = new JobDataMap();
 		map.put("name", "JobDetail_BiliBili_GetProcessUrl");
 		return createJobDetail(BiliBiliGetProcessUrl.class, "JobDetail_BiliBili_GetProcessUrl", map);
+	}
+
+
+	@Bean
+	public JobDetail jobDetail_Iqiyi_GetProcessUrl() {
+		JobDataMap map = new JobDataMap();
+		map.put("name", "JobDetail_Iqiyi_GetProcessUrl");
+		return createJobDetail(IQiYiGetProcessUrl.class, "JobDetail_Iqiyi_GetProcessUrl", map);
 	}
 }

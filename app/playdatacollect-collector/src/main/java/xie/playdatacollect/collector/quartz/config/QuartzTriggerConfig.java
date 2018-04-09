@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xie.common.utils.log.XLog;
+import xie.common.utils.string.XStringUtils;
 import xie.playdatacollect.collector.quartz.utils.XCronConfig;
 
 import javax.annotation.Resource;
@@ -71,18 +73,18 @@ public class QuartzTriggerConfig {
 		return trigger;
 	}
 
-//	@Bean
-//	public Trigger sampleJobTrigger() {
-//		String cron = "0 0/1 * * * ?";
-//		if (XStringUtils.isNotBlank(cron1)) {
-//			cron = cron1;
-//			XLog.info(this, "cron: {}", cron);
-//		} else {
-//			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
-//		}
-//
-//		return createCronTrigger(jobConfig.sampleJobDetail(), "sampleTrigger", cron);
-//	}
+	@Bean
+	public Trigger sampleJobTrigger() {
+		String cron = "0 0/1 * * * ?";
+		if (XStringUtils.isNotBlank(cron1)) {
+			cron = cron1;
+			XLog.info(this, "cron: {}", cron);
+		} else {
+			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
+		}
+
+		return createCronTrigger(jobConfig.dummyJobDetail1(), "sampleTrigger", cron);
+	}
 
 	@Bean
 	public Trigger trigger_ProgramJob() {
@@ -110,5 +112,19 @@ public class QuartzTriggerConfig {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatHourlyForTotalCount(1);
 
 		return createTrigger(scheduleBuilder, jobConfig.jobDetail_BiliBili_GetProcessUrl(), "trigger_BiliBili_GetProcessUrl_OnStart");
+	}
+
+
+	@Bean
+	public Trigger trigger_Iqiyi_GetProcessUrl_loop() {
+		return createCronTrigger(jobConfig.jobDetail_Iqiyi_GetProcessUrl(), "Trigger_Iqiyi_GetProcessUrl", XCronConfig.PER_12_HOUR);
+	}
+
+//	@Bean
+	public Trigger trigger_Iqiyi_GetProcessUrl_OnStart() {
+
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatMinutelyForTotalCount(1);
+
+		return createTrigger(scheduleBuilder, jobConfig.jobDetail_Iqiyi_GetProcessUrl(), "trigger_Iqiyi_GetProcessUrl_OnStart");
 	}
 }

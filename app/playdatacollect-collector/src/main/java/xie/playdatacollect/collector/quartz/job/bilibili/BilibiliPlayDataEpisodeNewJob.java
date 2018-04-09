@@ -1,4 +1,4 @@
-package xie.playdatacollect.collector.quartz.job;
+package xie.playdatacollect.collector.quartz.job.bilibili;
 
 import org.springframework.data.domain.Page;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;

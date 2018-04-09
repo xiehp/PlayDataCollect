@@ -1,10 +1,19 @@
 package xie.playdatacollect.spider.webmagic.processor.iqiyi;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.selector.HtmlNode;
 import us.codecraft.webmagic.selector.PlainText;
 import us.codecraft.webmagic.selector.Selectable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IqiyiDongmanPageProcessor implements PageProcessor {
 
@@ -12,15 +21,29 @@ public class IqiyiDongmanPageProcessor implements PageProcessor {
 
 	@Override
 	public void process(Page page) {
-		Selectable weekTab = page.getHtml().$("[data-tabname=weekTab],.j_cartoon_everyday");
-		Selectable detailList = weekTab.$("qy-mod-ul").$("qy-mod-li");
+//		Selectable weekTab = page.getHtml().$("[data-tabname=weekTab],.j_cartoon_everyday");
+//		Selectable detailList = weekTab.$("qy-mod-ul").$("qy-mod-li");
 
-		PlainText titles = (PlainText)detailList.$("link-txt", "title");
+		Document htmlDom = Jsoup.parse(page.getHtml().get());
+		Elements weekTab = htmlDom.body().select("[data-tabname=weekTab],.j_cartoon_everyday");
+		Elements detailList = weekTab.select(".qy-mod-ul").select(".qy-mod-li");
+		Elements titleWrapList = weekTab.select(".title-wrap");
 
-		page.putField("名字", XXX);
-		page.putField("url", XXX);
-		page.putField("名字", XXX);
-		page.putField("名字", XXX);
+		Elements linkTxtList = detailList.select(".link-txt");
+
+		List<IqiyiProcessUrl> list = new ArrayList<>();
+		for (int i = 0; i < linkTxtList.size(); i++) {
+			Element linkTxt = linkTxtList.get(i);
+			Attributes attributes =linkTxt.attributes();
+			String title = attributes.get("title");
+			String url = attributes.get("href");
+			IqiyiProcessUrl iqiyiProcessUrl = new IqiyiProcessUrl();
+			iqiyiProcessUrl.setHref(url);
+			iqiyiProcessUrl.setTitle(title);
+			list.add(iqiyiProcessUrl);
+		}
+
+		page.putField("list", list);
 //		String name = page.getHtml().$(".info-content .b-head h1", "title").get();
 //		page.putField("名字", name);
 //		if (page.getResultItems().getAll().get("名字") == null || page.getResultItems().getAll().get("名字").toString() == null) {

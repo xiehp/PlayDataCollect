@@ -9,7 +9,12 @@ public class DummyJob extends XBaseQuartzJobBean {
 		logger.warn("this is dummy job, {}", context.getJobDetail().getKey());
 		System.out.println("this is dummy job, sleep " + context.getMergedJobDataMap().get("sleep"));
 
-		Thread.sleep(context.getMergedJobDataMap().getLong("sleep"));
+		Long time = context.getMergedJobDataMap().containsKey("sleep") ? context.getMergedJobDataMap().getLong("sleep") : 10L;
+		if (time == null) {
+			logger.warn("time is null");
+			time = 10L;
+		}
+		Thread.sleep(time);
 	}
 
 }

@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
+		<version>2.0.1.RELEASE</version>
 	</parent>
 
 	<groupId>xie.playdatacollect</groupId>
@@ -38,11 +38,11 @@
 
 		<!-- spring.io版本 -->
 		<spring.io.version>no version</spring.io.version>
-		<spring.boot.version>2.0.0.RELEASE</spring.boot.version>
+		<spring.boot.version>2.0.1.RELEASE</spring.boot.version>
 
-		<!-- spring.io版本 -->
-		<info.project.version>${project.parent.version}</info.project.version>
-		<info.project.parent.version>${project.version}</info.project.parent.version>
+		<!-- 项目版本 -->
+		<info.project.version>${project.version}</info.project.version>
+		<info.project.parent.version>${project.parent.version}</info.project.parent.version>
 	</properties>
 
 	<modules>

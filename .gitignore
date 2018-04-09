@@ -15,8 +15,6 @@ pom.xml.versionsBackup
 # idea file
 *.iml
 .idea
-hs_err_pid*.log
-replay_pid*.log
 .springBeans
 
 
@@ -34,5 +32,12 @@ replay_pid*.log
 /**/target/maven-status
 /**/bin
 
+
 # 运行生成的文件
-logs/**
+/logs
+hs_err_pid*.log
+replay_pid*.log
+
+
+# 临时目录
+/temp

@@ -1,8 +1,9 @@
-package xie.playdatacollect.collector.quartz.job;
+package xie.playdatacollect.collector.quartz.job.bilibili;
 
 import org.quartz.JobExecutionContext;
 import org.springframework.web.client.RestTemplate;
 import xie.common.utils.number.XNumberUtils;
+import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.utils.AllServiceUtil;
 import xie.playdatacollect.core.utils.InitEntityDataRunner;
@@ -72,7 +73,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 				allServiceUtil.getProcessUrlService().saveProcessUrlData(
 						PlayDataConst.SOURCE_KEY_BILIBILI,
 						title,
-						"program",
+						PlayDataConst.SOURCE_TYPE_PROGRAM,
 						null,
 						"https://bangumi.bilibili.com/anime/" + season_id,
 						null
@@ -83,7 +84,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 					allServiceUtil.getProcessUrlService().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_BILIBILI,
 							title + " " + pub_index,
-							"episode",
+							PlayDataConst.SOURCE_TYPE_EPISODE,
 							null,
 							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
 							new Date(pub_ts)
@@ -92,7 +93,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 					allServiceUtil.getProcessUrlService().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_BILIBILI,
 							title + " " + pub_index,
-							"episode",
+							PlayDataConst.SOURCE_TYPE_EPISODE,
 							null,
 							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
 							new Date(pub_ts)
