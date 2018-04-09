@@ -21,7 +21,7 @@ RUN date \
 WORKDIR /playdata/PlayDataCollect
 
 RUN date \
-    && mvn package
+    && mvn package \
     && pwd \
     && ls
 
