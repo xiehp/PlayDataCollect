@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -12,7 +13,7 @@ import java.util.Properties;
 @ConfigurationProperties
 public class InfoProperties {
 	private String infoProjectGroupId;
-	private Map<String, String> info;
+	private Map<String, String> info = new HashMap<>();
 
 	public String getInfoProjectGroupId() {
 		return infoProjectGroupId;

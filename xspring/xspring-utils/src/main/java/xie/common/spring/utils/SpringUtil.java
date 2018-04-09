@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -14,7 +13,10 @@ import xie.common.utils.java.JVMResource;
 import xie.common.utils.log.XLog;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Spring组件工具类
@@ -148,10 +150,13 @@ public class SpringUtil implements BeanFactoryAware {
 		System.setProperty("druid.log.stmt.executableSql", "true");
 
 
+		LOGGER.info("");
 		LOGGER.info("-----------------------------------------------");
 
 		String[] defaultProfiles = environment.getDefaultProfiles();
 		String[] activeProfiles = environment.getActiveProfiles();
+
+		LOGGER.info("");
 		LOGGER.info("--------jvm信息--------------------------------");
 		new JVMResource().printAllSummary();
 
@@ -161,7 +166,11 @@ public class SpringUtil implements BeanFactoryAware {
 			LOGGER.info("当前默认的profile                    :{}个，{}", defaultProfiles.length, Arrays.asList(defaultProfiles));
 			LOGGER.info("当前激活的profile                    :{}个，{}", activeProfiles.length, Arrays.asList(activeProfiles));
 		}
+
+		LOGGER.info("");
+		LOGGER.info("--------info信息-------------------------------");
 		if (infoProperties == null) {
+			LOGGER.info("specified info                      : ↓");
 			LOGGER.info("info.project.groupId                :" + environment.getProperty("info.project.groupId"));
 			LOGGER.info("info.project.artifactId             :" + environment.getProperty("info.project.artifactId"));
 			LOGGER.info("info.project.version                :" + environment.getProperty("info.project.version"));
@@ -172,11 +181,14 @@ public class SpringUtil implements BeanFactoryAware {
 			LOGGER.info("info.project.spring.io.version      :" + environment.getProperty("info.project.spring.io.version"));
 			LOGGER.info("info.project.spring.boot.version    :" + environment.getProperty("info.project.spring.boot.version"));
 		} else {
-			LOGGER.info("info                                :{}", infoProperties.getInfo());
+			LOGGER.info("all info                            :" + infoProperties.getInfo().getClass());
 			for (String key : infoProperties.getInfo().keySet()) {
 				LOGGER.info("{} : {}", key, infoProperties.getInfo().get(key));
 			}
 		}
+
+		LOGGER.info("");
+		LOGGER.info("--------propertySources信息--------------------");
 		{
 			LOGGER.info("environment.propertySources         :");
 			// LOGGER.info("environment.propertySources         :" + environment.getPropertySources());
@@ -188,13 +200,15 @@ public class SpringUtil implements BeanFactoryAware {
 			}
 		}
 		{
-			LOGGER.info("---------db信息----------");
+			LOGGER.info("");
+			LOGGER.info("---------db信息----------------------------");
 			LOGGER.info("spring.datasource.url               :" + environment.getProperty("spring.datasource.url"));
 			LOGGER.info("spring.datasource.driver-class-name :" + environment.getProperty("spring.datasource.driver-class-name"));
 			LOGGER.info("spring.datasource.driverClassName   :" + environment.getProperty("spring.datasource.driverClassName"));
 
-			LOGGER.info("-------------------------");
-			LOGGER.info("-------------------------");
+			LOGGER.info("");
+			LOGGER.info("-------------------------------------------");
+			LOGGER.info("-------------------------------------------");
 		}
 	}
 
