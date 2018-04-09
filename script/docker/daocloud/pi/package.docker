@@ -6,7 +6,7 @@ FROM resin/raspberrypi3-openjdk:jdk
 MAINTAINER xie@qq.com
 
 COPY /playdata /playdata
-WORKDIR /playdata/PlayDataCollect
+WORKDIR /playdata
 #RUN ls
 
 CMD ["java", "-jar", "playdatacollect-collector.jar"]
