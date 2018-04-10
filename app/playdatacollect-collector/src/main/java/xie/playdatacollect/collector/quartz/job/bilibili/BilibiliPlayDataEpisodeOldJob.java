@@ -1,6 +1,7 @@
 package xie.playdatacollect.collector.quartz.job.bilibili;
 
 import org.springframework.data.domain.Page;
+import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,9 @@ public class BilibiliPlayDataEpisodeOldJob extends BilibiliPlayDataEpisodeJob {
 	@Override
 	protected List<ProcessUrlEntity> getProcessUrlList() {
 		Map<String, Object> searchMap = new HashMap<>();
-		searchMap.put("EQ_type", "episode");
-		searchMap.put("LT_beginDate", Date.from(LocalDateTime.now().minusDays(2).atZone(ZoneId.systemDefault()).toInstant()));
+		searchMap.put("EQ_sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
+		searchMap.put("EQ_type", PlayDataConst.SOURCE_TYPE_EPISODE);
+		searchMap.put("LT_beginDate", Date.from(LocalDateTime.now().minusDays(10).atZone(ZoneId.systemDefault()).toInstant()));
 
 		Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 		List<ProcessUrlEntity> list = page.getContent();

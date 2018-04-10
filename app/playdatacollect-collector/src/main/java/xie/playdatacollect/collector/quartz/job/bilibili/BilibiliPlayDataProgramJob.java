@@ -39,7 +39,7 @@ public class BilibiliPlayDataProgramJob extends XBaseQuartzJobBean {
 
 		// http://api.bilibili.com/archive_stat/stat?aid=18168483
 
-		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findByType("program");
+		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findBySourceKeyAndType(PlayDataConst.SOURCE_KEY_BILIBILI, PlayDataConst.SOURCE_TYPE_PROGRAM);
 		list.forEach((processUrl) -> {
 			String key = processUrl.getSourceKey() + processUrl.getType();
 

@@ -50,9 +50,6 @@ public abstract class BilibiliPlayDataEpisodeJob extends XBaseQuartzJobBean {
 		processBilibili.spiderGetAll(spiderBLNormal, listBLNormal, dateTime);
 	}
 
-	protected List<ProcessUrlEntity> getProcessUrlList() {
-		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findByType("episode");
-		return list;
-	}
+	protected abstract List<ProcessUrlEntity> getProcessUrlList();
 
 }

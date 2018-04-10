@@ -7,7 +7,7 @@ import us.codecraft.webmagic.selector.Selectable;
 
 public class IqiyiSearchPage_DongmanProcessor implements PageProcessor {
 
-	private Site site = Site.me().setRetryTimes(2).setSleepTime(300).setUseGzip(true);
+	private Site site = Site.me().setRetryTimes(3).setSleepTime(300).setUseGzip(true);
 
 	@Override
 	public void process(Page page) {

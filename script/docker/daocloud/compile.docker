@@ -1,3 +1,5 @@
+# script/docker/daocloud/compile.docker
+
 # The FROM instruction sets the Base Image for subsequent instructions.
 # docker login daocloud.io
 FROM daocloud.io/94540413/play_data_collect_compile:latest
