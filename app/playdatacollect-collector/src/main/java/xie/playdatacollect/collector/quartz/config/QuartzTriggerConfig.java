@@ -5,13 +5,10 @@ import org.quartz.impl.JobDetailImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xie.common.utils.log.XLog;
-import xie.common.utils.string.XStringUtils;
-import xie.playdatacollect.collector.quartz.utils.XCronConfig;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author xie
@@ -20,7 +17,7 @@ import javax.annotation.Resource;
 @ConfigurationProperties("xie.quartz.trigger")
 public class QuartzTriggerConfig {
 
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LoggerFactory.getLogger(QuartzTriggerConfig.class);
 
 	@Resource
 	private QuartzJobDetailConfig jobConfig;
@@ -41,7 +38,11 @@ public class QuartzTriggerConfig {
 		this.doFlag = doFlag;
 	}
 
-	public Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
+	public static Trigger createCronTrigger(JobDetail jobDetail, String identity, String cron) {
+		return createCronTrigger(jobDetail, identity, null, cron);
+	}
+
+	public static Trigger createCronTrigger(JobDetail jobDetail, String identity, String group, String cron) {
 
 		logger.info("job:{}, cron:{}", ((JobDetailImpl) jobDetail).getFullName(), cron);
 		ScheduleBuilder<CronTrigger> scheduleBuilder = CronScheduleBuilder
@@ -51,16 +52,26 @@ public class QuartzTriggerConfig {
 		return createTrigger(scheduleBuilder, jobDetail, identity);
 	}
 
-	public Trigger createTrigger(ScheduleBuilder scheduleBuilder, JobDetail jobDetail, String identity) {
+	public static Trigger createCronTrigger(JobDetail jobDetail, String identity, String group, String cron, Date startDate, Date endDate) {
 
-		logger.info("job:{}, doFlag:{}", ((JobDetailImpl) jobDetail).getFullName(), doFlag);
+		logger.info("job:{}, cron:{}", ((JobDetailImpl) jobDetail).getFullName(), cron);
+		ScheduleBuilder<CronTrigger> scheduleBuilder = CronScheduleBuilder
+				.cronSchedule(cron)
+				.withMisfireHandlingInstructionDoNothing();
 
-		if (doFlag == 0) {
-			jobDetail = jobConfig.noJobDetail();
-		}
-		if (doFlag == 2) {
-			jobDetail = jobConfig.dummyJobDetail();
-		}
+		return createTrigger(scheduleBuilder, jobDetail, identity);
+	}
+
+	public static Trigger createTrigger(ScheduleBuilder scheduleBuilder, JobDetail jobDetail, String identity) {
+
+//		logger.info("job:{}, doFlag:{}", ((JobDetailImpl) jobDetail).getFullName(), doFlag);
+
+//		if (doFlag == 0) {
+//			jobDetail = jobConfig.noJobDetail();
+//		}
+//		if (doFlag == 2) {
+//			jobDetail = jobConfig.dummyJobDetail();
+//		}
 
 		Trigger trigger = TriggerBuilder
 				.newTrigger()
@@ -73,38 +84,38 @@ public class QuartzTriggerConfig {
 		return trigger;
 	}
 
-	@Bean
-	public Trigger sampleJobTrigger() {
-		String cron = "0 0/1 * * * ?";
-		if (XStringUtils.isNotBlank(cron1)) {
-			cron = cron1;
-			XLog.info(this, "cron: {}", cron);
-		} else {
-			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
-		}
+//	@Bean
+//	public Trigger sampleJobTrigger() {
+//		String cron = "0 0/1 * * * ?";
+//		if (XStringUtils.isNotBlank(cron1)) {
+//			cron = cron1;
+//			XLog.info(this, "cron: {}", cron);
+//		} else {
+//			XLog.info(this, "cron配置不正确，使用默认: {}", cron);
+//		}
+//
+//		return createCronTrigger(jobConfig.dummyJobDetail1(), "sampleTrigger", cron);
+//	}
 
-		return createCronTrigger(jobConfig.dummyJobDetail1(), "sampleTrigger", cron);
-	}
-
-	@Bean
-	public Trigger trigger_ProgramJob() {
-		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", XCronConfig.PER_05_MIN);
-	}
-
-	@Bean
-	public Trigger trigger_EpisodeNewJob() {
-		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeNewJobDetail(), "trigger_EpisodeNewJob", XCronConfig.PER_01_MIN);
-	}
-
-	@Bean
-	public Trigger trigger_EpisodeOldJob() {
-		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeOldJobDetail(), "trigger_EpisodeOldJob", XCronConfig.PER_05_MIN);
-	}
-
-	@Bean
-	public Trigger trigger_BiliBili_GetProcessUrl_loop() {
-		return createCronTrigger(jobConfig.jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", XCronConfig.PER_12_HOUR);
-	}
+//	@Bean
+//	public Trigger trigger_ProgramJob() {
+//		return createCronTrigger(jobConfig.getBilibiliPlayDataProgramJobDetail(), "trigger_ProgramJob", XScheduleConfig.PER_05_MIN);
+//	}
+//
+//	@Bean
+//	public Trigger trigger_EpisodeNewJob() {
+//		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeNewJobDetail(), "trigger_EpisodeNewJob", XScheduleConfig.PER_01_MIN);
+//	}
+//
+//	@Bean
+//	public Trigger trigger_EpisodeOldJob() {
+//		return createCronTrigger(jobConfig.getBilibiliPlayDataEpisodeOldJobDetail(), "trigger_EpisodeOldJob", XScheduleConfig.PER_05_MIN);
+//	}
+//
+//	@Bean
+//	public Trigger trigger_BiliBili_GetProcessUrl_loop() {
+//		return createCronTrigger(jobConfig.jobDetail_BiliBili_GetProcessUrl(), "Trigger_BiliBili_GetProcessUrl", XScheduleConfig.PER_12_HOUR);
+//	}
 
 //	@Bean
 	public Trigger trigger_BiliBili_GetProcessUrl_OnStart() {
@@ -115,10 +126,10 @@ public class QuartzTriggerConfig {
 	}
 
 
-	@Bean
-	public Trigger trigger_Iqiyi_GetProcessUrl_loop() {
-		return createCronTrigger(jobConfig.jobDetail_Iqiyi_GetProcessUrl(), "Trigger_Iqiyi_GetProcessUrl", XCronConfig.PER_12_HOUR);
-	}
+//	@Bean
+//	public Trigger trigger_Iqiyi_GetProcessUrl_loop() {
+//		return createCronTrigger(jobConfig.jobDetail_Iqiyi_GetProcessUrl(), "Trigger_Iqiyi_GetProcessUrl", XScheduleConfig.PER_12_HOUR);
+//	}
 
 //	@Bean
 	public Trigger trigger_Iqiyi_GetProcessUrl_OnStart() {

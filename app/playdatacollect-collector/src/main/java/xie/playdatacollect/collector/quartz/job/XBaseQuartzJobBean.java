@@ -25,7 +25,7 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 
-		logger.info(this.getClass().getSimpleName() + " {} start by {}", name, context.getTrigger());
+		logger.info(" {}({}) start by {}", this.getClass().getSimpleName(), name, context.getTrigger());
 
 		try {
 			executeJob(context);
@@ -33,7 +33,7 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 			logger.error(this.getClass().getName() + " {} error by {}, {}", name, context.getTrigger(), e.getMessage());
 			throw new JobExecutionException(e);
 		} finally {
-			logger.info(this.getClass().getName() + " {} end by {}", name, context.getTrigger());
+			logger.info(" {}({}) end by {}", this.getClass().getSimpleName() + name, context.getTrigger());
 		}
 
 	}

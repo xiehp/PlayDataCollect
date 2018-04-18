@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import xie.module.quartz.XQuartzManager;
+import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
+import xie.playdatacollect.core.utils.AllDaoUtil;
+
+import javax.annotation.Resource;
 
 /**
  * @author xie
@@ -15,6 +19,9 @@ import xie.module.quartz.XQuartzManager;
 @ConfigurationProperties("xie.quartz.trigger")
 public class QuartzSchedulerConfig {
 
+	@Resource
+	AllDaoUtil daoUtil;
+
 	@Bean
 	public XQuartzManager getXQuartzManager(SchedulerFactoryBean schedulerFactoryBean) {
 		XQuartzManager xQuartzManager = new XQuartzManager(schedulerFactoryBean);
@@ -22,11 +29,19 @@ public class QuartzSchedulerConfig {
 	}
 
 	@Bean("SchedulerFactoryBeanCustomizer_set_instanceName")
-	public SchedulerFactoryBeanCustomizer dataSourceCustomizer(QuartzProperties properties) {
+	public SchedulerFactoryBeanCustomizer schedulerFactoryBeanCustomizer_set_instanceName(QuartzProperties properties) {
 		return (schedulerFactoryBean) -> {
 			if (properties.getProperties().get("org.quartz.scheduler.instanceName") != null) {
-				schedulerFactoryBean.setSchedulerName(properties.getProperties().get("org.quartz.scheduler.instanceName"));
+				String scheduleName = properties.getProperties().get("org.quartz.scheduler.instanceName");
+				//scheduleName = XScheduleConfig.VERSION_NAME;
+				schedulerFactoryBean.setSchedulerName(scheduleName);
 			}
 		};
-	}//	}
+	}
+
+	@Bean("schedulerFactoryBeanCustomizer_set_jobAndTrigger")
+	public SchedulerFactoryBeanCustomizer schedulerFactoryBeanCustomizer_set_jobAndTrigger(QuartzProperties properties) {
+		return (schedulerFactoryBean) -> {
+		};
+	}
 }

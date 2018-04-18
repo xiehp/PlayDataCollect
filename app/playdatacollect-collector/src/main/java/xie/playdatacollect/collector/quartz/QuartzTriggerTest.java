@@ -10,7 +10,6 @@ import xie.common.utils.log.XLog;
 import xie.module.quartz.XQuartzManager;
 import xie.playdatacollect.collector.quartz.config.QuartzJobDetailConfig;
 import xie.playdatacollect.collector.quartz.config.QuartzTriggerConfig;
-import xie.playdatacollect.collector.quartz.utils.XCronConfig;
 import xie.playdatacollect.core.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
@@ -44,61 +43,61 @@ public class QuartzTriggerTest implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws InterruptedException {
-
-
-		JobDetail jobDetail1 = quartzJobDetailConfig.dummyJobDetail1();
-		JobDetail jobDetail11 = quartzJobDetailConfig.dummyJobDetail1();
-
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatHourlyForTotalCount(100).withIntervalInSeconds(5);
-		Trigger trigger1 = quartzTriggerConfig.createTrigger(scheduleBuilder, jobDetail1, "test1");
-		try {
-			xQuartzManager.startTrigger(trigger1);
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
-
-		try {
-//			xQuartzManager.start();
-			if (!xQuartzManager.getScheduler().isStarted()) {
-				xQuartzManager.getScheduler().start();
-			}
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
-
-		runOtherTrigger();
+//
+//
+//		JobDetail jobDetail1 = quartzJobDetailConfig.dummyJobDetail1();
+//		JobDetail jobDetail11 = quartzJobDetailConfig.dummyJobDetail1();
+//
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatHourlyForTotalCount(100).withIntervalInSeconds(5);
+//		Trigger trigger1 = quartzTriggerConfig.createTrigger(scheduleBuilder, jobDetail1, "test1");
+//		try {
+//			xQuartzManager.startTrigger(trigger1);
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
+//
+//		try {
+////			xQuartzManager.start();
+//			if (!xQuartzManager.getScheduler().isStarted()) {
+//				xQuartzManager.getScheduler().start();
+//			}
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
+//
+//		runOtherTrigger();
 	}
 
 	private void runOtherTrigger() throws InterruptedException {
-		JobDetail jobDetail2 = quartzJobDetailConfig.dummyJobDetail2();
-		JobDetail jobDetail3 = quartzJobDetailConfig.dummyJobDetail3();
-		JobDetail jobDetail4 = quartzJobDetailConfig.dummyJobDetail3();
-
-		Thread.sleep(3);
-		Trigger trigger2 = quartzTriggerConfig.createCronTrigger(jobDetail2, "test2", XCronConfig.PER_10_SECOND);
-		try {
-			xQuartzManager.startTrigger(trigger2);
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
-
-		Thread.sleep(3);
-		Trigger trigger3 = quartzTriggerConfig.createCronTrigger(jobDetail3, "test3", XCronConfig.PER_15_SECOND);
-		try {
-			xQuartzManager.startTrigger(trigger3);
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
-
-		Thread.sleep(3);
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatSecondlyForTotalCount(10);
-
-		Trigger trigger4 = quartzTriggerConfig.createTrigger(scheduleBuilder, jobDetail4, "test4");
-		try {
-			xQuartzManager.startTrigger(trigger4);
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
+//		JobDetail jobDetail2 = quartzJobDetailConfig.dummyJobDetail2();
+//		JobDetail jobDetail3 = quartzJobDetailConfig.dummyJobDetail3();
+//		JobDetail jobDetail4 = quartzJobDetailConfig.dummyJobDetail3();
+//
+//		Thread.sleep(3);
+//		Trigger trigger2 = quartzTriggerConfig.createCronTrigger(jobDetail2, "test2", XScheduleConfig.PER_10_SECOND);
+//		try {
+//			xQuartzManager.startTrigger(trigger2);
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Thread.sleep(3);
+//		Trigger trigger3 = quartzTriggerConfig.createCronTrigger(jobDetail3, "test3", XScheduleConfig.PER_15_SECOND);
+//		try {
+//			xQuartzManager.startTrigger(trigger3);
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Thread.sleep(3);
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.repeatSecondlyForTotalCount(10);
+//
+//		Trigger trigger4 = quartzTriggerConfig.createTrigger(scheduleBuilder, jobDetail4, "test4");
+//		try {
+//			xQuartzManager.startTrigger(trigger4);
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

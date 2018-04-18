@@ -2,6 +2,7 @@ package xie.playdatacollect.core.utils;
 
 import org.slf4j.Logger;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xie.common.spring.jpa.entity.BaseEntity;
@@ -23,7 +24,7 @@ import java.util.*;
 @Component
 @Order(0)
 //public class InitEntityDataRunner implements ApplicationRunner {
-public class InitEntityDataRunner {
+public class InitEntityDataRunner implements ApplicationRunner {
 
 	Logger log = XLog.getLog(InitEntityDataRunner.class);
 
@@ -33,12 +34,12 @@ public class InitEntityDataRunner {
 	private boolean batchFlag = false;
 	private Map<BaseDao, List<BaseEntity>> batchDataMap = new LinkedHashMap<>();
 
-	private void beginBatch() {
+	protected void beginBatch() {
 		log.info("beginBatch");
 		batchFlag = true;
 	}
 
-	private void putBatchData(BaseDao dao, BaseEntity entity) {
+	protected void putBatchData(BaseDao dao, BaseEntity entity) {
 		List<BaseEntity> list;
 		if (batchDataMap.containsKey(dao)) {
 			list = batchDataMap.get(dao);
@@ -50,7 +51,7 @@ public class InitEntityDataRunner {
 		list.add(entity);
 	}
 
-	private void updateBatch() {
+	protected void updateBatch() {
 		log.info("begin updateBatch, batchData dao size:{}", batchDataMap.size());
 
 		if (batchDataMap.size() > 0) {
@@ -66,10 +67,16 @@ public class InitEntityDataRunner {
 		log.info("end updateBatch");
 	}
 
-	//@Override
+	@Override
 	public void run(ApplicationArguments args) throws ParseException {
 		log.info("InitEntityDataRunner start");
 
+		//saveProcessUrlData();
+
+		log.info("InitEntityDataRunner End");
+	}
+
+	private void saveProcessUrlData() throws ParseException {
 		beginBatch();
 
 		// 网站信息
@@ -127,8 +134,6 @@ public class InitEntityDataRunner {
 
 		saveProcessUrlData(PlayDataConst.SOURCE_KEY_BILIBILI, "2018拜年祭", "2018拜年祭", "", "https://www.bilibili.com/blackboard/bnj2018.html");
 		updateBatch();
-
-		log.info("InitEntityDataRunner End");
 	}
 
 
