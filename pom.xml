@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -46,6 +46,7 @@
 		<module>xbase</module>
 		<module>xspring</module>
 		<module>webcommon</module>
+		<module>xframework</module>
 		<module>XCommon</module>
 		<!--<module>XSubtitle</module>-->
 		<!--<module>tietuku_sdk_java</module>-->
@@ -101,6 +102,11 @@
 			<dependency>
 				<groupId>xie</groupId>
 				<artifactId>xspring-print-start-up-info</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xframework-core</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
 

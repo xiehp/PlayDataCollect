@@ -7,9 +7,13 @@ import com.alibaba.druid.sql.SQLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import xie.common.utils.string.XStringUtils;
+import xie.framework.core.service.dictionary.utils.PublicDictionaryLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static xie.framework.core.service.dictionary.common.PublicDictionaryConst.DictionaryCodeSystem;
 
 @Component
 public class MyDruidLogFilter extends Slf4jLogFilter {
@@ -47,6 +51,19 @@ public class MyDruidLogFilter extends Slf4jLogFilter {
 	}
 
 	public void printOKSql(String point, StatementProxy statement, String sql, Throwable error) {
+		// 过滤不需要打印的sql
+		boolean printSqlFlag = PublicDictionaryLoader.getSystemBooleanValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_FLAG.name());
+		if (!printSqlFlag) {
+			return;
+		}
+		String[] excludeList = PublicDictionaryLoader.getSystemArrayValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_EXCLUDE.name());
+		if (excludeList != null && excludeList.length > 0) {
+			if (XStringUtils.containWithIgnoreCase(sql, excludeList)) {
+				return;
+			}
+		}
+
+		// 打印
 		int parametersSize = statement.getParametersSize();
 		List<Object> parameters = new ArrayList<>(parametersSize);
 		for (int i = 0; i < parametersSize; ++i) {

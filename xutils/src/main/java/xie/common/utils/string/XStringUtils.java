@@ -16,7 +16,7 @@ public class XStringUtils {
 
 	/**
 	 * 默认false，特殊字符解释为true
-	 * 
+	 *
 	 * @param value
 	 * @return "1","on","yes","true",返回true
 	 */
@@ -140,7 +140,7 @@ public class XStringUtils {
 
 	/**
 	 * 字符串转换成数组�? 默认用�?�号区分，如果为空，
-	 * 
+	 *
 	 * @param key
 	 * @return
 	 * @since 2014-2-15下午12:33:45
@@ -151,9 +151,9 @@ public class XStringUtils {
 
 	/**
 	 * 字符串转换成数组
-	 * 
+	 *
 	 * @param key
-	 * @param d 切分字符
+	 * @param d   切分字符
 	 * @return
 	 * @since 2014-2-15下午12:34:14
 	 */
@@ -167,18 +167,18 @@ public class XStringUtils {
 
 	/**
 	 * 返回"str1,str2,str3"形式的字符串
-	 * 
+	 *
 	 * @param list
 	 * @return
 	 * @since 2015-4-2 下午10:56:13
 	 */
 	public static String arrayToString(List<String> list) {
-		return arrayToString(list.toArray(new String[] {}));
+		return arrayToString(list.toArray(new String[]{}));
 	}
 
 	/**
 	 * 返回"str1,str2,str3"形式的字符串
-	 * 
+	 *
 	 * @param array
 	 * @return
 	 * @since 2015-4-2 下午10:56:13
@@ -189,9 +189,9 @@ public class XStringUtils {
 
 	/**
 	 * 将List转换成字符串形式
-	 * 
+	 *
 	 * @param array
-	 * @param d 分隔�?
+	 * @param d     分隔�?
 	 * @return
 	 * @since 2015-8-24 下午9:36:33
 	 */
@@ -218,7 +218,7 @@ public class XStringUtils {
 
 	/**
 	 * string中是否有以startArray�?头的字符�?
-	 * 
+	 *
 	 * @param string
 	 * @param startArray
 	 * @return
@@ -235,7 +235,7 @@ public class XStringUtils {
 
 	/**
 	 * string中是否包含有containArray的字符串
-	 * 
+	 *
 	 * @param string
 	 * @param containArray
 	 * @return
@@ -251,9 +251,33 @@ public class XStringUtils {
 	}
 
 	/**
+	 * string中是否包含有containArray的字符串
+	 *
+	 * @param string
+	 * @param containArray
+	 * @return
+	 * @since 2014-10-28上午12:05:23
+	 */
+	public static boolean containWithIgnoreCase(String string, String[] containArray) {
+		if (string == null) {
+			return false;
+		}
+
+		for (String startStr : containArray) {
+			if (startStr == null) {
+				continue;
+			}
+			if (string.toLowerCase().contains(startStr.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * 字符串转换unicode<br>
 	 * 默认英文和数字不进行转换<br>
-	 * 
+	 *
 	 * @param string
 	 * @return
 	 * @since 2014-11-12上午1:42:31
@@ -264,7 +288,7 @@ public class XStringUtils {
 
 	/**
 	 * 字符串转换unicode
-	 * 
+	 *
 	 * @param string
 	 * @param escapeNumberOrLetterFlg 是否转换英文或�?�数�?
 	 * @return
@@ -303,7 +327,6 @@ public class XStringUtils {
 	}
 
 	/**
-	 * 
 	 * unicode 转字符串
 	 */
 	public static String unicode2String(String str) {
@@ -339,8 +362,8 @@ public class XStringUtils {
 	 * 替换方式：[[0]] -> <br>
 	 * "A[[0]]B + [啊] --> "A啊B"<br>
 	 * "A[[0]]AABB[[1]]B" + [啊,哦] --> "A啊AABB哦B"<br>
-	 * 
-	 * @param map 需要替换的数值
+	 *
+	 * @param map        需要替换的数值
 	 * @param paramArray 替换参数
 	 * @return
 	 */
@@ -381,7 +404,7 @@ public class XStringUtils {
 
 	/**
 	 * 首字母变大写
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -402,7 +425,7 @@ public class XStringUtils {
 
 	/**
 	 * 将String转换成另外一种对象
-	 * 
+	 *
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -437,16 +460,15 @@ public class XStringUtils {
 	/**
 	 * 替换字符串中字符 例子： 身份证中间留9个，前后为3个*： str="330112197810115231" originalFromLast="false" star="5" end="14" replaceNumStar="3" replaceMiddle="false" 结果： ***219781011*** 银行卡留后4位，前面4个*： str="12345678980567865" start="4" replaceNumStar="4" 结果； ****7865 邮箱： str="kenst.xu@excel-gits.com" start="1" end=”-6”
 	 * posFromLast="false" replaceNumStar="4" 结果： k****ts.com
-	 * 
-	 * @param str 要处理的原始字符串
-	 * @param startPos 开始位置，默认0
-	 * @param endPos 结束位置，默认字符串的长度 -1为倒数
-	 * @param posFromLast 计算位置的起点：true从字符串最右边开始算起，false从字符串左边开始计算位置
-	 * @param replaceMiddle 是替换中间还是替换2头的字符串，true替换中间，false替换2头
+	 *
+	 * @param str            要处理的原始字符串
+	 * @param startPos       开始位置，默认0
+	 * @param endPos         结束位置，默认字符串的长度 -1为倒数
+	 * @param posFromLast    计算位置的起点：true从字符串最右边开始算起，false从字符串左边开始计算位置
+	 * @param replaceMiddle  是替换中间还是替换2头的字符串，true替换中间，false替换2头
 	 * @param replaceNumStar 用几个“*”替换被替换的字符串, 默认值为1
-	 * @param star 用来替换的字符，默认为"*"
+	 * @param star           用来替换的字符，默认为"*"
 	 * @return
-	 * 
 	 */
 	public static String hideChar(final String str, final Integer startPos, Integer endPos, final boolean posFromLast, final boolean replaceMiddle, final Integer replaceNumStar, final String star) {
 		int start1 = 0;
@@ -579,9 +601,9 @@ public class XStringUtils {
 
 	/**
 	 * 将待删列表中除了保留列表中存在的文字，都删除掉
-	 * 
+	 *
 	 * @param removeList 待删列表
-	 * @param leaveList 保留列表
+	 * @param leaveList  保留列表
 	 * @return
 	 */
 	public static List<String> removeIfNotEqualIgnoreCase(List<String> removeList, List<String> leaveList) {

@@ -1,0 +1,162 @@
+package xie.framework.core.service.dictionary.Controller;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springside.modules.web.Servlets;
+
+import com.yjysh.framework.base.controller.BaseController;
+import com.yjysh.framework.base.module.ajax.vo.GoPageResult;
+import com.yjysh.framework.base.module.exception.CodeApplicationException;
+import com.yjysh.framework.base.vo.BaseTableVO;
+import com.yjysh.framework.common.utils.string.StringUtil;
+import com.yjysh.framework.sys.dictionary.entity.PublicDictionary;
+import com.yjysh.framework.sys.dictionary.service.PublicDictionaryService;
+import com.yjysh.framework.sys.dictionary.utils.PublicDictionaryLoader;
+
+/**
+ * Created by anddy on 2016/7/19.
+ */
+@Controller
+@RequestMapping(value = "/publicDictionaryManager")
+public class PublicDictionaryManagerController extends BaseController {
+	@Autowired
+	private PublicDictionaryService publicDictionaryService;
+
+	@RequiresPermissions(value = "publicDicList:view")
+	@RequestMapping(value = "/list")
+	public String list(Model model, final HttpServletRequest request, final HttpServletResponse response) {
+		Map<String, String> dictMapList = PublicDictionaryLoader.getValidMap(com.yjysh.framework.sys.dictionary.common.PublicDictionaryConstants.MAP_SYSTEM);
+		request.setAttribute("dictMapList", dictMapList);
+		return "publicDictionaryManager/list";
+	}
+
+	@RequiresPermissions(value = "publicDicList:view")
+	@RequestMapping("/table")
+	@ResponseBody
+	public BaseTableVO table(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "20") Integer rows,
+			@RequestParam(required = false) String order, @RequestParam(required = false) String sort,
+			HttpServletRequest request) {
+		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
+
+		// 增过滤
+		BaseTableVO result = publicDictionaryService.searchTablePageByParams(searchParams, page, rows, sort, order, PublicDictionary.class);
+		return result;
+	}
+
+	/**
+	 * 新增
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequiresPermissions(value = "publicDicList:add")
+	@RequestMapping(value = "/add.window")
+	public String add(HttpServletRequest request) {
+
+		return "publicDictionaryManager/addOrEditWindowPage";
+	}
+
+	/**
+	 * 编辑更新
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequiresPermissions(value = "publicDicList:update")
+	@RequestMapping(value = "/update.window")
+	public String update(@RequestParam(value = "id", required = false) final String id,
+			HttpServletRequest request) {
+		PublicDictionary publicDictionary = publicDictionaryService.findOne(id);
+		request.setAttribute("publicDictionary", publicDictionary);
+
+		return "publicDictionaryManager/addOrEditWindowPage";
+	}
+
+	/**
+	 * 新增或者编辑
+	 * 
+	 * @param id
+	 * @param code
+	 * @param value
+	 * @param describe
+	 * @param sort
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws CodeApplicationException
+	 */
+	@RequiresPermissions(logical = Logical.OR, value = { "publicDicList:add", "publicDicList:update" })
+	@RequestMapping("/addOrEditSubmit")
+	@ResponseBody
+	public GoPageResult addOrEditSubmit(
+			@RequestParam(value = "id", required = true) final String id,
+			@RequestParam(value = "typeId", required = true) final String typeId,
+			@RequestParam(value = "code", required = true) final String code,
+			@RequestParam(value = "value", required = true) final String value,
+			@RequestParam(value = "describe", required = false) final String describe,
+			@RequestParam(value = "sort", required = false) final String sort,
+			final HttpServletRequest request, final HttpServletResponse response, final HttpSession session) throws CodeApplicationException {
+		if (StringUtil.isNull(id)) {
+			publicDictionaryService.add(typeId, code, value, describe, sort);
+		} else {
+			publicDictionaryService.update(id, typeId, code, value, describe, sort);
+		}
+		PublicDictionaryLoader.reload();
+		final GoPageResult goPageResult = createSuccessGoPageResult("操作成功");
+		return goPageResult;
+	}
+
+	/**
+	 * 查看
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequiresPermissions(value = "publicDicList:view")
+	@RequestMapping(value = "/view.window")
+	public String view(@RequestParam(value = "id", required = true) final String id,
+			HttpServletRequest request) {
+
+		PublicDictionary publicDictionary = publicDictionaryService.findOne(id);
+		request.setAttribute("publicDictionary", publicDictionary);
+
+		return "publicDictionaryManager/viewDetail";
+	}
+
+	/**
+	 * 启用 停用
+	 * 
+	 * @param data
+	 * @param request
+	 * @return
+	 */
+	@RequiresPermissions(value = "publicDicList:update")
+	@RequestMapping(value = "/editStatus")
+	@ResponseBody
+	public GoPageResult editStatus(@RequestBody Map<String, String> data,
+			HttpServletRequest request) throws CodeApplicationException {
+
+		publicDictionaryService.editStatus(data.get("id"));
+		PublicDictionaryLoader.reload();
+		GoPageResult goPageResult = createSuccessGoPageResult("操作成功");
+
+		return goPageResult;
+	}
+
+}

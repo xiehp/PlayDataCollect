@@ -9,14 +9,14 @@ import java.util.Map;
 
 /**
  * 现在的问题：<br>
- * 1:所有子类现在必须继承无参构造函数，以解决类没有初期化导致VALUE_TO_EUMN_MAP中没有数据<br>
+ * 1:所有子类现在必须继承无参构造函数，以解决类没有初期化导致VALUE_TO_ENUM_MAP中没有数据<br>
  * 2:所有子类需要自己实现parseValue方法<br>
  *
  * @param <E>
  */
-public class XEnum<E extends XEnum<E>> implements Serializable {
+public abstract class XEnum<E extends XEnum<E>> implements Serializable {
 
-	private static final long serialVersionUID = 7730321563555103221L;
+	//private static final long serialVersionUID = 7730321563555103221L;
 
 	private String value;
 	private String name;
@@ -32,7 +32,7 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 	}
 
 	public void putIntoMap(String value, XEnum<E> a) {
-		Class<?> c = (Class<?>) a.getClass();
+		Class<?> c = a.getClass();
 		Map<String, XEnum<?>> valueMap = VALUE_TO_ENUM_MAP.get(c);
 		if (valueMap == null) {
 			valueMap = new LinkedHashMap<>();
@@ -63,7 +63,7 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 
 	/**
 	 * 用于存放所有枚举的值和类的对应关系，value -> XENUM枚举实例
-	 * 
+	 *
 	 * @param c
 	 * @return
 	 */
@@ -107,6 +107,14 @@ public class XEnum<E extends XEnum<E>> implements Serializable {
 		return (T) valueMap.get(value.toLowerCase());
 	}
 
+	/**
+	 * TODO 静态方法无法实现该转换
+	 *
+	 * @param value
+	 * @param <T>
+	 * @return
+	 */
+	@Deprecated
 	private static <T extends XEnum<T>> T parseValue(String value) {
 		// 方法1：通过SecurityManager的保护方法getClassContext()
 		Class c = new SecurityManager() {
