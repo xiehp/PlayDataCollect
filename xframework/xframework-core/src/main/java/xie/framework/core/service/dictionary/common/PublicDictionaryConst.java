@@ -6,7 +6,6 @@ public class PublicDictionaryConst {
 		SYSTEM
 	}
 
-
 	public enum DictionaryCodeSystem {
 		MY_DRUID_PRINT_SQL_FLAG,
 		MY_DRUID_PRINT_SQL_EXCLUDE
@@ -21,5 +20,5 @@ public class PublicDictionaryConst {
 
 	// **************************** TYPE_ID ****************************
 
-    // **************************** CODE ****************************
+	// **************************** CODE ****************************
 }

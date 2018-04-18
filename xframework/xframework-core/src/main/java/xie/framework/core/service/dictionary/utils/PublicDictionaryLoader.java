@@ -2,6 +2,7 @@ package xie.framework.core.service.dictionary.utils;
 
 import xie.common.utils.utils.XConvertUtils;
 import xie.framework.core.service.dictionary.common.PublicDictionaryConst;
+import xie.framework.core.service.dictionary.common.PublicDictionaryConst.DictionaryType;
 import xie.framework.core.service.dictionary.entity.PublicDictionary;
 
 import java.util.*;
@@ -91,23 +92,32 @@ public class PublicDictionaryLoader {
 		return getValue(PublicDictionaryConst.TYPE_SYSTEM, code);
 	}
 
+	public static boolean getSystemBooleanValue(final String code, boolean defaultValue) {
+		String value = getValue(DictionaryType.SYSTEM.name(), code);
+		return XConvertUtils.convert2Boolean(value, defaultValue);
+	}
+
 	public static boolean getSystemBooleanValue(final String code) {
-		String value = getValue(PublicDictionaryConst.TYPE_SYSTEM, code);
+		String value = getValue(DictionaryType.SYSTEM.name(), code);
 		return XConvertUtils.convert2Boolean(value, false);
 	}
 
 	public static String[] getSystemArrayValue(final String code) {
-		String value = getValue(PublicDictionaryConst.TYPE_SYSTEM, code);
+		String value = getValue(DictionaryType.SYSTEM.name(), code);
 		return XConvertUtils.convert2Array(value, ",");
 	}
 
 	public static List<String> getSystemListValue(final String code) {
-		String value = getValue(PublicDictionaryConst.TYPE_SYSTEM, code);
+		String value = getValue(DictionaryType.SYSTEM.name(), code);
 		return XConvertUtils.convert2List(value, ",");
 	}
 
 	public static void reload() {
 		DictionaryLoader.reload();
+	}
+
+	public static void reload(String typeId) {
+		DictionaryLoader.reload(typeId);
 	}
 
 

@@ -106,7 +106,7 @@ public class PublicDictionaryService extends BasePageService<PublicDictionary, S
 		publicDictionary.setTypeId(typeId);
 		publicDictionary.setCode(code);
 		publicDictionary.setValue(value);
-		publicDictionary.setDescribe(describe);
+		publicDictionary.setRemark(describe);
 		if (sort != null) {
 			publicDictionary.setSort(new Integer(sort));
 		}
@@ -131,7 +131,7 @@ public class PublicDictionaryService extends BasePageService<PublicDictionary, S
 		publicDictionary.setTypeId(typeId);
 		publicDictionary.setCode(code);
 		publicDictionary.setValue(value);
-		publicDictionary.setDescribe(describe);
+		publicDictionary.setRemark(describe);
 		if (sort != null) {
 			publicDictionary.setSort(new Integer(sort));
 		}

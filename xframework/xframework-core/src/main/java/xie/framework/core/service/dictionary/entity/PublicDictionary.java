@@ -1,15 +1,13 @@
 package xie.framework.core.service.dictionary.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import xie.common.spring.jpa.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SYS_PUBLIC_DICTIONARY")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "sys_public_dictionary")
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PublicDictionary extends BaseEntity {
 
 	private static final long serialVersionUID = -2026574135274474467L;
@@ -18,26 +16,10 @@ public class PublicDictionary extends BaseEntity {
 	private String code;
 	private String value;
 	private Integer sort;
-    private String describe;
+    private String remark;
     private String param;
     private String ext1;
     private Integer status;
-
-    public String getExt1() {
-        return ext1;
-    }
-
-    public void setExt1(String ext1) {
-        this.ext1 = ext1;
-    }
-
-    public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
 
 	public String getTypeId() {
 		return typeId;
@@ -45,6 +27,14 @@ public class PublicDictionary extends BaseEntity {
 
 	public void setTypeId(String typeId) {
 		this.typeId = typeId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getValue() {
@@ -63,27 +53,35 @@ public class PublicDictionary extends BaseEntity {
 		this.sort = sort;
 	}
 
-    public String getDescribe() {
-        return describe;
-    }
+	public String getRemark() {
+		return remark;
+	}
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
-    public String getParam() {
-        return param;
-    }
+	public String getParam() {
+		return param;
+	}
 
-    public void setParam(String param) {
-        this.param = param;
-    }
+	public void setParam(String param) {
+		this.param = param;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public String getExt1() {
+		return ext1;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setExt1(String ext1) {
+		this.ext1 = ext1;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }

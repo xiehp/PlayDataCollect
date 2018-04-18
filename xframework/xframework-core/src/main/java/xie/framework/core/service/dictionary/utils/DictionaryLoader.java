@@ -113,7 +113,12 @@ public class DictionaryLoader {
 	 */
 	@Deprecated
 	public Map<String, PublicDictionary> getEntityMap(final String typeId) {
-		return typeEntityMap.get(typeId);
+		Map<String, PublicDictionary> map = typeEntityMap.get(typeId);
+		if (map == null) {
+			map = new LinkedHashMap<>();
+			typeEntityMap.put(typeId, map);
+		}
+		return map;
 	}
 
 	/**
@@ -133,11 +138,11 @@ public class DictionaryLoader {
 	 * 获取可用的字典数据
 	 */
 	public Map<String, PublicDictionary> getValidMapEntity(final String typeId) {
-		final Map<String, PublicDictionary> vomap = getEntityMap(typeId);
+		final Map<String, PublicDictionary> voMap = getEntityMap(typeId);
 		final Map<String, PublicDictionary> map = new LinkedHashMap<>();
-		for (final String code : vomap.keySet()) {
-			final PublicDictionary entity = vomap.get(code);
-			if (entity.getDeleteFlag().equals(XConst.FLAG_INT_NO)) {
+		for (final String code : voMap.keySet()) {
+			final PublicDictionary entity = voMap.get(code);
+			if (!XConst.FLAG_INTEGER_YES.equals(entity.getDeleteFlag())) {
 				map.put(code, entity);
 			}
 		}

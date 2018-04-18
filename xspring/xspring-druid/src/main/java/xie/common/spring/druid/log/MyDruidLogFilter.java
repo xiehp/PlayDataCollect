@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import xie.common.utils.string.XStringUtils;
+import xie.common.utils.utils.XWaitTime;
+import xie.framework.core.service.dictionary.common.PublicDictionaryConst;
 import xie.framework.core.service.dictionary.utils.PublicDictionaryLoader;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import static xie.framework.core.service.dictionary.common.PublicDictionaryConst
 public class MyDruidLogFilter extends Slf4jLogFilter {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	XWaitTime waitTime = new XWaitTime(60000);
 
 	@Override
 	protected void statementExecuteBefore(StatementProxy statement, String sql) {
@@ -51,8 +55,14 @@ public class MyDruidLogFilter extends Slf4jLogFilter {
 	}
 
 	public void printOKSql(String point, StatementProxy statement, String sql, Throwable error) {
+		// 重新加载系统配置
+		if (waitTime.isTimeout()) {
+			waitTime.resetNowtime();
+			PublicDictionaryLoader.reload(PublicDictionaryConst.DictionaryType.SYSTEM.name());
+		}
+
 		// 过滤不需要打印的sql
-		boolean printSqlFlag = PublicDictionaryLoader.getSystemBooleanValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_FLAG.name());
+		boolean printSqlFlag = PublicDictionaryLoader.getSystemBooleanValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_FLAG.name(), true);
 		if (!printSqlFlag) {
 			return;
 		}

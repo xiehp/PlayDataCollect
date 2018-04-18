@@ -78,5 +78,7 @@ public class XConst {
 
 	public static final int FLAG_INT_YES = 1;
 	public static final int FLAG_INT_NO = 0;
+	public static final Integer FLAG_INTEGER_YES = 1;
+	public static final Integer FLAG_INTEGER_NO = 0;
 
 }
