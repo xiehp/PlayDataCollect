@@ -32,7 +32,7 @@ public class XRefreshSchedule {
 	XQuartzManager xQuartzManager;
 
 	public boolean refreshSchedule() {
-		boolean doRefresh = false;
+		boolean doRefresh = true;
 		if (!doRefresh) {
 			return true;
 		}

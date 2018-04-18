@@ -36,6 +36,10 @@
 			<groupId>xie</groupId>
 			<artifactId>xspring-druid</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xframework-core</artifactId>
+		</dependency>
 
 		<!-- spring -->
 
