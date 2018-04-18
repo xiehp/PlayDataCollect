@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>xframework-core</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<!-- 自己基础项目的依赖 -->
