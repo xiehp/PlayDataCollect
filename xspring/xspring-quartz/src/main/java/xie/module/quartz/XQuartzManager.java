@@ -4,7 +4,9 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 public class XQuartzManager {
 	StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
@@ -47,11 +49,11 @@ public class XQuartzManager {
 		scheduler.shutdown();
 	}
 
-	public void startTrigger(Trigger trigger) throws SchedulerException {
+	public void startTrigger(JobDetail jobDetail, Trigger trigger) throws SchedulerException {
 		TriggerKey triggerKey = trigger.getKey();
 		Trigger triggerDB = getScheduler().getTrigger(triggerKey);
 		if (triggerDB == null) {
-			scheduler.scheduleJob(trigger);
+			scheduler.scheduleJob(jobDetail, trigger);
 		} else {
 			scheduler.rescheduleJob(triggerKey, trigger);
 		}
@@ -62,8 +64,28 @@ public class XQuartzManager {
 	}
 
 	public void rescheduleJob(Trigger trigger) throws SchedulerException {
-		scheduler.rescheduleJob(trigger.getKey(), trigger);
+		Trigger oldTrigger = getScheduler().getTrigger(trigger.getKey());
+		if (oldTrigger == null) {
+			scheduler.scheduleJob(oldTrigger);
+		} else {
+			scheduler.rescheduleJob(trigger.getKey(), trigger);
+		}
 	}
+
+	public void scheduleJobs(Map<JobDetail, Set<? extends Trigger>> triggersAndJobs) throws SchedulerException {
+		scheduler.scheduleJobs(triggersAndJobs, true);
+	}
+
+
+	public void unscheduleJob(String triggerIdentity, String triggerGroup) throws SchedulerException {
+		TriggerKey triggerKey = new TriggerKey(triggerIdentity, triggerGroup);
+		unscheduleJob(triggerKey);
+	}
+
+	public void unscheduleJob(TriggerKey triggerKey) throws SchedulerException {
+		scheduler.unscheduleJob(triggerKey);
+	}
+
 
 	public void puaseJob(JobDetail jobDetail) throws SchedulerException {
 		scheduler.pauseJob(jobDetail.getKey());
@@ -71,5 +93,9 @@ public class XQuartzManager {
 
 	public void puaseJob(JobKey jobKey) throws SchedulerException {
 		scheduler.pauseJob(jobKey);
+	}
+
+	public void deleteJob(JobKey jobKey) throws SchedulerException {
+		scheduler.deleteJob(jobKey);
 	}
 }

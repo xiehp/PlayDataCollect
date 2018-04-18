@@ -48,7 +48,7 @@ public class MyDruidLogFilter extends Slf4jLogFilter {
 
 	public void printOKSql(String point, StatementProxy statement, String sql, Throwable error) {
 		int parametersSize = statement.getParametersSize();
-		List<Object> parameters = new ArrayList<Object>(parametersSize);
+		List<Object> parameters = new ArrayList<>(parametersSize);
 		for (int i = 0; i < parametersSize; ++i) {
 			JdbcParameter jdbcParam = statement.getParameter(i);
 			parameters.add(jdbcParam != null ? jdbcParam.getValue() : null);

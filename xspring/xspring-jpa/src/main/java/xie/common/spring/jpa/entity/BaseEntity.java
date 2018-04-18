@@ -19,6 +19,9 @@ import java.util.Map;
 @MappedSuperclass
 public class BaseEntity extends IdEntity implements IBaseEntity {
 
+	public static final Integer DELETE_FLAG_YES = 1;
+	public static final Integer DELETE_FLAG_NO = 0;
+
 	private static final long serialVersionUID = -4913519870385296330L;
 
 	public static final String COLUMN_CREATE_BY = "createBy";

@@ -28,9 +28,11 @@ public class XLog {
 		Logger logger = logMap.get(logTarget);
 		if (logger == null) {
 			synchronized (logMap) {
-				Class c = logTarget.getClass();
+				Class c;
 				if (logTarget instanceof Class) {
 					c = (Class) logTarget;
+				} else {
+					c = logTarget.getClass();
 				}
 				logger = LoggerFactory.getLogger(c);
 				logMap.put(logTarget, logger);

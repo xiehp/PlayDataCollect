@@ -536,6 +536,32 @@ public class XStringUtils {
 	}
 
 	/**
+	 * 判断是否equal，包括null==null
+	 */
+	public static boolean equals(String value1, String value2) {
+		if (value1 != null) {
+			return value1.equals(value2);
+		} else if (value2 != null) {
+			return value2.equals(value1);
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * 判断是否equal，包括null==null
+	 */
+	public static boolean equalsIgnoreCase(String value1, String value2) {
+		if (value1 != null) {
+			return value1.equalsIgnoreCase(value2);
+		} else if (value2 != null) {
+			return value2.equalsIgnoreCase(value1);
+		} else {
+			return true;
+		}
+	}
+
+	/**
 	 * 数组中是否存在某个字符串
 	 */
 	public static boolean existIgnoreCase(List<String> list, String value) {
