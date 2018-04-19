@@ -53,23 +53,41 @@ public class XConst {
 	public static final long SECOND_20_SEC = 20;
 	public static final long SECOND_30_SEC = 30;
 	public static final long SECOND_01_MIN = 60;
-	public static final long SECOND_02_MIN = 120;
-	public static final long SECOND_03_MIN = 180;
-	public static final long SECOND_05_MIN = 300;
+	public static final long SECOND_02_MIN = 2 * SECOND_01_MIN;
+	public static final long SECOND_03_MIN = 3 * SECOND_01_MIN;
+	public static final long SECOND_05_MIN = 5 * SECOND_01_MIN;
 	/** 600秒 单位（秒） */
-	public static final long SECOND_10_MIN = 600;
-	public static final long SECOND_20_MIN = 1200;
-	public static final long SECOND_30_MIN = 1800;
+	public static final long SECOND_10_MIN = 10 * SECOND_01_MIN;
+	public static final long SECOND_20_MIN = 20 * SECOND_01_MIN;
+	public static final long SECOND_30_MIN = 30 * SECOND_01_MIN;
+	public static final long SECOND_60_MIN = 60 * SECOND_01_MIN;
 	/** 3600秒 单位（秒） */
-	public static final long SECOND_01_HOUR = 3600;
-	public static final long SECOND_02_HOUR = 7200;
-	public static final long SECOND_05_HOUR = 18000;
+	public static final long SECOND_01_HOUR = SECOND_60_MIN;
+	public static final long SECOND_02_HOUR = 2 * SECOND_60_MIN;
+	public static final long SECOND_05_HOUR = 5 * SECOND_60_MIN;
 	/** 36000秒 单位（秒） */
-	public static final long SECOND_10_HOUR = 36000;
+	public static final long SECOND_10_HOUR = 10 * SECOND_60_MIN;
 	/** 86400秒 单位（秒） */
-	public static final long SECOND_24_HOUR = 86400;
-	public static final long SECOND_02_DAY = SECOND_24_HOUR * 2;
-	public static final long SECOND_03_DAY = SECOND_24_HOUR * 3;
+	public static final long SECOND_24_HOUR = 24 * SECOND_60_MIN;
+	public static final long SECOND_01_DAY = SECOND_24_HOUR;
+	public static final long SECOND_02_DAY = 2 * SECOND_24_HOUR;
+	public static final long SECOND_03_DAY = 3 * SECOND_24_HOUR;
+	public static final long SECOND_07_DAY = 7 * SECOND_24_HOUR;
+	public static final long SECOND_15_DAY = 15 * SECOND_24_HOUR;
+	public static final long SECOND_30_DAY = 30 * SECOND_24_HOUR;
+	public static final long SECOND_100_DAY = 100 * SECOND_24_HOUR;
+
+	public static final long SECOND_01_MONTH = SECOND_30_DAY;
+	public static final long SECOND_02_MONTH = 2 * SECOND_30_DAY;
+	public static final long SECOND_03_MONTH = 3 * SECOND_30_DAY;
+	public static final long SECOND_04_MONTH = 4 * SECOND_30_DAY;
+	public static final long SECOND_05_MONTH = 5 * SECOND_30_DAY;
+	public static final long SECOND_06_MONTH = 6 * SECOND_30_DAY;
+	public static final long SECOND_12_MONTH = 365 * SECOND_24_HOUR;
+
+	public static final long SECOND_01_YEAR = SECOND_12_MONTH;
+	public static final long SECOND_02_YEAR = 2 * SECOND_12_MONTH;
+	public static final long SECOND_05_YEAR = 5 * SECOND_12_MONTH;
 
 	public static final String PROPERTIES_VALUE_TRUE = "1";
 	public static final String PROPERTIES_VALUE_FALSE = "0";
