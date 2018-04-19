@@ -1,5 +1,6 @@
 package xie.playdatacollect.collector.quartz.job.bilibili;
 
+import org.quartz.JobDataMap;
 import org.springframework.data.domain.Page;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class BilibiliPlayDataEpisodeOldJob extends BilibiliPlayDataEpisodeJob {
 
 	@Override
-	protected List<ProcessUrlEntity> getProcessUrlList() {
+	protected List<ProcessUrlEntity> getProcessUrlList(JobDataMap jobDataMap) {
 		Map<String, Object> searchMap = new HashMap<>();
 		searchMap.put("EQ_sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		searchMap.put("EQ_type", PlayDataConst.SOURCE_TYPE_EPISODE);

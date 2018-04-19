@@ -7,15 +7,13 @@ import org.springframework.stereotype.Component;
 import xie.common.spring.jpa.entity.BaseEntity;
 import xie.common.spring.jpa.repository.BaseDao;
 import xie.common.spring.utils.XJsonUtil;
+import xie.common.utils.constant.XConst;
 import xie.common.utils.log.XLog;
 import xie.common.utils.string.XStringUtils;
 import xie.playdatacollect.collector.quartz.job.DummyJob;
 import xie.playdatacollect.collector.quartz.job.NoJob;
 import xie.playdatacollect.collector.quartz.job.XRefreshScheduleJob;
-import xie.playdatacollect.collector.quartz.job.bilibili.BiliBiliGetProcessUrl;
-import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeNewJob;
-import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeOldJob;
-import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataProgramJob;
+import xie.playdatacollect.collector.quartz.job.bilibili.*;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
 import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
 import xie.playdatacollect.collector.quartz.utils.XRefreshSchedule;
@@ -85,38 +83,73 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_dummyJob1", null, "dummyJob1", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_SECOND, null, true);
 		saveTrigger("trigger_dummyJob2", null, "dummyJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_20_SECOND, null, true);
 		saveTrigger("trigger_dummyJob3", null, "dummyJob3", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_SECOND, null, true);
-		saveTrigger("trigger_dummyJob4", null, "dummyJob4", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_40_SECOND, null, false);
+		saveTrigger("trigger_dummyJob4", null, "dummyJob4", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_40_SECOND, null, true);
 
 
 		// schedule更新job
 		saveJob("XRefreshScheduleJob", null, XRefreshScheduleJob.class.getName(), map, null);
-		saveTrigger("trigger_XRefreshScheduleJob", null, "XRefreshScheduleJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_SECOND, null, false);
+		saveTrigger("trigger_XRefreshScheduleJob", null, "XRefreshScheduleJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, false);
 
 
 		// TODO 这些最终应该在UI界面维护
 		// job
 		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
 		saveJob("BilibiliPlayDataEpisodeNewJob", null, BilibiliPlayDataEpisodeNewJob.class.getName(), map, null);
+		saveTrigger("trigger_EpisodeNewJob", null, "BilibiliPlayDataEpisodeNewJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, true);
 
 		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
 		saveJob("BilibiliPlayDataEpisodeOldJob", null, BilibiliPlayDataEpisodeOldJob.class.getName(), map, null);
+		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, true);
 
 		map.put("name", "BilibiliPlayDataProgramJobDetail");
 		saveJob("BilibiliPlayDataProgramJob", null, BilibiliPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_ProgramJob", null, "BilibiliPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
 
 		map.put("name", "JobDetail_BiliBili_GetProcessUrl");
 		saveJob("JobDetail_BiliBili_GetProcessUrl", null, BiliBiliGetProcessUrl.class.getName(), map, null);
+		saveTrigger("Trigger_BiliBili_GetProcessUrl", null, "JobDetail_BiliBili_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
 		map.put("name", "JobDetail_Iqiyi_GetProcessUrl");
 		saveJob("JobDetail_Iqiyi_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
-
-
-		// trigger
-		saveTrigger("trigger_ProgramJob", null, "BilibiliPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
-		saveTrigger("trigger_EpisodeNewJob", null, "BilibiliPlayDataEpisodeNewJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, false);
-		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
-		saveTrigger("Trigger_BiliBili_GetProcessUrl", null, "JobDetail_BiliBili_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 		saveTrigger("Trigger_Iqiyi_GetProcessUrl", null, "JobDetail_Iqiyi_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
+
+
+		// BilibiliEpisode1
+		map.put("name", "BilibiliEpisode1");
+		map.put("beforeSecond", XConst.SECOND_03_DAY);
+		map.put("afterSecond", XConst.SECOND_02_MIN);
+		saveJob("BilibiliEpisode1", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode1", null, "BilibiliEpisode1", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, false);
+		// BilibiliEpisode2
+		map.put("name", "BilibiliEpisode2");
+		map.put("beforeSecond", XConst.SECOND_07_DAY);
+		map.put("afterSecond", XConst.SECOND_03_DAY);
+		saveJob("BilibiliEpisode2", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode2", null, "BilibiliEpisode2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
+		// BilibiliEpisode3
+		map.put("name", "BilibiliEpisode3");
+		map.put("beforeSecond", XConst.SECOND_15_DAY);
+		map.put("afterSecond", XConst.SECOND_07_DAY);
+		saveJob("BilibiliEpisode3", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode3", null, "BilibiliEpisode3", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, false);
+		// BilibiliEpisode4
+		map.put("name", "BilibiliEpisode4");
+		map.put("beforeSecond", XConst.SECOND_30_DAY);
+		map.put("afterSecond", XConst.SECOND_15_DAY);
+		saveJob("BilibiliEpisode4", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode4", null, "BilibiliEpisode4", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_20_MIN, null, false);
+		// BilibiliEpisode5
+		map.put("name", "BilibiliEpisode5");
+		map.put("beforeSecond", XConst.SECOND_100_DAY);
+		map.put("afterSecond", XConst.SECOND_30_DAY);
+		saveJob("BilibiliEpisode5", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode5", null, "BilibiliEpisode5", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
+		// BilibiliEpisode6
+		map.put("name", "BilibiliEpisode6");
+		map.put("beforeSecond", null);
+		map.put("afterSecond", XConst.SECOND_100_DAY);
+		saveJob("BilibiliEpisode6", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
+		saveTrigger("trigger_BilibiliEpisode6", null, "BilibiliEpisode6", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_HOUR, null, false);
 
 		updateBatch();
 	}

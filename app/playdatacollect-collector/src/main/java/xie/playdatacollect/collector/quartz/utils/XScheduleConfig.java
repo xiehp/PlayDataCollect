@@ -8,6 +8,7 @@ import java.util.Date;
 
 @ConfigurationProperties("xie.quartz.trigger")
 public class XScheduleConfig {
+	public static final String PER_01_SECOND = "0/1 * * * * ? *";
 	public static final String PER_02_SECOND = "0/2 * * * * ? *";
 	public static final String PER_03_SECOND = "0/3 * * * * ? *";
 	public static final String PER_10_SECOND = "0/10 * * * * ? *";
@@ -17,19 +18,22 @@ public class XScheduleConfig {
 	public static final String PER_30_SECOND = "0/30 * * * * ? *";
 	public static final String PER_40_SECOND = "0/40 * * * * ? *";
 	public static final String PER_01_MIN = "0 0/1 * * * ? *";
+	public static final String PER_02_MIN = "0 0/2 * * * ? *";
 	public static final String PER_05_MIN = "0 0/5 * * * ? *";
 	public static final String PER_10_MIN = "0 0/10 * * * ? *";
+	public static final String PER_20_MIN = "0 0/20 * * * ? *";
+	public static final String PER_30_MIN = "0 0/30 * * * ? *";
 	public static final String PER_01_HOUR = "0 0 0/1 * * ? *";
 	public static final String PER_05_HOUR = "0 0 0/5 * * ? *";
 	public static final String PER_10_HOUR = "0 0 0/10 * * ? *";
 	public static final String PER_12_HOUR = "0 0 0/12 * * ? *";
 
-	public static final String VERSION_NAME = "1.0.0";
+	public static final String VERSION_NAME = "1.1.0";
 	public static Date VERSION_DATE = null;
 
 	static {
 		try {
-			VERSION_DATE = DateUtil.fromString("2018-04-16 15:46:00");
+			VERSION_DATE = DateUtil.fromString("2018-04-19 15:46:00");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
