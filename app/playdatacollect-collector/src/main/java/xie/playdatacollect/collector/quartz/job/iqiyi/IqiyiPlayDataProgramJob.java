@@ -1,6 +1,7 @@
 package xie.playdatacollect.collector.quartz.job.iqiyi;
 
 import org.quartz.JobExecutionContext;
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class IqiyiPlayDataProgramJob extends XBaseQuartzJobBean {
 
 	@Resource

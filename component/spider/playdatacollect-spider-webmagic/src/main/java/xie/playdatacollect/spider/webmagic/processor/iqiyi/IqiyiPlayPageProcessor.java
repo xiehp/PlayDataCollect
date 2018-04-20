@@ -28,4 +28,9 @@ public class IqiyiPlayPageProcessor implements PageProcessor {
 		return site;
 	}
 
+
+	public static void main(String[] args) {
+
+		Spider spider = Spider.create(new IqiyiPlayPageProcessor()).thread(3);
+	}
 }

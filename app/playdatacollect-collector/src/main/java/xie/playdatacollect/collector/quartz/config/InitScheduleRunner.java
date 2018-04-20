@@ -92,7 +92,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 
 
 		// TODO 这些最终应该在UI界面维护
-		// job
+		// bilibili
 		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
 		saveJob("BilibiliPlayDataEpisodeNewJob", null, BilibiliPlayDataEpisodeNewJob.class.getName(), map, null);
 		saveTrigger("trigger_EpisodeNewJob", null, "BilibiliPlayDataEpisodeNewJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, true);
@@ -108,11 +108,6 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		map.put("name", "JobDetail_BiliBili_GetProcessUrl");
 		saveJob("JobDetail_BiliBili_GetProcessUrl", null, BiliBiliGetProcessUrl.class.getName(), map, null);
 		saveTrigger("Trigger_BiliBili_GetProcessUrl", null, "JobDetail_BiliBili_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
-
-		map.put("name", "JobDetail_Iqiyi_GetProcessUrl");
-		saveJob("JobDetail_Iqiyi_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
-		saveTrigger("Trigger_Iqiyi_GetProcessUrl", null, "JobDetail_Iqiyi_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
-
 
 		// BilibiliEpisode1
 		map.put("name", "BilibiliEpisode1");
@@ -150,6 +145,16 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		map.put("afterSecond", XConst.SECOND_100_DAY);
 		saveJob("BilibiliEpisode6", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
 		saveTrigger("trigger_BilibiliEpisode6", null, "BilibiliEpisode6", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_HOUR, null, false);
+
+		// iqiyi
+		map.clear();
+		map.put("name", "JobDetail_Iqiyi_GetProcessUrl");
+		saveJob("JobDetail_Iqiyi_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
+		saveTrigger("Trigger_Iqiyi_GetProcessUrl", null, "JobDetail_Iqiyi_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
+
+
+
+
 
 		updateBatch();
 	}
