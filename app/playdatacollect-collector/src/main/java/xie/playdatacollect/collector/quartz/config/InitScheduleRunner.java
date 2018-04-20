@@ -117,7 +117,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		// BilibiliEpisode1
 		map.put("name", "BilibiliEpisode1");
 		map.put("beforeSecond", XConst.SECOND_03_DAY);
-		map.put("afterSecond", XConst.SECOND_02_MIN);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("BilibiliEpisode1", null, BilibiliPlayDataEpisodeJob.class.getName(), map, null);
 		saveTrigger("trigger_BilibiliEpisode1", null, "BilibiliEpisode1", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, false);
 		// BilibiliEpisode2

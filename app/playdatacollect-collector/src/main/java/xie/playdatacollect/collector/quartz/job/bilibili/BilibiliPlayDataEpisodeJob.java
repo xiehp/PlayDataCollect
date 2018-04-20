@@ -14,7 +14,6 @@ import xie.playdatacollect.core.utils.AllServiceUtil;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -108,7 +107,7 @@ public class BilibiliPlayDataEpisodeJob extends XBaseQuartzJobBean {
 			}
 			Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 			list = page.getContent();
-			logger.info("当前需处理数量：{}, 开始时间：{}，结束时间：{}，所有数量：{}", list.size(), begin, end, totalCount);
+			logger.info("{}, 当前需处理数量：{}, 开始时间：{}，结束时间：{}，所有数量：{}", getName(), list.size(), DateUtil.convertToString(begin), DateUtil.convertToString(end), totalCount);
 		} else {
 			logger.error("参数设定错误，不能同时为空。beforeSecond:{}, afterSecond:{}", beforeSecond, afterSecond);
 		}

@@ -33,7 +33,7 @@ public class XScheduleConfig {
 
 	static {
 		try {
-			VERSION_DATE = DateUtil.fromString("2018-04-19 15:46:00");
+			VERSION_DATE = DateUtil.fromString("2018-04-19 23:16:00");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

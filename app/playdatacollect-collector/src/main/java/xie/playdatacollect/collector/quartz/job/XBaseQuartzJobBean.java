@@ -22,6 +22,10 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 		this.name = name;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 
