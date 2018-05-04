@@ -12,9 +12,9 @@ import xie.common.utils.string.XStringUtils;
 import xie.module.quartz.XQuartzManager;
 import xie.playdatacollect.collector.quartz.config.QuartzJobDetailConfig;
 import xie.playdatacollect.collector.quartz.config.QuartzTriggerConfig;
-import xie.playdatacollect.core.entity.schedule.ScheduleJobEntity;
-import xie.playdatacollect.core.entity.schedule.ScheduleTriggerEntity;
-import xie.playdatacollect.core.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.entity.schedule.ScheduleJobEntity;
+import xie.playdatacollect.core.db.entity.schedule.ScheduleTriggerEntity;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
 import java.util.Date;

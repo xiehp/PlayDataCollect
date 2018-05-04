@@ -15,6 +15,12 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<!-- ★★自己工程的依赖★★ -->
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-common</artifactId>
+		</dependency>
+
 		<!-- 自己的公共依赖 -->
 		<!--<dependency>-->
 			<!--<groupId>xie</groupId>-->

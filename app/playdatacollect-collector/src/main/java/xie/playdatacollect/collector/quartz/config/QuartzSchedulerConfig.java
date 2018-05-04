@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import xie.module.quartz.XQuartzManager;
-import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
-import xie.playdatacollect.core.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
 

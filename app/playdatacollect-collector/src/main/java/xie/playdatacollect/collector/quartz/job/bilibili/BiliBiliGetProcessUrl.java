@@ -1,12 +1,13 @@
 package xie.playdatacollect.collector.quartz.job.bilibili;
 
 import org.quartz.JobExecutionContext;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import xie.common.utils.number.XNumberUtils;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.utils.AllServiceUtil;
-import xie.playdatacollect.core.utils.InitEntityDataRunner;
+import xie.playdatacollect.core.db.utils.AllServiceUtil;
+import xie.playdatacollect.core.db.utils.InitEntityDataRunner;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 
 	public static final String TIMELINE_JP = "http://bangumi.bilibili.com/web_api/timeline_global";

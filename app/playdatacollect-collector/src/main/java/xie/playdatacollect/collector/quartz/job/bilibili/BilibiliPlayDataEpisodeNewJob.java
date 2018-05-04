@@ -3,7 +3,7 @@ package xie.playdatacollect.collector.quartz.job.bilibili;
 import org.quartz.JobDataMap;
 import org.springframework.data.domain.Page;
 import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
+import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

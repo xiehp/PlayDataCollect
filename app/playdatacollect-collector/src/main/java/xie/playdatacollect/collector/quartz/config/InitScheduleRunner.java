@@ -15,12 +15,13 @@ import xie.playdatacollect.collector.quartz.job.NoJob;
 import xie.playdatacollect.collector.quartz.job.XRefreshScheduleJob;
 import xie.playdatacollect.collector.quartz.job.bilibili.*;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
+import xie.playdatacollect.collector.quartz.job.iqiyi.IqiyiPlayDataProgramJob;
 import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
 import xie.playdatacollect.collector.quartz.utils.XRefreshSchedule;
-import xie.playdatacollect.core.entity.schedule.ScheduleJobEntity;
-import xie.playdatacollect.core.entity.schedule.ScheduleTriggerEntity;
-import xie.playdatacollect.core.utils.AllDaoUtil;
-import xie.playdatacollect.core.utils.InitEntityDataRunner;
+import xie.playdatacollect.core.db.entity.schedule.ScheduleJobEntity;
+import xie.playdatacollect.core.db.entity.schedule.ScheduleTriggerEntity;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.utils.InitEntityDataRunner;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -152,6 +153,9 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveJob("JobDetail_Iqiyi_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
 		saveTrigger("Trigger_Iqiyi_GetProcessUrl", null, "JobDetail_Iqiyi_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
+		map.put("name", "IqiyiPlayDataProgramJob");
+		saveJob("IqiyiPlayDataProgramJob", null, IqiyiPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_IqiyiPlayDataProgramJob", null, "IqiyiPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
 
 
 

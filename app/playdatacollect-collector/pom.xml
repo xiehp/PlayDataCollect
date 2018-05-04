@@ -52,6 +52,10 @@
 		</dependency>
 		<dependency>
 			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-component-influxdb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
 			<artifactId>playdatacollect-testandstudy</artifactId>
 		</dependency>
 

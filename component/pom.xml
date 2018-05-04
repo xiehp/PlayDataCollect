@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>spider</module>
+		<module>influxdb</module>
 	</modules>
 
 	<properties>

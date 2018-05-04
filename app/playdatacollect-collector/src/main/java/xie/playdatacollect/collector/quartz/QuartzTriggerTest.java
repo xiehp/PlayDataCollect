@@ -10,7 +10,7 @@ import xie.common.utils.log.XLog;
 import xie.module.quartz.XQuartzManager;
 import xie.playdatacollect.collector.quartz.config.QuartzJobDetailConfig;
 import xie.playdatacollect.collector.quartz.config.QuartzTriggerConfig;
-import xie.playdatacollect.core.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
 

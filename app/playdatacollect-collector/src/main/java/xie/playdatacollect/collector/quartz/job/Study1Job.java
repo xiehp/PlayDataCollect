@@ -4,8 +4,8 @@ import org.quartz.JobExecutionContext;
 import us.codecraft.webmagic.Spider;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
-import xie.playdatacollect.core.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
 

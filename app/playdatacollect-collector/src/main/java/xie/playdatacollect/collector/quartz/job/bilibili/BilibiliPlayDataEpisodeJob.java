@@ -8,9 +8,9 @@ import xie.common.utils.date.DateUtil;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.entity.url.ProcessUrlEntity;
-import xie.playdatacollect.core.utils.AllDaoUtil;
-import xie.playdatacollect.core.utils.AllServiceUtil;
+import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
+import xie.playdatacollect.core.db.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.utils.AllServiceUtil;
 import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
 
 import javax.annotation.Resource;

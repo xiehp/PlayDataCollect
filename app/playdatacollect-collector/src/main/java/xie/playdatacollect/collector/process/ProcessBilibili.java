@@ -11,7 +11,7 @@ import us.codecraft.webmagic.Spider;
 import xie.common.spring.utils.XJsonUtil;
 import xie.common.utils.log.XLog;
 import xie.common.utils.string.XStringUtils;
-import xie.playdatacollect.collector.utils.PlayDataUtils;
+import xie.playdatacollect.common.utils.PlayDataUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -31,13 +31,14 @@ public class ProcessBilibili {
 		List<ResultItems> resultItemses = spider.getAll(list);
 
 		InfluxDB influxDB = InfluxDBFactory.connect("https://influxdb.acgimage.cn/");
+		influxDB.enableGzip();
 		influxDB.setDatabase("play_data");
 
 		List<String> aidList = new ArrayList<>();
 		List<String> nameList = new ArrayList<>();
 		List<String> siteList = new ArrayList<>();
-		List<Integer> 追番人数List = new ArrayList<>();
-		List<Integer> 承包数List = new ArrayList<>();
+		List<Long> 追番人数List = new ArrayList<>();
+		List<Long> 承包数List = new ArrayList<>();
 		while (true) {
 			for (ResultItems resultItemse : resultItemses) {
 				try {
@@ -76,6 +77,9 @@ public class ProcessBilibili {
 						builder.addField("硬币数", PlayDataUtils.parseValue(resultItemse.getAll().get("硬币数")));
 						builder.addField("承包数", PlayDataUtils.parseValue(resultItemse.getAll().get("承包数")));
 						builder.addField("评论数", PlayDataUtils.parseValue(resultItemse.getAll().get("评论数")));
+						// TODO 评分删除不了
+						builder.addField("评价分", PlayDataUtils.parseDoubleValue(resultItemse.getAll().get("评分")));
+						builder.addField("评分人数", PlayDataUtils.parseValue(resultItemse.getAll().get("评分人数")));
 						builder.time(collectTime, TimeUnit.MILLISECONDS);
 						Point point = builder.build();
 						influxDB.write(point);
@@ -126,8 +130,8 @@ public class ProcessBilibili {
 				int 当前排名 = (int) map.get("now_rank");
 				int 历史排名 = (int) map.get("his_rank");
 
-				int 追番人数 = 追番人数List.get(i);
-				int 承包数 = 承包数List.get(i);
+				long 追番人数 = 追番人数List.get(i);
+				long 承包数 = 承包数List.get(i);
 
 
 				Point point = Point.measurement("base_data")
