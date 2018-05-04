@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class XJsonUtil {
 		Map<String, Object> obj = null;
 		try {
 			if (jsonStr != null) {
-				obj = getObjectMapper().readValue(jsonStr, Map.class);
+				obj = getObjectMapper().readValue(jsonStr, LinkedHashMap.class);
 			}
 		} catch (IOException e) {
 			LOG.error("", e);

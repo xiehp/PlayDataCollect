@@ -62,15 +62,20 @@ public class MyDruidLogFilter extends Slf4jLogFilter {
 		}
 
 		// 过滤不需要打印的sql
-		boolean printSqlFlag = PublicDictionaryLoader.getSystemBooleanValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_FLAG.name(), true);
-		if (!printSqlFlag) {
-			return;
-		}
-		String[] excludeList = PublicDictionaryLoader.getSystemArrayValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_EXCLUDE.name());
-		if (excludeList != null && excludeList.length > 0) {
-			if (XStringUtils.containWithIgnoreCase(sql, excludeList)) {
+		try {
+			boolean printSqlFlag = PublicDictionaryLoader.getSystemBooleanValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_FLAG.name(), true);
+			if (!printSqlFlag) {
 				return;
 			}
+			String[] excludeList = PublicDictionaryLoader.getSystemArrayValue(DictionaryCodeSystem.MY_DRUID_PRINT_SQL_EXCLUDE.name());
+			if (excludeList != null && excludeList.length > 0) {
+				if (XStringUtils.containWithIgnoreCase(sql, excludeList)) {
+					return;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Spring初始化有问题，可能是因为还未完全初始化就尝试去获取bean导致的
+			logger.error(e.getMessage());
 		}
 
 		// 打印

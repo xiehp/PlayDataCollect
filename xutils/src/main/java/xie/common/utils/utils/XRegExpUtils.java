@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class XRegularUtils {
+public class XRegExpUtils {
 
 	public static List<String> find(String str, String reg) {
 		Pattern pattern = Pattern.compile(reg);

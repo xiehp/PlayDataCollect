@@ -5,29 +5,34 @@ import java.util.List;
 
 public class XConvertUtils {
 
-	private static final String[] BOOLEAN_TRUE = new String[]{"true", "yes", "1", "on"};
-	private static final String[] BOOLEAN_FALSE = new String[]{"false", "no", "o", "off"};
+	private static final String[] BOOLEAN_TRUE = new String[]{"true", "yes", "1", "on", "ok"};
+	private static final String[] BOOLEAN_FALSE = new String[]{"false", "no", "o", "off", "no"};
 
-	public static boolean convert2Boolean(String val, boolean defaultValue) {
-		if (val == null) {
-			return defaultValue;
-		}
-
+	public static boolean convert2Boolean(String val) {
+		boolean result = false;
 		// 除了checkArray以外所有情况都为默认值
 		String[] checkArray = BOOLEAN_TRUE;
-		if (defaultValue) {
-			checkArray = BOOLEAN_FALSE;
-		}
-
-		boolean result = defaultValue;
 		for (String checkVal : checkArray) {
 			if (checkVal.equalsIgnoreCase(val)) {
-				result = !defaultValue;
+				result = true;
 				break;
 			}
 		}
 
 		return result;
+	}
+
+	public static boolean convert2Boolean(String val, boolean defaultValue) {
+		try {
+			if (val == null) {
+				return defaultValue;
+			}
+
+			boolean result = convert2Boolean(val);
+			return result;
+		} catch (Exception e) {
+			return defaultValue;
+		}
 	}
 
 	public static String[] convert2Array(String val, String spiltStr) {

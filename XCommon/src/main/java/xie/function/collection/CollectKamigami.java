@@ -9,7 +9,7 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import xie.common.utils.utils.XRegularUtils;
+import xie.common.utils.utils.XRegExpUtils;
 
 public class CollectKamigami {
 	public static List<String> getTorrentUrlList(String url) throws FailingHttpStatusCodeException, IOException {
@@ -29,7 +29,7 @@ public class CollectKamigami {
 		String xmlStr = page.asXml();
 		webClient.close();
 
-		List<String> listTorrent = XRegularUtils.find(xmlStr, findRegStr);
+		List<String> listTorrent = XRegExpUtils.find(xmlStr, findRegStr);
 		// listTorrent.forEach(str -> System.out.println(str));
 		// 去重复
 		listTorrent = listTorrent.stream().distinct().collect(Collectors.toList());

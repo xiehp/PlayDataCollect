@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xie.common.utils.utils.XPrintUtils;
-import xie.common.utils.utils.XRegularUtils;
+import xie.common.utils.utils.XRegExpUtils;
 import xie.module.command.XCommandFactory;
 import xie.module.command.impl.XWindowsCommand;
 
@@ -116,7 +116,7 @@ public class MkvinfoCmdUtils {
 	private static String find(File videoFile, List<String> consoleInfoList, int index, String reg, String targetName) {
 		String result = null;
 		for (int i = index; i < index + 15 && i < consoleInfoList.size(); i++) {
-			result = XRegularUtils.findOnceAndFirstGroup(consoleInfoList.get(i), reg);
+			result = XRegExpUtils.findOnceAndFirstGroup(consoleInfoList.get(i), reg);
 			if (result != null) {
 				break;
 			}
