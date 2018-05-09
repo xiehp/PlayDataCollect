@@ -2,10 +2,12 @@ package xie.playdatacollect.collector.quartz.job.base;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
+import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import xie.common.utils.date.DateUtil;
+import xie.common.utils.log.XLog;
 import xie.common.utils.string.XStringUtils;
 import xie.common.utils.utils.XConvertUtils;
 import xie.playdatacollect.collector.process.ProcessBilibili;
@@ -26,6 +28,8 @@ import java.time.ZoneId;
 import java.util.*;
 
 public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
+
+	private Logger _logger = XLog.getLog(XBaseQuartzJobBean.class);
 
 	@Resource
 	private AllDaoUtil allDaoUtil;
@@ -49,7 +53,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 				if (processUrl.getUrl() != null) {
 					listUrl.add(processUrl.getUrl());
 				} else {
-					logger.warn("{} 的url为空，无法获取数据。", processUrl.getName());
+					_logger.warn("{} 的url为空，无法获取数据。", processUrl.getName());
 				}
 			});
 
@@ -98,14 +102,14 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		Date begin = null;
 		Date end = null;
 
-		logger.info("准备获取url列表数据 {}", jobDataMap);
+		_logger.info("准备获取url列表数据 {}", jobDataMap);
 		boolean hasErrorFlag = false;
 		if (XStringUtils.isBlank(sourceKey)) {
-			logger.error("参数设定错误，sourceKey不能为空");
+			_logger.error("参数设定错误，sourceKey不能为空");
 			hasErrorFlag = true;
 		}
 		if (XStringUtils.isBlank(type)) {
-			logger.error("参数设定错误，type不能为空");
+			_logger.error("参数设定错误，type不能为空");
 			hasErrorFlag = true;
 		}
 
@@ -114,7 +118,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 				begin = Date.from(LocalDateTime.now().minusSeconds(Long.valueOf(beforeSecond)).atZone(ZoneId.systemDefault()).toInstant());
 			}
 		} catch (Exception e) {
-			logger.error("参数设定错误，转换开始日期发生错误:{}", beforeSecond, e);
+			_logger.error("参数设定错误，转换开始日期发生错误:{}", beforeSecond, e);
 			hasErrorFlag = true;
 		}
 
@@ -123,17 +127,17 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 				end = Date.from(LocalDateTime.now().minusSeconds(Long.valueOf(afterSecond)).atZone(ZoneId.systemDefault()).toInstant());
 			}
 		} catch (Exception e) {
-			logger.error("参数设定错误，转换结束日期发生错误:{}", afterSecond, e);
+			_logger.error("参数设定错误，转换结束日期发生错误:{}", afterSecond, e);
 			hasErrorFlag = true;
 		}
 
 		if (begin == null && end == null) {
-			logger.error("参数设定错误，指定时间不能同时为空。");
+			_logger.error("参数设定错误，指定时间不能同时为空。");
 			hasErrorFlag = true;
 		}
 
 		if (hasErrorFlag) {
-			logger.error("参数设定错误，退出。");
+			_logger.error("参数设定错误，退出。");
 			return null;
 		}
 
@@ -153,7 +157,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		}
 		Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 		List<ProcessUrlEntity> list = page.getContent();
-		logger.info("{}, 当前需处理数量：{}, 来源：{}, 类型：{}, 开始时间：{}，结束时间：{}，该类型所有数量：{}", getName(), list.size(), sourceKey, type, DateUtil.convertToString(begin), DateUtil.convertToString(end), totalCount);
+		_logger.info("{}, 当前需处理数量：{}, 来源：{}, 类型：{}, 开始时间：{}，结束时间：{}，该类型所有数量：{}", getName(), list.size(), sourceKey, type, DateUtil.convertToString(begin), DateUtil.convertToString(end), totalCount);
 
 		return list;
 	}

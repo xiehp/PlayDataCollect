@@ -9,7 +9,7 @@ git clone --recursive https://github.com/xiehp/PlayDataCollect.git
 cd PlayDataCollect
 git pull --rebase=true
 git submodule update
-mvn clean package
+call mvn clean package
 
 echo ¸´ÖÆÎÄ¼þ $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector.jar
 copy /y app\playdatacollect-collector\target\playdatacollect-collector.jar ..\playdatacollect-collector.jar

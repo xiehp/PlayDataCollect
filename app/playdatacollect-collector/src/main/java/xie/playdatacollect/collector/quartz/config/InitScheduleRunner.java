@@ -93,6 +93,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_XRefreshScheduleJob", null, "XRefreshScheduleJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, false);
 
 
+		map.clear();
 		// TODO 这些最终应该在UI界面维护
 		// bilibili
 		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
@@ -103,9 +104,10 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveJob("BilibiliPlayDataEpisodeOldJob", null, BilibiliPlayDataEpisodeOldJob.class.getName(), map, null);
 		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, true);
 
-		map.put("name", "BilibiliPlayDataProgramJobDetail");
+		map.clear();
 		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("name", "BilibiliPlayDataProgramJobDetail");
 		map.put("beforeSecond", XConst.SECOND_15_DAY);
 		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("BilibiliPlayDataProgramJob", null, BilibiliPlayDataProgramJob.class.getName(), map, null);

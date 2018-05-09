@@ -3,16 +3,17 @@ package xie.playdatacollect.collector.quartz.job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.client.RestTemplate;
+import xie.common.utils.log.XLog;
 
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 
 public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 
-	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected Logger logger = XLog.getLog(this.getClass());
+	private Logger _logger = XLog.getLog(XBaseQuartzJobBean.class);
 
 	private String name;
 
@@ -43,15 +44,15 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 			});
 		}
 
-		logger.info("Start {}({}) by {}, Params:{}", this.getClass().getSimpleName(), name, context.getTrigger(), map);
+		_logger.info("Start {}({}) by {}, Params:{}", this.getClass().getSimpleName(), name, context.getTrigger(), map);
 
 		try {
 			executeJob(context);
 		} catch (Exception e) {
-			logger.error(this.getClass().getName() + "Error {} by {}, {}", name, context.getTrigger(), e.getMessage());
+			_logger.error(this.getClass().getName() + "Error {} by {}, {}", name, context.getTrigger(), e.getMessage());
 			throw new JobExecutionException(e);
 		} finally {
-			logger.info("End {}({}) by {}", this.getClass().getSimpleName() + name, context.getTrigger());
+			_logger.info("End {}({}) by {}", this.getClass().getSimpleName() + name, context.getTrigger());
 		}
 	}
 
