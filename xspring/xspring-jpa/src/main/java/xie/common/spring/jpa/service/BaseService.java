@@ -78,6 +78,12 @@ public abstract class BaseService<M extends IdEntity, ID extends Serializable> {
 		return searchPageByParams(searchParams, null, c);
 	}
 
+	public long countByParams(Map<String, Object> searchParams, Class<M> c) {
+		PageRequest pageRequest = PageRequest.of(0,1);
+		Page<M> page =  searchPageByParams(searchParams, pageRequest, c);
+		return page.getTotalElements();
+	}
+
 	/**
 	 * 分页检索，根据检索条件，搜索数据库，返回对应分页数据
 	 * 
