@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.quartz.JobDataMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import xie.common.utils.constant.XConst;
+import xie.playdatacollect.common.PlayDataConst;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,30 +35,33 @@ public class IqiyiJobTest {
 	private IQiYiGetProcessUrl iQiYiGetProcessUrl;
 
 	@Before
-	public void before() throws Exception {
+	public void before()  {
 		logger.info(aaa);
 		logger.info("IqiyiJobTest test start");
 	}
 
 	@After
-	public void after() throws Exception {
+	public void after()  {
 		logger.info("IqiyiJobTest test end");
 	}
 
 	@Test
-	public void testIqiyiGetProcessUrlJob() throws Exception {
+	public void testIqiyiGetProcessUrlJob()  {
 		logger.info("testIqiyiGetProcessUrlJob test start");
 		iQiYiGetProcessUrl.runSpider();
-		Thread.sleep(5);
 		logger.info("testIqiyiGetProcessUrlJob test end");
 	}
 
 	@Test
-	public void testIqiyiPlayDataProgramJob() throws Exception {
-		logger.info(aaa);
+	public void testIqiyiPlayDataProgramJob()  {
 		logger.info("testIqiyiPlayDataProgramJob test start");
-		iqiyiPlayDataProgramJob.executeJob(null);
-		Thread.sleep(5);
+		JobDataMap jobDataMap = new JobDataMap();
+		jobDataMap.put("name", "testBilibiliPlayDataEpisodeJob");
+		jobDataMap.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		jobDataMap.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		jobDataMap.put("beforeSecond", XConst.SECOND_30_DAY);
+		jobDataMap.put("afterSecond", XConst.SECOND_01_HOUR);
+		iqiyiPlayDataProgramJob.runSpider(jobDataMap);
 		logger.info("testIqiyiPlayDataProgramJob test end");
 	}
 }

@@ -11,7 +11,7 @@ public class XRefreshScheduleJob extends XBaseQuartzJobBean {
 	XRefreshSchedule refreshSchedule;
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
+	public void executeJob(JobExecutionContext context) {
 		refreshSchedule.refreshSchedule();
 	}
 

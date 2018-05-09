@@ -34,8 +34,17 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 		processUrlEntity.setSourceKey(sourceKey);
 		processUrlEntity.setName(name);
 		processUrlEntity.setType(type);
-		if (beginDate != null) {
+		// 开始时间始终取自页面， 不自动生成
+		if (processUrlEntity.getBeginDate() == null && beginDate != null) {
 			processUrlEntity.setBeginDate(beginDate);
+		}
+		// 重新发布时间，先尝试获取页面时间
+		if (beginDate != null) {
+			processUrlEntity.setReBeginDate(beginDate);
+		}
+		// 重新发布时间，如果页面不存在，则使用当前时间
+		if (processUrlEntity.getReBeginDate() == null) {
+			processUrlEntity.setReBeginDate(new Date());
 		}
 		processUrlEntity.setUrl(url);
 		processUrlEntity.setParams(XJsonUtil.toJsonString(params));

@@ -43,15 +43,15 @@ public class CollectedDataInflux extends CollectedDataImpl {
 	}
 
 	/**
-	 * 增加一个tag，tag名中文英文一样
+	 * 增加一个tag，同时会添加到中英文映射中去
 	 */
-	public void addTag(String tagNameEn) {
-		addTag(tagNameEn, tagNameEn);
+	public void addTag(String tagNameEn, String tagNameCN) {
+		tagNameList.add(tagNameEn);
+		addCNName(tagNameEn, tagNameCN);
 	}
 
-	public void addTag(String tagNameEn, String tagNameCN) {
-		tagNameList.add("name");
-		addCNName(tagNameEn, tagNameCN);
+	public List<String> getTagList() {
+		return tagNameList;
 	}
 
 	public Point createPoint() {
@@ -67,7 +67,6 @@ public class CollectedDataInflux extends CollectedDataImpl {
 			if (tagNameList.contains(key)) {
 				builder.tag(getCNName(key), (String) val);
 			} else {
-//				PlayDataUtils.
 				if (val instanceof Boolean) {
 					builder.addField(getCNName(key), (boolean) val);
 				} else if (val instanceof Number) {

@@ -55,44 +55,69 @@ public interface CollectedData {
 
 	void setName(String name);
 
+	/** 播放数 */
 	Long getPlayCount();
 
+	/** 播放数 */
 	void setPlayCount(Long playCount);
 
-
+	/** 评论数 */
 	Integer getCommentCount();
 
+	/** 评论数 */
 	void setCommentCount(Integer commentCount);
 
+	/** 分享数 */
 	Integer getShareCount();
 
+	/** 分享数 */
 	void setShareCount(Integer shareCount);
 
+	/** 弹幕数 */
 	Integer getDanmuCount();
 
+	/** 弹幕数 */
 	void setDanmuCount(Integer danmuCount);
 
+	/** 收藏数 */
 	Integer getCollectCount();
 
+	/** 收藏数 */
 	void setCollectCount(Integer collectCount);
 
+	/** 喜欢数 */
 	Integer getLikeCount();
 
+	/** 喜欢数 */
 	void setLikeCount(Integer likeCount);
 
+	/** 追番数 */
+	Integer getChasingCount();
+
+	/** 追番数 */
+	void setChasingCount(Integer chasingCount);
+
+	/** 最大分数 */
 	Double getMaxScore();
 
+	/** 最大分数 */
 	void setMaxScore(Double maxScore);
 
+	/** 分数 */
 	Double getScore();
 
+	/** 分数 */
 	void setScore(Double score);
 
+	/** 评分人数 */
 	Integer getScoreUserCount();
 
+	/** 评分人数 */
 	void setScoreUserCount(Integer scoreUserCount);
 
+	/** 排名 */
 	Integer getRanking();
 
+	/** 排名 */
 	void setRanking(Integer ranking);
 }

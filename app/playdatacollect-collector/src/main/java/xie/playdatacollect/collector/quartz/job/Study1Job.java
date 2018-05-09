@@ -21,7 +21,7 @@ public class Study1Job extends XBaseQuartzJobBean {
 	ProcessBilibili processBilibili;
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
+	public void executeJob(JobExecutionContext context) {
 		runSpider();
 	}
 

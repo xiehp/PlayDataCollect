@@ -28,13 +28,11 @@ public class IQiYiGetProcessUrl extends XBaseQuartzJobBean {
 	private RestTemplate restTemplate;
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
+	public void executeJob(JobExecutionContext context) {
 		runSpider();
 	}
 
 	protected void runSpider() {
-		long dateTime = System.currentTimeMillis();
-
 		Spider spider = Spider.create(new IqiyiDongmanPageProcessor()).thread(2);
 		List<ResultItems> resultItemsList = spider.getAll(Arrays.asList("http://www.iqiyi.com/dongman"));
 		for (ResultItems resultItem : resultItemsList) {
@@ -60,7 +58,7 @@ public class IQiYiGetProcessUrl extends XBaseQuartzJobBean {
 							PlayDataConst.SOURCE_TYPE_PROGRAM,
 							"",
 							url.getHref(),
-							new Date(),
+							null,
 							params
 					);
 				} catch (Exception e) {

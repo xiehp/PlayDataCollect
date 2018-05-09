@@ -1,51 +1,34 @@
 package xie.playdatacollect.collector.quartz.job.bilibili;
 
-import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Service;
-import us.codecraft.webmagic.Spider;
-import xie.playdatacollect.collector.process.ProcessBilibili;
-import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
-import xie.playdatacollect.common.PlayDataConst;
-import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
-import xie.playdatacollect.core.db.utils.AllDaoUtil;
-import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageProcessor;
-import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliNewYear2018Processor;
+import xie.playdatacollect.collector.quartz.job.base.BasePlayDataProcessUrlJob;
+import xie.playdatacollect.collector.workflow.get.GetDataProcessBaseWebmagic;
+import xie.playdatacollect.collector.workflow.get.IGetDataProcess;
+import xie.playdatacollect.collector.workflow.use.IUseDataProcess;
+import xie.playdatacollect.collector.workflow.use.UseDataProcess;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class BilibiliPlayDataProgramJob extends XBaseQuartzJobBean {
+public class BilibiliPlayDataProgramJob extends BasePlayDataProcessUrlJob {
+
+//	@Resource
+//	ProcessBilibili processBilibili;
 
 	@Resource
-	AllDaoUtil allDaoUtil;
-
+	UseDataProcess useDataProcess;
 	@Resource
-	ProcessBilibili processBilibili;
+	GetDataProcessBaseWebmagic getDataProcessWebmagicBilibili;
+
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
-		runSpider();
+	protected IGetDataProcess getIGetDataProcess() {
+		return getDataProcessWebmagicBilibili;
 	}
 
-	private void runSpider() {
-		long dateTime = System.currentTimeMillis();
-
-		Spider spiderBLNormal = Spider.create(new BilibiliAnimePageProcessor()).thread(2);
-
-		// multi download
-		List<String> listBLNormal = new ArrayList<>();
-
-		// http://api.bilibili.com/archive_stat/stat?aid=18168483
-
-		List<ProcessUrlEntity> list = allDaoUtil.getProcessUrlDao().findBySourceKeyAndType(PlayDataConst.SOURCE_KEY_BILIBILI, PlayDataConst.SOURCE_TYPE_PROGRAM);
-		list.forEach((processUrl) -> {
-			listBLNormal.add(processUrl.getUrl());
-		});
-
-		processBilibili.spiderGetAll(spiderBLNormal, listBLNormal, dateTime);
+	@Override
+	protected IUseDataProcess getIUseDataProcess() {
+		return useDataProcess;
 	}
-
 
 }

@@ -18,6 +18,7 @@ import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IqiyiPlayDataProgramJob;
 import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
 import xie.playdatacollect.collector.quartz.utils.XRefreshSchedule;
+import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.db.entity.schedule.ScheduleJobEntity;
 import xie.playdatacollect.core.db.entity.schedule.ScheduleTriggerEntity;
 import xie.playdatacollect.core.db.utils.AllDaoUtil;
@@ -103,13 +104,30 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, true);
 
 		map.put("name", "BilibiliPlayDataProgramJobDetail");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("beforeSecond", XConst.SECOND_15_DAY);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("BilibiliPlayDataProgramJob", null, BilibiliPlayDataProgramJob.class.getName(), map, null);
 		saveTrigger("trigger_ProgramJob", null, "BilibiliPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
+		map.clear();
+
+		map.put("name", "BilibiliPlayDataProgramJobDetail2");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("afterSecond", XConst.SECOND_15_DAY);
+		saveJob("BilibiliPlayDataProgramJob2", null, BilibiliPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_ProgramJob2", null, "BilibiliPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
+		map.clear();
 
 		map.put("name", "JobDetail_BiliBili_GetProcessUrl");
 		saveJob("JobDetail_BiliBili_GetProcessUrl", null, BiliBiliGetProcessUrl.class.getName(), map, null);
 		saveTrigger("Trigger_BiliBili_GetProcessUrl", null, "JobDetail_BiliBili_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
+		// start Bilibili Episode
+		map.clear();
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_EPISODE);
 		// BilibiliEpisode1
 		map.put("name", "BilibiliEpisode1");
 		map.put("beforeSecond", XConst.SECOND_03_DAY);
@@ -153,9 +171,23 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveJob("JobDetail_Iqiyi_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
 		saveTrigger("Trigger_Iqiyi_GetProcessUrl", null, "JobDetail_Iqiyi_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
+		map.clear();
 		map.put("name", "IqiyiPlayDataProgramJob");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("beforeSecond", XConst.SECOND_15_DAY);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("IqiyiPlayDataProgramJob", null, IqiyiPlayDataProgramJob.class.getName(), map, null);
 		saveTrigger("trigger_IqiyiPlayDataProgramJob", null, "IqiyiPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
+
+		map.clear();
+		map.put("name", "IqiyiPlayDataProgramJob2");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("afterSecond", XConst.SECOND_15_DAY);
+		saveJob("IqiyiPlayDataProgramJob2", null, IqiyiPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_IqiyiPlayDataProgramJob2", null, "IqiyiPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
+
 
 
 

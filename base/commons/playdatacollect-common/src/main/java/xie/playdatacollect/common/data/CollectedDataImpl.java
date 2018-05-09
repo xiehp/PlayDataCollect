@@ -1,5 +1,7 @@
 package xie.playdatacollect.common.data;
 
+import xie.common.utils.date.DateUtil;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,6 +22,7 @@ public class CollectedDataImpl implements CollectedData {
 		baseDataCNNameMap.put("danmuCount", "弹幕数");
 		baseDataCNNameMap.put("collectCount", "收藏数");
 		baseDataCNNameMap.put("likeCount", "喜欢数");
+		baseDataCNNameMap.put("chasingCount", "追番数");
 		baseDataCNNameMap.put("maxScore", "最大评分");
 		// TODO 暂时改为其他的 baseDataCNNameMap.put("score", "评分");
 		baseDataCNNameMap.put("score", "评价分");
@@ -50,6 +53,7 @@ public class CollectedDataImpl implements CollectedData {
 	private Integer danmuCount;
 	private Integer collectCount;
 	private Integer likeCount;
+	private Integer chasingCount;
 	private Double maxScore;
 	private Double score;
 	private Integer scoreUserCount;
@@ -57,7 +61,10 @@ public class CollectedDataImpl implements CollectedData {
 
 	public CollectedDataImpl() {
 		date = new Date();
-		cnNameMap.putAll(baseDataCNNameMap);
+		baseDataCNNameMap.forEach((key, value) ->{
+			cnNameMap.put(key, value);
+			enNameMap.put(value,key);
+		});
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class CollectedDataImpl implements CollectedData {
 
 	@Override
 	public String toString() {
-		return date + ", " + getAllData().toString();
+		return DateUtil.convertToString(date, "yyyy-MM-dd HH:mm:ss.SSS Z") + " (" + date.getTime() + "), " + getAllData().toString();
 	}
 
 	@Override
@@ -82,7 +89,8 @@ public class CollectedDataImpl implements CollectedData {
 
 	@Override
 	public void setTime(long time) {
-
+		if (time > 1000000000000L)
+			date = new Date(time);
 	}
 
 	@Override
@@ -261,6 +269,17 @@ public class CollectedDataImpl implements CollectedData {
 	public void setLikeCount(Integer likeCount) {
 		baseData.put("likeCount", likeCount);
 		this.likeCount = likeCount;
+	}
+
+	@Override
+	public Integer getChasingCount() {
+		return chasingCount;
+	}
+
+	@Override
+	public void setChasingCount(Integer chasingCount) {
+		baseData.put("chasingCount", chasingCount);
+		this.chasingCount = chasingCount;
 	}
 
 	@Override

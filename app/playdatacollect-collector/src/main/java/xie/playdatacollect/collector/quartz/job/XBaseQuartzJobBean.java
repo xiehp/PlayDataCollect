@@ -33,9 +33,9 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 	}
 
 	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+	public void executeInternal(JobExecutionContext context) throws JobExecutionException {
 
-		logger.info(" {}({}) start by {}", this.getClass().getSimpleName(), name, context.getTrigger());
+		logger.info(" {}({}) start by {}, Params:{}", this.getClass().getSimpleName(), name, context.getTrigger(), context.getMergedJobDataMap());
 
 		try {
 			executeJob(context);
@@ -45,9 +45,7 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 		} finally {
 			logger.info(" {}({}) end by {}", this.getClass().getSimpleName() + name, context.getTrigger());
 		}
-
 	}
 
-
-	protected abstract void executeJob(JobExecutionContext context) throws JobExecutionException, InterruptedException;
+	public abstract void executeJob(JobExecutionContext context) throws JobExecutionException, InterruptedException;
 }

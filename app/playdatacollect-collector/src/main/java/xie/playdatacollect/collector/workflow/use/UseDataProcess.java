@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class UseDataProcess {
+public class UseDataProcess implements IUseDataProcess {
 
 	protected Logger logger = XLog.getLog(this);
 
@@ -24,22 +24,31 @@ public class UseDataProcess {
 	/**
 	 * 处理整理好的数据
 	 *
-	 * @param CollectedDataList 已经整理过的数据
-	 * @param collectTime 时间
+	 * @param collectedDataList 已经整理过的数据
+	 * @param collectTime       时间
 	 */
-	public void use(List<CollectedData> CollectedDataList, long collectTime) {
+	public void use(List<CollectedData> collectedDataList, long collectTime) {
+		if (collectedDataList == null || collectedDataList.size() == 0) {
+			return;
+		}
 
 		InfluxDB influxDB = InfluxDBFactory.connect("https://influxdb.acgimage.cn/");
 		influxDB.setDatabase("play_data");
 
 
-		for (CollectedData collectedData : CollectedDataList) {
+		for (CollectedData collectedData : collectedDataList) {
 			try {
 				logger.info(collectedData.toString());
-				CollectedDataInflux collectedDataInflux = CollectedDataInflux.create(collectedData);
+				CollectedDataInflux collectedDataInflux;
+				if (collectedData instanceof CollectedDataInflux) {
+					collectedDataInflux = (CollectedDataInflux) collectedData;
+				} else {
+					collectedDataInflux = CollectedDataInflux.create(collectedData);
+				}
 				collectedDataInflux.setTime(collectTime);
 				Point point = collectedDataInflux.createPoint();
 				influxDB.write(point);
+				logger.info("Point add: {}", point);
 			} catch (Exception e) {
 				logger.error("保存influxDB发生错误", e);
 			}

@@ -15,6 +15,17 @@ public class PlayDataUtils {
 
 	/**
 	 * 将字符串转换为数字，根据后缀中文符号做相应转换
+	 */
+	public static Integer parseIntegerValue(Object value) {
+		Long result = parseValue(value);
+		if (result == null) {
+			return null;
+		}
+		return result.intValue();
+	}
+
+	/**
+	 * 将字符串转换为数字，根据后缀中文符号做相应转换
 	 *
 	 * @param value
 	 * @return

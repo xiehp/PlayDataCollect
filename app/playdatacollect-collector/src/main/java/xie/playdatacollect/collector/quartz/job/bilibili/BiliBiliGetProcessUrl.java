@@ -31,7 +31,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 	InitEntityDataRunner initEntityDataRunner;
 
 	@Override
-	protected void executeJob(JobExecutionContext context) {
+	public void executeJob(JobExecutionContext context) {
 //		try {
 //			initEntityDataRunner.run(null);
 //		} catch (ParseException e) {
@@ -78,7 +78,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 						PlayDataConst.SOURCE_TYPE_PROGRAM,
 						null,
 						"https://bangumi.bilibili.com/anime/" + season_id,
-						null
+						new Date(pub_ts)
 				);
 
 				// 将未发布的剧集存入到URL处理列表中
