@@ -28,12 +28,12 @@ public class XScheduleConfig {
 	public static final String PER_10_HOUR = "0 0 0/10 * * ? *";
 	public static final String PER_12_HOUR = "0 0 0/12 * * ? *";
 
-	public static final String VERSION_NAME = "1.3.1";
+	public static final String VERSION_NAME = "1.3.2";
 	public static Date VERSION_DATE = null;
 
 	static {
 		try {
-			VERSION_DATE = DateUtil.fromString("2018-05-09 11:34:00");
+			VERSION_DATE = DateUtil.fromString("2018-05-09 15:16:00");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
