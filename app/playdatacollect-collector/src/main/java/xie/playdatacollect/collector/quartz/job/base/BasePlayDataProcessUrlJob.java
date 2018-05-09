@@ -98,14 +98,14 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		Date begin = null;
 		Date end = null;
 
-		logger.error("准备获取url列表数据 {}", jobDataMap);
+		logger.info("准备获取url列表数据 {}", jobDataMap);
 		boolean hasErrorFlag = false;
 		if (XStringUtils.isBlank(sourceKey)) {
-			logger.error("sourceKey不能为空");
+			logger.error("参数设定错误，sourceKey不能为空");
 			hasErrorFlag = true;
 		}
 		if (XStringUtils.isBlank(type)) {
-			logger.error("type不能为空");
+			logger.error("参数设定错误，type不能为空");
 			hasErrorFlag = true;
 		}
 
@@ -114,7 +114,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 				begin = Date.from(LocalDateTime.now().minusSeconds(Long.valueOf(beforeSecond)).atZone(ZoneId.systemDefault()).toInstant());
 			}
 		} catch (Exception e) {
-			logger.error("转换开始日期发生错误:{}", beforeSecond, e);
+			logger.error("参数设定错误，转换开始日期发生错误:{}", beforeSecond, e);
 			hasErrorFlag = true;
 		}
 
@@ -123,7 +123,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 				end = Date.from(LocalDateTime.now().minusSeconds(Long.valueOf(afterSecond)).atZone(ZoneId.systemDefault()).toInstant());
 			}
 		} catch (Exception e) {
-			logger.error("转换结束日期发生错误:{}", afterSecond, e);
+			logger.error("参数设定错误，转换结束日期发生错误:{}", afterSecond, e);
 			hasErrorFlag = true;
 		}
 
@@ -133,6 +133,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		}
 
 		if (hasErrorFlag) {
+			logger.error("参数设定错误，退出。");
 			return null;
 		}
 

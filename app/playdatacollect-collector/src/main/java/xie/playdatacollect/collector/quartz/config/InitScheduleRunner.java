@@ -60,7 +60,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 	private void initScheduleData() throws ParseException {
 		beginBatch();
 
-		HashMap<String, Object> map = new HashMap<>();
+		LinkedHashMap<String, Object> map = new LinkedHashMap<>();
 
 		// sample
 		saveJob("noJob", null, NoJob.class.getName(), map, null);
@@ -115,7 +115,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		map.put("name", "BilibiliPlayDataProgramJobDetail2");
 		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
-		map.put("afterSecond", XConst.SECOND_15_DAY);
+		map.put("beforeSecond", XConst.SECOND_15_DAY);
 		saveJob("BilibiliPlayDataProgramJob2", null, BilibiliPlayDataProgramJob.class.getName(), map, null);
 		saveTrigger("trigger_ProgramJob2", null, "BilibiliPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
 		map.clear();
@@ -184,7 +184,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		map.put("name", "IqiyiPlayDataProgramJob2");
 		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
 		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
-		map.put("afterSecond", XConst.SECOND_15_DAY);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("IqiyiPlayDataProgramJob2", null, IqiyiPlayDataProgramJob.class.getName(), map, null);
 		saveTrigger("trigger_IqiyiPlayDataProgramJob2", null, "IqiyiPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
 
