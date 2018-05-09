@@ -1,5 +1,7 @@
 package xie.common.utils.utils;
 
+import xie.common.utils.string.XStringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,5 +49,19 @@ public class XConvertUtils {
 		String[] array = convert2Array(val, spiltStr);
 
 		return Arrays.asList(array);
+	}
+
+
+	public static Long convert2Long(Object value, Long defaultValue) {
+		if (XStringUtils.isBlank(value.toString())) {
+			return defaultValue;
+		}
+
+		try {
+			String strValue = value.toString();
+			return Long.valueOf(strValue);
+		} catch (Exception e) {
+			return defaultValue;
+		}
 	}
 }
