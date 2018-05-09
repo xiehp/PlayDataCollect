@@ -55,7 +55,10 @@ public class XQuartzManager {
 		if (triggerDB == null) {
 			scheduler.scheduleJob(jobDetail, trigger);
 		} else {
-			scheduler.rescheduleJob(triggerKey, trigger);
+//			scheduler.rescheduleJob(triggerKey, trigger);
+
+			scheduler.deleteJob(jobDetail.getKey());
+			scheduler.scheduleJob(jobDetail, trigger);
 		}
 	}
 
