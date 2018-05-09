@@ -8,6 +8,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 
 public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 
@@ -35,15 +36,22 @@ public abstract class XBaseQuartzJobBean extends QuartzJobBean {
 	@Override
 	public void executeInternal(JobExecutionContext context) throws JobExecutionException {
 
-		logger.info(" {}({}) start by {}, Params:{}", this.getClass().getSimpleName(), name, context.getTrigger(), context.getMergedJobDataMap());
+		LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+		if (context.getMergedJobDataMap() != null) {
+			context.getMergedJobDataMap().forEach((key, value) ->{
+				map.put(key, value);
+			});
+		}
+
+		logger.info("Start {}({}) by {}, Params:{}", this.getClass().getSimpleName(), name, context.getTrigger(), map);
 
 		try {
 			executeJob(context);
 		} catch (Exception e) {
-			logger.error(this.getClass().getName() + " {} error by {}, {}", name, context.getTrigger(), e.getMessage());
+			logger.error(this.getClass().getName() + "Error {} by {}, {}", name, context.getTrigger(), e.getMessage());
 			throw new JobExecutionException(e);
 		} finally {
-			logger.info(" {}({}) end by {}", this.getClass().getSimpleName() + name, context.getTrigger());
+			logger.info("End {}({}) by {}", this.getClass().getSimpleName() + name, context.getTrigger());
 		}
 	}
 

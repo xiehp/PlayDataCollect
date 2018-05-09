@@ -7,12 +7,14 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import xie.common.utils.date.DateUtil;
 import xie.common.utils.string.XStringUtils;
+import xie.common.utils.utils.XConvertUtils;
 import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.collector.workflow.get.IGetDataProcess;
 import xie.playdatacollect.collector.workflow.use.IUseDataProcess;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.common.data.CollectedData;
+import xie.playdatacollect.common.utils.PlayDataUtils;
 import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.db.utils.AllDaoUtil;
 import xie.playdatacollect.core.db.utils.AllServiceUtil;
@@ -85,12 +87,12 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		/** 当前往前多少时间，秒 */
 		Long beforeSecond = null;
 		if (jobDataMap.containsKey("beforeSecond")) {
-			beforeSecond = jobDataMap.getLongValue("beforeSecond");
+			beforeSecond = XConvertUtils.convert2Long(jobDataMap.get("beforeSecond"), null);
 		}
 		/** 当前往后多少时间，秒 */
 		Long afterSecond = null;
 		if (jobDataMap.containsKey("afterSecond")) {
-			afterSecond = jobDataMap.getLongValue("afterSecond");
+			afterSecond = XConvertUtils.convert2Long(jobDataMap.get("afterSecond"), null);
 		}
 
 		Date begin = null;

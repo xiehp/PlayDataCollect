@@ -33,7 +33,7 @@ public class PlayDataUtils {
 	public static Long parseValue(Object value) {
 		long result = -1;
 
-		if (value == null || value.toString() == null || "-".equals(value.toString())) {
+		if (value == null || "".equals(value.toString()) || "-".equals(value.toString())) {
 			return result;
 		}
 
