@@ -16,6 +16,7 @@ import xie.playdatacollect.collector.quartz.job.XRefreshScheduleJob;
 import xie.playdatacollect.collector.quartz.job.bilibili.*;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IqiyiPlayDataProgramJob;
+import xie.playdatacollect.collector.quartz.job.youku.YoukuPlayDataProgramJob;
 import xie.playdatacollect.collector.quartz.utils.XScheduleConfig;
 import xie.playdatacollect.collector.quartz.utils.XRefreshSchedule;
 import xie.playdatacollect.common.PlayDataConst;
@@ -191,7 +192,28 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_IqiyiPlayDataProgramJob2", null, "IqiyiPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
 
 
+		// youku
+		map.clear();
+		map.put("name", "JobDetail_Youku_GetProcessUrl");
+		saveJob("JobDetail_Youku_GetProcessUrl", null, IQiYiGetProcessUrl.class.getName(), map, null);
+		saveTrigger("Trigger_Youku_GetProcessUrl", null, "JobDetail_Youku_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
+		map.clear();
+		map.put("name", "YoukuPlayDataProgramJob");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("beforeSecond", XConst.SECOND_15_DAY);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
+		saveJob("YoukuPlayDataProgramJob", null, YoukuPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_YoukuPlayDataProgramJob", null, "YoukuPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
+
+		map.clear();
+		map.put("name", "YoukuPlayDataProgramJob2");
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
+		map.put("afterSecond", -XConst.SECOND_02_MIN);
+		saveJob("YoukuPlayDataProgramJob2", null, YoukuPlayDataProgramJob.class.getName(), map, null);
+		saveTrigger("trigger_YoukuPlayDataProgramJob2", null, "YoukuPlayDataProgramJob2", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_30_MIN, null, false);
 
 
 		updateBatch();
@@ -239,7 +261,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 			, String cron
 			, HashMap<String, Object> jsonOptions
 			, boolean deleteFlag
-			) throws ParseException {
+	) throws ParseException {
 
 		if (XStringUtils.isBlank(group)) {
 			group = ScheduleTriggerEntity.GROUP_DEFAULT;

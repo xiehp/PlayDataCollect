@@ -1,14 +1,15 @@
-package xie.playdatacollect.collector.quartz.job.iqiyi;
+package xie.playdatacollect.collector.quartz.job.youku;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.quartz.JobDataMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,45 +24,43 @@ import xie.playdatacollect.common.PlayDataConst;
 @TestConfiguration
 @ActiveProfiles(value = "test")
 @EnableAutoConfiguration(exclude = {QuartzAutoConfiguration.class})
-public class IqiyiJobTest {
+@FixMethodOrder(MethodSorters.JVM)
+public class YoukuJobTest {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Value("aaa")
-	private String aaa;
 
 	@Autowired
-	private IqiyiPlayDataProgramJob iqiyiPlayDataProgramJob;
+	private YoukuGetProcessUrl youkuGetProcessUrl;
 	@Autowired
-	private IQiYiGetProcessUrl iQiYiGetProcessUrl;
+	private YoukuPlayDataProgramJob youkuPlayDataProgramJob;
 
 	@Before
 	public void before()  {
-		logger.info(aaa);
-		logger.info("IqiyiJobTest test start");
+		logger.info("YoukuJobTest test start");
 	}
 
 	@After
 	public void after()  {
-		logger.info("IqiyiJobTest test end");
+		logger.info("YoukuJobTest test end");
 	}
 
 	@Test
-	public void testIqiyiGetProcessUrlJob()  {
-		logger.info("testIqiyiGetProcessUrlJob test start");
-		iQiYiGetProcessUrl.runSpider();
-		logger.info("testIqiyiGetProcessUrlJob test end");
+	public void testYoukuGetProcessUrlJob()  {
+		logger.info("testYoukuGetProcessUrlJob test start");
+		youkuGetProcessUrl.runSpider();
+		logger.info("testYoukuGetProcessUrlJob test end");
 	}
 
 	@Test
-	public void testIqiyiPlayDataProgramJob()  {
-		logger.info("testIqiyiPlayDataProgramJob test start");
+	public void testYoukuPlayDataProgramJob()  {
+		logger.info("testYoukuPlayDataProgramJob test start");
 		JobDataMap jobDataMap = new JobDataMap();
-		jobDataMap.put("name", "testIqiyiPlayDataEpisodeJob");
-		jobDataMap.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		jobDataMap.put("name", "testYoukuPlayDataEpisodeJob");
+		jobDataMap.put("sourceKey", PlayDataConst.SOURCE_KEY_YOUKU);
 		jobDataMap.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
 		jobDataMap.put("beforeSecond", XConst.SECOND_30_DAY);
-		jobDataMap.put("afterSecond", XConst.SECOND_01_HOUR);
-		iqiyiPlayDataProgramJob.runSpider(jobDataMap);
-		logger.info("testIqiyiPlayDataProgramJob test end");
+		jobDataMap.put("afterSecond", -XConst.SECOND_01_HOUR);
+		youkuPlayDataProgramJob.runSpider(jobDataMap);
+		logger.info("testYoukuPlayDataProgramJob test end");
 	}
 }
