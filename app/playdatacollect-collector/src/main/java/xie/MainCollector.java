@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import us.codecraft.webmagic.Spider;
 import xie.component.httpclient.XHttpClientUtils;
-import xie.playdatacollect.collector.process.ProcessBilibili;
 import xie.playdatacollect.core.db.service.MetricService;
 import xie.playdatacollect.core.db.service.TagService;
 import xie.playdatacollect.core.db.service.ValueService;
@@ -36,8 +35,6 @@ public class MainCollector {
 	RestTemplate restTemplate;
 	@Resource
 	XHttpClientUtils xHttpClientUtils;
-	@Resource
-	ProcessBilibili processBilibili;
 
 	@Resource
 	Test1Service test1Service;
@@ -205,8 +202,8 @@ public class MainCollector {
 		List<String> listBLNY2018 = new ArrayList<>();
 		listBLNY2018.add("https://www.bilibili.com/blackboard/bnj2018.html");
 
-		processBilibili.spiderGetAll(spiderBLNormal, listBLNormal, dateTime);
-		processBilibili.spiderGetAll(spiderBLNY2018, listBLNY2018, dateTime);
+//		processBilibili.spiderGetAll(spiderBLNormal, listBLNormal, dateTime);
+//		processBilibili.spiderGetAll(spiderBLNY2018, listBLNY2018, dateTime);
 	}
 
 	public static void main(String[] args) {

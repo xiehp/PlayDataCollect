@@ -96,13 +96,13 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		map.clear();
 		// TODO 这些最终应该在UI界面维护
 		// bilibili
-		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
-		saveJob("BilibiliPlayDataEpisodeNewJob", null, BilibiliPlayDataEpisodeNewJob.class.getName(), map, null);
-		saveTrigger("trigger_EpisodeNewJob", null, "BilibiliPlayDataEpisodeNewJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, true);
-
-		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
-		saveJob("BilibiliPlayDataEpisodeOldJob", null, BilibiliPlayDataEpisodeOldJob.class.getName(), map, null);
-		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, true);
+//		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
+//		saveJob("BilibiliPlayDataEpisodeNewJob", null, BilibiliPlayDataEpisodeNewJob.class.getName(), map, null);
+//		saveTrigger("trigger_EpisodeNewJob", null, "BilibiliPlayDataEpisodeNewJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_01_MIN, null, true);
+//
+//		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
+//		saveJob("BilibiliPlayDataEpisodeOldJob", null, BilibiliPlayDataEpisodeOldJob.class.getName(), map, null);
+//		saveTrigger("trigger_EpisodeOldJob", null, "BilibiliPlayDataEpisodeOldJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_10_MIN, null, true);
 
 		map.clear();
 		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);

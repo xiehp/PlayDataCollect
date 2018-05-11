@@ -91,24 +91,6 @@ public class ProcessBilibiliByCollectedData {
 					logger.error("生成数据发生错误", e);
 				}
 
-//				resultItemse.getAll().forEach((key, value) -> {
-//					ValueEntity valueEntity = new ValueEntity();
-//					valueEntity.setTag(key);
-//					valueEntity.setTime(new Date());
-//					valueEntity.setValue(value == null ? null : value.toString());
-//					valueEntity = valueService.save(valueEntity);
-//					//System.out.println(valueEntity.toMapWithOutBase());
-//
-//
-//					if ("播放数".equals(key) || "追番人数".equals(key) || "弹幕总数".equals(key)) {
-//						value = parseValue(value);
-//						//String requestObject = "cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000";
-//						String requestObject = key + ",名字=" + 名字 + ",网站=bilibili value=" + value + " " + dateTime + "";
-//						//String result = restTemplate.postForObject("http://linux2.acgimage.cn:48086/write?db=play_data", requestObject, String.class);
-//						//log.info(result);
-//					}
-//				});
-
 			}
 
 			break;

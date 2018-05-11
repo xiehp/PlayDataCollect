@@ -1,18 +1,14 @@
 package xie.playdatacollect.collector.quartz.config;
 
-import org.quartz.*;
+import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-import xie.playdatacollect.collector.quartz.job.DummyJob;
-import xie.playdatacollect.collector.quartz.job.NoJob;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.collector.quartz.job.bilibili.BiliBiliGetProcessUrl;
-import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeNewJob;
-import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataEpisodeOldJob;
 import xie.playdatacollect.collector.quartz.job.bilibili.BilibiliPlayDataProgramJob;
 import xie.playdatacollect.collector.quartz.job.iqiyi.IQiYiGetProcessUrl;
 
@@ -83,19 +79,19 @@ public class QuartzJobDetailConfig {
 //		return createJobDetail(DummyJob.class, "dummyJob4", map);
 //	}
 
-//	@Bean
-	public JobDetail getBilibiliPlayDataEpisodeNewJobDetail() {
-		JobDataMap map = new JobDataMap();
-		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
-		return createJobDetail(BilibiliPlayDataEpisodeNewJob.class, "BilibiliPlayDataEpisodeNewJob", map);
-	}
-
-//	@Bean
-	public JobDetail getBilibiliPlayDataEpisodeOldJobDetail() {
-		JobDataMap map = new JobDataMap();
-		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
-		return createJobDetail(BilibiliPlayDataEpisodeOldJob.class, "BilibiliPlayDataEpisodeOldJob", map);
-	}
+////	@Bean
+//	public JobDetail getBilibiliPlayDataEpisodeNewJobDetail() {
+//		JobDataMap map = new JobDataMap();
+//		map.put("name", "BilibiliPlayDataEpisodeNewJobDetail");
+//		return createJobDetail(BilibiliPlayDataEpisodeNewJob.class, "BilibiliPlayDataEpisodeNewJob", map);
+//	}
+//
+////	@Bean
+//	public JobDetail getBilibiliPlayDataEpisodeOldJobDetail() {
+//		JobDataMap map = new JobDataMap();
+//		map.put("name", "BilibiliPlayDataEpisodeOldJobDetail");
+//		return createJobDetail(BilibiliPlayDataEpisodeOldJob.class, "BilibiliPlayDataEpisodeOldJob", map);
+//	}
 
 //	@Bean
 	public JobDetail getBilibiliPlayDataProgramJobDetail() {
