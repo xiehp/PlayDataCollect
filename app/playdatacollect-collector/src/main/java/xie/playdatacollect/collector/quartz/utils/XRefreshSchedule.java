@@ -58,7 +58,6 @@ public class XRefreshSchedule {
 				} catch (SchedulerException e) {
 					XLog.getLog(this).error("停止trigger发生错误", e);
 				}
-				continue;
 			} else {
 				ScheduleJobEntity jobEntity = XListUtils.getValueByKey(jobList, (job) -> {
 					if (XStringUtils.equalsIgnoreCase(jobIdentity, job.getIdentity())
