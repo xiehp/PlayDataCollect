@@ -207,7 +207,6 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveJob("YoukuPlayDataProgramJob", null, YoukuPlayDataProgramJob.class.getName(), map, null);
 		saveTrigger("trigger_YoukuPlayDataProgramJob", null, "YoukuPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
 
-		map.clear();
 		map.put("name", "YoukuPlayDataProgramJob2");
 		map.put("beforeSecond", null);
 		map.put("afterSecond", XConst.SECOND_15_DAY);
