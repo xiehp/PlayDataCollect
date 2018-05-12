@@ -13,6 +13,9 @@ import xie.playdatacollect.spider.webmagic.processor.youku.YoukuProgramPageProce
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Component
 public class GetDataProcessYouku implements IGetDataProcess {
@@ -27,12 +30,13 @@ public class GetDataProcessYouku implements IGetDataProcess {
 			if (XStringUtils.isNotBlank(processUrl.getUrl())) {
 				listURL.add(processUrl.getUrl());
 			}
-
 		});
+		Map<String, String> url2NameMap = listProcessUrl.stream()
+				.collect(Collectors.toMap(ProcessUrlEntity::getUrl, ProcessUrlEntity::getName));
 
 		// 通过spider获得原始数据
 		long dateTime = System.currentTimeMillis();
-		Spider spider = Spider.create(new YoukuProgramPageProcessor(dateTime)).thread(3);
+		Spider spider = Spider.create(new YoukuProgramPageProcessor(dateTime, url2NameMap)).thread(3);
 		List<ResultItems> resultItemses = spider.getAll(listURL);
 
 		// 生成自己可处理数据列
