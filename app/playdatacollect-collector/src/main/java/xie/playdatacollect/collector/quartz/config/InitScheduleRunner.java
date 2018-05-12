@@ -198,7 +198,7 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("Trigger_Youku_GetProcessUrl", null, "JobDetail_Youku_GetProcessUrl", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_12_HOUR, null, false);
 
 		map.clear();
-		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
+		map.put("sourceKey", PlayDataConst.SOURCE_KEY_YOUKU);
 		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
 
 		map.put("name", "YoukuPlayDataProgramJob");
