@@ -53,6 +53,10 @@ public class XConvertUtils {
 
 
 	public static Long convert2Long(Object value, Long defaultValue) {
+		if (value == null) {
+			return defaultValue;
+		}
+
 		if (XStringUtils.isBlank(value.toString())) {
 			return defaultValue;
 		}
