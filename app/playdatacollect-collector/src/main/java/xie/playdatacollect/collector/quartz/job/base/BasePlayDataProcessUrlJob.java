@@ -144,10 +144,10 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 
 		// 搜索需处理数据
 		if (begin != null) {
-			searchMap.put("GTE_reBeginDate", begin);
+			searchMap.put("GTE_recentBeginDate", begin);
 		}
 		if (end != null) {
-			searchMap.put("LTE_reBeginDate", end);
+			searchMap.put("LTE_recentBeginDate", end);
 		}
 		Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 		List<ProcessUrlEntity> list = page.getContent();

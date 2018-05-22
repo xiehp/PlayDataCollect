@@ -40,10 +40,13 @@ public class ProcessUrlEntity extends BaseEntity {
 	/** url名称 */
 	private String name;
 
-	/** 该URL发布时间 */
+	/** 该URL最初发布时间 */
 	private Date beginDate;
 
-	/** 该URL再发布时间 */
+	/** 该URL最近发布时间 */
+	private Date recentBeginDate;
+
+	/** 该URL将会再发布时间 */
 	private Date reBeginDate;
 
 	/** program, episode */
@@ -122,6 +125,14 @@ public class ProcessUrlEntity extends BaseEntity {
 
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
+	}
+
+	public Date getRecentBeginDate() {
+		return recentBeginDate;
+	}
+
+	public void setRecentBeginDate(Date recentBeginDate) {
+		this.recentBeginDate = recentBeginDate;
 	}
 
 	public Date getReBeginDate() {
