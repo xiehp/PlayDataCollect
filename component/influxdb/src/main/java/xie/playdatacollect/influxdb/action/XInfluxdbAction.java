@@ -10,7 +10,11 @@ import xie.common.utils.log.XLog;
 import xie.common.utils.string.XStringUtils;
 import xie.common.utils.utils.XFormatUtils;
 
+import java.text.SimpleDateFormat;
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -86,20 +90,22 @@ public class XInfluxdbAction {
 	 * @param endDate 小于该时间
 	 * @return
 	 */
-	public boolean deleteSeries(String database, String measurementName, Map<String, String> deleteTagsMap, LocalDateTime startDate, LocalDateTime endDate) {
+	public boolean deleteSeries(String database, String measurementName, Map<String, String> deleteTagsMap, Date startDate, Date endDate) {
 		Map<String, Object> map = new LinkedHashMap<>(deleteTagsMap);
-		String tagWhereStr = XFormatUtils.formatMap2InfluxdbLine(map);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		String query = "DELETE from " + measurementName + " where 1=1 ";
-		if (XStringUtils.isNotBlank(tagWhereStr)) {
+		if (deleteTagsMap != null  && deleteTagsMap.size() > 0) {
+			String tagWhereStr = XFormatUtils.formatMap2InfluxdbLine(map);
 			query += " and " + tagWhereStr;
 		}
 		if (startDate != null) {
-			query += String.format(" and time >= '%s'", startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+			query += String.format(" and time >= '%s'", simpleDateFormat.format(startDate));
 		}
-//		if (endDate != null) {
-//			query += String.format(" and time < '%s'", endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-//		}
+		if (endDate != null) {
+			query += String.format(" and time < '%s'", simpleDateFormat.format(endDate));
+		}
 		logger.info(query);
 		QueryResult queryResult = influxDB.query(new Query(query, database));
 		if (queryResult.hasError()) {

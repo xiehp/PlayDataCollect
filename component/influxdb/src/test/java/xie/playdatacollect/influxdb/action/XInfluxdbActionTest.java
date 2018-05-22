@@ -10,7 +10,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import xie.common.utils.date.DateUtil;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalUnit;
@@ -40,15 +44,19 @@ public class XInfluxdbActionTest {
 
 		Point point2 = Point.measurement("m1").tag("t1", "bbb").addField("f1", 222).build();
 		Point point3 = Point.measurement("m1").tag("t2", "ccc").addField("f1", 333).build();
-		xInfluxdbAction.writePoint(point1);
-		xInfluxdbAction.writePoint(point2);
+//		xInfluxdbAction.writePoint(point1);
+//		xInfluxdbAction.writePoint(point2);
 		xInfluxdbAction.writePoint(point3);
 
 //		while (true) {
 			Thread.sleep(2000);
-			xInfluxdbAction.writePoint(point1);
-			xInfluxdbAction.writePoint(point2);
+//			xInfluxdbAction.writePoint(point1);
+//			xInfluxdbAction.writePoint(point2);
 			xInfluxdbAction.writePoint(point3);
+		Thread.sleep(2000);
+//		xInfluxdbAction.writePoint(point1);
+//		xInfluxdbAction.writePoint(point2);
+		xInfluxdbAction.writePoint(point3);
 
 //		}
 	}
@@ -72,10 +80,10 @@ public class XInfluxdbActionTest {
 
 
 	@Test
-	public void test_deleteSeries() {
+	public void test_deleteSeries() throws ParseException {
 		Map<String, String> tagMap = new HashMap<>();
-		tagMap.put("t1", "aaa");
-		xInfluxdbAction.deleteSeries("test", "m1", tagMap, LocalDate.now().atTime(11, 38), LocalDate.now().atTime(11, 39));
+		tagMap.put("t2", "ccc");
+		xInfluxdbAction.deleteSeries("test", "m1", tagMap, DateUtil.fromString("2018-05-22 23:38:34"), DateUtil.fromString("2018-05-22 23:38:38"));
 
 	}
 
