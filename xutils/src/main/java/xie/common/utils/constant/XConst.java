@@ -77,6 +77,11 @@ public class XConst {
 	public static final long SECOND_30_DAY = 30 * SECOND_24_HOUR;
 	public static final long SECOND_100_DAY = 100 * SECOND_24_HOUR;
 
+	public static final long SECOND_01_WEEK = SECOND_07_DAY;
+	public static final long SECOND_02_WEEK = 2 * SECOND_01_WEEK;
+	public static final long SECOND_03_WEEK = 3 * SECOND_01_WEEK;
+	public static final long SECOND_04_WEEK = 4 * SECOND_01_WEEK;
+
 	public static final long SECOND_01_MONTH = SECOND_30_DAY;
 	public static final long SECOND_02_MONTH = 2 * SECOND_30_DAY;
 	public static final long SECOND_03_MONTH = 3 * SECOND_30_DAY;

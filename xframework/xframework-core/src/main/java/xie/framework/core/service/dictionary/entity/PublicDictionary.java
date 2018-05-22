@@ -10,8 +10,6 @@ import javax.persistence.Table;
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PublicDictionary extends BaseEntity {
 
-	private static final long serialVersionUID = -2026574135274474467L;
-
 	private String typeId;
 	private String code;
 	private String value;
