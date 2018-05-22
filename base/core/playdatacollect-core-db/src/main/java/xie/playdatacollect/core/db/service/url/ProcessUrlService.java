@@ -1,10 +1,15 @@
-package xie.playdatacollect.core.db.service;
+package xie.playdatacollect.core.db.service.url;
 
 import org.springframework.stereotype.Service;
 import xie.common.spring.jpa.repository.BaseDao;
 import xie.common.spring.utils.XJsonUtil;
-import xie.playdatacollect.core.db.dao.ProcessUrlDao;
+import xie.common.utils.string.XStringUtils;
+import xie.playdatacollect.common.PlayDataConst;
+import xie.playdatacollect.core.db.dao.program.ProgramDao;
+import xie.playdatacollect.core.db.dao.url.ProcessUrlDao;
+import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
+import xie.playdatacollect.core.db.service.BasePlayCollectService;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -15,17 +20,21 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 
 	@Resource
 	private ProcessUrlDao processUrlDao;
+	@Resource
+	private ProgramDao programDao;
 
 	@Override
 	public BaseDao<ProcessUrlEntity, String> getBaseDao() {
 		return processUrlDao;
 	}
 
-	public void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate) {
-		saveProcessUrlData(sourceKey, name, type, desc, url, beginDate, null);
+	public ProcessUrlEntity saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate) {
+		return saveProcessUrlData(sourceKey, name, type, desc, url, beginDate, null);
 	}
 
-	public void saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate, Map<String, Object> params) {
+	public ProcessUrlEntity saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate, Map<String, Object> params) {
+
+		name = name.trim();
 		ProcessUrlEntity processUrlEntity = processUrlDao.findBySourceKeyAndName(sourceKey, name);
 		if (processUrlEntity == null) {
 			processUrlEntity = new ProcessUrlEntity();
@@ -50,6 +59,7 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 		processUrlEntity.setParams(XJsonUtil.toJsonString(params));
 		processUrlEntity.setRemark(desc);
 
-		save(processUrlEntity);
+		processUrlEntity = save(processUrlEntity);
+		return processUrlEntity;
 	}
 }

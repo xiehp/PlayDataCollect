@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import xie.common.utils.constant.XConst;
+import xie.framework.core.service.dictionary.service.AutoQueueService;
 import xie.playdatacollect.common.PlayDataConst;
 
 @RunWith(SpringRunner.class)
@@ -35,9 +36,13 @@ public class BilibiliJobTest {
 	private BilibiliPlayDataEpisodeJob bilibiliPlayDataEpisodeJob;
 	@Autowired
 	private BiliBiliGetProcessUrl bilibiliGetProcessUrl;
+	@Autowired
+	private AutoQueueService autoQueueService;
 
 	@Before
 	public void before() {
+//		autoQueueService.create("ProgramEntity",-1,2);
+//		autoQueueService.create("EpisodeEntity",0,2);
 		logger.info("----------------------before---------------------");
 		logger.info("BilibiliJobTest test start");
 	}
@@ -62,7 +67,8 @@ public class BilibiliJobTest {
 		jobDataMap.put("name", "testBilibiliPlayDataProgramJob");
 		jobDataMap.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		jobDataMap.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
-		jobDataMap.put("beforeSecond", XConst.SECOND_01_DAY);
+		jobDataMap.put("beforeSecond", null);
+		jobDataMap.put("afterSecond", -XConst.SECOND_01_HOUR);
 		bilibiliPlayDataProgramJob.runSpider(jobDataMap);
 		logger.info("testBilibiliPlayDataProgramJob test end");
 	}

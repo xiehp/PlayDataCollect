@@ -96,10 +96,6 @@
 		<!--</dependency>-->
 
 		<!-- ★★第三方基础依赖★★ -->
-		<dependency>
-			<groupId>org.influxdb</groupId>
-			<artifactId>influxdb-java</artifactId>
-		</dependency>
 
 
 		<!-- ★★测试依赖★★ -->

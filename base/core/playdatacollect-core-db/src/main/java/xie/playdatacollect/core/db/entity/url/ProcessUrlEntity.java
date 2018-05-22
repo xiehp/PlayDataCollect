@@ -1,6 +1,10 @@
 package xie.playdatacollect.core.db.entity.url;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import xie.common.spring.jpa.entity.BaseEntity;
+import xie.playdatacollect.core.db.entity.program.EpisodeEntity;
+import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,13 +17,25 @@ import java.util.Date;
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProcessUrlEntity extends BaseEntity {
 
+	private Long programCode;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "programCode", referencedColumnName = "code", insertable = false, updatable = false)
+	private ProgramEntity program;
+
+	private Long episodeCode;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "episodeCode", referencedColumnName = "code", insertable = false, updatable = false)
+	private EpisodeEntity episode;
+
 	/** 所属数据来源 */
 	private String sourceKey;
 
 	/** 所属数据来源 */
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "sourceKey",referencedColumnName = "keyword", insertable = false, updatable = false)
-	SourcesEntity sources;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sourceKey", referencedColumnName = "keyword", insertable = false, updatable = false)
+	private SourcesEntity sources;
 
 	/** url名称 */
 	private String name;
@@ -43,6 +59,38 @@ public class ProcessUrlEntity extends BaseEntity {
 
 	/** 备注 */
 	private String remark;
+
+	public Long getProgramCode() {
+		return programCode;
+	}
+
+	public void setProgramCode(Long programCode) {
+		this.programCode = programCode;
+	}
+
+	public ProgramEntity getProgram() {
+		return program;
+	}
+
+	public void setProgram(ProgramEntity program) {
+		this.program = program;
+	}
+
+	public Long getEpisodeCode() {
+		return episodeCode;
+	}
+
+	public void setEpisodeCode(Long episodeCode) {
+		this.episodeCode = episodeCode;
+	}
+
+	public EpisodeEntity getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(EpisodeEntity episode) {
+		this.episode = episode;
+	}
 
 	public String getSourceKey() {
 		return sourceKey;

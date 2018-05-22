@@ -82,12 +82,12 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 	protected List<ProcessUrlEntity> getProcessUrlList(JobDataMap jobDataMap) {
 		String sourceKey = jobDataMap.getString("sourceKey");
 		String type = jobDataMap.getString("type");
-		/** 当前往前多少时间，秒 */
+		/* 当前往前多少时间，秒 */
 		Long beforeSecond = null;
 		if (jobDataMap.containsKey("beforeSecond")) {
 			beforeSecond = XConvertUtils.convert2Long(jobDataMap.get("beforeSecond"), null);
 		}
-		/** 当前往后多少时间，秒 */
+		/* 当前往后多少时间，秒 */
 		Long afterSecond = null;
 		if (jobDataMap.containsKey("afterSecond")) {
 			afterSecond = XConvertUtils.convert2Long(jobDataMap.get("afterSecond"), null);

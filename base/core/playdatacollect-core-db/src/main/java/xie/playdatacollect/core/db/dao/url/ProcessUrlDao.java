@@ -1,4 +1,4 @@
-package xie.playdatacollect.core.db.dao;
+package xie.playdatacollect.core.db.dao.url;
 
 import xie.common.spring.jpa.repository.BaseDao;
 import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;

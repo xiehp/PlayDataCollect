@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import xie.common.utils.number.XNumberUtils;
 import xie.playdatacollect.collector.quartz.job.XBaseQuartzJobBean;
 import xie.playdatacollect.common.PlayDataConst;
+import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.db.utils.AllServiceUtil;
 import xie.playdatacollect.core.db.utils.InitEntityDataRunner;
 
@@ -42,7 +43,7 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 	}
 
 	private void processResult(String url) {
-		Map map = restTemplate.getForObject(url, HashMap.class);
+		Map<String,Object> map = restTemplate.getForObject(url, HashMap.class);
 		Integer code = (Integer) map.getOrDefault("code", -1);
 		String message = (String) map.getOrDefault("message", "");
 
@@ -72,33 +73,36 @@ public class BiliBiliGetProcessUrl extends XBaseQuartzJobBean {
 
 
 				// 将节目存入到URL处理列表中
-				allServiceUtil.getProcessUrlService().saveProcessUrlData(
+				ProcessUrlEntity programUrl = allServiceUtil.getProcessUrlUtils().saveProcessUrlData(
 						PlayDataConst.SOURCE_KEY_BILIBILI,
 						title,
 						PlayDataConst.SOURCE_TYPE_PROGRAM,
 						null,
 						"https://bangumi.bilibili.com/anime/" + season_id,
 						new Date(pub_ts)
+						, null
 				);
 
 				// 将未发布的剧集存入到URL处理列表中
 				if (is_published == 0) {
-					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+					allServiceUtil.getProcessUrlUtils().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_BILIBILI,
 							title + " " + pub_index,
 							PlayDataConst.SOURCE_TYPE_EPISODE,
 							null,
 							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
 							new Date(pub_ts)
+							, null
 					);
 				} else {
-					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+					allServiceUtil.getProcessUrlUtils().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_BILIBILI,
 							title + " " + pub_index,
 							PlayDataConst.SOURCE_TYPE_EPISODE,
 							null,
 							"https://www.bilibili.com/bangumi/play/ep" + ep_id,
 							new Date(pub_ts)
+							, null
 					);
 				}
 			}

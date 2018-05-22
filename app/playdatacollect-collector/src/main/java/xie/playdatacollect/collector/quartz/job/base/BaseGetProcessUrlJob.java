@@ -55,7 +55,7 @@ public abstract class BaseGetProcessUrlJob extends XBaseQuartzJobBean {
 					Map<String, Object> params = new LinkedHashMap<>();
 					params.put("tvId", tvId);
 
-					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+					allServiceUtil.getProcessUrlUtils().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_IQIYI,
 							url.getTitle(),
 							PlayDataConst.SOURCE_TYPE_PROGRAM,

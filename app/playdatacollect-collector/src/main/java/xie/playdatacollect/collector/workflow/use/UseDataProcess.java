@@ -21,6 +21,9 @@ public class UseDataProcess implements IUseDataProcess {
 	@Resource
 	protected RestTemplate restTemplate;
 
+	@Resource
+	protected InfluxDB influxDB;
+
 	/**
 	 * 处理整理好的数据
 	 *
@@ -32,7 +35,6 @@ public class UseDataProcess implements IUseDataProcess {
 			return;
 		}
 
-		InfluxDB influxDB = InfluxDBFactory.connect("https://influxdb.acgimage.cn/");
 		influxDB.setDatabase("play_data");
 
 

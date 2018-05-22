@@ -36,7 +36,7 @@ public class YoukuGetProcessUrl extends XBaseQuartzJobBean {
 			for (YoukuProcessUrl url : list) {
 				try {
 					// 根据页面获取其他特定信息
-					allServiceUtil.getProcessUrlService().saveProcessUrlData(
+					allServiceUtil.getProcessUrlUtils().saveProcessUrlData(
 							PlayDataConst.SOURCE_KEY_YOUKU,
 							url.getTitle(),
 							PlayDataConst.SOURCE_TYPE_PROGRAM,
