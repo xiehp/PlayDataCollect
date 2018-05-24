@@ -128,13 +128,17 @@ public abstract class XReflectionUtils {
 	 * @return the field's current value
 	 */
 	public static Object getField(Field field, Object target) {
+		boolean oldAccessible = field.isAccessible();
 		try {
+			field.setAccessible(true);
 			return field.get(target);
 		}
 		catch (IllegalAccessException ex) {
 			handleReflectionException(ex);
 			throw new IllegalStateException(
 					"Unexpected reflection exception - " + ex.getClass().getName() + ": " + ex.getMessage());
+		} finally {
+			field.setAccessible(oldAccessible);
 		}
 	}
 

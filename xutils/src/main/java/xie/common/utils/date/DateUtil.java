@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtil {
 
@@ -46,8 +47,7 @@ public class DateUtil {
 	}
 
 	/**
-	 * 
-	 * @param time 一个以0开始的时间，精确到微秒
+	 * @param time  一个以0开始的时间，精确到微秒
 	 * @param style 0: "mm:ss" 1: "SSS" 2: "mm:ss:SSS" 3: "mm分ss秒SSS", SSS为0时省略
 	 * @return
 	 */
@@ -81,8 +81,7 @@ public class DateUtil {
 	}
 
 	/**
-	 * 
-	 * @param time 一个以0开始的时间，精确到微秒
+	 * @param time    一个以0开始的时间，精确到微秒
 	 * @param pattern
 	 * @return
 	 */
@@ -93,8 +92,7 @@ public class DateUtil {
 
 	/**
 	 * Convert date type from String to Date
-	 * 
-	 * @param temp Sample:2005-10-12
+	 *
 	 * @return Date
 	 */
 	public static String convertToString(Date date, String format) {
@@ -106,6 +104,18 @@ public class DateUtil {
 
 	public static String convertToString(Date date) {
 		return convertToString(date, YMD_FULL);
+	}
+
+	public static String convertToStringUTC(Date date, String format) {
+		if (date == null)
+			return "";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return sdf.format(date);
+	}
+
+	public static String convertToStringUTC(Date date) {
+		return convertToStringUTC(date, YMD_FULL);
 	}
 
 	public static Date seekDate(Date date, int dayNum) {
@@ -204,7 +214,27 @@ public class DateUtil {
 		return b1.add(b2).doubleValue();
 	}
 
-	public static final String[] PATTERNS_ALL = new String[] {
+	public static final String[] PATTERNS_ALL = new String[]{
+			"yyyy-MM-dd HH:mm:ss",
+			"yyyy/MM/dd HH:mm:ss",
+			"yyyy年MM月dd HH:mm:ss",
+			"yyyyMMdd HH:mm:ss",
+			"yyyy-MM-dd HH:mm",
+			"yyyy/MM/dd HH:mm",
+			"yyyy年MM月dd HH:mm",
+			"yyyyMMdd HH:mm",
+			"yyyy-MM-dd",
+			"yyyy/MM/dd",
+			"yyyy年MM月dd日",
+			"yyyyMMdd",
+			"yyyy-MM",
+			"yyyy/MM",
+			"yyyy年MM月",
+			"yyyyMM"
+	};
+
+	public static final String[] PATTERNS_ALL_UTC = new String[]{
+			"yyyy-MM-dd'T'HH:mm:ss'Z'",
 			"yyyy-MM-dd HH:mm:ss",
 			"yyyy/MM/dd HH:mm:ss",
 			"yyyy年MM月dd HH:mm:ss",
@@ -244,7 +274,7 @@ public class DateUtil {
 
 	/**
 	 * 使用多种方式转换
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 * @throws ParseException
@@ -268,8 +298,34 @@ public class DateUtil {
 	}
 
 	/**
+	 * 使用多种方式转换，UTC日期转换成本地时间
+	 *
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date fromStringUTC(String date) throws ParseException {
+		if (date == null) {
+			return null;
+		}
+
+		for (String pattern : PATTERNS_ALL_UTC) {
+			if (date.length() == pattern.replace("'","").length()) {
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+					sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+					return sdf.parse(date);
+				} catch (Exception e) {
+				}
+			}
+		}
+
+		throw new ParseException("[" + date + "]无法转换成日期", 0);
+	}
+
+	/**
 	 * 获取某一天的 00:00:00
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -288,7 +344,7 @@ public class DateUtil {
 
 	/**
 	 * 获取某天的 23:59:59.999
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -307,7 +363,7 @@ public class DateUtil {
 
 	/**
 	 * 获取这个时间的月初
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -323,7 +379,7 @@ public class DateUtil {
 
 	/**
 	 * 获取这段时间的月底
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -339,7 +395,7 @@ public class DateUtil {
 
 	/**
 	 * 获取这段时间的年初
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -356,7 +412,7 @@ public class DateUtil {
 
 	/**
 	 * 获取这段时间的年底
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -370,4 +426,5 @@ public class DateUtil {
 
 		return day.getTime();
 	}
+
 }

@@ -37,7 +37,7 @@ public class XFormatUtils {
 			entrySeparate = "";
 		}
 
-		StringBuilder result = new StringBuilder("");
+		StringBuilder result = new StringBuilder();
 		boolean firstFlag = true;
 		for (String key : map.keySet()) {
 			String value = map.get(key) == null ? null : map.get(key).toString();
