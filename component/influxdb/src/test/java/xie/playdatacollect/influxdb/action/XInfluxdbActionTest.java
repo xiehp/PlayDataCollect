@@ -3,6 +3,9 @@ package xie.playdatacollect.influxdb.action;
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
+import org.influxdb.impl.InfluxDBResultMapper;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import xie.common.utils.date.DateUtil;
+import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
+import xie.playdatacollect.influxdb.data.measurement.TestM2;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalUnit;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @RunWith(SpringRunner.class)
@@ -36,6 +37,136 @@ public class XInfluxdbActionTest {
 	@Autowired
 	private InfluxDB influxDB;
 
+	private XInfluxdbPojoMapper xInfluxdbPojoMapper = new XInfluxdbPojoMapper();
+
+	private void prepareData_full() throws ParseException {
+		influxDB.setDatabase("test");
+		xInfluxdbAction.dropMeasurement("test", "m2");
+
+		// 写入数据
+		Point point11 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 111.0).addField("f2", "a").addField("f3", 1).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point12 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 112.0).addField("f2", "b").addField("f3", 2).time(DateUtil.fromString("2018-03-02 11:22:34").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point13 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 113.0).addField("f2", "c").addField("f3", 3).time(DateUtil.fromString("2018-03-02 11:22:35").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point2 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag cat").addField("f1", 222.0).addField("f2", "d").addField("f3", 4).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point3 = Point.measurement("m2").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point4 = Point.measurement("m1").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).addField("f4", 5).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		xInfluxdbAction.writePoint(point11);
+		xInfluxdbAction.writePoint(point12);
+		xInfluxdbAction.writePoint(point13);
+		xInfluxdbAction.writePoint(point2);
+		xInfluxdbAction.writePoint(point3);
+		xInfluxdbAction.writePoint(point4);
+
+		// 读取数据
+		List<QueryResult.Result> list;
+		QueryResult queryResult = xInfluxdbAction.queryDataResult("test", "m1\",\"m2", null, null, null);
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues());
+		Assert.assertEquals(5, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+	}
+
+	@Test
+	public void test_full() throws ParseException {
+		List<QueryResult.Result> list;
+		Map<String, String> tags = new HashMap<>();
+
+		xInfluxdbAction.dropMeasurement("test", "m2");
+//		xInfluxdbAction.createMeasurement("test", "m2");
+
+		// delete数据
+//		xInfluxdbAction.deleteSeries("test", "m2", null, null, null);
+//		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+//		System.out.println(list);
+
+		// drop数据
+//		xInfluxdbAction.dropSeries("test", "m2", null);
+//		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+//		System.out.println(list);
+
+		// 删除数据0
+		prepareData_full();
+		tags.clear();
+		xInfluxdbAction.deleteSeries("test", "m2", tags, null, null);
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertNull(list.get(0).getSeries());
+
+		// 删除数据1
+		prepareData_full();
+		tags.clear();
+		tags.put("t1", "tag red");
+		xInfluxdbAction.deleteSeries("test", "m2", tags, null, null);
+		QueryResult queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(1, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+		InfluxDBResultMapper influxDBResultMapper = new InfluxDBResultMapper();
+		List<TestM2> listResultM2 = influxDBResultMapper.toPOJO(queryResult, TestM2.class);
+		System.out.println(listResultM2);
+		System.out.println(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
+
+
+		// 删除数据2
+		prepareData_full();
+		tags.clear();
+		tags.put("t2", "tag cat");
+		xInfluxdbAction.deleteSeries("test", "m2", tags, null, null);
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(3, list.get(0).getSeries().get(0).getValues().size());
+
+		// 删除数据3
+		prepareData_full();
+		tags.clear();
+		xInfluxdbAction.deleteSeries("test", "m2", tags, DateUtil.fromString("2018-03-02 11:22:34"), null);
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(3, list.get(0).getSeries().get(0).getValues().size());
+
+		// 删除数据4
+		prepareData_full();
+		tags.clear();
+		xInfluxdbAction.deleteSeries("test", "m2", tags, null, DateUtil.fromString("2018-03-02 11:22:34"));
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(2, list.get(0).getSeries().get(0).getValues().size());
+
+		// 删除数据5
+		prepareData_full();
+		tags.clear();
+		xInfluxdbAction.deleteSeries("test", "m2", tags, DateUtil.fromString("2018-03-02 11:22:34"), DateUtil.fromString("2018-03-02 11:22:35"));
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(4, list.get(0).getSeries().get(0).getValues().size());
+
+
+		Map<String, String> newTags = new HashMap<>();
+		// 复制数据1
+		prepareData_full();
+		tags.clear();
+		tags.put("t1", "tag red");
+		newTags.clear();
+		newTags.put("t1", "tag green");
+		newTags.put("t2", "tag mouse");
+		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, null, null);
+		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(8, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+
+		listResultM2 = influxDBResultMapper.toPOJO(queryResult, TestM2.class);
+		System.out.println(listResultM2);
+		System.out.println(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
+
+		// 复制数据2
+		prepareData_full();
+		tags.clear();
+		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, DateUtil.fromString("2018-03-02 11:22:34"), DateUtil.fromString("2018-03-02 11:22:35"));
+		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		System.out.println(list);
+		Assert.assertEquals(6, list.get(0).getSeries().get(0).getValues().size());
+
+
+
+	}
+
 	@Test
 	public void test_writePoint() throws InterruptedException {
 		influxDB.setDatabase("test");
@@ -49,10 +180,10 @@ public class XInfluxdbActionTest {
 		xInfluxdbAction.writePoint(point3);
 
 //		while (true) {
-			Thread.sleep(2000);
+		Thread.sleep(2000);
 //			xInfluxdbAction.writePoint(point1);
 //			xInfluxdbAction.writePoint(point2);
-			xInfluxdbAction.writePoint(point3);
+		xInfluxdbAction.writePoint(point3);
 		Thread.sleep(2000);
 //		xInfluxdbAction.writePoint(point1);
 //		xInfluxdbAction.writePoint(point2);
