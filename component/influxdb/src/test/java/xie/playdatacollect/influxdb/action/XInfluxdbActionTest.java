@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import xie.common.utils.date.DateUtil;
 import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
 import xie.playdatacollect.influxdb.data.measurement.TestM2;
+import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
+import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -65,9 +67,76 @@ public class XInfluxdbActionTest {
 	}
 
 	@Test
+	public void test_play_data2() throws ParseException {
+		List<QueryResult.Result> list;
+		Map<String, String> tags = new HashMap<>();
+		QueryResult queryResult;
+
+		tags.clear();
+		tags.put("网站", "bilibili");
+		tags.put("名字", "齐木楠雄的灾难 第二季");
+
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags);
+		print(queryResult, MPlayData.class);
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+
+	}
+
+	@Test
+	public void test_play_data() throws ParseException {
+		List<QueryResult.Result> list;
+		Map<String, String> tags = new HashMap<>();
+		QueryResult queryResult;
+//
+//		xInfluxdbAction.dropMeasurement("test", "base_data");
+
+		tags.clear();
+		tags.put("网站", "bilibili");
+
+		xInfluxdbAction.deleteSeries("test", "base_data", tags);
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		System.out.println(queryResult.getResults().get(0).getSeries() == null);
+
+
+//		tags.put("名字", "重神机潘多拉：第9话 虎眼");
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+//		print(queryResult, MPlayData.class);
+
+		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		print(queryResult, MPlayData.class);
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+
+
+		tags.put("网站", "bilibili");
+		tags.put("名字", "齐木楠雄的灾难 第二季");
+		xInfluxdbAction.deleteSeries("test", "base_data", tags);
+		tags.remove("名字");
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+
+		tags.put("名字", "Butlers～千年百年物语～");
+		xInfluxdbAction.deleteSeries("test", "base_data", tags);
+		tags.remove("名字");
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+
+		tags.put("名字", "DARLING in the FRANXX（僅限港澳台地區）");
+		xInfluxdbAction.deleteSeries("test", "base_data", tags);
+		tags.remove("名字");
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
+//		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+//		print(queryResult, MPlayData.class);
+
+
+	}
+
+	@Test
 	public void test_full() throws ParseException {
 		List<QueryResult.Result> list;
 		Map<String, String> tags = new HashMap<>();
+		QueryResult queryResult;
 
 		xInfluxdbAction.dropMeasurement("test", "m2");
 //		xInfluxdbAction.createMeasurement("test", "m2");
@@ -95,13 +164,13 @@ public class XInfluxdbActionTest {
 		tags.clear();
 		tags.put("t1", "tag red");
 		xInfluxdbAction.deleteSeries("test", "m2", tags, null, null);
-		QueryResult queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
+		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
 		System.out.println(list);
 		Assert.assertEquals(1, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 		InfluxDBResultMapper influxDBResultMapper = new InfluxDBResultMapper();
 		List<TestM2> listResultM2 = influxDBResultMapper.toPOJO(queryResult, TestM2.class);
 		System.out.println(listResultM2);
-		System.out.println(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
+		print(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
 
 
 		// 删除数据2
@@ -149,22 +218,54 @@ public class XInfluxdbActionTest {
 		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, null, null);
 		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
 		System.out.println(list);
+		print(queryResult);
 		Assert.assertEquals(8, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 
-		listResultM2 = influxDBResultMapper.toPOJO(queryResult, TestM2.class);
-		System.out.println(listResultM2);
-		System.out.println(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
 
 		// 复制数据2
 		prepareData_full();
 		tags.clear();
+		newTags.clear();
+		newTags.put("t1", "tag green");
+		newTags.put("t2", "tag mouse");
 		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, DateUtil.fromString("2018-03-02 11:22:34"), DateUtil.fromString("2018-03-02 11:22:35"));
-		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
+		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
 		System.out.println(list);
-		Assert.assertEquals(6, list.get(0).getSeries().get(0).getValues().size());
+		print(queryResult);
+		Assert.assertEquals(4, list.get(0).getSeries().get(0).getValues().size());
 
 
+		// 复制数据3
+		prepareData_full();
+		tags.clear();
+		tags.put("t2", "tag cat");
+		newTags.clear();
+		newTags.put("t2", "tag mouse");
+		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, null, null);
+		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
+		System.out.println(list);
+		print(queryResult);
+		Assert.assertEquals(7, queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 
+	}
+
+
+	private void print(QueryResult queryResult) {
+		List<TestM2> listResultM2 = xInfluxdbPojoMapper.result2Pojo(queryResult, TestM2.class);
+		System.out.println(listResultM2);
+		print(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
+	}
+
+	private <T extends XBaseMeasurementEntity> void print(QueryResult queryResult, Class<T> clazz) {
+		List<T> listResultM2 = xInfluxdbPojoMapper.result2Pojo(queryResult, clazz);
+//		System.out.println(listResultM2);
+		print(xInfluxdbPojoMapper.pojoList2PointList(listResultM2));
+	}
+
+	private void print(List<Point> list) {
+		for (Point point : list) {
+			System.out.println(point);
+		}
 	}
 
 	@Test

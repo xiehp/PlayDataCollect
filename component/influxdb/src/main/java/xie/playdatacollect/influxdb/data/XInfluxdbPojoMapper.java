@@ -5,7 +5,7 @@ import org.influxdb.dto.Point;
 import org.influxdb.dto.QueryResult;
 import org.influxdb.impl.InfluxDBResultMapper;
 import xie.common.utils.java.XReflectionUtils;
-import xie.playdatacollect.influxdb.pojo.measuerment.XBaseMeasurementEntity;
+import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -32,7 +32,7 @@ public class XInfluxdbPojoMapper {
 	/**
 	 * 将pojo转换为点
 	 */
-	public List<Point> pojoList2PointList(List<? extends XBaseMeasurementEntity> measurementEntityList) {
+	public <T extends XBaseMeasurementEntity> List<Point> pojoList2PointList(List<T> measurementEntityList) {
 		List<Point> list = new ArrayList<>();
 		for (XBaseMeasurementEntity measurementEntity : measurementEntityList) {
 			list.add(pojo2Point(measurementEntity));
@@ -56,10 +56,13 @@ public class XInfluxdbPojoMapper {
 			Column colAnnotation = field.getAnnotation(Column.class);
 
 			// tag
+			Object val = getFieldValue(measurementEntity, field);
 			if (colAnnotation.tag()) {
-				pointBuilder.tag(colAnnotation.name(), (String) getFieldValue(measurementEntity, field));
+				if (val != null) {
+					pointBuilder.tag(colAnnotation.name(), (String) val);
+				}
 			} else {
-				influxdbFieldsMap.put(colAnnotation.name(), getFieldValue(measurementEntity, field));
+				influxdbFieldsMap.put(colAnnotation.name(), val);
 			}
 		}
 		// field

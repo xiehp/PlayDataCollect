@@ -2,7 +2,7 @@ package xie.playdatacollect.influxdb.data.measurement;
 
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
-import xie.playdatacollect.influxdb.pojo.measuerment.XBaseMeasurementEntity;
+import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
 
 import java.time.Instant;
 

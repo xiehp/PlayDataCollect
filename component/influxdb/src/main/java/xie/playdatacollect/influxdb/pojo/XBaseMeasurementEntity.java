@@ -1,9 +1,10 @@
-package xie.playdatacollect.influxdb.pojo.measuerment;
+package xie.playdatacollect.influxdb.pojo;
 
 import org.influxdb.annotation.Measurement;
 
-import java.util.List;
-
+/**
+ * @author xie
+ */
 public class XBaseMeasurementEntity {
 
 	public static String getMeasurementName(Class<? extends XBaseMeasurementEntity> clazz) {

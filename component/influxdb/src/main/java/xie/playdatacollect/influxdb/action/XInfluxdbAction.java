@@ -13,7 +13,7 @@ import xie.common.utils.date.DateUtil;
 import xie.common.utils.log.XLog;
 import xie.common.utils.utils.XFormatUtils;
 import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
-import xie.playdatacollect.influxdb.pojo.measuerment.XBaseMeasurementEntity;
+import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -96,7 +96,9 @@ public class XInfluxdbAction {
 					}
 
 					if (tagsJavaFieldMap.containsKey(columnName)) {
-						pointBuilder.tag(columnName, (String) val);
+						if (val != null) {
+							pointBuilder.tag(columnName, (String) val);
+						}
 					} else {
 						filedValues.put(columnName, val);
 					}
@@ -157,6 +159,13 @@ public class XInfluxdbAction {
 	/**
 	 * 请求数据
 	 */
+	public QueryResult queryDataResult(String database, String measurementName, Map<String, String> queryTagsMap) {
+		return queryDataResult(database, measurementName, queryTagsMap, null, null);
+	}
+
+	/**
+	 * 请求数据
+	 */
 	public QueryResult queryDataResult(String database, String measurementName, Map<String, String> queryTagsMap, Date startDate, Date endDate) {
 		String query = "SELECT * from \"" + measurementName + "\"";
 
@@ -176,7 +185,7 @@ public class XInfluxdbAction {
 			str = " and ";
 		}
 
-		logger.info(query);
+		logger.info("db:{}, sql:{}", database, query);
 		QueryResult queryResult = influxDB.query(new Query(query, database));
 		if (queryResult.hasError()) {
 			logger.error(queryResult.getError());
@@ -215,6 +224,10 @@ public class XInfluxdbAction {
 		}
 
 		return true;
+	}
+
+	public boolean deleteSeries(String database, String measurementName, Map<String, String> deleteTagsMap) {
+		return deleteSeries(database, measurementName, deleteTagsMap, null, null);
 	}
 
 	/**
