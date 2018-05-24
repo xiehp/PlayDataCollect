@@ -216,6 +216,7 @@ public class DateUtil {
 
 	public static final String[] PATTERNS_ALL = new String[]{
 			"yyyy-MM-dd HH:mm:ss",
+			"yyyy-MM-dd HH:mm:ss.SSS",
 			"yyyy/MM/dd HH:mm:ss",
 			"yyyy年MM月dd HH:mm:ss",
 			"yyyyMMdd HH:mm:ss",
@@ -234,6 +235,9 @@ public class DateUtil {
 	};
 
 	public static final String[] PATTERNS_ALL_UTC = new String[]{
+			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+			"yyyy-MM-dd'T'HH:mm:ss.SS'Z'",
+			"yyyy-MM-dd'T'HH:mm:ss.S'Z'",
 			"yyyy-MM-dd'T'HH:mm:ss'Z'",
 			"yyyy-MM-dd HH:mm:ss",
 			"yyyy/MM/dd HH:mm:ss",
