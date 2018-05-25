@@ -58,7 +58,9 @@ public class XInfluxdbPojoMapper {
 			// tag
 			Object val = getFieldValue(measurementEntity, field);
 			if (colAnnotation.tag()) {
-				if (val != null) {
+				if (val == null) {
+					pointBuilder.tag(colAnnotation.name(), "");
+				} else {
 					pointBuilder.tag(colAnnotation.name(), (String) val);
 				}
 			} else {

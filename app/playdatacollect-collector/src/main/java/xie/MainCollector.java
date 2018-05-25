@@ -151,7 +151,7 @@ public class MainCollector {
 	private void runSpider() {
 		long dateTime = System.currentTimeMillis();
 
-		Spider spiderBLNormal = Spider.create(new BilibiliAnimePageProcessor()).thread(2);
+//		Spider spiderBLNormal = Spider.create(new BilibiliAnimePageProcessor(url2NameMap)).thread(2);
 		Spider spiderBLNY2018 = Spider.create(new BilibiliNewYear2018Processor()).thread(2);
 
 		// multi download

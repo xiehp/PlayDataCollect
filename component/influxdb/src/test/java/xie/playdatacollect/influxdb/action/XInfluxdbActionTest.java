@@ -67,6 +67,90 @@ public class XInfluxdbActionTest {
 	}
 
 	@Test
+	public void do_copyAndDelete() throws ParseException {
+		List<QueryResult.Result> list;
+		Map<String, String> tags = new HashMap<>();
+		Map<String, String> newTags = new HashMap<>();
+		QueryResult queryResult;
+
+		tags.clear();
+		tags.put("名字", "IDOLiSH 7 -偶像星愿-");
+		tags.put("类型", "");
+		newTags.clear();
+		newTags.put("类型", "program");
+
+		xInfluxdbAction.copyDataAndDrop("play_data", MPlayData.class, tags, newTags);
+	}
+
+	@Test
+	public void test_copyAndDelete() throws ParseException {
+		List<QueryResult.Result> list;
+		Map<String, String> tags = new HashMap<>();
+		Map<String, String> newTags = new HashMap<>();
+		QueryResult queryResult;
+		int size;
+
+		// prepare data
+		tags.clear();
+		tags.put("网站", "bilibili");
+		tags.put("名字", "Four of a Kind 四牌士");
+
+		// drop test data
+		xInfluxdbAction.dropSeries("test", "base_data", tags);
+
+		// copy test data
+
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, DateUtil.fromString("2018-05-25 08:00:00"));
+		assertSize(queryResult, 11626);
+		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
+
+		// copy test data
+		tags.clear();
+		tags.put("网站", "bilibili");
+		tags.put("名字", "Four of a Kind");
+
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, DateUtil.fromString("2018-05-25 08:00:00"));
+		assertSize(queryResult, 844);
+		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
+
+		// test
+		tags.clear();
+		tags.put("网站", "bilibili");
+		tags.put("名字", "Four of a Kind");
+		tags.put("类型", "");
+		newTags.clear();
+		newTags.put("网站", "bilibili");
+		newTags.put("名字", "Four of a Kind 四牌士");
+		newTags.put("类型", "program");
+
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", newTags);
+		assertSize(queryResult, 5923 - 844);
+
+		xInfluxdbAction.copyDataAndDrop("test", MPlayData.class, tags, newTags);
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags);
+		assertSize(queryResult, null);
+
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", newTags);
+		assertSize(queryResult, 5923);
+
+		tags.clear();
+		tags.put("网站", "bilibili");
+		tags.put("名字", "Four of a Kind 四牌士");
+		tags.put("类型", "");
+		newTags.clear();
+		newTags.put("网站", "bilibili");
+		newTags.put("名字", "Four of a Kind 四牌士");
+		newTags.put("类型", "program");
+
+		xInfluxdbAction.copyDataAndDrop("test", MPlayData.class, tags, newTags);
+
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags);
+		assertSize(queryResult, null);
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", newTags);
+		assertSize(queryResult, 12470);
+	}
+
+	@Test
 	public void test_play_data2() throws ParseException {
 		List<QueryResult.Result> list;
 		Map<String, String> tags = new HashMap<>();
@@ -266,6 +350,16 @@ public class XInfluxdbActionTest {
 		for (Point point : list) {
 			System.out.println(point);
 		}
+	}
+
+	private void assertSize(QueryResult queryResult, Integer size) {
+		List<QueryResult.Series> listSeries = queryResult.getResults().get(0).getSeries();
+		Integer actualSize = null;
+		if (listSeries != null) {
+			actualSize = listSeries.get(0).getValues().size();
+		}
+		System.out.println("实际size: " + actualSize);
+		Assert.assertEquals(size, actualSize);
 	}
 
 	@Test

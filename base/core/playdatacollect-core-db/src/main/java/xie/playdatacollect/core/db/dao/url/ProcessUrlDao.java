@@ -17,6 +17,8 @@ public interface ProcessUrlDao extends BaseDao<ProcessUrlEntity, String> {
 
 	List<ProcessUrlEntity> findBySourceKeyAndType(String sourceKey, String name);
 
+	List<ProcessUrlEntity> findByProgramCode(Long programCode);
+
 
 	//	/** 搜索开始时间小于指定时间的数据 */
 	//	List<ProcessUrlEntity> findByTypeAndBeginDateLessThan(String type, Date beginDate);

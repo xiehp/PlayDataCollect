@@ -15,10 +15,7 @@ import xie.playdatacollect.common.utils.PlayDataUtils;
 import xie.playdatacollect.influxdb.data.CollectedDataInflux;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProcessBilibiliByCollectedData {
@@ -45,6 +42,11 @@ public class ProcessBilibiliByCollectedData {
 					logger.info(resultItemse.getAll().toString());
 
 					String 名字 = resultItemse.getAll().get("名字").toString();
+					String influxdbName = resultItemse.getAll().get("influxdbName").toString();
+					if (XStringUtils.isBlank(influxdbName)) {
+						influxdbName = 名字;
+					}
+					Objects.requireNonNull(influxdbName, "influxdbName");
 //				int 播放数 = 0;
 //				int 追番人数 = 0;
 //				int 弹幕总数 = 0;
@@ -60,7 +62,8 @@ public class ProcessBilibiliByCollectedData {
 
 					if (XStringUtils.isNotBlank(aid.toString())) {
 						siteList.add(PlayDataConst.SOURCE_KEY_BILIBILI); // TODO 参数化
-						nameList.add(名字);
+//						nameList.add(名字);
+						nameList.add(influxdbName);
 						aidList.add(aid.toString());
 						追番人数List.add(PlayDataUtils.parseValue(resultItemse.getAll().get("追番人数")));
 						承包数List.add(PlayDataUtils.parseValue(resultItemse.getAll().get("承包数")));
@@ -68,7 +71,8 @@ public class ProcessBilibiliByCollectedData {
 						CollectedData collectedData = collectedDataFactory.create();
 						collectedData.setSite(PlayDataConst.SOURCE_KEY_BILIBILI); // TODO 参数化
 						collectedData.setType(PlayDataConst.SOURCE_TYPE_PROGRAM); // TODO 参数化
-						collectedData.setName(名字);
+//						collectedData.setName(名字);
+						collectedData.setName(influxdbName);
 //						builder.addField("追番人数", 追番人数);
 //						builder.addField("弹幕总数", 弹幕总数);
 

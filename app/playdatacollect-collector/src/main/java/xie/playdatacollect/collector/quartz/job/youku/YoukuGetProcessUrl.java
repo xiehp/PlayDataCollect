@@ -42,7 +42,7 @@ public class YoukuGetProcessUrl extends XBaseQuartzJobBean {
 							PlayDataConst.SOURCE_TYPE_PROGRAM,
 							"",
 							url.getHref(),
-							new Date(),
+							null,
 							null
 					);
 				} catch (Exception e) {

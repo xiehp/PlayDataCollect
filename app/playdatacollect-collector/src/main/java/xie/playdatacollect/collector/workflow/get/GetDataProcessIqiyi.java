@@ -13,6 +13,7 @@ import xie.playdatacollect.common.data.CollectedDataFactory;
 import xie.playdatacollect.common.utils.PlayDataUtils;
 import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.db.utils.AllDaoUtil;
+import xie.playdatacollect.core.db.utils.AllServiceUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import java.util.Map;
 public class GetDataProcessIqiyi implements IGetDataProcess {
 	@Resource
 	AllDaoUtil allDaoUtil;
+	@Resource
+	AllServiceUtil allServiceUtil;
 
 	@Resource
 	UseDataProcess useDataProcess;
@@ -43,17 +46,6 @@ public class GetDataProcessIqiyi implements IGetDataProcess {
 
 			listURL.add(processUrl.getUrl());
 		});
-
-//		// 通过spider获得原始数据
-//		long dateTime = System.currentTimeMillis();
-//		Spider spider = Spider.create(new IqiyiPlayPageProcessor(dateTime)).thread(3);
-//		List<ResultItems> resultItemses = spider.getAll(listURL);
-//
-//		// 生成自己可处理数据列
-//		List<CollectedData> listData = new ArrayList<>();
-//		for (ResultItems item : resultItemses) {
-//			listData.add(item.get("collectedData"));
-//		}
 
 		List<CollectedData> collectedDataList = new ArrayList<>();
 		String url = "http://mixer.video.iqiyi.com/jp/mixin/videos/";
@@ -77,7 +69,7 @@ public class GetDataProcessIqiyi implements IGetDataProcess {
 					CollectedData collectedData = factory.create();
 					collectedData.setSite(processUrl.getSourceKey());
 					collectedData.setType(processUrl.getType());
-					collectedData.setName(albumName);
+					collectedData.setName(processUrl.getInfluxdbName());
 					collectedData.setPlayCount(playCount);
 					collectedData.setScore(score);
 //					collectedData.addExtendData("albumId", albumId);

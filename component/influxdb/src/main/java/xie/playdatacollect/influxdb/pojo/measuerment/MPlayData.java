@@ -63,6 +63,15 @@ public class MPlayData extends XBaseMeasurementEntity {
 	@Column(name = "排名")
 	private Integer ranking;
 
+	@Column(name = "承包数")
+	private Integer 承包数;
+
+	@Column(name = "硬币数")
+	private Integer coinCount;
+
+	@Column(name = "albumId")
+	private Integer albumId;
+
 	public Date getDate() {
 		return date;
 	}
@@ -213,5 +222,29 @@ public class MPlayData extends XBaseMeasurementEntity {
 
 	public void setRanking(Integer ranking) {
 		this.ranking = ranking;
+	}
+
+	public Integer get承包数() {
+		return 承包数;
+	}
+
+	public void set承包数(Integer 承包数) {
+		this.承包数 = 承包数;
+	}
+
+	public Integer getCoinCount() {
+		return coinCount;
+	}
+
+	public void setCoinCount(Integer coinCount) {
+		this.coinCount = coinCount;
+	}
+
+	public Integer getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(Integer albumId) {
+		this.albumId = albumId;
 	}
 }

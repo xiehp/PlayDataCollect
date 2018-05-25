@@ -9,6 +9,7 @@ import xie.playdatacollect.spider.webmagic.processor.bilibili.BilibiliAnimePageP
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class GetDataProcessWebmagicBilibili extends GetDataProcessBaseWebmagic {
@@ -22,8 +23,8 @@ public class GetDataProcessWebmagicBilibili extends GetDataProcessBaseWebmagic {
 	}
 
 	@Override
-	public PageProcessor getPageProcessor() {
-		return new BilibiliAnimePageProcessor();
+	public PageProcessor getPageProcessor(Map<String, String> url2NameMap) {
+		return new BilibiliAnimePageProcessor(url2NameMap);
 	}
 
 }

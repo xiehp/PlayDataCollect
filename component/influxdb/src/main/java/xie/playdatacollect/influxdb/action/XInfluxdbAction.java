@@ -41,9 +41,24 @@ public class XInfluxdbAction {
 		influxDB.write(point);
 	}
 
+	public <T extends XBaseMeasurementEntity> int copyDataAndDrop(String database, Class<T> measurementClass, Map<String, String> queryTagsMap, Map<String, String> newTagsMap) throws ParseException {
+		copyData(database, measurementClass, queryTagsMap, newTagsMap);
+		dropSeries(database, XBaseMeasurementEntity.getMeasurementName(measurementClass), queryTagsMap);
+		return 1;
+	}
+
+	public <T extends XBaseMeasurementEntity> int copyDataAndDelete(String database, Class<T> measurementClass, Map<String, String> queryTagsMap, Map<String, String> newTagsMap, Date startDate, Date endDate) throws ParseException {
+		copyData(database, measurementClass, queryTagsMap, newTagsMap, startDate, endDate);
+		deleteSeries(database, XBaseMeasurementEntity.getMeasurementName(measurementClass), queryTagsMap, startDate, endDate);
+		return 1;
+	}
+
+	public <T extends XBaseMeasurementEntity> int copyData(String database, Class<T> measurementClass, Map<String, String> queryTagsMap, Map<String, String> newTagsMap) throws ParseException {
+		return copyData(database, measurementClass, queryTagsMap, newTagsMap, null, null);
+	}
+
 	/**
 	 * @param database
-	 * @param measurementName
 	 * @param queryTagsMap
 	 * @param newTagsMap
 	 * @param startDate
@@ -51,7 +66,6 @@ public class XInfluxdbAction {
 	 * @return -1 错误， 0 无复制 1 正常
 	 */
 	public <T extends XBaseMeasurementEntity> int copyData(String database, Class<T> measurementClass, Map<String, String> queryTagsMap, Map<String, String> newTagsMap, Date startDate, Date endDate) throws ParseException {
-		// TODO
 		QueryResult queryResult = queryDataResult(database, XBaseMeasurementEntity.getMeasurementName(measurementClass), queryTagsMap, startDate, endDate);
 		return copyData(queryResult, database, measurementClass, newTagsMap);
 	}
@@ -59,7 +73,7 @@ public class XInfluxdbAction {
 	public <T extends XBaseMeasurementEntity> int copyData(QueryResult queryResult, String database, Class<T> measurementClass, Map<String, String> newTagsMap) throws ParseException {
 		List<T> measurementEntityList = xInfluxdbPojoMapper.result2Pojo(queryResult, measurementClass);
 
-
+		int copySize = 0;
 		List<QueryResult.Result> list = queryResult.getResults();
 		if (list.get(0).getSeries() != null && list.get(0).getSeries().size() > 0) {
 			QueryResult.Series series = list.get(0).getSeries().get(0);
@@ -78,6 +92,7 @@ public class XInfluxdbAction {
 			Map<String, Field> fieldsJavaFieldMap = xInfluxdbPojoMapper.getFieldsJavaFieldMap(measurementClass);
 
 			// 遍历返回值，如果在XBaseMeasurementEntity中存在，则使用，否则使用原始值
+			copySize = listValues.size();
 			for (int i = 0; i < listValues.size(); i++) {
 				List<Object> values = listValues.get(i); // QueryResult中的值列表
 				XBaseMeasurementEntity measurementEntity = measurementEntityList.get(i); // 转换后的pojo
@@ -96,7 +111,9 @@ public class XInfluxdbAction {
 					}
 
 					if (tagsJavaFieldMap.containsKey(columnName)) {
-						if (val != null) {
+						if (val == null) {
+							pointBuilder.tag(columnName, "");
+						} else {
 							pointBuilder.tag(columnName, (String) val);
 						}
 					} else {
@@ -115,6 +132,7 @@ public class XInfluxdbAction {
 			influxDB.write(batchPoints);
 		}
 
+		logger.info("copy {} data to {}.{}, {}", copySize, database, XBaseMeasurementEntity.getMeasurementName(measurementClass), newTagsMap);
 		return 1;
 	}
 
@@ -185,7 +203,7 @@ public class XInfluxdbAction {
 			str = " and ";
 		}
 
-		logger.info("db:{}, sql:{}", database, query);
+		logger.info("[{}]{}", database, query);
 		QueryResult queryResult = influxDB.query(new Query(query, database));
 		if (queryResult.hasError()) {
 			logger.error(queryResult.getError());
@@ -216,7 +234,7 @@ public class XInfluxdbAction {
 			query += " where " + where;
 		}
 
-		logger.info(query);
+		logger.info("[{}]{}", database, query);
 		QueryResult queryResult = influxDB.query(new Query(query, database));
 		if (queryResult.hasError()) {
 			logger.error(queryResult.getError());
@@ -260,7 +278,8 @@ public class XInfluxdbAction {
 		if (!hasWhere) {
 			query = query.replace("where 1=1", "");
 		}
-		logger.info(query);
+
+		logger.info("[{}]{}", database, query);
 		QueryResult queryResult = influxDB.query(new Query(query, database));
 		if (queryResult.hasError()) {
 			logger.error(queryResult.getError());

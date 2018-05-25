@@ -2,12 +2,10 @@ package xie.playdatacollect.collector.quartz.job.youku;
 
 import org.springframework.stereotype.Service;
 import xie.playdatacollect.collector.quartz.job.base.BasePlayDataProcessUrlJob;
-import xie.playdatacollect.collector.workflow.get.GetDataProcessIqiyi;
-import xie.playdatacollect.collector.workflow.get.GetDataProcessYouku;
+import xie.playdatacollect.collector.workflow.get.GetDataProcessYoukuProgram;
 import xie.playdatacollect.collector.workflow.get.IGetDataProcess;
 import xie.playdatacollect.collector.workflow.use.IUseDataProcess;
 import xie.playdatacollect.collector.workflow.use.UseDataProcess;
-import xie.playdatacollect.core.db.utils.AllDaoUtil;
 
 import javax.annotation.Resource;
 
@@ -18,7 +16,7 @@ public class YoukuPlayDataProgramJob extends BasePlayDataProcessUrlJob {
 	UseDataProcess useDataProcess;
 
 	@Resource
-	GetDataProcessYouku getDataProcessYouku;
+	GetDataProcessYoukuProgram getDataProcessYouku;
 
 //	@Override
 //	public void executeJob(JobExecutionContext context) {

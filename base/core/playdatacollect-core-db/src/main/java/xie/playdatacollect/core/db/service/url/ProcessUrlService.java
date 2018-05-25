@@ -33,6 +33,8 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 
 	/**
 	 * 保存或更新抓取的URL信息
+	 *
+	 * @param  beginDate 页面上的开始时间，请不要由程序自动生成
 	 */
 	public ProcessUrlEntity saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate) {
 		return saveProcessUrlData(sourceKey, name, type, desc, url, beginDate, null);
@@ -40,6 +42,8 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 
 	/**
 	 * 保存或更新抓取的URL信息
+	 *
+	 * @param  beginDate 页面上的开始时间，请不要由程序自动生成
 	 */
 	public ProcessUrlEntity saveProcessUrlData(String sourceKey, String name, String type, String desc, String url, Date beginDate, Map<String, Object> params) {
 
@@ -52,32 +56,30 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 		processUrlEntity.setSourceKey(sourceKey);
 		processUrlEntity.setName(name);
 		processUrlEntity.setType(type);
+
 		// 开始时间始终取自页面， 不自动生成
 		if (processUrlEntity.getBeginDate() == null && beginDate != null) {
 			processUrlEntity.setBeginDate(beginDate);
 		}
 
-		// 重新发布时间，先尝试获取页面时间
+		// 重新发布时间，每次更新当前页面时间
 		if (beginDate != null) {
-			processUrlEntity.setReBeginDate(beginDate);
-		}
-		// 重新发布时间，如果页面不存在，则使用当前时间
-		if (processUrlEntity.getReBeginDate() == null) {
-			processUrlEntity.setReBeginDate(new Date());
+			Date reBeginDate = processUrlEntity.getReBeginDate();
+			if (reBeginDate == null || !reBeginDate.equals(beginDate)) {
+				processUrlEntity.setReBeginDate(beginDate);
+
+				// 设置最近发布时间
+				if (reBeginDate == null) {
+					processUrlEntity.setRecentBeginDate(processUrlEntity.getReBeginDate());
+				} else {
+					processUrlEntity.setRecentBeginDate(reBeginDate);
+				}
+			}
 		}
 
-		// 最近发布时间
-		// 如果存在再发布时间，则比对当前时间，大的话减去1周，否则直接设置
-		if (processUrlEntity.getBeginDate() != null) {
-			processUrlEntity.setRecentBeginDate(processUrlEntity.getBeginDate());
-		}
-		if (processUrlEntity.getReBeginDate() != null) {
-			processUrlEntity.setRecentBeginDate(processUrlEntity.getReBeginDate());
-		}
-		if (processUrlEntity.getRecentBeginDate() != null) {
-			if (processUrlEntity.getRecentBeginDate().after(new Date())) {
-				processUrlEntity.setRecentBeginDate(new Date(processUrlEntity.getRecentBeginDate().getTime() - XConst.SECOND_07_DAY * 1000));
-			}
+		// 页面上无法传日期过来，则设置最近发布时间为当前时间
+		if (processUrlEntity.getBeginDate() == null && processUrlEntity.getReBeginDate() == null && processUrlEntity.getRecentBeginDate() == null) {
+			processUrlEntity.setRecentBeginDate(new Date());
 		}
 
 		processUrlEntity.setUrl(url);

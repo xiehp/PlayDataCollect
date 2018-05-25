@@ -10,6 +10,8 @@ import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class GetDataProcessBaseWebmagic implements IGetDataProcess {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -26,7 +28,12 @@ public abstract class GetDataProcessBaseWebmagic implements IGetDataProcess {
 			}
 		});
 
-		PageProcessor pageProcessor = getPageProcessor();
+		// 生成url和名字对应map，如果基础信息中也存在，则替换名字
+		Map<String, String> url2NameMap = listProcessUrl.stream()
+				.collect(Collectors.toMap(ProcessUrlEntity::getUrl, ProcessUrlEntity::getInfluxdbName));
+
+
+		PageProcessor pageProcessor = getPageProcessor(url2NameMap);
 		Spider spider = Spider.create(pageProcessor).thread(3);
 		List<CollectedData> list = spiderGetAll(spider, listUrl);
 		return list;
@@ -34,5 +41,5 @@ public abstract class GetDataProcessBaseWebmagic implements IGetDataProcess {
 
 	public abstract List<CollectedData> spiderGetAll(Spider spider, List<String> listUrl);
 
-	public abstract PageProcessor getPageProcessor();
+	public abstract PageProcessor getPageProcessor(Map<String, String> url2NameMap);
 }

@@ -3,6 +3,7 @@ package xie.playdatacollect.core.db.entity.url;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import xie.common.spring.jpa.entity.BaseEntity;
+import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.db.entity.program.EpisodeEntity;
 import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 
@@ -181,5 +182,22 @@ public class ProcessUrlEntity extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	/**
+	 * 获得Influxdb使用的name
+	 */
+	public String getInfluxdbName() {
+		if (PlayDataConst.SOURCE_TYPE_PROGRAM.equals(type)) {
+			if (getProgram() != null) {
+				return getProgram().getFullName();
+			}
+		} else if (PlayDataConst.SOURCE_TYPE_EPISODE.equals(type)) {
+			if (getEpisode() != null) {
+				return getEpisode().getFullName();
+			}
+		}
+
+		return name;
 	}
 }

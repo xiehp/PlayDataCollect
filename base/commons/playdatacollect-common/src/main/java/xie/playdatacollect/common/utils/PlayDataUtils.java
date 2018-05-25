@@ -31,7 +31,7 @@ public class PlayDataUtils {
 	 * @return
 	 */
 	public static Long parseValue(Object value) {
-		long result = -1;
+		Long result = null;
 
 		if (value == null || "".equals(value.toString()) || "-".equals(value.toString())) {
 			return result;
@@ -77,7 +77,7 @@ public class PlayDataUtils {
 	 * @return
 	 */
 	public static Double parseDoubleValue(Object value) {
-		double result = -1;
+		Double result = null;
 
 		if (value == null || value.toString() == null || "-".equals(value.toString())) {
 			return result;

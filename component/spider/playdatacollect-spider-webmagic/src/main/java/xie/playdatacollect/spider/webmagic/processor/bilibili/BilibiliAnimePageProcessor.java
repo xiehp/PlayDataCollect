@@ -4,9 +4,17 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
+import java.util.Map;
+
 public class BilibiliAnimePageProcessor implements PageProcessor {
 
 	private Site site = Site.me().setRetryTimes(3).setSleepTime(300).setUseGzip(true);
+
+	Map<String, String> url2NameMap;
+
+	public BilibiliAnimePageProcessor(Map<String, String> url2NameMap) {
+		this.url2NameMap = url2NameMap;
+	}
 
 	@Override
 	public void process(Page page) {
@@ -34,7 +42,6 @@ public class BilibiliAnimePageProcessor implements PageProcessor {
 		}
 
 
-
 		page.putField("追番人数", page.getHtml().$(".info-count-item-fans em", "allText"));
 		if (page.getResultItems().getAll().get("追番人数") == null || page.getResultItems().getAll().get("追番人数").toString() == null) {
 			page.putField("追番人数", page.getHtml().$(".bangumi-order-wrap #v_ctimes", "text"));
@@ -55,9 +62,6 @@ public class BilibiliAnimePageProcessor implements PageProcessor {
 		}
 
 
-
-
-
 		page.putField("承包数", page.getHtml().$(".sponsor-tosponsor-img span", "text"));
 		if (page.getResultItems().getAll().get("承包数") == null || page.getResultItems().getAll().get("承包数").toString() == null) {
 			page.putField("承包数", page.getHtml().$(".btn-sponsor-wrapper .sponsor-count span", "text"));
@@ -75,7 +79,7 @@ public class BilibiliAnimePageProcessor implements PageProcessor {
 
 		page.putField("aid", page.getHtml().$(".info-sec-av", "text"));
 		if (page.getResultItems().getAll().get("aid") == null || page.getResultItems().getAll().get("aid").toString() == null) {
-			page.putField("aid", page.getRequest().getUrl().replace("https://www.bilibili.com/video/","").replace("/",""));
+			page.putField("aid", page.getRequest().getUrl().replace("https://www.bilibili.com/video/", "").replace("/", ""));
 		}
 
 
@@ -83,6 +87,11 @@ public class BilibiliAnimePageProcessor implements PageProcessor {
 
 		page.putField("评分人数", page.getHtml().$(".media-info-score-content div:nth-child(2)", "text"));
 
+
+		page.putField("url", page.getUrl());
+		if (url2NameMap != null) {
+			page.putField("influxdbName", url2NameMap.get(page.getUrl()));
+		}
 
 //		page.putField("description", page.getHtml().xpath("//div[@class='lemma-summary']/allText()"));
 	}
