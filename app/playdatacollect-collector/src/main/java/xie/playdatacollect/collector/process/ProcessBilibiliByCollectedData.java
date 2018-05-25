@@ -42,7 +42,7 @@ public class ProcessBilibiliByCollectedData {
 					logger.info(resultItemse.getAll().toString());
 
 					String 名字 = resultItemse.getAll().get("名字").toString();
-					String influxdbName = resultItemse.getAll().get("influxdbName").toString();
+					String influxdbName = (String) resultItemse.getAll().get("influxdbName");
 					if (XStringUtils.isBlank(influxdbName)) {
 						influxdbName = 名字;
 					}
