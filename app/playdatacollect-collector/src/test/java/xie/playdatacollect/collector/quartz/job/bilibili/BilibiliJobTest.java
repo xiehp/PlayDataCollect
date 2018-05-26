@@ -80,8 +80,8 @@ public class BilibiliJobTest {
 		jobDataMap.put("name", "testBilibiliPlayDataEpisodeJob");
 		jobDataMap.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		jobDataMap.put("type", PlayDataConst.SOURCE_TYPE_EPISODE);
-		jobDataMap.put("beforeSecond", XConst.SECOND_01_DAY);
-		jobDataMap.put("afterSecond", XConst.SECOND_01_HOUR);
+		jobDataMap.put("beforeSecond", null);
+		jobDataMap.put("afterSecond", -XConst.SECOND_01_HOUR);
 		bilibiliPlayDataEpisodeJob.runSpider(jobDataMap);
 		logger.info("testBilibiliPlayDataEpisodeJob test end");
 	}

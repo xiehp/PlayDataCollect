@@ -30,7 +30,14 @@ public abstract class GetDataProcessBaseWebmagic implements IGetDataProcess {
 
 		// 生成url和名字对应map，如果基础信息中也存在，则替换名字
 		Map<String, String> url2NameMap = listProcessUrl.stream()
-				.collect(Collectors.toMap(ProcessUrlEntity::getUrl, ProcessUrlEntity::getInfluxdbName));
+				.collect(Collectors.toMap(
+						ProcessUrlEntity::getUrl,
+						ProcessUrlEntity::getInfluxdbName,
+						(oldValue, newValue) -> {
+							logger.warn(String.format("生成url和名字对应map, Duplicate key , oldValue:%s, , newValue:%s", oldValue, newValue));
+							return newValue;
+						})
+				);
 
 
 		PageProcessor pageProcessor = getPageProcessor(url2NameMap);
