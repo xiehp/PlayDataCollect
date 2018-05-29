@@ -149,6 +149,9 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		if (end != null) {
 			searchMap.put("LTE_recentBeginDate", end);
 		}
+		if (XStringUtils.isNotBlank((String) jobDataMap.get("programName"))) {
+			searchMap.put("LIKE_name", jobDataMap.get("programName"));
+		}
 		Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 		List<ProcessUrlEntity> list = page.getContent();
 		_logger.info("{}, 当前需处理数量：{}, 来源：{}, 类型：{}, 开始时间：{}，结束时间：{}，该类型所有数量：{}", getName(), list.size(), sourceKey, type, DateUtil.convertToString(begin), DateUtil.convertToString(end), totalCount);

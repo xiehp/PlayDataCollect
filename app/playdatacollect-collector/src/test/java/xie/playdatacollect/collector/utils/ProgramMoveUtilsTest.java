@@ -19,6 +19,7 @@ import xie.playdatacollect.influxdb.exception.XInfluxdbException;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -40,14 +41,17 @@ public class ProgramMoveUtilsTest {
 
 	@Test
 	public void do_moveProgram() throws ParseException, XInfluxdbException {
-		programMoveUtils.moveProgram("16f9e36d-18e6-4452-b834-477a77083aca", "a30ceda9-46b5-416e-bd53-e998f0d61031");
+		programMoveUtils.moveProgram("426d6181-7821-4dc2-973c-8930b40178ac", "12a80cdd-5120-458e-8222-709b29a9a24a");
 	}
 
 	@Test
-	public void do_createProgram() throws ParseException, XInfluxdbException {
+	public void do_createProgram() {
 		List<ProcessUrlEntity> list = processUrlDao.findByType(PlayDataConst.SOURCE_TYPE_PROGRAM);
 		list.forEach((processUrlEntity -> {
-			processUrlUtils.saveProcessUrlData(processUrlEntity.getSourceKey(), processUrlEntity.getName(), processUrlEntity.getType(), processUrlEntity.getRemark(), processUrlEntity.getUrl(), processUrlEntity.getReBeginDate(), XJsonUtil.fromJsonString(processUrlEntity.getParams()));
+			if (processUrlEntity.getReBeginDate() != null && processUrlEntity.getRecentBeginDate().after(new Date())) {
+				processUrlUtils.saveProcessUrlData(processUrlEntity.getSourceKey(), processUrlEntity.getName(), processUrlEntity.getType(), processUrlEntity.getRemark(), processUrlEntity.getUrl(), new Date(processUrlEntity.getReBeginDate().getTime() + 1), XJsonUtil.fromJsonString(processUrlEntity.getParams()));
+
+			}
 		}));
 	}
 }

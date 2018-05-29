@@ -72,7 +72,11 @@ public class ProcessUrlService extends BasePlayCollectService<ProcessUrlEntity, 
 				if (reBeginDate == null) {
 					processUrlEntity.setRecentBeginDate(processUrlEntity.getReBeginDate());
 				} else {
-					processUrlEntity.setRecentBeginDate(reBeginDate);
+					if (reBeginDate.after(new Date())) {
+						processUrlEntity.setRecentBeginDate(processUrlEntity.getBeginDate());
+					} else {
+						processUrlEntity.setRecentBeginDate(reBeginDate);
+					}
 				}
 			}
 		}

@@ -187,8 +187,6 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_IqiyiPlayDataProgramJob", null, "IqiyiPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
 
 		map.put("name", "IqiyiPlayDataProgramJob2");
-		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
-		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
 		map.put("beforeSecond", null);
 		map.put("afterSecond", XConst.SECOND_15_DAY);
 		saveJob("IqiyiPlayDataProgramJob2", null, IqiyiPlayDataProgramJob.class.getName(), map, null);
@@ -212,8 +210,6 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 		saveTrigger("trigger_YoukuPlayDataProgramJob", null, "YoukuPlayDataProgramJob", null, ScheduleTriggerEntity.TYPE_CRON, null, null, 0, 0, XScheduleConfig.PER_05_MIN, null, false);
 
 		map.put("name", "YoukuPlayDataProgramJob2");
-		map.put("sourceKey", PlayDataConst.SOURCE_KEY_IQIYI);
-		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
 		map.put("beforeSecond", null);
 		map.put("afterSecond", XConst.SECOND_15_DAY);
 		saveJob("YoukuPlayDataProgramJob2", null, YoukuPlayDataProgramJob.class.getName(), map, null);

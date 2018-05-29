@@ -52,6 +52,7 @@ public class UseDataProcess implements IUseDataProcess {
 				influxDB.write(point);
 				logger.info("Point add: {}", point);
 			} catch (Exception e) {
+				logger.error(collectedData.toString());
 				logger.error("保存influxDB发生错误", e);
 			}
 		}
