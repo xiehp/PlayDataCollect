@@ -4,7 +4,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 import xie.common.utils.log.XLog;
 import xie.common.utils.string.XStringUtils;
 import xie.common.utils.utils.XConvertUtils;
@@ -154,7 +154,7 @@ public abstract class BasePlayDataProcessUrlJob extends XBaseQuartzJobBean {
 		}
 		Page<ProcessUrlEntity> page = allServiceUtil.getProcessUrlService().searchPageByParams(searchMap, ProcessUrlEntity.class);
 		List<ProcessUrlEntity> list = page.getContent();
-		_logger.info("{}, 当前需处理数量：{}, 来源：{}, 类型：{}, 开始时间：{}，结束时间：{}，该类型所有数量：{}", getName(), list.size(), sourceKey, type, DateUtil.convertToString(begin), DateUtil.convertToString(end), totalCount);
+		_logger.info("{}, 当前需处理数量：{}, 来源：{}, 类型：{}, 开始时间：{}，结束时间：{}，该类型所有数量：{}", getName(), list.size(), sourceKey, type, XDateUtil.convertToString(begin), XDateUtil.convertToString(end), totalCount);
 
 		return list;
 	}

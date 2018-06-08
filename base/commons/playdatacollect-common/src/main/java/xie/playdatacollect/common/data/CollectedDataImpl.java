@@ -1,9 +1,8 @@
 package xie.playdatacollect.common.data;
 
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -79,7 +78,7 @@ public class CollectedDataImpl implements CollectedData {
 
 	@Override
 	public String toString() {
-		return DateUtil.convertToString(date, "yyyy-MM-dd HH:mm:ss.SSS Z") + " (" + date.getTime() + "), " + getAllData().toString();
+		return XDateUtil.convertToString(date, "yyyy-MM-dd HH:mm:ss.SSS Z") + " (" + date.getTime() + "), " + getAllData().toString();
 	}
 
 	@Override

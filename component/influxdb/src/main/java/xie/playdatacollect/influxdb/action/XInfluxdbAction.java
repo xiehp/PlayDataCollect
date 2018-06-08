@@ -9,7 +9,7 @@ import org.influxdb.dto.QueryResult;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 import xie.common.utils.log.XLog;
 import xie.common.utils.utils.XFormatUtils;
 import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
@@ -122,7 +122,7 @@ public class XInfluxdbAction {
 				}
 				pointBuilder.tag(newTagsMap); // 放入新的tag
 				pointBuilder.fields(filedValues);
-				pointBuilder.time(DateUtil.fromStringUTC((String) values.get(0)).getTime(), TimeUnit.MILLISECONDS);
+				pointBuilder.time(XDateUtil.fromStringUTC((String) values.get(0)).getTime(), TimeUnit.MILLISECONDS);
 
 				batchPointsBuilder.point(pointBuilder.build());
 			}
@@ -184,6 +184,14 @@ public class XInfluxdbAction {
 	/**
 	 * 请求数据
 	 */
+	public <T extends XBaseMeasurementEntity> List<T>  queryDataResultToPojo(Class<T> measurementClass, String database, String measurementName, Map<String, String> queryTagsMap, Date startDate, Date endDate) {
+		QueryResult queryResult = queryDataResult(database, measurementName, queryTagsMap, startDate, endDate);
+		return xInfluxdbPojoMapper.result2Pojo(queryResult, measurementClass);
+	}
+
+	/**
+	 * 请求数据
+	 */
 	public QueryResult queryDataResult(String database, String measurementName, Map<String, String> queryTagsMap, Date startDate, Date endDate) {
 		String query = "SELECT * from \"" + measurementName + "\"";
 
@@ -195,23 +203,50 @@ public class XInfluxdbAction {
 			str = " and ";
 		}
 		if (startDate != null) {
-			query += String.format(str + " time >= '%s'", DateUtil.convertToStringUTC(startDate));
+			query += String.format(str + " time >= '%s'", XDateUtil.convertToStringUTC(startDate));
 			str = " and ";
 		}
 		if (endDate != null) {
-			query += String.format(str + " time < '%s'", DateUtil.convertToStringUTC(endDate));
+			query += String.format(str + " time < '%s'", XDateUtil.convertToStringUTC(endDate));
 			str = " and ";
 		}
 
-		logger.info("[{}]{}", database, query);
-		QueryResult queryResult = influxDB.query(new Query(query, database));
+		return queryDataResult(database, query);
+	}
+
+	/**
+	 * 发动请求数据
+	 */
+	public <T extends XBaseMeasurementEntity> List<T> queryDataResultToPojo(Class<T> measurementClass, String database, String queryStr) {
+		logger.info("[{}]{}", database, queryStr);
+		QueryResult queryResult = influxDB.query(new Query(queryStr, database));
 		if (queryResult.hasError()) {
 			logger.error(queryResult.getError());
-			throw new InfluxDBException("query error:" + query + ", " + queryResult.getError());
+			throw new InfluxDBException("query error:" + queryStr + ", " + queryResult.getError());
+		}
+
+		List<T> list = xInfluxdbPojoMapper.result2Pojo(queryResult, measurementClass);
+
+		return list;
+	}
+
+	/**
+	 * 发动请求数据
+	 */
+	public QueryResult queryDataResult(String database, String queryStr) {
+		logger.info("[{}]{}", database, queryStr);
+		QueryResult queryResult = influxDB.query(new Query(queryStr, database));
+		if (queryResult.hasError()) {
+			logger.error(queryResult.getError());
+			throw new InfluxDBException("query error:" + queryStr + ", " + queryResult.getError());
 		}
 
 		return queryResult;
 	}
+
+
+
+
 
 //	public void writePoints(List<Point> points) {
 //		BatchPoints batchPoints = BatchPoints.database(influxDB.da).points(points.toArray(new Point[]{})).build();
@@ -268,11 +303,11 @@ public class XInfluxdbAction {
 			hasWhere = true;
 		}
 		if (startDate != null) {
-			query += String.format(" and time >= '%s'", DateUtil.convertToStringUTC(startDate));
+			query += String.format(" and time >= '%s'", XDateUtil.convertToStringUTC(startDate));
 			hasWhere = true;
 		}
 		if (endDate != null) {
-			query += String.format(" and time < '%s'", DateUtil.convertToStringUTC(endDate));
+			query += String.format(" and time < '%s'", XDateUtil.convertToStringUTC(endDate));
 			hasWhere = true;
 		}
 		if (!hasWhere) {

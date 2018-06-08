@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>xie.playdatacollect</groupId>
+		<artifactId>playdatacollect-app</artifactId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
+
+	<!-- 采集器模块 -->
+	<artifactId>playdatacollect-front</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+
+	</properties>
+
+	<!-- Add typical dependencies for a web application -->
+	<dependencies>
+		<!-- ★★自己基础项目的依赖★★ -->
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-component</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-print-start-up-info</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xframework-web</artifactId>
+		</dependency>
+
+		<!-- ★★自己工程的依赖★★ -->
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-core-db</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-spider-webmagic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-component-influxdb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie.playdatacollect</groupId>
+			<artifactId>playdatacollect-testandstudy</artifactId>
+		</dependency>
+
+		<!-- 开发辅助工具 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!--<dependency>-->
+		<!--<groupId>us.codecraft</groupId>-->
+		<!--<artifactId>webmagic-core</artifactId>-->
+		<!--<version>0.7.3</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+		<!--<groupId>us.codecraft</groupId>-->
+		<!--<artifactId>webmagic-extension</artifactId>-->
+		<!--<version>0.7.3</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+		<!--<groupId>com.jayway.jsonpath</groupId>-->
+		<!--<artifactId>json-path</artifactId>-->
+		<!--</dependency>-->
+
+		<!-- ★★第三方基础依赖★★ -->
+
+
+		<!-- ★★测试依赖★★ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 是否可以让spring dev tool 运行在开发环境之外，如生产环境  -->
+					<!--<excludeDevtools>false</excludeDevtools>-->
+					<finalName>${project.artifactId}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

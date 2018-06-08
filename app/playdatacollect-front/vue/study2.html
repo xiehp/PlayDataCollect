@@ -1,0 +1,36 @@
+<html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="app">
+	<p v-once>ssssdd {{ foo }}sdfsdfsd</p>
+	<!-- 这里的 `foo` 不会更新！ -->
+	<button v-on:click="foo = foo + 1">Change it</button>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br>
+
+
+<script>
+    var obj = {
+        foo: 1
+    }
+
+   // Object.freeze(obj)
+
+    new Vue({
+        el: '#app',
+        data: obj
+    })
+</script>
+
+</html>

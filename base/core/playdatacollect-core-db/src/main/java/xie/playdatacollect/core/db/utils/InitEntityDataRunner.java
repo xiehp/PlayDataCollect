@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xie.common.spring.jpa.entity.BaseEntity;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 import xie.common.utils.log.XLog;
 
 import xie.common.spring.jpa.repository.BaseDao;
@@ -139,7 +139,7 @@ public class InitEntityDataRunner implements ApplicationRunner {
 
 	private void saveSourcesData(String key, String name, String simpleName, String abName, String url) throws ParseException {
 		String versionDef = "0.03";
-		Date versionDate = DateUtil.fromString("2018-02-12 15:55:00");
+		Date versionDate = XDateUtil.fromString("2018-02-12 15:55:00");
 
 		SourcesEntity sourcesEntity = allDaoUtil.getSourcesDao().findByKeyword(key);
 		if (sourcesEntity == null) {

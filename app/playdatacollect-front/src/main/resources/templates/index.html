@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Index Page</title>
+	<meta content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<!--<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>-->
+	<!--<link th:href="@{/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"/>-->
+
+	<!-- vue -->
+	<script src="//unpkg.com/vue@2.5.16/dist/vue.js"></script>
+	<script src="//unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+
+	<!-- element-ui -->
+	<link rel="stylesheet" href="//unpkg.com/element-ui@2.4.0/lib/theme-chalk/index.css">
+	<script src="//unpkg.com/element-ui@2.4.0/lib/index.js"></script>
+
+	<!--&lt;!&ndash; bootstrap-vue &ndash;&gt;-->
+	<!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.css"/>-->
+	<!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>-->
+	<!--<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.js"></script>-->
+	<!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>-->
+
+	<!-- layui -->
+	<link rel="stylesheet" href="/plugin/layui/css/layui.css">
+	<script src="plugin/layui/layui.all.js"></script>
+</head>
+<body>
+<div id="mainDiv">
+	<el-container>
+		<el-header>
+			<ul class="layui-nav">
+				<li class="layui-nav-item">
+					<a href="index" :title="indexTitle">首页</a>
+				</li>
+				<li class="layui-nav-item">
+					<a href="list" :title="indexTitle2">所有节目播放量</a>
+				</li>
+			</ul>
+		</el-header>
+
+		<el-main>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">访问model</h3>
+				</div>
+				<div class="panel-body">
+					<span th:text="${programEntityList.size()}"></span>
+				</div>
+			</div>
+			<div th:if="${not #lists.isEmpty(programEntityList)}">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">列表</h3>
+					</div>
+					<div class="panel-body">
+						<table class="list-group">
+							<tr class="list-group-item" th:each="program : ${programEntityList}">
+								<td th:text="${program.code}"></td>
+								<td th:text="${program.fullName}"></td>
+								<td>
+									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<template
+						v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
+					<div class="col-md-3 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
+						<b-button :size="size" :variant="variant">
+							{{variant}} {{size}}
+						</b-button>
+					</div>
+				</template>
+			</div>
+		</el-main>
+
+		<el-footer>
+			<a href="index">首页</a>
+			<a href="list">所有节目播放量</a>
+		</el-footer>
+	</el-container>
+</div>
+
+<script>
+
+
+    let data = {};
+    $.extend(data, {indexTitle: 'abc title1'});
+    $.extend(data, {indexTitle2: 'abc title2'});
+
+    let elementUI = new Vue({
+        el: "#mainDiv",
+        data: data,
+        computed: {
+            topNavActive: function () {
+                console.log(this.location.href);
+                console.log(this.location.search);
+
+                return true;
+            }
+        }
+    });
+
+    // let layuiNav = new Vue({
+    //     el: ".layui-nav",
+    //     data: {
+    //         indexTitle: 'abc title1111',
+    //         indexTitle2: 'abc title2222'
+    //     },
+    //     computed: {
+    //         topNavActive: function () {
+    //             console.log(this.location.href);
+    //             console.log(this.location.search);
+    //
+    //             return true;
+    //         }
+    //     }
+    // });
+
+    //
+    // layuiNav.indexTitle = 'asdasdsad1';
+    setTimeout(function () {
+        // console.log(layuiNav.indexTitle);
+        // layuiNav.indexTitle = 'aaa';
+        // console.log(layuiNav.indexTitle)
+
+        elementUI.indexTitle = 'bbb';
+    }, 5000);
+
+</script>
+
+
+<script>
+</script>
+
+
+</body>
+</html>

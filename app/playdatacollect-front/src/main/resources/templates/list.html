@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>List Page</title>
+	<meta content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<!--<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>-->
+	<!--<link th:href="@{/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"/>-->
+
+	<!-- vue -->
+	<script src="//unpkg.com/vue@2.5.16/dist/vue.js"></script>
+	<script src="//unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+
+	<!-- element-ui -->
+	<link rel="stylesheet" href="//unpkg.com/element-ui@2.4.0/lib/theme-chalk/index.css">
+	<script src="//unpkg.com/element-ui@2.4.0/lib/index.js"></script>
+
+	<!-- bootstrap-vue -->
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.css"/>
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+	<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.js"></script>
+	<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+	<!-- layui -->
+	<link rel="stylesheet" href="/plugin/layui/css/layui.css">
+	<script src="plugin/layui/layui.all.js"></script>
+</head>
+<body>
+
+<ul class="layui-nav" lay-filter="">
+	<li class="layui-nav-item">
+		<a href="index">首页</a>
+	</li>
+	<li class="layui-nav-item layui-this">
+		<a href="list">所有节目播放量</a>
+	</li>
+</ul>
+
+<script>
+    let layuiNav = new Vue({
+        el: ".layui-nav",
+        data: {}
+    });
+
+</script>
+
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">访问model</h3>
+	</div>
+	<div class="panel-body">
+		<span th:text="${list.size()}"></span>
+	</div>
+</div>
+<div th:if="${not #lists.isEmpty(list)}">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">列表</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+				<li class="list-group-item" th:each="person : ${list}">
+					<span th:text="${person.id}"></span>
+					<span th:text="${person.code}"></span>
+					<span th:text="${person.preNumber}"></span>
+					<span th:text="${person.nowNumber}"></span>
+					<button class="btn" th:onlick="'getName(\''+${person.id}+'\');'">获得名字</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
+		<div class="col-md-4 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
+			<b-button :size="size" :variant="variant">
+				{{variant}} {{size}}
+			</b-button>
+		</div>
+	</template>
+</div>
+
+<script th:inline="javascript">
+    var single = [[${singlePerson}]];
+    console.log(single.name + "/" + single.age);
+
+    function getName(name) {
+        console.log(name);
+    }
+</script>
+
+<template>
+	<el-button type="text" @click="open5">点击打开 Message Box</el-button>
+</template>
+
+<script>
+    export default {
+        methods: {
+            open5() {
+                this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+                    dangerouslyUseHTMLString: true
+                });
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

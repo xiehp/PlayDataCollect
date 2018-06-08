@@ -1,0 +1,351 @@
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<!-- vue -->
+<script src="//unpkg.com/vue@2.5.16/dist/vue.js"></script>
+
+<!-- element-ui -->
+<link rel="stylesheet" href="//unpkg.com/element-ui@2.4.0/lib/theme-chalk/index.css">
+<script src="//unpkg.com/element-ui@2.4.0/lib/index.js"></script>
+<div id="top" v-show="true" style="display: none;">
+	<div>
+		<div id="app">
+			{{ message }}
+		</div>
+
+		<div id="app-2">
+		  <span v-bind:title="message">
+			鼠标悬停几秒钟查看此处动态绑定的提示信息！
+		  </span>
+		</div>
+
+		<br/>
+		<span v-bind:title="message2">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+
+		<br/>
+		{{ message }}
+		<br>
+
+		<span v-bind:title="messag">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+
+
+	<span v-on="messag"/>
+</span>
+
+		<br/>
+		<div id="app-3">
+			<p v-if="seen">现在你看到我了</p>
+		</div>
+		<br/>
+		<div id="app-7">
+			<ol>
+				<!--
+				  现在我们为每个 todo-item 提供 todo 对象
+				  todo 对象是变量，即其内容可以是动态的。
+				  我们也需要为每个组件提供一个“key”，稍后再
+				  作详细解释。
+				-->
+				<todo-item
+						v-for="item in groceryList"
+						v-bind:todo="item"
+						v-bind:aaa="item.id">
+				</todo-item>
+			</ol>
+		</div>
+
+		<div id="watch-example">
+			<p>
+				Ask a yes/no question:
+				<input v-model="question">
+			</p>
+			<p>{{ answer }}</p>
+		</div>
+
+		<div id="example-4">
+			<input type="radio" id="one" value="One" v-model="picked">
+			<label for="two">One</label>
+			<br>
+			<input type="radio" id="two" value="Two" v-model="picked">
+			<label for="two">Two</label>
+			<br>
+			<span>Picked: {{ picked }}</span>
+		</div>
+
+		<div id="example-5">
+			<select v-model="selected">
+				<option>请选择</option>
+				<option>A</option>
+				<option disabled>B</option>
+				<option>C</option>
+			</select>
+			<span>Selected: {{ selected }}</span>
+		</div>
+
+		<div id="example-6">
+			<select v-model="selected" multiple style="width: 50px;">
+				<option>A</option>
+				<option disabled>B</option>
+				<option>C</option>
+			</select>
+			<br>
+			<span>Selected: {{ selected }}</span>
+		</div>
+
+		<div id="blog-posts-events-demo">
+			<div :style="{ fontSize: postFontSize + 'em' }">
+				<blog-post
+						v-for="post in posts"
+						v-bind:key="post.id"
+						v-bind:post="post"
+						v-on:enlarge-text="postFontSize += 0.1"
+				></blog-post>
+			</div>
+		</div>
+
+		<div id="app-element1">
+			<el-container style="height: 500px; border: 1px solid #eee">
+				<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+					<el-menu :default-openeds="['1', '3']">
+						<el-submenu index="1">
+							<template slot="title"><i class="el-icon-message"></i>导航一</template>
+							<el-menu-item-group>
+								<template slot="title">分组一</template>
+								<el-menu-item index="1-1">选项1</el-menu-item>
+								<el-menu-item index="1-2">选项2</el-menu-item>
+							</el-menu-item-group>
+							<el-menu-item-group title="分组2">
+								<el-menu-item index="1-3">选项3</el-menu-item>
+							</el-menu-item-group>
+							<el-submenu index="1-4">
+								<template slot="title">选项4</template>
+								<el-menu-item index="1-4-1">选项4-1</el-menu-item>
+							</el-submenu>
+						</el-submenu>
+						<el-submenu index="2">
+							<template slot="title"><i class="el-icon-menu"></i>导航二</template>
+							<el-menu-item-group>
+								<template slot="title">分组一</template>
+								<el-menu-item index="2-1">选项1</el-menu-item>
+								<el-menu-item index="2-2">选项2</el-menu-item>
+							</el-menu-item-group>
+							<el-menu-item-group title="分组2">
+								<el-menu-item index="2-3">选项3</el-menu-item>
+							</el-menu-item-group>
+							<el-submenu index="2-4">
+								<template slot="title">选项4</template>
+								<el-menu-item index="2-4-1">选项4-1</el-menu-item>
+							</el-submenu>
+						</el-submenu>
+						<el-submenu index="3">
+							<template slot="title"><i class="el-icon-setting"></i>导航三</template>
+							<el-menu-item-group>
+								<template slot="title">分组一</template>
+								<el-menu-item index="3-1">选项1</el-menu-item>
+								<el-menu-item index="3-2">选项2</el-menu-item>
+							</el-menu-item-group>
+							<el-menu-item-group title="分组2">
+								<el-menu-item index="3-3">选项3</el-menu-item>
+							</el-menu-item-group>
+							<el-submenu index="3-4">
+								<template slot="title">选项4</template>
+								<el-menu-item index="3-4-1">选项4-1</el-menu-item>
+							</el-submenu>
+						</el-submenu>
+					</el-menu>
+				</el-aside>
+
+				<el-container>
+					<el-header style="text-align: right; font-size: 12px">
+						<el-dropdown>
+							<i class="el-icon-setting" style="margin-right: 15px"></i>
+							<el-dropdown-menu slot="dropdown">
+								<el-dropdown-item>查看</el-dropdown-item>
+								<el-dropdown-item>新增</el-dropdown-item>
+								<el-dropdown-item>删除</el-dropdown-item>
+							</el-dropdown-menu>
+						</el-dropdown>
+						<span>王小虎</span>
+					</el-header>
+
+					<el-main>
+						<el-table :data="tableData">
+							<el-table-column prop="date" label="日期" width="140">
+							</el-table-column>
+							<el-table-column prop="name" label="姓名" width="120">
+							</el-table-column>
+							<el-table-column prop="address" label="地址">
+							</el-table-column>
+						</el-table>
+					</el-main>
+				</el-container>
+			</el-container>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br>
+
+	</div>
+</div>
+<script>
+    var top = new Vue({
+        el: '#top',
+        data: {
+            isShow: false
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
+
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: '页面加载于 ' + new Date().toLocaleDateString(),
+            message2: 'aaaa'
+        }
+    })
+
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen: 'true'
+        }
+    })
+
+    // 定义名为 todo-item 的新组件
+    Vue.component('todo-item', {
+        // todo-item 组件现在接受一个
+        // "prop"，类似于一个自定义特性。
+        // 这个 prop 名为 todo。
+        props: ['todo', 'aaa'],
+        template: '<li>{{aaa}},{{ todo.text }}</li>'
+    })
+
+    var app7 = new Vue({
+        el: '#app-7',
+        data: {
+            groceryList: [
+                {id: 0, text: '蔬菜'},
+                {id: 1, text: '奶酪'},
+                {id: 2, text: '随便其它什么人吃的东西'}
+            ]
+        }
+    })
+
+
+    var watchExampleVM = new Vue({
+        el: '#watch-example',
+        data: {
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!'
+        },
+        watch: {
+            // 如果 `question` 发生改变，这个函数就会运行
+            question: function (newQuestion, oldQuestion) {
+                this.answer = 'Waiting for you to stop typing...'
+                // this.debouncedGetAnswer();
+                _.debounce(this.getAnswer, 500)();
+                //this.getAnswer()
+            }
+        },
+        created: function () {
+            // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+            // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+            // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+            // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+            // 请参考：https://lodash.com/docs#debounce
+            this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+        },
+        methods: {
+            getAnswer: function () {
+                if (this.question.indexOf('?') === -1) {
+                    this.answer = 'Questions usually contain a question mark. ;-)'
+                    return
+                }
+                this.answer = 'Thinking...'
+                var vm = this
+                axios.get('https://yesno.wtf/api')
+                    .then(function (response) {
+                        vm.answer = _.capitalize(response.data.answer)
+                    })
+                    .catch(function (error) {
+                        vm.answer = 'Error! Could not reach the API. ' + error
+                    })
+            }
+        }
+    })
+
+    new Vue({
+        el: '#example-4',
+        data: {
+            picked: '1'
+        }
+    })
+
+    new Vue({
+        el: '#example-5',
+        data: {
+            selected: []
+        }
+    })
+
+    new Vue({
+        el: '#example-6',
+        data: {
+            selected: ['C']
+        }
+    })
+
+    Vue.component('blog-post', {
+        props: ['post'],
+        template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button v-on:click="$emit('enlarge-text')">
+        Enlarge text
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+    })
+    new Vue({
+        el: '#blog-posts-events-demo',
+        data: {
+            posts: [
+                {id: 1, title: 'My journey with Vue'},
+                {id: 2, title: 'Blogging with Vue'},
+                {id: 3, title: 'Why Vue is so fun'},
+            ],
+            postFontSize: 3
+        }
+    })
+
+    var Main = {
+        data() {
+            const item = {
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            };
+            return {
+                tableData: Array(20).fill(item)
+            }
+        }
+    };
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app-element1')
+</script>
+
+</html>

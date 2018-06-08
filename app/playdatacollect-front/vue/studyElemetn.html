@@ -1,0 +1,31 @@
+<html>
+<!-- vue -->
+<script src="//unpkg.com/vue@2.5.16/dist/vue.js"></script>
+
+<!-- element-ui -->
+<link rel="stylesheet" href="//unpkg.com/element-ui@2.4.0/lib/theme-chalk/index.css">
+<script src="//unpkg.com/element-ui@2.4.0/lib/index.js"></script>
+
+<div id="app">
+	<el-button @click="visible = true">∞¥≈•</el-button>
+	<el-dialog :visible.sync="visible" title="Hello world">
+		<p>ª∂”≠ π”√ Element</p>
+	</el-dialog>
+</div>
+
+
+<script>
+
+    var Main = {
+        data() {
+            return {
+                visible: false
+            }
+        }
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+
+</script>
+
+</html>

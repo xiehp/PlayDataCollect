@@ -1,0 +1,2 @@
+call PackageRestartForHome.bat
+runPlayData.bat

@@ -165,6 +165,13 @@
 
 
 		<!-- ★★spring工具★★ -->
+
+		<!-- ★★第三方工具★★ -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>25.1-jre</version>
+		</dependency>
 	</dependencies>
 
 	<build>

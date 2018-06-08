@@ -1,7 +1,7 @@
 package xie.playdatacollect.collector.quartz.utils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -28,12 +28,12 @@ public class XScheduleConfig {
 	public static final String PER_10_HOUR = "0 0 0/10 * * ? *";
 	public static final String PER_12_HOUR = "0 0 0/12 * * ? *";
 
-	public static final String VERSION_NAME = "1.4.7";
+	public static final String VERSION_NAME = "1.4.6";
 	public static Date VERSION_DATE = null;
 
 	static {
 		try {
-			VERSION_DATE = DateUtil.fromString("2018-05-29 22:27");
+			VERSION_DATE = XDateUtil.fromString("2018-05-28 16:04");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

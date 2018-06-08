@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
 import xie.playdatacollect.influxdb.data.measurement.TestM2;
 import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
@@ -46,12 +46,12 @@ public class XInfluxdbActionTest {
 		xInfluxdbAction.dropMeasurement("test", "m2");
 
 		// 写入数据
-		Point point11 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 111.0).addField("f2", "a").addField("f3", 1).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
-		Point point12 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 112.0).addField("f2", "b").addField("f3", 2).time(DateUtil.fromString("2018-03-02 11:22:34").getTime(), TimeUnit.MILLISECONDS).build();
-		Point point13 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 113.0).addField("f2", "c").addField("f3", 3).time(DateUtil.fromString("2018-03-02 11:22:35").getTime(), TimeUnit.MILLISECONDS).build();
-		Point point2 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag cat").addField("f1", 222.0).addField("f2", "d").addField("f3", 4).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
-		Point point3 = Point.measurement("m2").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
-		Point point4 = Point.measurement("m1").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).addField("f4", 5).time(DateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point11 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 111.0).addField("f2", "a").addField("f3", 1).time(XDateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point12 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 112.0).addField("f2", "b").addField("f3", 2).time(XDateUtil.fromString("2018-03-02 11:22:34").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point13 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag dog").addField("f1", 113.0).addField("f2", "c").addField("f3", 3).time(XDateUtil.fromString("2018-03-02 11:22:35").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point2 = Point.measurement("m2").tag("t1", "tag red").tag("t2", "tag cat").addField("f1", 222.0).addField("f2", "d").addField("f3", 4).time(XDateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point3 = Point.measurement("m2").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).time(XDateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
+		Point point4 = Point.measurement("m1").tag("t1", "tag blue").tag("t2", "tag cat").addField("f1", 333.0).addField("f2", "e").addField("f3", 5).addField("f4", 5).time(XDateUtil.fromString("2018-03-02 11:22:33").getTime(), TimeUnit.MILLISECONDS).build();
 		xInfluxdbAction.writePoint(point11);
 		xInfluxdbAction.writePoint(point12);
 		xInfluxdbAction.writePoint(point13);
@@ -100,7 +100,7 @@ public class XInfluxdbActionTest {
 
 		// copy test data
 
-		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, DateUtil.fromString("2018-05-25 08:00:00"));
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, XDateUtil.fromString("2018-05-25 08:00:00"));
 		assertSize(queryResult, 11626);
 		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
 
@@ -109,7 +109,7 @@ public class XInfluxdbActionTest {
 		tags.put("网站", "bilibili");
 		tags.put("名字", "Four of a Kind");
 
-		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, DateUtil.fromString("2018-05-25 08:00:00"));
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, null, XDateUtil.fromString("2018-05-25 08:00:00"));
 		assertSize(queryResult, 844);
 		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
 
@@ -178,16 +178,16 @@ public class XInfluxdbActionTest {
 		tags.put("网站", "bilibili");
 
 		xInfluxdbAction.deleteSeries("test", "base_data", tags);
-		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 		System.out.println(queryResult.getResults().get(0).getSeries() == null);
 
 
 //		tags.put("名字", "重神机潘多拉：第9话 虎眼");
-		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("play_data", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 //		print(queryResult, MPlayData.class);
 
 		xInfluxdbAction.copyData(queryResult, "test", MPlayData.class, tags);
-		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 		print(queryResult, MPlayData.class);
 		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 
@@ -196,21 +196,21 @@ public class XInfluxdbActionTest {
 		tags.put("名字", "齐木楠雄的灾难 第二季");
 		xInfluxdbAction.deleteSeries("test", "base_data", tags);
 		tags.remove("名字");
-		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 
 		tags.put("名字", "Butlers～千年百年物语～");
 		xInfluxdbAction.deleteSeries("test", "base_data", tags);
 		tags.remove("名字");
-		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
 
 		tags.put("名字", "DARLING in the FRANXX（僅限港澳台地區）");
 		xInfluxdbAction.deleteSeries("test", "base_data", tags);
 		tags.remove("名字");
-		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 		System.out.println(queryResult.getResults().get(0).getSeries().get(0).getValues().size());
-//		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, DateUtil.fromString("2018-05-24 23:30:00"), DateUtil.fromString("2018-05-24 23:40:00"));
+//		queryResult = xInfluxdbAction.queryDataResult("test", "base_data", tags, XDateUtil.fromString("2018-05-24 23:30:00"), XDateUtil.fromString("2018-05-24 23:40:00"));
 //		print(queryResult, MPlayData.class);
 
 
@@ -269,7 +269,7 @@ public class XInfluxdbActionTest {
 		// 删除数据3
 		prepareData_full();
 		tags.clear();
-		xInfluxdbAction.deleteSeries("test", "m2", tags, DateUtil.fromString("2018-03-02 11:22:34"), null);
+		xInfluxdbAction.deleteSeries("test", "m2", tags, XDateUtil.fromString("2018-03-02 11:22:34"), null);
 		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
 		System.out.println(list);
 		Assert.assertEquals(3, list.get(0).getSeries().get(0).getValues().size());
@@ -277,7 +277,7 @@ public class XInfluxdbActionTest {
 		// 删除数据4
 		prepareData_full();
 		tags.clear();
-		xInfluxdbAction.deleteSeries("test", "m2", tags, null, DateUtil.fromString("2018-03-02 11:22:34"));
+		xInfluxdbAction.deleteSeries("test", "m2", tags, null, XDateUtil.fromString("2018-03-02 11:22:34"));
 		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
 		System.out.println(list);
 		Assert.assertEquals(2, list.get(0).getSeries().get(0).getValues().size());
@@ -285,7 +285,7 @@ public class XInfluxdbActionTest {
 		// 删除数据5
 		prepareData_full();
 		tags.clear();
-		xInfluxdbAction.deleteSeries("test", "m2", tags, DateUtil.fromString("2018-03-02 11:22:34"), DateUtil.fromString("2018-03-02 11:22:35"));
+		xInfluxdbAction.deleteSeries("test", "m2", tags, XDateUtil.fromString("2018-03-02 11:22:34"), XDateUtil.fromString("2018-03-02 11:22:35"));
 		list = xInfluxdbAction.queryDataList("test", "m2", null, null, null);
 		System.out.println(list);
 		Assert.assertEquals(4, list.get(0).getSeries().get(0).getValues().size());
@@ -312,7 +312,7 @@ public class XInfluxdbActionTest {
 		newTags.clear();
 		newTags.put("t1", "tag green");
 		newTags.put("t2", "tag mouse");
-		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, DateUtil.fromString("2018-03-02 11:22:34"), DateUtil.fromString("2018-03-02 11:22:35"));
+		xInfluxdbAction.copyData("test", TestM2.class, tags, newTags, XDateUtil.fromString("2018-03-02 11:22:34"), XDateUtil.fromString("2018-03-02 11:22:35"));
 		queryResult = xInfluxdbAction.queryDataResult("test", "m2", null, null, null);
 		System.out.println(list);
 		print(queryResult);
@@ -409,7 +409,7 @@ public class XInfluxdbActionTest {
 	public void test_deleteSeries() throws ParseException {
 		Map<String, String> tagMap = new HashMap<>();
 		tagMap.put("t2", "ccc");
-		xInfluxdbAction.deleteSeries("test", "m1", tagMap, DateUtil.fromString("2018-05-22 23:38:34"), DateUtil.fromString("2018-05-22 23:38:38"));
+		xInfluxdbAction.deleteSeries("test", "m1", tagMap, XDateUtil.fromString("2018-05-22 23:38:34"), XDateUtil.fromString("2018-05-22 23:38:38"));
 
 	}
 

@@ -18,8 +18,10 @@
 		<module>springbootstudy</module>
 		<module>dummy</module>
 
-		<module>playdatacollect-server</module>
 		<module>playdatacollect-collector</module>
+		<module>playdatacollect-front</module>
+
+		<module>playdatacollect-server</module>
 		<module>playdatacollect-monitor</module>
 	</modules>
 

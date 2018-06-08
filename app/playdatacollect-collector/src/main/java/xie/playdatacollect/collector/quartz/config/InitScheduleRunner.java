@@ -107,9 +107,9 @@ public class InitScheduleRunner extends InitEntityDataRunner {
 
 		// bilibili
 		map.clear();
+		map.put("name", "BilibiliPlayDataProgramJobDetail");
 		map.put("sourceKey", PlayDataConst.SOURCE_KEY_BILIBILI);
 		map.put("type", PlayDataConst.SOURCE_TYPE_PROGRAM);
-		map.put("name", "BilibiliPlayDataProgramJobDetail");
 		map.put("beforeSecond", XConst.SECOND_15_DAY);
 		map.put("afterSecond", -XConst.SECOND_02_MIN);
 		saveJob("BilibiliPlayDataProgramJob", null, BilibiliPlayDataProgramJob.class.getName(), map, null);
