@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Spring组件工具类
- * <p>
+ *
  * <pre>
  * Pattern : Value Object
  * Thread Safe : No
@@ -205,6 +205,10 @@ public class SpringUtil implements BeanFactoryAware {
 			LOGGER.info("spring.datasource.url               :" + environment.getProperty("spring.datasource.url"));
 			LOGGER.info("spring.datasource.driver-class-name :" + environment.getProperty("spring.datasource.driver-class-name"));
 			LOGGER.info("spring.datasource.driverClassName   :" + environment.getProperty("spring.datasource.driverClassName"));
+
+			LOGGER.info("spring.jpa.show-sql   :" + environment.getProperty("spring.jpa.show-sql"));
+			LOGGER.info("spring.jpa.generate-ddl   :" + environment.getProperty("spring.jpa.generate-ddl"));
+			LOGGER.info("spring.jpa.hibernate.ddl-auto   :" + environment.getProperty("spring.jpa.hibernate.ddl-auto"));
 
 			LOGGER.info("");
 			LOGGER.info("-------------------------------------------");

@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class DateUtil {
+public class XDateUtil {
 
 	public static final String YMD1 = "yyyy-MM-dd";
 	public static final String YMD2 = "dd/MM/yy";

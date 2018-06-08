@@ -109,6 +109,11 @@
 				<artifactId>xframework-core</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xframework-web</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
 
 
 			<!-- 其他第三方依赖 -->

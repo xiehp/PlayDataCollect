@@ -19,8 +19,12 @@ public class PublicDictionaryService extends BasePageService<PublicDictionary, S
 
 	private volatile Map<String, List<PublicDictionary>> dictionaryMap;
 
-	@Autowired
 	private PublicDictionaryDao publicDictionaryDao;
+
+	@Autowired
+	public PublicDictionaryService(PublicDictionaryDao publicDictionaryDao) {
+		this.publicDictionaryDao = publicDictionaryDao;
+	}
 
 	@Override
 	public BaseDao<PublicDictionary, String> getBaseDao() {

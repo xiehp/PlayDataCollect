@@ -6,7 +6,7 @@
 package xie.common.spring.jpa.repository;
 
 import org.springframework.util.StringUtils;
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 import xie.common.utils.string.XStringUtils;
 import xie.common.utils.validate.XValidatorUtils;
 
@@ -108,7 +108,7 @@ public class BaseSearchFilter {
 	public static void convertDate(Map<String, Object> searchParams, String searchKey) throws Exception {
 		String startDateStr = (String) searchParams.get(searchKey);
 		if (XValidatorUtils.isNotNull(startDateStr)) {
-			Date startDate = DateUtil.convertFromString(startDateStr, DateUtil.YMD1);
+			Date startDate = XDateUtil.convertFromString(startDateStr, XDateUtil.YMD1);
 			searchParams.put(searchKey, startDate);
 		}
 	}
@@ -120,8 +120,8 @@ public class BaseSearchFilter {
 	public static void convertEndDate(Map<String, Object> searchParams, String searchKey) throws Exception {
 		String endDateStr = (String) searchParams.get(searchKey);
 		if (XValidatorUtils.isNotNull(endDateStr)) {
-			Date endDate = DateUtil.convertFromString(endDateStr, DateUtil.YMD1);
-			endDate = DateUtil.seekDate(endDate, 1);
+			Date endDate = XDateUtil.convertFromString(endDateStr, XDateUtil.YMD1);
+			endDate = XDateUtil.seekDate(endDate, 1);
 			searchParams.put(searchKey, endDate);
 		}
 	}
@@ -143,16 +143,16 @@ public class BaseSearchFilter {
 		// 开始日期
 		if (!XStringUtils.isBlank(startDateName) && searchParams.get(startDateName) != null) {
 			Object startDateObj = searchParams.get(startDateName);
-			Date startDate = DateUtil.fromString(startDateObj);
-			startDate = DateUtil.getStartTimeOfDay(startDate);
+			Date startDate = XDateUtil.fromString(startDateObj);
+			startDate = XDateUtil.getStartTimeOfDay(startDate);
 			searchParams.put(startDateName, startDate);
 		}
 
 		// 结束日期
 		if (!XStringUtils.isBlank(endDateName) && searchParams.get(endDateName) != null) {
 			Object endDateObj = searchParams.get(endDateName);
-			Date endDate = DateUtil.fromString(endDateObj);
-			endDate = DateUtil.getEndTimeOfDay(endDate);
+			Date endDate = XDateUtil.fromString(endDateObj);
+			endDate = XDateUtil.getEndTimeOfDay(endDate);
 			searchParams.put(endDateName, endDate);
 		}
 	}

@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>xframework-core</module>
+		<module>xframework-web</module>
 	</modules>
 
 	<dependencies>

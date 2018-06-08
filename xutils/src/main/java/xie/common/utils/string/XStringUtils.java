@@ -1,6 +1,6 @@
 package xie.common.utils.string;
 
-import xie.common.utils.date.DateUtil;
+import xie.common.utils.date.XDateUtil;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -446,7 +446,7 @@ public class XStringUtils {
 		} else if (clazz == Long.class) {
 			return (X) Long.valueOf(str);
 		} else if (clazz == Date.class) {
-			SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.YMD_FULL);
+			SimpleDateFormat sdf = new SimpleDateFormat(XDateUtil.YMD_FULL);
 			try {
 				return (X) sdf.parse(str);
 			} catch (ParseException e) {

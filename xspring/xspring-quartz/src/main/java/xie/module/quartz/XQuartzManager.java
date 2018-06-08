@@ -4,6 +4,7 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -57,8 +58,11 @@ public class XQuartzManager {
 		} else {
 //			scheduler.rescheduleJob(triggerKey, trigger);
 
-			scheduler.deleteJob(jobDetail.getKey());
-			scheduler.scheduleJob(jobDetail, trigger);
+//			scheduler.deleteJob(jobDetail.getKey());
+
+			Set<Trigger> setTrigger = new HashSet<>();
+			setTrigger.add(trigger);
+			scheduler.scheduleJob(jobDetail, setTrigger, true);
 		}
 	}
 

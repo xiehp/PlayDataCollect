@@ -8,7 +8,7 @@
 
 	<property name="LOG_MSG_PATTERN_WITH_DAY" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}"/>
 	<property name="LOG_MSG_PATTERN_NO_DAY" value="%d{HH:mm:ss.SSS} %-8relative ${LOG_MSG_PATTERN}"/>
-	<property name="MAX_FILE_SIZE" value="2MB"/>
+	<property name="MAX_FILE_SIZE" value="10MB"/>
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- 控制台日志pattern -->
