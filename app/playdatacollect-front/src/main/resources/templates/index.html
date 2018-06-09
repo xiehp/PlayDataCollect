@@ -26,7 +26,7 @@
 	<script src="plugin/layui/layui.all.js"></script>
 </head>
 <body>
-<div id="mainDiv">
+<div id="mainDiv" style="display: none;" v-show="true">
 	<el-container>
 		<el-header>
 			<ul class="layui-nav">
@@ -55,9 +55,18 @@
 					</div>
 					<div class="panel-body">
 						<table class="list-group">
-							<tr class="list-group-item" th:each="program : ${programEntityList}">
-								<td th:text="${program.code}"></td>
+							<tr class="list-group-item" th:each="program,info:${programEntityList}">
+								<td th:text="${info.index}"></td>
+								<!--<td th:text="${program.code}"></td>-->
 								<td th:text="${program.fullName}"></td>
+								<td>
+									<div th:each="playdata:${playDataMap.get(program.fullName)}">
+										<span th:text="${playdata.getTime()}"></span>
+										<span th:text="${playdata.getType()}"></span>
+										<span th:text="${playdata.getSite()}"></span>
+										<span th:text="${playdata.getPlayCount()}"></span>
+									</div>
+								</td>
 								<td>
 									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
 								</td>
@@ -90,47 +99,47 @@
 
 
     let data = {};
-    $.extend(data, {indexTitle: 'abc title1'});
-    $.extend(data, {indexTitle2: 'abc title2'});
+	$.extend(data, {indexTitle: 'abc title1'});
+	$.extend(data, {indexTitle2: 'abc title2'});
 
-    let elementUI = new Vue({
-        el: "#mainDiv",
-        data: data,
-        computed: {
-            topNavActive: function () {
-                console.log(this.location.href);
-                console.log(this.location.search);
+	let elementUI = new Vue({
+		el: "#mainDiv",
+		data: data,
+		computed: {
+			topNavActive: function () {
+				console.log(this.location.href);
+				console.log(this.location.search);
 
-                return true;
-            }
-        }
-    });
+				return true;
+			}
+		}
+	});
 
-    // let layuiNav = new Vue({
-    //     el: ".layui-nav",
-    //     data: {
-    //         indexTitle: 'abc title1111',
-    //         indexTitle2: 'abc title2222'
-    //     },
-    //     computed: {
-    //         topNavActive: function () {
-    //             console.log(this.location.href);
-    //             console.log(this.location.search);
-    //
-    //             return true;
-    //         }
-    //     }
-    // });
+	// let layuiNav = new Vue({
+	//     el: ".layui-nav",
+	//     data: {
+	//         indexTitle: 'abc title1111',
+	//         indexTitle2: 'abc title2222'
+	//     },
+	//     computed: {
+	//         topNavActive: function () {
+	//             console.log(this.location.href);
+	//             console.log(this.location.search);
+	//
+	//             return true;
+	//         }
+	//     }
+	// });
 
-    //
-    // layuiNav.indexTitle = 'asdasdsad1';
-    setTimeout(function () {
-        // console.log(layuiNav.indexTitle);
-        // layuiNav.indexTitle = 'aaa';
-        // console.log(layuiNav.indexTitle)
+	//
+	// layuiNav.indexTitle = 'asdasdsad1';
+	setTimeout(function () {
+		// console.log(layuiNav.indexTitle);
+		// layuiNav.indexTitle = 'aaa';
+		// console.log(layuiNav.indexTitle)
 
-        elementUI.indexTitle = 'bbb';
-    }, 5000);
+		elementUI.indexTitle = 'bbb';
+	}, 5000);
 
 </script>
 

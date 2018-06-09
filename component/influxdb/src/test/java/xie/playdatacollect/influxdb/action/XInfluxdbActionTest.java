@@ -20,6 +20,10 @@ import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
 import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -413,4 +417,20 @@ public class XInfluxdbActionTest {
 
 	}
 
+
+	private static final int FRACTION_MIN_WIDTH = 0;
+	private static final int FRACTION_MAX_WIDTH = 9;
+	private static final boolean ADD_DECIMAL_POINT = true;
+	public static void main(String[] args) {
+		DateTimeFormatter ISO8601_FORMATTER = new DateTimeFormatterBuilder()
+				.appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+				.appendFraction(ChronoField.NANO_OF_SECOND, FRACTION_MIN_WIDTH, FRACTION_MAX_WIDTH, ADD_DECIMAL_POINT)
+				.appendPattern("X")
+				.toFormatter();
+
+		Instant	instant = Instant.from(ISO8601_FORMATTER.parse(String.valueOf("2018-05-05T11:22:33Z")));
+		System.out.println(instant);
+		instant = Instant.from(ISO8601_FORMATTER.parse(String.valueOf("2018-05-05T00:00:00Z")));
+		System.out.println(instant);
+	}
 }
