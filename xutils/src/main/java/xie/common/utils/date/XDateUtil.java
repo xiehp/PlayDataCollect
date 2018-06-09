@@ -18,6 +18,7 @@ public class XDateUtil {
 	public static final String YMD6 = "HH";
 	public static final String YMD7 = "yyyy/MM/dd";
 	public static final String YMD_FULL = "yyyy-MM-dd HH:mm:ss";
+	public static final String YMD_FULL_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	public static final String YMD_FULL2 = "yyyyMMddHHmmssSSS";
 	public static final String YMD_FULL3 = "yyyyMMdd HHmmss";
 
@@ -115,7 +116,7 @@ public class XDateUtil {
 	}
 
 	public static String convertToStringUTC(Date date) {
-		return convertToStringUTC(date, YMD_FULL);
+		return convertToStringUTC(date, YMD_FULL_UTC);
 	}
 
 	public static Date seekDate(Date date, int dayNum) {
