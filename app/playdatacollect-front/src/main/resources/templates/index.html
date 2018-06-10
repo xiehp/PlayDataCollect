@@ -49,28 +49,34 @@
 				</div>
 			</div>
 			<div th:if="${not #lists.isEmpty(programEntityList)}">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">列表</h3>
-					</div>
-					<div class="panel-body">
-						<table class="list-group">
-							<tr class="list-group-item" th:each="program,info:${programEntityList}">
-								<td th:text="${info.index}"></td>
-								<!--<td th:text="${program.code}"></td>-->
-								<td th:text="${program.fullName}"></td>
-								<td>
-									<div th:each="playdata:${playDataMap.get(program.fullName)}">
-										<span th:text="${playdata.getTime()}"></span>
-										<span th:text="${playdata.getType()}"></span>
-										<span th:text="${playdata.getSite()}"></span>
-										<span th:text="${playdata.getPlayCount()}"></span>
-									</div>
-								</td>
-								<td>
-									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
-								</td>
-							</tr>
+				<div class="">
+					<div class="">
+						<table class="layui-table">
+							<thead>
+								<tr>
+									<th>排序</th>
+									<th>名字</th>
+									<th>播放量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="" th:each="program,info:${programEntityList}">
+									<td th:text="${info.index}"></td>
+									<!--<td th:text="${program.code}"></td>-->
+									<td th:text="${program.fullName}"></td>
+									<td>
+										<div th:each="playdata:${playDataMap.get(program.fullName)}">
+											<span th:text="${playdata.getTime()}"></span>
+											<span th:text="${playdata.getType()}"></span>
+											<span th:text="${playdata.getSite()}"></span>
+											<span th:text="${playdata.getPlayCount()}"></span>
+										</div>
+									</td>
+									<td>
+										<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
+									</td>
+								</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -141,10 +147,6 @@
 		elementUI.indexTitle = 'bbb';
 	}, 5000);
 
-</script>
-
-
-<script>
 </script>
 
 
