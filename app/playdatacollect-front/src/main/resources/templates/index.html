@@ -53,20 +53,40 @@
 								<tr>
 									<th>排序</th>
 									<th>名字</th>
-									<th>播放量</th>
+									<th>播放量 bilibili</th>
+									<th>播放量 youku</th>
+									<th>播放量 iqiyi</th>
+									<th>播放量合计</th>
+									<th>其他</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr class="" th:each="program,info:${programEntityList}">
-									<td th:text="${info.index}"></td>
+									<td th:text="${info.index+1}"></td>
 									<!--<td th:text="${program.code}"></td>-->
 									<td th:text="${program.fullName}"></td>
 									<td>
-										<div th:each="playdata:${playDataMap.get(program.fullName)}">
-											<span th:text="${playdata.getTime()}"></span>
-											<span th:text="${playdata.getType()}"></span>
-											<span th:text="${playdata.getSite()}"></span>
-											<span th:text="${playdata.getPlayCount()}"></span>
+										<div th:each="playdata,rowStat:${playDataMap.get(program.fullName)}" th:if="${'bilibili' eq playdata.getSite()}">
+											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+										</div>
+									</td>
+									<td>
+										<div th:each="playdata:${playDataMap.get(program.fullName)}" th:if="${'youku' eq playdata.getSite()}">
+											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+										</div>
+									</td>
+									<td>
+										<div th:each="playdata:${playDataMap.get(program.fullName)}" th:if="${'iqiyi' eq playdata.getSite()}">
+											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+										</div>
+									</td>
+									<td>
+										<div th:each="playdata:${sumPlayDataMap.get(program.fullName)}">
+											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
 										</div>
 									</td>
 									<td>

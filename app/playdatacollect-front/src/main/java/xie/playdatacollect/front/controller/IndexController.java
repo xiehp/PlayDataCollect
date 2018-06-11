@@ -4,6 +4,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.time.DateUtils;
 import org.influxdb.dto.QueryResult;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.Collator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,7 +51,9 @@ public class IndexController extends BaseController {
 		List<ProgramEntity> programEntityList = entityCache.get("ProgramEntityList",
 				() -> programService.findAll()
 		);
-		programEntityList.sort(Comparator.comparing(ProgramEntity::getFullName));
+		Collator collator = Collator.getInstance(Locale.CHINESE);
+//		com.ibm.icu.text.Collator.getInstance(com.ibm.icu.util.ULocale.SIMPLIFIED_CHINESE);
+		programEntityList.sort((o1, o2) -> collator.compare(o1.getFullName(), o2.getFullName()));
 		model.addAttribute("programEntityList", programEntityList);
 
 
@@ -74,6 +78,31 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("playDataList", playDataList);
 		model.addAttribute("playDataMap", playDataMap);
+
+		// 总播放数
+		Map<String, List<MDayPlayData>> sumPlayDataMap = playDataList.stream().collect(
+				Collectors.toMap(
+						MDayPlayData::getName,
+						Lists::newArrayList,
+						(List<MDayPlayData> list1, List<MDayPlayData> list2) -> {
+							for (int i = 0; i < list1.size(); i++) {
+								MDayPlayData m = list1.get(i);
+								if (m.getTime().equals(list2.get(0).getTime())) {
+									MDayPlayData newM = new MDayPlayData();
+									BeanUtils.copyProperties(m, newM);
+									newM.setPlayCount(m.getPlayCount() + list2.get(0).getPlayCount());
+									list1.set(i, newM);
+									return list1;
+								}
+							}
+
+							list1.addAll(list2);
+							return list1;
+						},
+						LinkedHashMap::new
+				)
+		);
+		model.addAttribute("sumPlayDataMap", sumPlayDataMap);
 
 		return "index";
 	}
