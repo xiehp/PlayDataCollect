@@ -125,6 +125,7 @@
 					<!-- 是否可以让spring dev tool 运行在开发环境之外，如生产环境  -->
 					<!--<excludeDevtools>false</excludeDevtools>-->
 					<finalName>${project.artifactId}</finalName>
+					<!--<fork>true</fork>-->
 				</configuration>
 			</plugin>
 		</plugins>

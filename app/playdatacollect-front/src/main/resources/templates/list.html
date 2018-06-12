@@ -15,11 +15,11 @@
 	<link rel="stylesheet" href="//unpkg.com/element-ui@2.4.0/lib/theme-chalk/index.css">
 	<script src="//unpkg.com/element-ui@2.4.0/lib/index.js"></script>
 
-	<!-- bootstrap-vue -->
-	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.css"/>
-	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
-	<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.js"></script>
-	<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+	<!--&lt;!&ndash; bootstrap-vue &ndash;&gt;-->
+	<!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.css"/>-->
+	<!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>-->
+	<!--<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.js"></script>-->
+	<!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>-->
 
 	<!-- layui -->
 	<link rel="stylesheet" href="/plugin/layui/css/layui.css">
@@ -45,31 +45,27 @@
 </script>
 
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">访问model</h3>
-	</div>
-	<div class="panel-body">
-		<span th:text="${list.size()}"></span>
-	</div>
-</div>
-<div th:if="${not #lists.isEmpty(list)}">
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">列表</h3>
-		</div>
-		<div class="panel-body">
-			<ul class="list-group">
-				<li class="list-group-item" th:each="person : ${list}">
-					<span th:text="${person.id}"></span>
-					<span th:text="${person.code}"></span>
-					<span th:text="${person.preNumber}"></span>
-					<span th:text="${person.nowNumber}"></span>
-					<button class="btn" th:onlick="'getName(\''+${person.id}+'\');'">获得名字</button>
-				</li>
-			</ul>
-		</div>
-	</div>
+<h3 class="">列表</h3>
+<div class="">
+	<table class="layui-table">
+		<thead>
+		<tr>
+			<th>No</th>
+			<th>code</th>
+			<th>名字</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="" th:each="program,lineStats:${programEntityList}">
+			<td th:text="${lineStats.index+1}"></td>
+			<td th:text="${program.code}"></td>
+			<td th:text="${program.fullName}"></td>
+			<td>
+				<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 </div>
 
 <div class="row">
