@@ -17,6 +17,10 @@
 			<groupId>xie</groupId>
 			<artifactId>xspring-jpa</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xspring-autoconfigure</artifactId>
+		</dependency>
 
 	</dependencies>
 </project>

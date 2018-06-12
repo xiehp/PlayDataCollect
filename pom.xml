@@ -14,7 +14,7 @@
 
 	<groupId>xie</groupId>
 	<artifactId>common-parent</artifactId>
-	<!-- 修改版本号请使用xie.playdata.version -->
+	<!-- 不要直接修改，修改版本号请使用xie.common.version -->
 	<version>2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -71,12 +71,14 @@
 			</dependency>
 			<dependency>
 				<groupId>xie</groupId>
-				<artifactId>xspring-component</artifactId>
+				<artifactId>xcommon</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
+
+			<!-- xspring -->
 			<dependency>
 				<groupId>xie</groupId>
-				<artifactId>xcommon</artifactId>
+				<artifactId>xspring-component</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
 			<dependency>
@@ -106,12 +108,27 @@
 			</dependency>
 			<dependency>
 				<groupId>xie</groupId>
+				<artifactId>xspring-autoconfigure</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+
+			<!-- xframework -->
+			<dependency>
+				<groupId>xie</groupId>
 				<artifactId>xframework-core</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xie</groupId>
 				<artifactId>xframework-web</artifactId>
+				<version>${xie.common.version}</version>
+			</dependency>
+
+
+			<!-- xcomponent -->
+			<dependency>
+				<groupId>xie</groupId>
+				<artifactId>xcomponent-influxdb</artifactId>
 				<version>${xie.common.version}</version>
 			</dependency>
 

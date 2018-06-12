@@ -11,6 +11,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>xspring-autoconfigure</module>
 		<module>xspring-utils</module>
 		<module>xspring-component</module>
 		<module>xspring-jpa</module>

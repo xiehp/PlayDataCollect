@@ -17,7 +17,6 @@
 		<dependency>
 			<groupId>xie</groupId>
 			<artifactId>xspring-utils</artifactId>
-			<version>${xie.common.version}</version>
 		</dependency>
 		<!--<dependency>-->
 			<!--<groupId>xie</groupId>-->
