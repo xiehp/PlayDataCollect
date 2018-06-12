@@ -1,10 +1,8 @@
 package xie.playdatacollect.influxdb.data;
 
 import org.influxdb.dto.Point;
-import xie.common.utils.utils.XConvertUtils;
 import xie.playdatacollect.common.data.CollectedData;
 import xie.playdatacollect.common.data.CollectedDataImpl;
-import xie.playdatacollect.common.utils.PlayDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;

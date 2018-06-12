@@ -1,6 +1,5 @@
 package xie.playdatacollect.collector.utils;
 
-import org.eclipse.jetty.util.ProcessorUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,7 +14,7 @@ import xie.playdatacollect.core.db.dao.url.ProcessUrlDao;
 import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.db.service.url.ProcessUrlService;
 import xie.playdatacollect.core.db.utils.ProcessUrlUtils;
-import xie.playdatacollect.influxdb.exception.XInfluxdbException;
+import xie.common.component.influxdb.exception.XInfluxdbException;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -41,7 +40,9 @@ public class ProgramMoveUtilsTest {
 
 	@Test
 	public void do_moveProgram() throws ParseException, XInfluxdbException {
-		programMoveUtils.moveProgram("426d6181-7821-4dc2-973c-8930b40178ac", "12a80cdd-5120-458e-8222-709b29a9a24a");
+		programMoveUtils.moveProgram(
+				"ce66a348-03e9-4a5e-8802-3dfa7a4b675d",
+				"c7694ad3-bec3-4e5a-8e9e-d76d1cad66c3");
 	}
 
 	@Test

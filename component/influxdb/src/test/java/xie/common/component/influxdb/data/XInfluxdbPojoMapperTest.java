@@ -1,4 +1,4 @@
-package xie.playdatacollect.influxdb.data;
+package xie.common.component.influxdb.data;
 
 import org.influxdb.dto.Point;
 import org.junit.Assert;
@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import xie.playdatacollect.influxdb.data.measurement.TestM2;
+import xie.common.component.influxdb.data.measurement.TestM2;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

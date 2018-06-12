@@ -130,4 +130,5 @@ public class ProgramEntity extends BaseEntity {
 	public void setSeries(String series) {
 		this.series = series;
 	}
+
 }

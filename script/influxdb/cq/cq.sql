@@ -24,6 +24,8 @@ END
 
 -- 连续查询每小时的播放量数据
 -- 原始sql
+DROP MEASUREMENT "hour_base_data"
+
 DROP CONTINUOUS QUERY "cq_hour_base_data" ON "play_data"
 
 CREATE CONTINUOUS QUERY "cq_hour_base_data" ON "play_data"
@@ -38,6 +40,8 @@ END
 
 -- 连续查询每天的播放量数据
 -- 原始sql
+DROP MEASUREMENT "day_base_data"
+
 DROP CONTINUOUS QUERY "cq_day_base_data" ON "play_data"
 
 CREATE CONTINUOUS QUERY "cq_day_base_data" ON "play_data"

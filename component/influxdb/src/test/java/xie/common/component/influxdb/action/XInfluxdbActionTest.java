@@ -1,4 +1,4 @@
-package xie.playdatacollect.influxdb.action;
+package xie.common.component.influxdb.action;
 
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.Point;
@@ -13,12 +13,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import xie.common.component.influxdb.pojo.measurement.XBaseMeasurementEntity;
 import xie.common.utils.date.XDateUtil;
-import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
-import xie.playdatacollect.influxdb.data.measurement.TestM2;
-import xie.playdatacollect.influxdb.pojo.XBaseMeasurementEntity;
+import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
+import xie.common.component.influxdb.data.measurement.TestM2;
 import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -38,9 +39,9 @@ import java.util.concurrent.TimeUnit;
 @EnableAutoConfiguration
 public class XInfluxdbActionTest {
 
-	@Autowired
+	@Resource
 	private XInfluxdbAction xInfluxdbAction;
-	@Autowired
+	@Resource
 	private InfluxDB influxDB;
 
 	private XInfluxdbPojoMapper xInfluxdbPojoMapper = new XInfluxdbPojoMapper();

@@ -1,24 +1,19 @@
 package xie.playdatacollect.front.controller;
 
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.time.DateUtils;
-import org.influxdb.dto.QueryResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xie.common.spring.jpa.entity.EntityCache;
-import xie.common.utils.date.XDateUtil;
 import xie.framework.core.service.dictionary.dao.AutoQueueDao;
 import xie.framework.core.service.dictionary.entity.AutoQueueEntity;
-import xie.framework.web.controller.BaseController;
 import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 import xie.playdatacollect.core.db.service.program.ProgramService;
-import xie.playdatacollect.influxdb.action.XInfluxdbAction;
-import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
+import xie.common.component.influxdb.action.XInfluxdbAction;
+import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
 import xie.playdatacollect.influxdb.pojo.measuerment.MDayPlayData;
-import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-public class IndexController extends BaseController {
+public class IndexController extends BaseFrontController {
 
 	@Resource
 	EntityCache entityCache;
@@ -59,7 +54,7 @@ public class IndexController extends BaseController {
 
 		// 获取节目对应播放量数据
 		Date endDate = DateUtils.truncate(DateUtils.addDays(new Date(), 1), Calendar.DATE);
-		Date startDate = DateUtils.addDays(endDate, -7);
+		Date startDate = DateUtils.addDays(endDate, -10);
 		List<MDayPlayData> playDataList = entityCache.get("playDataList",
 				() -> xInfluxdbAction.queryDataResultToPojo(MDayPlayData.class, "play_data", "day_base_data", null, startDate, endDate)
 		);

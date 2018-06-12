@@ -39,8 +39,12 @@
 
 		<!-- influxdb数据库依赖 -->
 		<dependency>
-			<groupId>org.influxdb</groupId>
-			<artifactId>influxdb-java</artifactId>
+			<groupId>xie</groupId>
+			<artifactId>xspring-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xie</groupId>
+			<artifactId>xcomponent-influxdb</artifactId>
 		</dependency>
 	</dependencies>
 

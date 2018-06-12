@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import xie.common.component.influxdb.action.XInfluxdbAction;
 import xie.component.httpclient.XHttpClientUtils;
 import xie.playdatacollect.core.db.service.MetricService;
 import xie.playdatacollect.core.db.service.TagService;
@@ -42,6 +43,9 @@ public class MainFront {
 	@Resource
 	ValueService valueService;
 
+	@Resource
+	XInfluxdbAction xInfluxdbAction;
+
 	@Bean
 	public RestTemplate createRestTemplate() {
 		return new RestTemplate();
@@ -67,12 +71,12 @@ public class MainFront {
 	 */
 //	@Scheduled(cron = "0/10 * * * * ?")
 //	@Scheduled(cron = "0 0/1 * * * ?")
-	public void runScheduled() {
-		System.out.println(new Date() + "----开始执行定时抓取任务");
-
-
-		System.out.println("抓取任务 end");
-	}
+//	public void runScheduled() {
+//		System.out.println(new Date() + "----开始执行定时抓取任务");
+//
+//
+//		System.out.println("抓取任务 end");
+//	}
 
 
 	public static void main(String[] args) {

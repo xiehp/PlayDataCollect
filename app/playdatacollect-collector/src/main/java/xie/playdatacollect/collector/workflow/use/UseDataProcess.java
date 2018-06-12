@@ -1,7 +1,6 @@
 package xie.playdatacollect.collector.workflow.use;
 
 import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;

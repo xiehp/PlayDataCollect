@@ -50,65 +50,72 @@
 					<div class="">
 						<table class="layui-table">
 							<thead>
-								<tr>
-									<th>排序</th>
-									<th>名字</th>
-									<th>播放量 bilibili</th>
-									<th>播放量 youku</th>
-									<th>播放量 iqiyi</th>
-									<th>播放量合计</th>
-									<th>其他</th>
-								</tr>
+							<tr>
+								<th>排序</th>
+								<th>名字</th>
+								<th>播放量 bilibili</th>
+								<th>播放量 youku</th>
+								<th>播放量 iqiyi</th>
+								<th>播放量合计</th>
+								<th>其他</th>
+							</tr>
 							</thead>
 							<tbody>
-								<tr class="" th:each="program,info:${programEntityList}">
-									<td th:text="${info.index+1}"></td>
-									<!--<td th:text="${program.code}"></td>-->
-									<td th:text="${program.fullName}"></td>
-									<td>
-										<div th:each="playdata,rowStat:${playDataMap.get(program.fullName)}" th:if="${'bilibili' eq playdata.getSite()}">
-											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-										</div>
-									</td>
-									<td>
-										<div th:each="playdata:${playDataMap.get(program.fullName)}" th:if="${'youku' eq playdata.getSite()}">
-											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-										</div>
-									</td>
-									<td>
-										<div th:each="playdata:${playDataMap.get(program.fullName)}" th:if="${'iqiyi' eq playdata.getSite()}">
-											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-										</div>
-									</td>
-									<td>
-										<div th:each="playdata:${sumPlayDataMap.get(program.fullName)}">
-											<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-											<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-										</div>
-									</td>
-									<td>
-										<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
-									</td>
-								</tr>
+							<tr class="" th:each="program,info:${programEntityList}">
+								<td th:text="${info.index+1}"></td>
+								<!--<td th:text="${program.code}"></td>-->
+								<td>
+									<span th:text="${program.fullName}"></span>
+									<br>
+									<span th:text="${program.id}"></span>
+								</td>
+								<td>
+									<div th:each="playdata,rowStat:${playDataMap.get(program.fullName)}"
+										 th:if="${'bilibili' eq playdata.getSite()}">
+										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+									</div>
+								</td>
+								<td>
+									<div th:each="playdata:${playDataMap.get(program.fullName)}"
+										 th:if="${'youku' eq playdata.getSite()}">
+										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+									</div>
+								</td>
+								<td>
+									<div th:each="playdata:${playDataMap.get(program.fullName)}"
+										 th:if="${'iqiyi' eq playdata.getSite()}">
+										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+									</div>
+								</td>
+								<td>
+									<div th:each="playdata:${sumPlayDataMap.get(program.fullName)}">
+										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
+										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
+									</div>
+								</td>
+								<td>
+									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
+								</td>
+							</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 
-			<div class="row">
-				<template
-						v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-					<div class="col-md-3 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
-						<b-button :size="size" :variant="variant">
-							{{variant}} {{size}}
-						</b-button>
-					</div>
-				</template>
-			</div>
+			<!--<div class="row">-->
+			<!--<template-->
+			<!--v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">-->
+			<!--<div class="col-md-3 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">-->
+			<!--<b-button :size="size" :variant="variant">-->
+			<!--{{variant}} {{size}}-->
+			<!--</b-button>-->
+			<!--</div>-->
+			<!--</template>-->
+			<!--</div>-->
 		</el-main>
 
 		<el-footer>
@@ -122,47 +129,47 @@
 
 
     let data = {};
-	$.extend(data, {indexTitle: 'abc title1'});
-	$.extend(data, {indexTitle2: 'abc title2'});
+    $.extend(data, {indexTitle: 'abc title1'});
+    $.extend(data, {indexTitle2: 'abc title2'});
 
-	let elementUI = new Vue({
-		el: "#mainDiv",
-		data: data,
-		computed: {
-			topNavActive: function () {
-				console.log(this.location.href);
-				console.log(this.location.search);
+    let elementUI = new Vue({
+        el: "#mainDiv",
+        data: data,
+        computed: {
+            topNavActive: function () {
+                console.log(this.location.href);
+                console.log(this.location.search);
 
-				return true;
-			}
-		}
-	});
+                return true;
+            }
+        }
+    });
 
-	// let layuiNav = new Vue({
-	//     el: ".layui-nav",
-	//     data: {
-	//         indexTitle: 'abc title1111',
-	//         indexTitle2: 'abc title2222'
-	//     },
-	//     computed: {
-	//         topNavActive: function () {
-	//             console.log(this.location.href);
-	//             console.log(this.location.search);
-	//
-	//             return true;
-	//         }
-	//     }
-	// });
+    // let layuiNav = new Vue({
+    //     el: ".layui-nav",
+    //     data: {
+    //         indexTitle: 'abc title1111',
+    //         indexTitle2: 'abc title2222'
+    //     },
+    //     computed: {
+    //         topNavActive: function () {
+    //             console.log(this.location.href);
+    //             console.log(this.location.search);
+    //
+    //             return true;
+    //         }
+    //     }
+    // });
 
-	//
-	// layuiNav.indexTitle = 'asdasdsad1';
-	setTimeout(function () {
-		// console.log(layuiNav.indexTitle);
-		// layuiNav.indexTitle = 'aaa';
-		// console.log(layuiNav.indexTitle)
+    //
+    // layuiNav.indexTitle = 'asdasdsad1';
+    setTimeout(function () {
+        // console.log(layuiNav.indexTitle);
+        // layuiNav.indexTitle = 'aaa';
+        // console.log(layuiNav.indexTitle)
 
-		elementUI.indexTitle = 'bbb';
-	}, 5000);
+        elementUI.indexTitle = 'bbb';
+    }, 5000);
 
 </script>
 

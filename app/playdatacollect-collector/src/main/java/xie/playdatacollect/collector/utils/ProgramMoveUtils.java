@@ -1,8 +1,8 @@
 package xie.playdatacollect.collector.utils;
 
-import org.apache.xpath.objects.XString;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import xie.common.spring.autoconfigure.influx.XInfluxdbAutoConfiguration;
 import xie.common.utils.string.XStringUtils;
 import xie.playdatacollect.core.db.dao.program.ProgramDao;
 import xie.playdatacollect.core.db.dao.url.ProcessUrlDao;
@@ -11,9 +11,8 @@ import xie.playdatacollect.core.db.entity.url.ProcessUrlEntity;
 import xie.playdatacollect.core.db.service.program.EpisodeService;
 import xie.playdatacollect.core.db.service.program.ProgramService;
 import xie.playdatacollect.core.db.utils.AllServiceUtil;
-import xie.playdatacollect.influxdb.action.XInfluxdbAction;
-import xie.playdatacollect.influxdb.data.XInfluxdbPojoMapper;
-import xie.playdatacollect.influxdb.exception.XInfluxdbException;
+import xie.common.component.influxdb.action.XInfluxdbAction;
+import xie.common.component.influxdb.exception.XInfluxdbException;
 import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
 
 import javax.annotation.Resource;
@@ -38,6 +37,8 @@ public class ProgramMoveUtils {
 
 	@Resource
 	XInfluxdbAction influxdbAction;
+	@Resource
+	XInfluxdbAutoConfiguration a;
 
 	/**
 	 * 移动节目数据，原先URL中的节目Code将会变成新的Code<br>

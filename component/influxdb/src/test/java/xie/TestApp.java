@@ -3,7 +3,7 @@ package xie;
 import org.influxdb.InfluxDB;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import xie.playdatacollect.influxdb.action.XInfluxdbAction;
+import xie.common.component.influxdb.action.XInfluxdbAction;
 
 @SpringBootConfiguration
 public class TestApp {
