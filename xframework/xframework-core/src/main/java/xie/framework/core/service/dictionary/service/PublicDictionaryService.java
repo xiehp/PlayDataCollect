@@ -13,7 +13,6 @@ import xie.framework.core.service.dictionary.entity.PublicDictionary;
 
 import java.util.*;
 
-
 @Service
 public class PublicDictionaryService extends BasePageService<PublicDictionary, String> {
 
