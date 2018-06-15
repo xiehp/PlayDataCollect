@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.context.LazyContextVariable;
 import xie.common.spring.jpa.entity.EntityCache;
 import xie.framework.core.service.dictionary.dao.AutoQueueDao;
 import xie.framework.core.service.dictionary.entity.AutoQueueEntity;
@@ -49,12 +50,11 @@ public class IndexController extends BaseFrontController {
 		Collator collator = Collator.getInstance(Locale.CHINESE);
 //		com.ibm.icu.text.Collator.getInstance(com.ibm.icu.util.ULocale.SIMPLIFIED_CHINESE);
 		programEntityList.sort((o1, o2) -> collator.compare(o1.getFullName(), o2.getFullName()));
-		model.addAttribute("programEntityList", programEntityList);
 
 
 		// 获取节目对应播放量数据
 		Date endDate = DateUtils.truncate(DateUtils.addDays(new Date(), 1), Calendar.DATE);
-		Date startDate = DateUtils.addDays(endDate, -10);
+		Date startDate = DateUtils.addDays(endDate, -20);
 		List<MDayPlayData> playDataList = entityCache.get("playDataList",
 				() -> xInfluxdbAction.queryDataResultToPojo(MDayPlayData.class, "play_data", "day_base_data", null, startDate, endDate)
 		);
@@ -71,8 +71,6 @@ public class IndexController extends BaseFrontController {
 				)
 		);
 
-		model.addAttribute("playDataList", playDataList);
-		model.addAttribute("playDataMap", playDataMap);
 
 		// 总播放数
 		Map<String, List<MDayPlayData>> sumPlayDataMap = playDataList.stream().collect(
@@ -97,7 +95,21 @@ public class IndexController extends BaseFrontController {
 						LinkedHashMap::new
 				)
 		);
+
+
+		model.addAttribute("programEntityList1", programEntityList.subList(0, 10));
+		model.addAttribute("programEntityList2", programEntityList.subList(10,20));
+		model.addAttribute("playDataList", playDataList);
+		model.addAttribute("playDataMap", playDataMap);
 		model.addAttribute("sumPlayDataMap", sumPlayDataMap);
+		model.addAttribute("programEntityList3", new LazyContextVariable<List<ProgramEntity>>() {
+			@Override
+			protected List<ProgramEntity> loadValue() {
+				return programEntityList.subList(20,30);
+			}
+		});
+
+
 
 		return "index";
 	}
