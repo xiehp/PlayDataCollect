@@ -45,6 +45,7 @@ DROP MEASUREMENT "day_base_data"
 DROP CONTINUOUS QUERY "cq_day_base_data" ON "play_data"
 
 CREATE CONTINUOUS QUERY "cq_day_base_data" ON "play_data"
+RESAMPLE FOR 1h
 BEGIN
   SELECT max("播放数") AS "播放数"
   INTO "play_data"."autogen"."day_base_data"

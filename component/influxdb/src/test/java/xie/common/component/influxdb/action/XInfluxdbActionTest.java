@@ -8,7 +8,6 @@ import org.influxdb.impl.InfluxDBResultMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -17,7 +16,7 @@ import xie.common.component.influxdb.pojo.measurement.XBaseMeasurementEntity;
 import xie.common.utils.date.XDateUtil;
 import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
 import xie.common.component.influxdb.data.measurement.TestM2;
-import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
+import xie.playdatacollect.influxdb.pojo.measurement.MPlayData;
 
 import javax.annotation.Resource;
 import java.text.ParseException;

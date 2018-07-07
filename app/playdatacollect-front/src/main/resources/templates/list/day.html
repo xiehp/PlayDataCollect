@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Index Page</title>
+	<title>每日播放量</title>
 	<meta content="text/html;charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<!--<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>-->
@@ -48,62 +48,7 @@
 			<div th:if="${not #lists.isEmpty(programEntityList)}">
 				<div class="">
 					<div class="">
-						<table class="layui-table">
-							<thead>
-							<tr>
-								<th>排序</th>
-								<th>名字</th>
-								<th>播放量 bilibili</th>
-								<th>播放量 youku</th>
-								<th>播放量 iqiyi</th>
-								<th>播放量合计</th>
-								<th>其他</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr class="" th:each="program,info:${programEntityList}" th:if="${sumPlayDataMap.get(program.fullName) ne empty}">
-								<td th:text="${info.index+1}"></td>
-								<!--<td th:text="${program.code}"></td>-->
-								<td>
-									<span th:text="${program.fullName}"></span>
-									<br>
-									<span th:text="${sumPlayDataMap.get(program.fullName) eq empty}"></span>
-									<br>
-									<span th:text="${program.id}"></span>
-								</td>
-								<td>
-									<div th:each="playdata,rowStat:${playDataMap.get(program.fullName)}"
-										 th:if="${'bilibili' eq playdata.getSite()}">
-										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${playDataMap.get(program.fullName)}"
-										 th:if="${'youku' eq playdata.getSite()}">
-										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${playDataMap.get(program.fullName)}"
-										 th:if="${'iqiyi' eq playdata.getSite()}">
-										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${sumPlayDataMap.get(program.fullName)}">
-										<span th:text="${#dates.format(playdata.getTime(), 'MM-dd')}"></span>
-										<span th:text="${playdata.getPlayCount() / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
-								</td>
-							</tr>
-							</tbody>
-						</table>
+						<div class="bbb" data-th-replace="fragment/table1::table1(${'day_table'}, ${programEntityList}, ${playDataMap}, ${sumPlayDataMap}, ${'yyyy-MM-dd'})"></div>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-package xie.playdatacollect.influxdb.pojo.measuerment;
+package xie.playdatacollect.influxdb.pojo.measurement;
 
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
@@ -7,14 +7,13 @@ import xie.common.component.influxdb.pojo.measurement.XBaseMeasurementEntity;
 import java.time.Instant;
 import java.util.Date;
 
-@Measurement(name = "base_data")
-public class MPlayData extends XBaseMeasurementEntity {
+@Measurement(name = "day_base_data")
+public class MDayPlayData extends XBaseMeasurementEntity {
 
 	private Date date;
 
 	@Column(name = "time")
 	private Instant time;
-
 
 	@Column(name = "aid", tag = true)
 	private String aid;
@@ -122,6 +121,10 @@ public class MPlayData extends XBaseMeasurementEntity {
 
 	public Long getPlayCount() {
 		return playCount;
+	}
+
+	public String getPlayCountFormatWan() {
+		return (playCount == null ? 0 : playCount) / 10000 + "万";
 	}
 
 	public void setPlayCount(Long playCount) {

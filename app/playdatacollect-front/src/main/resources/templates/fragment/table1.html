@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="playdata" type="xie.playdatacollect.influxdb.pojo.measurement.MPlayData"*/-->
+<!--/*@thymesVar id="program" type="xie.playdatacollect.core.db.entity.program.ProgramEntity"*/-->
+<div class="aaa" th:fragment="table1(tableName,programEntityList,playDataMap,sumPlayDataMap,dateFormatStr)">
+	<table th:name="${tableName}" class="layui-table">
+		<thead>
+		<tr>
+			<th style="width: 30px">排序</th>
+			<th style="width: 20%">名字</th>
+			<th>播放量 bilibili</th>
+			<th>播放量 youku</th>
+			<th>播放量 iqiyi</th>
+			<th>播放量合计</th>
+			<th>其他</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="program,info:${programEntityList}"
+			th:if="${sumPlayDataMap[program.fullName] ne empty}">
+			<td align="center" th:text="${info.index+1}"></td>
+			<!--<td th:text="${program.code}"></td>-->
+			<td>
+				<span th:text="${program.fullName}"></span>
+				<br>
+				<span th:text="${sumPlayDataMap[program.fullName] eq empty}"></span>
+				<br>
+				<span th:text="${program.id}"></span>
+			</td>
+			<td>
+				<div th:each="playdata,rowStat:${playDataMap[program.fullName]}"
+					 th:if="${'bilibili' eq playdata.site}">
+					<span th:text="${#dates.format(playdata.getTime(), dateFormatStr)}"></span>
+					<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
+				</div>
+			</td>
+			<td>
+				<div th:each="playdata:${playDataMap[program.fullName]}"
+					 th:if="${'youku' eq playdata.site}">
+					<span th:text="${#dates.format(playdata.getTime(), dateFormatStr)}"></span>
+					<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
+				</div>
+			</td>
+			<td>
+				<div th:each="playdata:${playDataMap[program.fullName]}"
+					 th:if="${'iqiyi' eq playdata.site}">
+					<span th:text="${#dates.format(playdata.time, dateFormatStr)}"></span>
+					<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
+				</div>
+			</td>
+			<td>
+				<div th:each="playdata:${sumPlayDataMap[program.fullName]}">
+					<span th:text="${#dates.format(playdata.time, dateFormatStr)}"></span>
+					<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
+				</div>
+			</td>
+			<td>
+				<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+</html>

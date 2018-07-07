@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>河外趋势网</title>
+	<title>每月播放量</title>
 	<meta content="text/html;charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<!--<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>-->
@@ -48,63 +48,21 @@
 			<div th:if="${not #lists.isEmpty(programEntityList)}">
 				<div class="">
 					<div class="">
-						<table th:name="${tableName}" class="layui-table">
-							<thead>
-							<tr>
-								<th style="width: 30px">排序</th>
-								<th style="width: 20%">名字</th>
-								<th>播放量 bilibili</th>
-								<th>播放量 youku</th>
-								<th>播放量 iqiyi</th>
-								<th>播放量 合计</th>
-								<th>其他</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr th:each="program,info:${programEntityList}">
-								<td align="center" th:text="${info.index+1}"></td>
-								<!--<td th:text="${program.code}"></td>-->
-								<td>
-									<span th:text="${program.fullName}"></span>
-									<br>
-									<span th:text="${program.id}"></span>
-								</td>
-								<td>
-									<div th:each="playdata,rowStat:${hourPlayDataMap[program.fullName]}" th:if="${'bilibili' eq playdata.site}">
-										<span th:text="${#dates.format(playdata.getTime(), dateFormatStr)}"></span>
-										<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${playDataMap[program.fullName]}"
-										 th:if="${'youku' eq playdata.site}">
-										<span th:text="${#dates.format(playdata.getTime(), dateFormatStr)}"></span>
-										<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${playDataMap[program.fullName]}"
-										 th:if="${'iqiyi' eq playdata.site}">
-										<span th:text="${#dates.format(playdata.time, dateFormatStr)}"></span>
-										<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<div th:each="playdata:${sumPlayDataMap[program.fullName]}">
-										<span th:text="${#dates.format(playdata.time, dateFormatStr)}"></span>
-										<span th:text="${(playdata.playCount eq null ? 0 : playdata.playCount) / 10000 + '万'}"></span>
-									</div>
-								</td>
-								<td>
-									<button class="btn" th:onlick="'getName(\''+${program.id}+'\');'">获得名字</button>
-								</td>
-							</tr>
-							</tbody>
-						</table>
+						<div class="bbb" data-th-replace="fragment/table1::table1(${'month_table'}, ${programEntityList}, ${playDataMap}, ${sumPlayDataMap}, ${'yyyy-MM'})"></div>
 					</div>
 				</div>
 			</div>
 
+			<!--<div class="row">-->
+			<!--<template-->
+			<!--v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">-->
+			<!--<div class="col-md-3 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">-->
+			<!--<b-button :size="size" :variant="variant">-->
+			<!--{{variant}} {{size}}-->
+			<!--</b-button>-->
+			<!--</div>-->
+			<!--</template>-->
+			<!--</div>-->
 		</el-main>
 
 		<el-footer>

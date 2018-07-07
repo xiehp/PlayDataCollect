@@ -13,7 +13,7 @@ import xie.playdatacollect.core.db.service.program.ProgramService;
 import xie.playdatacollect.core.db.utils.AllServiceUtil;
 import xie.common.component.influxdb.action.XInfluxdbAction;
 import xie.common.component.influxdb.exception.XInfluxdbException;
-import xie.playdatacollect.influxdb.pojo.measuerment.MPlayData;
+import xie.playdatacollect.influxdb.pojo.measurement.MPlayData;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
