@@ -10,7 +10,7 @@ public class XFormatUtils {
 	 * 将map的key和value格式化成Influxdb的字符串</br>
 	 * map -> "key1"="value1","key2"="value2"...</br>
 	 */
-	public static String formatMap2InfluxdbLine(Map<String, Object> map) {
+	public static String formatMap2InfluxdbLine(Map<String, ?> map) {
 		return formatMap2Str(map, "\"", "'", "=", " AND ");
 	}
 
@@ -19,7 +19,7 @@ public class XFormatUtils {
 	 * map -> "key1"="value1","key2"="value2"...</br>
 	 * 分号，等于号，逗号可以分别设定
 	 */
-	public static String formatMap2Str(Map<String, Object> map, String keySurround, String valueSurround, String keyValueSeparate, String entrySeparate) {
+	public static String formatMap2Str(Map<String, ?> map, String keySurround, String valueSurround, String keyValueSeparate, String entrySeparate) {
 		if (map == null) {
 			return null;
 		}

@@ -7,6 +7,7 @@ import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
 import org.slf4j.Logger;
+import xie.common.component.influxdb.cmdline.sql.XInfluxdbSqlBuilder;
 import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
 import xie.common.component.influxdb.pojo.measurement.XBaseMeasurementEntity;
 import xie.common.utils.date.XDateUtil;
@@ -26,6 +27,8 @@ public class XInfluxdbAction {
 
 	private InfluxDB influxDB;
 	private XInfluxdbPojoMapper xInfluxdbPojoMapper = new XInfluxdbPojoMapper();
+
+	private XInfluxdbSqlBuilder xInfluxdbSqlBuilder = new XInfluxdbSqlBuilder();
 
 	public XInfluxdbAction(InfluxDB influxDB) {
 		this.influxDB = influxDB;
@@ -215,7 +218,18 @@ public class XInfluxdbAction {
 	 * 请求数据
 	 */
 	public QueryResult queryDataResult(XInfluxdbActionParameter p) {
-		return queryDataResult(p.getDatabase(), p.getMeasurement(), p.getTags(), p.getStartDate(), p.getEndDate());
+		String querySql = xInfluxdbSqlBuilder.buildSelectSql(p);
+		return queryDataResult(p.getDatabase(), querySql);
+	}
+
+	/**
+	 * 请求数据
+	 */
+	public <T extends XBaseMeasurementEntity> List<T>  queryDataResultToPojo(Class<T> measurementClass, XInfluxdbActionParameter p) {
+		String querySql = xInfluxdbSqlBuilder.buildSelectSql(p);
+		QueryResult queryResult = queryDataResult(p.getDatabase(), querySql);
+		List<T> list = xInfluxdbPojoMapper.result2Pojo(queryResult, measurementClass);
+		return list;
 	}
 
 	/**
