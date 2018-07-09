@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -45,6 +48,33 @@ public class XDateUtil {
 		;
 		System.out.println(seekDate(new Date(), -333));
 		;
+
+		System.out.println("-----truncateHour------");
+		System.out.println(truncateHour(Instant.now()));
+		System.out.println("-----truncateDay------");
+		System.out.println(truncateDay(Instant.now()));
+		System.out.println("-----truncateWeek------");
+		System.out.println(truncateWeek(Instant.now().plus(-2, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(-1, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now()));
+		System.out.println(truncateWeek(Instant.now().plus(1, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(2, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(3, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(4, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(5, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(6, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(8, ChronoUnit.DAYS)));
+		System.out.println(truncateWeek(Instant.now().plus(9, ChronoUnit.DAYS)));
+		System.out.println("-----truncateMonth------");
+		System.out.println(truncateMonth(Instant.now().plus(-12, ChronoUnit.DAYS)));
+		System.out.println(truncateMonth(Instant.now().plus(-11, ChronoUnit.DAYS)));
+		System.out.println(truncateMonth(Instant.now().plus(-10, ChronoUnit.DAYS)));
+		System.out.println(truncateMonth(Instant.now().plus(-9, ChronoUnit.DAYS)));
+		System.out.println("-----truncateYear------");
+		System.out.println(truncateYear(Instant.now().plus(-212, ChronoUnit.DAYS)));
+		System.out.println(truncateYear(Instant.now().plus(-212, ChronoUnit.DAYS)));
+		System.out.println(truncateYear(Instant.now().plus(-12, ChronoUnit.DAYS)));
+		System.out.println(truncateYear(Instant.now().plus(-12, ChronoUnit.DAYS)));
 	}
 
 	/**
@@ -315,7 +345,7 @@ public class XDateUtil {
 		}
 
 		for (String pattern : PATTERNS_ALL_UTC) {
-			if (date.length() == pattern.replace("'","").length()) {
+			if (date.length() == pattern.replace("'", "").length()) {
 				try {
 					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 					sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -432,4 +462,38 @@ public class XDateUtil {
 		return day.getTime();
 	}
 
+	public static Instant truncateHour(Instant instant) {
+		return instant.truncatedTo(ChronoUnit.HOURS);
+	}
+
+	public static Instant truncateDay(Instant instant) {
+		instant = instant.truncatedTo(ChronoUnit.HOURS);
+		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
+		zonedDateTime = zonedDateTime.toLocalDate().atStartOfDay().atZone(ZoneOffset.ofHours(8));
+		return zonedDateTime.toInstant();
+	}
+
+	public static Instant truncateWeek(Instant instant) {
+		instant = truncateDay(instant);
+		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
+		if (!zonedDateTime.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+			zonedDateTime = zonedDateTime.with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+		}
+		return zonedDateTime.toInstant();
+	}
+
+	public static Instant truncateMonth(Instant instant) {
+		instant = truncateDay(instant);
+		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
+		zonedDateTime = zonedDateTime.with(TemporalAdjusters.firstDayOfMonth());
+		return zonedDateTime.toInstant();
+	}
+
+
+	public static Instant truncateYear(Instant instant) {
+		instant = truncateDay(instant);
+		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
+		zonedDateTime = zonedDateTime.with(TemporalAdjusters.firstDayOfYear());
+		return zonedDateTime.toInstant();
+	}
 }
