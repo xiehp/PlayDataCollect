@@ -140,7 +140,7 @@ public class ControllerUtils {
 			}
 		});
 		// 前一天
-		Instant nowDayInstant = Instant.now().truncatedTo(ChronoUnit.DAYS);
+		Instant nowDayInstant = XDateUtil.truncateDay(Instant.now());
 		forPlayData(indexSiteXNameVo, dayPlayDataList, (vo, playData) -> {
 			if (playData.getTime().compareTo(nowDayInstant) < 0) {
 				if (vo.getPreDayPlayTime() == null || playData.getTime().compareTo(vo.getPreDayPlayTime()) > 0) {
@@ -149,26 +149,26 @@ public class ControllerUtils {
 				}
 			}
 		});
-//		// 前一周
-//		Instant nowWeekInstant = Instant.now().truncatedTo(ChronoUnit.WEEKS);
-//		forPlayData(indexSiteXNameVo, dayPlayDataList, (vo, playData) -> {
-//			if (playData.getTime().compareTo(nowWeekInstant) < 0) {
-//				if (vo.getPreWeekPlayTime() == null || playData.getTime().compareTo(vo.getPreWeekPlayTime()) > 0) {
-//					vo.setPreWeekPlayCount(playData.getPlayCount());
-//					vo.setPreWeekPlayTime(playData.getTime());
-//				}
-//			}
-//		});
-//		// 前一月
-//		Instant nowMonthInstant = Instant.now().truncatedTo(ChronoUnit.MONTHS);
-//		forPlayData(indexSiteXNameVo, dayPlayDataList, (vo, playData) -> {
-//			if (playData.getTime().compareTo(nowMonthInstant) < 0) {
-//				if (vo.getPreMonthPlayTime() == null || playData.getTime().compareTo(vo.getPreMonthPlayTime()) > 0) {
-//					vo.setPreMonthPlayCount(playData.getPlayCount());
-//					vo.setPreMonthPlayTime(playData.getTime());
-//				}
-//			}
-//		});
+		// 前一周
+		Instant nowWeekInstant = XDateUtil.truncateWeek(Instant.now());
+		forPlayData(indexSiteXNameVo, weekPlayDataList, (vo, playData) -> {
+			if (playData.getTime().compareTo(nowWeekInstant) < 0) {
+				if (vo.getPreWeekPlayTime() == null || playData.getTime().compareTo(vo.getPreWeekPlayTime()) > 0) {
+					vo.setPreWeekPlayCount(playData.getPlayCount());
+					vo.setPreWeekPlayTime(playData.getTime());
+				}
+			}
+		});
+		// 前一月
+		Instant nowMonthInstant = XDateUtil.truncateMonth(Instant.now());
+		forPlayData(indexSiteXNameVo, monthPlayDataList, (vo, playData) -> {
+			if (playData.getTime().compareTo(nowMonthInstant) < 0) {
+				if (vo.getPreMonthPlayTime() == null || playData.getTime().compareTo(vo.getPreMonthPlayTime()) > 0) {
+					vo.setPreMonthPlayCount(playData.getPlayCount());
+					vo.setPreMonthPlayTime(playData.getTime());
+				}
+			}
+		});
 
 
 		return indexSiteXNameVo;

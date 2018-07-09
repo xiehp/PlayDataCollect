@@ -76,44 +76,68 @@
 											<span th:text="${(playDataVo.nowPlayCount eq null ? 0 : playDataVo.nowPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preHourPlayTime eq null ? '' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preHourPlayTime eq null ? '-' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preHourPlayCount eq null ? 0 : playDataVo.preHourPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preDayPlayTime eq null ? '' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preDayPlayTime eq null ? '-' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preDayPlayCount eq null ? 0 : playDataVo.preDayPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preWeekPlayTime eq null ? '-' : #dates.format(playDataVo.preWeekPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preWeekPlayCount eq null ? 0 : playDataVo.preWeekPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preMonthPlayTime eq null ? '-' : #dates.format(playDataVo.preMonthPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preMonthPlayCount eq null ? 0 : playDataVo.preMonthPlayCount) / 10000 + '万'}"></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div th:with="playDataVo=${indexSiteXNameVo.getValue(playDataConst.SOURCE_KEY_YOUKU, program.fullName)}">
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.nowPlayTime eq null ? '' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.nowPlayTime eq null ? '-' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.nowPlayCount eq null ? 0 : playDataVo.nowPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preHourPlayTime eq null ? '' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preHourPlayTime eq null ? '-' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preHourPlayCount eq null ? 0 : playDataVo.preHourPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preDayPlayTime eq null ? '' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preDayPlayTime eq null ? '-' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preDayPlayCount eq null ? 0 : playDataVo.preDayPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preWeekPlayTime eq null ? '-' : #dates.format(playDataVo.preWeekPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preWeekPlayCount eq null ? 0 : playDataVo.preWeekPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preMonthPlayTime eq null ? '-' : #dates.format(playDataVo.preMonthPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preMonthPlayCount eq null ? 0 : playDataVo.preMonthPlayCount) / 10000 + '万'}"></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div th:with="playDataVo=${indexSiteXNameVo.getValue(playDataConst.SOURCE_KEY_IQIYI, program.fullName)}">
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.nowPlayTime eq null ? '' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.nowPlayTime eq null ? '-' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.nowPlayCount eq null ? 0 : playDataVo.nowPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preHourPlayTime eq null ? '' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preHourPlayTime eq null ? '-' : #dates.format(playDataVo.preHourPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preHourPlayCount eq null ? 0 : playDataVo.preHourPlayCount) / 10000 + '万'}"></span>
 										</div>
 										<div th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.preDayPlayTime eq null ? '' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${playDataVo.preDayPlayTime eq null ? '-' : #dates.format(playDataVo.preDayPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
 											<span th:text="${(playDataVo.preDayPlayCount eq null ? 0 : playDataVo.preDayPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preWeekPlayTime eq null ? '-' : #dates.format(playDataVo.preWeekPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preWeekPlayCount eq null ? 0 : playDataVo.preWeekPlayCount) / 10000 + '万'}"></span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preMonthPlayTime eq null ? '-' : #dates.format(playDataVo.preMonthPlayTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+											<span th:text="${(playDataVo.preMonthPlayCount eq null ? 0 : playDataVo.preMonthPlayCount) / 10000 + '万'}"></span>
 										</div>
 									</div>
 								</td>
