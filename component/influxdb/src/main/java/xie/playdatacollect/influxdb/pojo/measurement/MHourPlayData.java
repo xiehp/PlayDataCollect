@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @Measurement(name = "hour_base_data")
-public class MHourPlayData extends XBaseMeasurementEntity {
+public class MHourPlayData extends MPlayData {
 
 	private Date date;
 

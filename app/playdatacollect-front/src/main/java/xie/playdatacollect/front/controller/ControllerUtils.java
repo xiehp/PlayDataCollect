@@ -12,9 +12,10 @@ import xie.common.utils.constant.XConst;
 import xie.common.utils.date.XDateUtil;
 import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 import xie.playdatacollect.core.db.service.program.ProgramService;
-import xie.playdatacollect.front.controller.vo.IndexPlayDayaVo;
+import xie.playdatacollect.front.controller.vo.IndexPlayDataVo;
 import xie.playdatacollect.front.controller.vo.IndexSiteXNameVo;
 import xie.playdatacollect.influxdb.pojo.measurement.MHourPlayData;
+import xie.playdatacollect.influxdb.pojo.measurement.MPlayData;
 
 import javax.annotation.Resource;
 import java.text.Collator;
@@ -94,16 +95,30 @@ public class ControllerUtils {
 
 
 	/**
-	 * 生成每个名字，网站对应的数据
+	 * 生成每个名字，网站对应的数据。数据为每年，月，周的开头数据
 	 */
-	public IndexSiteXNameVo getPlayDataSiteMap() {
+	public IndexSiteXNameVo getPlayDataSiteMapWithFirstDay() {
 
 		// 获取时，天，周年的时间分组数据
-		List<MHourPlayData> hourPlayDataList = getPlayCountData(1, "1h");
-		List<MHourPlayData> dayPlayDataList = getPlayCountData(2, "1d");
-		List<MHourPlayData> weekPlayDataList = getPlayCountData(15, "1w");
-		List<MHourPlayData> monthPlayDataList = getPlayCountData(63, "30d");
-//
+//		List<MHourPlayData> hourPlayDataList = getPlayCountData(1, "1h");
+//		List<MHourPlayData> dayPlayDataList = getPlayCountData(2, "1d");
+//		List<MHourPlayData> weekPlayDataList = getPlayCountData(15, "1w");
+//		List<MHourPlayData> monthPlayDataList = getPlayCountData(63, "31d");
+
+
+		Instant nowHourInstant = Instant.now().truncatedTo(ChronoUnit.HOURS).plusSeconds(1);
+		Instant nowDayInstant = XDateUtil.truncateDay(Instant.now()).plusSeconds(1);
+		Instant nowWeekInstant = XDateUtil.truncateWeek(Instant.now()).plusSeconds(1);
+		Instant nowMonthInstant = XDateUtil.truncateMonth(Instant.now()).plusSeconds(1);
+		Instant nowYearInstant = XDateUtil.truncateYear(Instant.now()).plusSeconds(1);
+
+		List<MPlayData> nowPlayDataList = getMaxPlayCountData("base_data", Instant.now().minus(20, ChronoUnit.DAYS), Instant.now());
+		List<MPlayData> hourPlayDataList = getMaxPlayCountData(null, null, nowHourInstant);
+		List<MPlayData> dayPlayDataList = getMaxPlayCountData(null, null, nowDayInstant);
+		List<MPlayData> weekPlayDataList = getMaxPlayCountData(null, null, nowWeekInstant);
+		List<MPlayData> monthPlayDataList = getMaxPlayCountData(null, null, nowMonthInstant);
+		List<MPlayData> yearPlayDataList = getMaxPlayCountData(null, null, nowYearInstant);
+
 //		// 以名字命名的时，天，周年的时间分组数据
 //		Map<String, List<MHourPlayData>> hourPlayDataMap = getPlayDataMap(hourPlayDataList);
 //		Map<String, List<MHourPlayData>> dayPlayDataMap = getPlayDataMap(dayPlayDataList);
@@ -121,9 +136,8 @@ public class ControllerUtils {
 
 		// 整合成名字，网站整合数据
 		// 当前时间
-		Instant nowHourInstant = Instant.now().truncatedTo(ChronoUnit.HOURS);
-		forPlayData(indexSiteXNameVo, hourPlayDataList, (vo, playData) -> {
-			if (playData.getPlayCount() != null && playData.getTime().compareTo(nowHourInstant) >= 0 && playData.getPlayCount() > 0) {
+		forPlayData(indexSiteXNameVo, nowPlayDataList, (vo, playData) -> {
+			if (playData.getPlayCount() != null && playData.getPlayCount() > 0) {
 				vo.setNowPlayCount(playData.getPlayCount());
 				vo.setNowPlayTime(playData.getTime());
 			}
@@ -138,7 +152,6 @@ public class ControllerUtils {
 			}
 		});
 		// 前一天
-		Instant nowDayInstant = XDateUtil.truncateDay(Instant.now());
 		forPlayData(indexSiteXNameVo, dayPlayDataList, (vo, playData) -> {
 			if (playData.getTime().compareTo(nowDayInstant) < 0) {
 				if (vo.getPreDayPlayTime() == null || playData.getTime().compareTo(vo.getPreDayPlayTime()) > 0) {
@@ -148,7 +161,6 @@ public class ControllerUtils {
 			}
 		});
 		// 前一周
-		Instant nowWeekInstant = XDateUtil.truncateWeek(Instant.now());
 		forPlayData(indexSiteXNameVo, weekPlayDataList, (vo, playData) -> {
 			if (playData.getTime().compareTo(nowWeekInstant) < 0) {
 				if (vo.getPreWeekPlayTime() == null || playData.getTime().compareTo(vo.getPreWeekPlayTime()) > 0) {
@@ -158,7 +170,6 @@ public class ControllerUtils {
 			}
 		});
 		// 前一月
-		Instant nowMonthInstant = XDateUtil.truncateMonth(Instant.now());
 		forPlayData(indexSiteXNameVo, monthPlayDataList, (vo, playData) -> {
 			if (playData.getTime().compareTo(nowMonthInstant) < 0) {
 				if (vo.getPreMonthPlayTime() == null || playData.getTime().compareTo(vo.getPreMonthPlayTime()) > 0) {
@@ -167,18 +178,30 @@ public class ControllerUtils {
 				}
 			}
 		});
+		// 前一年
+		forPlayData(indexSiteXNameVo, yearPlayDataList, (vo, playData) -> {
+			if (playData.getTime().compareTo(nowYearInstant) < 0) {
+				if (vo.getPreYearPlayTime() == null || playData.getTime().compareTo(vo.getPreYearPlayTime()) > 0) {
+					vo.setPreYearPlayCount(playData.getPlayCount());
+					vo.setPreYearPlayTime(playData.getTime());
+				}
+			}
+		});
+
+		// 整合sum数据
 
 
+		indexSiteXNameVo.initAllData();
 		return indexSiteXNameVo;
 	}
 
-	private void forPlayData(IndexSiteXNameVo indexSiteXNameVo, List<MHourPlayData> playDataList, BiConsumer<IndexPlayDayaVo, MHourPlayData> con) {
+	private void forPlayData(IndexSiteXNameVo indexSiteXNameVo, List<MPlayData> playDataList, BiConsumer<IndexPlayDataVo, MPlayData> con) {
 
 		// 整合成名字，网站整合数据
 		playDataList.forEach((playData) -> {
-			IndexPlayDayaVo vo = indexSiteXNameVo.getValue(playData.getSite(), playData.getName());
+			IndexPlayDataVo vo = indexSiteXNameVo.getValue(playData.getSite(), playData.getName());
 			if (vo == null) {
-				vo = new IndexPlayDayaVo();
+				vo = new IndexPlayDataVo();
 				indexSiteXNameVo.setValue(playData.getSite(), playData.getName(), vo);
 			}
 
@@ -229,16 +252,55 @@ public class ControllerUtils {
 					parameter.setDatabase("play_data");
 					parameter.setMeasurement("hour_base_data");
 					parameter.setSelectSql(" SELECT MAX(\"播放数\") as \"播放数\" ");
-//					parameter.putTag("名字", "LOST SONG 失落的歌谣");
+//					parameter.addTag("名字", "LOST SONG 失落的歌谣");
 					parameter.setStartDate(startDate);
 					parameter.setEndDate(endDate);
 					parameter.setGroupByTime(groupByTimeSql);
 					parameter.addGroupByTagName("*");
 					parameter.setFill(XInfluxdbActionParameter.FILL_LINEAR);
+					parameter.setOrderByTimeDescFlag(true);
+					parameter.setTimeZone("Asia/Shanghai");
 					List<MHourPlayData> list = xInfluxdbAction.queryDataResultToPojo(MHourPlayData.class, parameter);
 					return list;
 				}
-				, XConst.SECOND_05_SEC * 1000);
+				, XConst.SECOND_01_MIN * 1000);
+	}
+
+	/**
+	 * 获得到截至时间为止的最大播放数
+	 *
+	 * @param endInstant 截止时间
+	 */
+	public List<MPlayData> getMaxPlayCountData(String measurementName, Instant startInstant, Instant endInstant) {
+		return entityCache.get("getMaxPlayCountData" + "_" + XDateUtil.convertToStringUTC(endInstant, "yyyyMMddHHmmss"),
+				() -> {
+					XInfluxdbActionParameter parameter = new XInfluxdbActionParameter();
+					parameter.setDatabase("play_data");
+					parameter.setMeasurement(measurementName);
+					if (measurementName == null) {
+						parameter.setMeasurement("hour_base_data");
+					}
+					parameter.setSelectSql(" SELECT MAX(\"播放数\") as \"播放数\" ");
+//					parameter.addTag("名字", "LOST SONG 失落的歌谣");
+//					parameter.addTag("类型", PlayDataConst.SOURCE_TYPE_PROGRAM);
+					parameter.setStartInstant(startInstant);
+					parameter.setEndInstant(endInstant);
+					parameter.addGroupByTagName("*");
+//					parameter.setFill(XInfluxdbActionParameter.FILL_LINEAR);
+					parameter.setOrderByTimeDescFlag(true);
+//					parameter.setLimit(50);
+//					parameter.setSLimit(10);
+					parameter.setTimeZone("Asia/Shanghai");
+
+					Class measureClass = MPlayData.class;
+					if ("hour_base_data".equals(parameter.getMeasurement())) {
+						measureClass = MHourPlayData.class;
+					}
+
+					List<MPlayData> list = xInfluxdbAction.queryDataResultToPojo(measureClass, parameter);
+					return list;
+				}
+				, XConst.SECOND_01_MIN * 1000);
 	}
 
 }

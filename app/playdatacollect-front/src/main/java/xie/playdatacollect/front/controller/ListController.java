@@ -59,7 +59,7 @@ public class ListController extends BaseFrontController {
 		programEntityList.sort((o1, o2) -> collator.compare(o1.getFullName(), o2.getFullName()));
 		model.addAttribute("programEntityList", programEntityList);
 
-		return "list";
+		return "list/day";
 	}
 
 
@@ -79,17 +79,17 @@ public class ListController extends BaseFrontController {
 		controllerUtils.searchPlayCountData(model, 30, "1w");
 		model.addAttribute("dateFormatStr", "yyyy-MM-dd");
 
-		return "list/week";
+		return "list/day";
 	}
 
 
 	@RequestMapping(value = "month")
 	public String month(Model model, HttpSession session, HttpServletRequest request) {
 
-		controllerUtils.searchPlayCountData(model, 30, "4w");
-		model.addAttribute("dateFormatStr", "yyyy-MM");
+		controllerUtils.searchPlayCountData(model, 30, "30d");
+		model.addAttribute("dateFormatStr", "yyyy-MM-dd");
 
-		return "list/month::el-footer";
+		return "list/day";
 	}
 
 }

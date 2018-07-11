@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>近期新番播放量总览 - 河外趋势网</title>
+	<title>河外趋势网</title>
 	<meta content="text/html;charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<!--<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>-->
@@ -22,39 +22,8 @@
 	<!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>-->
 
 	<!-- layui -->
-	<link rel="stylesheet" href="plugin/layui/css/layui.css">
-	<script src="plugin/layui/layui.all.js"></script>
-
-	<style>
-		.count-div span:nth-of-type(1) {
-			color: black;
-		}
-
-		.count-div span:nth-of-type(2) {
-			color: black;
-		}
-
-		.count-div span:nth-of-type(3) {
-			color: blue;
-		}
-
-		.count-div span:nth-of-type(4) {
-			color: red;
-		}
-
-		.count-div span:nth-of-type(5) {
-			color: green;
-		}
-
-		.count-div span:nth-of-type(6) {
-			color: orange;
-		}
-
-		.count-div span:nth-of-type(7) {
-			color: magenta;
-		}
-
-	</style>
+	<link rel="stylesheet" href="../plugin/layui/css/layui.css">
+	<script src="../plugin/layui/layui.all.js"></script>
 </head>
 <body>
 <div id="mainDiv" v-show="true">
@@ -64,46 +33,30 @@
 				<li class="layui-nav-item">
 					<a href="index" :title="indexTitle">首页</a>
 				</li>
-				<!--<li class="layui-nav-item">-->
-				<!--<a href="list" :title="indexTitle2">所有节目播放量</a>-->
-				<!--</li>-->
+				<li class="layui-nav-item">
+					<a href="list" :title="indexTitle2">所有节目播放量</a>
+				</li>
 			</ul>
 		</header>
 
 		<main class="el-main">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h1 class="panel-title">近期新番播放量总览</h1>
-					ps:
-					<div class="count-div">
-						<span>口口当前日期</span>
-						<br/>
-						<span>当前播放量</span>
-						<br/>
-						<span>当时播放增长量</span>
-						<br/>
-						<span>当天播放增长量</span>
-						<br/>
-						<span>当周播放增长量</span>
-						<br/>
-						<span>当月播放增长量</span>
-						<br/>
-						<span>当年播放增长量</span>
-					</div>
+					<h3 class="panel-title">最近一个月播放量</h3>
 				</div>
 			</div>
 			<div th:if="${not #lists.isEmpty(programEntityList)}">
 				<div class="">
 					<div class="">
-						<table class="layui-table count-table">
+						<table th:name="${tableName}" class="layui-table">
 							<thead>
 							<tr>
-								<th style="width: 20px">No.</th>
+								<th style="width: 30px">排序</th>
 								<th style="width: 20%">名字</th>
+								<th>播放量 bilibili</th>
+								<th>播放量 youku</th>
+								<th>播放量 iqiyi</th>
 								<th>播放量 合计</th>
-								<th>播放量 B</th>
-								<th>播放量 Y</th>
-								<th>播放量 I</th>
 								<th>其他</th>
 							</tr>
 							</thead>
@@ -112,22 +65,34 @@
 								<td align="center" th:text="${info.index+1}">序号</td>
 								<td>
 									<span th:text="${program.fullName}">节目名字</span>
+									<br>
+									<span th:text="${program.id}">节目ID</span>
 								</td>
 								<td>
-									<div th:replace="::playCountDiv(${'all'}, ${program.fullName})">同bilibili模板</div>
-								</td>
-								<td>
-									<div th:fragment="playCountDiv(site, programFullName)" th:with="playDataVo=${indexSiteXNameVo.getValue(site, programFullName)}">
-										<div class="count-div" th:if="${playDataVo ne null}">
+									<div th:hidden th:fragment="playCountDiv(site, programFullName)" th:with="playDataVo=${indexSiteXNameVo.getValue(site, programFullName)}">
+										<div th:if="${playDataVo ne null}">
 											<span th:text="${playDataVo.nowPlayTime eq null ? '-' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}">口口当前日期</span>
-											<br/>
-											<span th:text="${(playDataVo.formatCount(playDataVo.nowPlayCount))}">当前播放量</span>
-											<br/>
-											<span th:text="${(playDataVo.getDiffCountFormat(playDataVo.preHourPlayCount))}">前一小时播放量</span>
-											<span th:text="${(playDataVo.getDiffCountFormat(playDataVo.preDayPlayCount))}">前一天播放量</span>
-											<span th:text="${(playDataVo.getDiffCountFormat(playDataVo.preWeekPlayCount))}">前一周播放量</span>
-											<span th:text="${(playDataVo.getDiffCountFormat(playDataVo.preMonthPlayCount))}">前一月播放量</span>
-											<span th:text="${(playDataVo.getDiffCountFormat(playDataVo.preYearPlayCount))}">前一年播放量</span>
+											<span th:text="${(playDataVo.nowPlayCount eq null ? 0 : playDataVo.nowPlayCount) / 10000 + '万'}">当前播放量</span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preHourPlayTimeFormat}">前一小时日期</span>
+											<span th:text="${(playDataVo.preHourPlayCount eq null ? 0 : playDataVo.preHourPlayCount) / 10000 + '万'}">前一小时播放量</span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preDayPlayTimeFormat}">口前一天日期</span>
+											<span th:text="${(playDataVo.preDayPlayCount eq null ? 0 : playDataVo.preDayPlayCount) / 10000 + '万'}">前一天播放量</span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preWeekPlayTimeFormat}">口前一周日期</span>
+											<span th:text="${(playDataVo.preWeekPlayCount eq null ? 0 : playDataVo.preWeekPlayCount) / 10000 + '万'}">前一周播放量</span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preMonthPlayTimeFormat}">口前一月日期</span>
+											<span th:text="${(playDataVo.preMonthPlayCount eq null ? 0 : playDataVo.preMonthPlayCount) / 10000 + '万'}">前一月播放量</span>
+										</div>
+										<div th:if="${playDataVo ne null}">
+											<span th:text="${playDataVo.preYearPlayTimeFormat}">口前一年日期</span>
+											<span th:text="${(playDataVo.preYearPlayCount eq null ? 0 : playDataVo.preYearPlayCount) / 10000 + '万'}">前一年播放量</span>
 										</div>
 									</div>
 									<div th:replace="::playCountDiv(${playDataConst.SOURCE_KEY_BILIBILI}, ${program.fullName})"></div>
@@ -137,6 +102,9 @@
 								</td>
 								<td>
 									<div th:replace="::playCountDiv(${playDataConst.SOURCE_KEY_IQIYI}, ${program.fullName})">同bilibili模板</div>
+								</td>
+								<td>
+									<div th:replace="::playCountDiv(${'all'}, ${program.fullName})">同bilibili模板</div>
 								</td>
 
 								<td>

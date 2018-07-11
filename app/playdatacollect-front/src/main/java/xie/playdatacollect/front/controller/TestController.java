@@ -3,23 +3,24 @@ package xie.playdatacollect.front.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import xie.common.component.influxdb.action.XInfluxdbAction;
+import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
 import xie.common.spring.jpa.entity.EntityCache;
 import xie.framework.core.service.dictionary.dao.AutoQueueDao;
 import xie.framework.core.service.dictionary.entity.AutoQueueEntity;
 import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 import xie.playdatacollect.core.db.service.program.ProgramService;
-import xie.common.component.influxdb.action.XInfluxdbAction;
-import xie.common.component.influxdb.data.XInfluxdbPojoMapper;
 import xie.playdatacollect.front.controller.vo.IndexSiteXNameVo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.List;
 
 @Controller
-public class IndexController extends BaseFrontController {
+@RequestMapping(value = "/test")
+public class TestController extends BaseFrontController {
 
 	@Resource
 	EntityCache entityCache;
@@ -55,7 +56,7 @@ public class IndexController extends BaseFrontController {
 		model.addAttribute("PlayDataConst", PlayDataConst.class);
 		model.addAttribute("playDataConst", new PlayDataConst());
 
-		return "index";
+		return "test/index";
 	}
 
 	@RequestMapping(value = "/index2")
