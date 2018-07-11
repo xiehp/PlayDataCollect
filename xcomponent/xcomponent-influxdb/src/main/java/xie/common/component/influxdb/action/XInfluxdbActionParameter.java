@@ -1,5 +1,6 @@
 package xie.common.component.influxdb.action;
 
+import java.time.Instant;
 import java.util.*;
 
 public class XInfluxdbActionParameter {
@@ -14,6 +15,9 @@ public class XInfluxdbActionParameter {
 	private String measurement;
 	private Map<String, String> tags;
 	private Map<String, Object> fields;
+	// 优先Instant
+	private Instant startInstant;
+	private Instant endInstant;
 	private Date startDate;
 	private Date endDate;
 
@@ -22,7 +26,13 @@ public class XInfluxdbActionParameter {
 	private List<String> groupByTagNameList;
 	private String groupByTime;
 	private List<String> orderByNameList; // TODO ?? 好像不支持排序
+	private boolean orderByTimeDescFlag = false;
+	/** 限制返回的数据条数 */
+	private int limit;
+	/** 限制返回的系列条数 */
+	private int sLimit;
 	private String fill;
+	private String timeZone = "Asia/Shanghai";
 
 
 	public String getDatabase() {
@@ -49,7 +59,7 @@ public class XInfluxdbActionParameter {
 		this.tags = tags;
 	}
 
-	public void putTag(String tagName, String value) {
+	public void addTag(String tagName, String value) {
 		if (tags == null) {
 			tags = new LinkedHashMap<>();
 			tags.put(tagName, value);
@@ -64,11 +74,27 @@ public class XInfluxdbActionParameter {
 		this.fields = fields;
 	}
 
-	public void putField(String fieldName, Object value) {
+	public void addField(String fieldName, Object value) {
 		if (fields == null) {
 			fields = new LinkedHashMap<>();
 			fields.put(fieldName, value);
 		}
+	}
+
+	public Instant getStartInstant() {
+		return startInstant;
+	}
+
+	public void setStartInstant(Instant startInstant) {
+		this.startInstant = startInstant;
+	}
+
+	public Instant getEndInstant() {
+		return endInstant;
+	}
+
+	public void setEndInstant(Instant endInstant) {
+		this.endInstant = endInstant;
 	}
 
 	public Date getStartDate() {
@@ -136,6 +162,30 @@ public class XInfluxdbActionParameter {
 		this.orderByNameList = orderByNameList;
 	}
 
+	public boolean isOrderByTimeDescFlag() {
+		return orderByTimeDescFlag;
+	}
+
+	public void setOrderByTimeDescFlag(boolean orderByTimeDescFlag) {
+		this.orderByTimeDescFlag = orderByTimeDescFlag;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public int getSLimit() {
+		return sLimit;
+	}
+
+	public void setSLimit(int sLimit) {
+		this.sLimit = sLimit;
+	}
+
 	public String getFill() {
 		return fill;
 	}
@@ -144,4 +194,11 @@ public class XInfluxdbActionParameter {
 		this.fill = fill;
 	}
 
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
+	}
 }

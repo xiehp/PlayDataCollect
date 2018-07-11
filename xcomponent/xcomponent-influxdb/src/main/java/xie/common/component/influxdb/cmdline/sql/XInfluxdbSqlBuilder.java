@@ -5,6 +5,9 @@ import xie.common.utils.date.XDateUtil;
 import xie.common.utils.string.XStringUtils;
 import xie.common.utils.utils.XFormatUtils;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -44,14 +47,18 @@ public class XInfluxdbSqlBuilder {
 		}
 
 		// time filter
+		Instant startInstant = parameter.getStartInstant();
+		Instant endInstant = parameter.getEndInstant();
 		Date startDate = parameter.getStartDate();
 		Date endDate = parameter.getEndDate();
-		if (startDate != null) {
-			querySql.append(String.format(whereOrAndStr + " time >= '%s' ", XDateUtil.convertToStringUTC(startDate)));
+		if (startInstant != null || startDate != null) {
+			String formatDateStr = startInstant != null ? XDateUtil.convertToStringUTC(startInstant) : XDateUtil.convertToStringUTC(startDate);
+			querySql.append(String.format(whereOrAndStr + " time >= '%s' ", formatDateStr));
 			whereOrAndStr = " AND ";
 		}
-		if (endDate != null) {
-			querySql.append(String.format(whereOrAndStr + " time < '%s' ", XDateUtil.convertToStringUTC(endDate)));
+		if (endInstant != null || endDate != null) {
+			String formatDateStr = endInstant != null ? XDateUtil.convertToStringUTC(endInstant) : XDateUtil.convertToStringUTC(endDate);
+			querySql.append(String.format(whereOrAndStr + " time < '%s' ", formatDateStr));
 			whereOrAndStr = " AND ";
 		}
 
@@ -75,11 +82,29 @@ public class XInfluxdbSqlBuilder {
 			}
 		}
 
-		// order
+		// order by time
+		if (parameter.isOrderByTimeDescFlag()) {
+			querySql.append(" ORDER BY time DESC");
+		}
 
 		// Fill
 		if (XStringUtils.isNotBlank(parameter.getFill())) {
 			querySql.append(" FILL(" + parameter.getFill() + ")");
+		}
+
+		// limit
+		if (parameter.getLimit() > 0) {
+			querySql.append(" LIMIT " + parameter.getLimit());
+		}
+
+		// sLimit
+		if (parameter.getSLimit() > 0) {
+			querySql.append(" SLIMIT " + parameter.getSLimit());
+		}
+
+		// timeZone
+		if (XStringUtils.isNotBlank(parameter.getTimeZone())) {
+			querySql.append(" TZ('" + parameter.getTimeZone() + "')");
 		}
 
 		return querySql.toString();

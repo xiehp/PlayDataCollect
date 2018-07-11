@@ -8,6 +8,13 @@ import xie.common.component.influxdb.pojo.measurement.XBaseMeasurementEntity;
 import xie.common.utils.java.XReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -26,6 +33,12 @@ public class XInfluxdbPojoMapper {
 	 * 将influxdb的http查询结果转换为pojo
 	 */
 	public <T extends XBaseMeasurementEntity> List<T> result2Pojo(QueryResult queryResult, Class<T> measurementEntityClass) {
+		Field field = XReflectionUtils.findField(InfluxDBResultMapper.class, "ISO8601_FORMATTER");
+		try {
+			XReflectionUtils.setFinalStatic(field, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return influxDBResultMapper.toPOJO(queryResult, measurementEntityClass);
 	}
 

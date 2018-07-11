@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
@@ -145,7 +146,18 @@ public class XDateUtil {
 		return sdf.format(date);
 	}
 
+	public static String convertToStringUTC(Instant instant, String format) {
+		if (instant == null)
+			return "";
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(YMD_FULL_UTC);
+		return instant.atOffset(ZoneOffset.UTC).format(dateTimeFormatter);
+	}
+
 	public static String convertToStringUTC(Date date) {
+		return convertToStringUTC(date, YMD_FULL_UTC);
+	}
+
+	public static String convertToStringUTC(Instant date) {
 		return convertToStringUTC(date, YMD_FULL_UTC);
 	}
 
@@ -483,6 +495,16 @@ public class XDateUtil {
 	}
 
 	public static Instant truncateMonth(Instant instant) {
+		return truncateMonth(instant, 0);
+	}
+
+	/**
+	 * 截取到月的第一天
+	 *
+	 * @param month 0:当月，正数:后面的月，负数:前面的月
+	 */
+	public static Instant truncateMonth(Instant instant, int month) {
+		instant = instant.atZone(ZoneOffset.ofHours(8)).plusMonths(month).toInstant();
 		instant = truncateDay(instant);
 		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
 		zonedDateTime = zonedDateTime.with(TemporalAdjusters.firstDayOfMonth());
@@ -495,5 +517,12 @@ public class XDateUtil {
 		ZonedDateTime zonedDateTime = instant.atZone(ZoneOffset.ofHours(8));
 		zonedDateTime = zonedDateTime.with(TemporalAdjusters.firstDayOfYear());
 		return zonedDateTime.toInstant();
+	}
+
+	/**
+	 * 格式化instant
+	 */
+	public static String formatTime(Instant instant, DateTimeFormatter pattern, String defaultValue) {
+		return instant == null ? defaultValue : instant.atZone(ZoneId.of("Asia/Shanghai")).format(pattern);
 	}
 }
