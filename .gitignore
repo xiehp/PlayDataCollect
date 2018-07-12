@@ -30,6 +30,7 @@ pom.xml.versionsBackup
 /**/target/generated-sources
 /**/target/maven-archiver
 /**/target/maven-status
+/**/target/lib
 /**/bin
 
 

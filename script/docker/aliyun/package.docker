@@ -2,7 +2,7 @@
 # Using Nginx as Base Image
 # docker login daocloud.io
 # 52M
-FROM java:8-jdk-alpine
+FROM 8-jre-alpine
 # 245M
 #FROM java:8-jdk
 # 122M
