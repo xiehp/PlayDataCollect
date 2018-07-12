@@ -1,4 +1,4 @@
 [submodule "common"]
 	path = common
-	url = https://github.com/xiehp/common.git
+url=https://gogs.acgimage.cn/xie/common.git
 	branch = SplitProject
