@@ -38,7 +38,7 @@ public class IndexController extends BaseFrontController {
 	private XInfluxdbPojoMapper xInfluxdbPojoMapper = new XInfluxdbPojoMapper();
 
 
-	@RequestMapping(value = "/index")
+	@RequestMapping(value = "/")
 	public String index(Model model, HttpSession session, HttpServletRequest request) {
 
 //		entityCache.clear();

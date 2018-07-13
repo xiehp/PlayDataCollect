@@ -51,10 +51,10 @@ public class MainFront {
 		return new RestTemplate();
 	}
 
-	@RequestMapping("/")
-	public String index() {
-		return "This is Front!!";
-	}
+//	@RequestMapping("/")
+//	public String index() {
+//		return "This is Front!!";
+//	}
 
 	static String tempId = "";
 

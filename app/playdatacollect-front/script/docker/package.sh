@@ -12,16 +12,17 @@ if [ -d "PlayDataCollect" ]; then
     git pull
     git submodule update
 else
-    git clone --recursive https://github.com/xiehp/PlayDataCollect.git
+    git clone --recursive ssh://git@gogs.acgimage.cn:53022/xie/PlayDataCollect.git
     cd PlayDataCollect
 fi
 
 pwd
-mvn package
+mvn clean package -Dmaven.test.skip
 cd ..
 cd ..
 
 mkdir -p src
+
 cp packagePlayDataCollect/PlayDataCollect/app/playdatacollect-front/target/playdatacollect-front.jar src/playdatacollect-front.jar
 
 pwd

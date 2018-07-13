@@ -1,0 +1,25 @@
+version: '3'
+services:
+  #gogs-caddy:
+  #  container_name: gogs-caddy
+  #  image: abiosoft/caddy
+  #  volumes:
+  #    - "/xie/docker/gogs/caddy/Caddyfile:/etc/Caddyfile"
+  #  restart: always
+  playdata-front:
+    image: xie/playdata-front
+    #deploy:
+      #replicas: 1
+      #resources:
+      #  limits:
+      #   cpus: "0.1"
+      #    memory: 50M
+      #restart_policy:
+      #  condition: on-failure
+    #volumes:
+      #- "/xie/docker/gogs/caddy/Caddyfile:/etc/Caddyfile"
+    ports:
+      - "13002:13002"
+        #volumes:
+        #- &:/
+    restart: on-failure
