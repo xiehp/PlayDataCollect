@@ -2,4 +2,7 @@
 
 sh package.sh
 sh dockerBuild.sh
-sh dockerRun.sh
+#sh dockerRun.sh
+sh dockerComposeRun.sh
+
+

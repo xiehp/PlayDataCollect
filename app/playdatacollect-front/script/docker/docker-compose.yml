@@ -6,7 +6,7 @@ services:
   #  volumes:
   #    - "/xie/docker/gogs/caddy/Caddyfile:/etc/Caddyfile"
   #  restart: always
-  playdata-front:
+  front:
     image: xie/playdata-front
     #deploy:
       #replicas: 1
