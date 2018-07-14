@@ -17,10 +17,6 @@ else
 fi
 
 # copy script file
-cp -r packagePlayDataCollect/PlayDataCollect/app/playdatacollect-front/script/docker/* .
-
+cp -r packagePlayDataCollect/PlayDataCollect/app/playdatacollect-front/script/docker/* ./
 
 sh rePackageAndRun.sh
-
-
-
