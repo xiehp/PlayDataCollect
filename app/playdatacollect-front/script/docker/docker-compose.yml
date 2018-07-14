@@ -27,3 +27,4 @@ networks:
   default:
     external:
       name: caddy_default
+

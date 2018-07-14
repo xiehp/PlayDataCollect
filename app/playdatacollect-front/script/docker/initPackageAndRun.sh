@@ -23,3 +23,4 @@ cp -r packagePlayDataCollect/PlayDataCollect/app/playdatacollect-front/script/do
 sh rePackageAndRun.sh
 
 
+
