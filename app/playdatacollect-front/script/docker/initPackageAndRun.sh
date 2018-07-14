@@ -11,10 +11,13 @@ if [ -d "PlayDataCollect" ]; then
     cd PlayDataCollect
     git pull
     git submodule update
+    cd ..
 else
     git clone --recursive ssh://git@gogs.acgimage.cn:53022/xie/PlayDataCollect.git
-    cd PlayDataCollect
 fi
+
+cd ..
+
 
 # copy script file
 cp -r packagePlayDataCollect/PlayDataCollect/app/playdatacollect-front/script/docker/* ./
