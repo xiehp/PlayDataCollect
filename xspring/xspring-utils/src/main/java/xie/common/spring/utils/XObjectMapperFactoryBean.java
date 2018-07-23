@@ -7,8 +7,6 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import java.util.TimeZone;
-
 public class XObjectMapperFactoryBean implements FactoryBean<ObjectMapper>, BeanClassLoaderAware, InitializingBean {
 
 	private static ObjectMapper objectMapper;
@@ -17,7 +15,7 @@ public class XObjectMapperFactoryBean implements FactoryBean<ObjectMapper>, Bean
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 
 	}
 
@@ -26,13 +24,14 @@ public class XObjectMapperFactoryBean implements FactoryBean<ObjectMapper>, Bean
 	}
 
 	@Override
-	public synchronized ObjectMapper getObject() throws Exception {
+	public synchronized ObjectMapper getObject() {
 		if (objectMapper == null) {
 			// 目标类中找不到json字符串中属性时直接忽略
 			objectMapper = new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-			objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+			// 应该通过TimeZone.setDefault设置整个java时区
+			// objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		}
 
 		return objectMapper;
