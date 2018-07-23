@@ -5,7 +5,7 @@ echo export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 java -version
 
 
-git clone --recursive https://github.com/xiehp/PlayDataCollect.git
+git clone --recursive https://gogs.acgimage.cn/xie/PlayDataCollect.git
 cd PlayDataCollect
 git pull --rebase=true
 git submodule update
@@ -18,7 +18,7 @@ copy /y app\playdatacollect-collector\target\playdatacollect-collector.jar ..\pl
 echo 回到先前目录
 cd ..
 
-::git clone https://github.com/xiehp/PlayDataCollect.git
+::git clone https://gogs.acgimage.cn/xie/PlayDataCollect.git
 ::cd PlayDataCollect
 ::git submodule init
 ::git submodule update

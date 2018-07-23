@@ -20,6 +20,9 @@ import java.util.*;
 @Service
 public class ProcessBilibiliByCollectedData {
 
+	// 处理节目数据 https://bangumi.bilibili.com/ext/web_api/season_count?season_id=21466&season_type=1
+	private static final String SEASON_API = "https://bangumi.bilibili.com/ext/web_api/season_count?season_type=1&season_id=";
+
 	@Resource
 	RestTemplate restTemplate;
 	Logger logger = XLog.getLog(this);
@@ -61,6 +64,7 @@ public class ProcessBilibiliByCollectedData {
 					}
 
 					if (XStringUtils.isNotBlank(aid.toString())) {
+						// 剧集数据
 						siteList.add(PlayDataConst.SOURCE_KEY_BILIBILI); // TODO 参数化
 //						nameList.add(名字);
 						nameList.add(influxdbName);
@@ -68,6 +72,7 @@ public class ProcessBilibiliByCollectedData {
 						追番人数List.add(PlayDataUtils.parseValue(resultItemse.getAll().get("追番人数")));
 						承包数List.add(PlayDataUtils.parseValue(resultItemse.getAll().get("承包数")));
 					} else {
+						// 节目数据
 						CollectedData collectedData = collectedDataFactory.create();
 						collectedData.setSite(PlayDataConst.SOURCE_KEY_BILIBILI); // TODO 参数化
 						collectedData.setType(PlayDataConst.SOURCE_TYPE_PROGRAM); // TODO 参数化
@@ -89,6 +94,38 @@ public class ProcessBilibiliByCollectedData {
 						collectedData.addCNName("payMoneyCount", "承包数");
 						collectedData.addExtendData("coinCount", PlayDataUtils.parseIntegerValue(resultItemse.getAll().get("硬币数")));
 						collectedData.addExtendData("payMoneyCount", PlayDataUtils.parseIntegerValue(resultItemse.getAll().get("承包数")));
+
+
+						// 尝试获取节目精准数据
+						String seasonId = (String) resultItemse.getAll().get("seasonId");
+						if (XStringUtils.isNotBlank(seasonId)) {
+							seasonId = seasonId.trim();
+							String result = restTemplate.getForObject(SEASON_API + seasonId, String.class);
+							if (XStringUtils.isNotBlank(result)) {
+								Map<String, Object> programJson = XJsonUtil.fromJsonString(result);
+								if (programJson != null) {
+									Map<String, Object> programData = (Map<String, Object>) programJson.get("result");
+									if (programData != null) {
+										if (programData.get("views") != null) {
+											collectedData.setPlayCount(PlayDataUtils.parseValue(programData.get("views")));
+										}
+
+										if (programData.get("coins") != null) {
+											collectedData.addExtendData("coinCount", PlayDataUtils.parseValue(programData.get("coins")));
+										}
+
+										if (programData.get("danmakus") != null) {
+											collectedData.setDanmuCount(PlayDataUtils.parseIntegerValue(programData.get("danmakus")));
+										}
+
+										if (programData.get("favorites") != null) {
+											collectedData.setChasingCount(PlayDataUtils.parseIntegerValue(programData.get("favorites")));
+										}
+									}
+								}
+							}
+						}
+
 						collectedDataList.add(collectedData);
 					}
 				} catch (Exception e) {
@@ -103,7 +140,10 @@ public class ProcessBilibiliByCollectedData {
 
 		// 处理aid
 		String baseApiUrl = "http://api.bilibili.com/archive_stat/stat?aid=";
-		for (int i = 0; i < aidList.size(); i++) {
+		for (
+				int i = 0; i < aidList.size(); i++)
+
+		{
 			try {
 				String result = restTemplate.getForObject(baseApiUrl + aidList.get(i), String.class);
 				Map<String, Object> map = XJsonUtil.fromJsonString(result);
@@ -147,6 +187,7 @@ public class ProcessBilibiliByCollectedData {
 				logger.error("生成数据发生错误, aid:{}", aidList.get(i), e);
 			}
 		}
+
 
 		return collectedDataList;
 	}

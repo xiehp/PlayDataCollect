@@ -84,7 +84,6 @@ public class MainFront {
 	public static void main(String[] args) {
 		// 设置时区
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
-		System.out.println(XDateUtil.formatTime(new Date().getTime(), "HH:mm:ss"));
 
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");

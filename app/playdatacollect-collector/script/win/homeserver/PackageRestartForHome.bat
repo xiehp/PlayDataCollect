@@ -1,5 +1,5 @@
 
-echo Ê¹ÓÃjdk8½øÐÐmaven¹¹½¨
+echo Ê¹ï¿½ï¿½jdk8ï¿½ï¿½ï¿½ï¿½mavenï¿½ï¿½ï¿½ï¿½
 echo export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 :: export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 java -version
@@ -11,11 +11,11 @@ git pull --rebase=true
 git submodule update
 call mvn clean package
 
-echo ¸´ÖÆÎÄ¼þ $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector.jar
+echo ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ $PWD/playdatacollect/app/playdatacollect-collector/target/playdatacollect-collector.jar
 copy /y app\playdatacollect-collector\target\playdatacollect-collector.jar ..\playdatacollect-collector.jar
 
 
-echo »Øµ½ÏÈÇ°Ä¿Â¼
+echo ï¿½Øµï¿½ï¿½ï¿½Ç°Ä¿Â¼
 cd ..
 
 ::git clone https://github.com/xiehp/PlayDataCollect.git
@@ -24,5 +24,3 @@ cd ..
 ::git submodule update
 ::cd common
 ::git checkout SplitProject
-
-::pause
