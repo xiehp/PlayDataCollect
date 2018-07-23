@@ -1,14 +1,16 @@
 package xie.common.utils.java;
 
+import org.slf4j.Logger;
+import xie.common.utils.log.XLog;
+
 import java.lang.management.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 public class JVMResource {
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
+	private final Logger logger = XLog.getLog(this.getClass().getName());
 
 	public static void main(String[] args) {
 		new JVMResource().printAllSummary();

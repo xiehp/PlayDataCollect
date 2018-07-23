@@ -7,35 +7,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class XLog {
-	private static Logger log = LoggerFactory.getLogger(XLog.class);
-
-	public static void info(String message) {
-		log.info(message);
-	}
-
-	public static void info(String message, Throwable e) {
-		log.info(message, e);
-	}
-
-	public static void info(String message, Object... args) {
-		log.info(message, args);
-	}
-
-
 	private static Map<Object, Logger> logMap = new HashMap<>();
 
 	public static Logger getLog(Object logTarget) {
 		Logger logger = logMap.get(logTarget);
 		if (logger == null) {
 			synchronized (logMap) {
-				Class c;
-				if (logTarget instanceof Class) {
-					c = (Class) logTarget;
-				} else {
-					c = logTarget.getClass();
+				logger = logMap.get(logTarget);
+				if (logger == null) {
+					Class c;
+					if (logTarget instanceof Class) {
+						c = (Class) logTarget;
+					} else {
+						c = logTarget.getClass();
+					}
+					logger = LoggerFactory.getLogger(c);
+					logMap.put(logTarget, logger);
 				}
-				logger = LoggerFactory.getLogger(c);
-				logMap.put(logTarget, logger);
 			}
 		}
 

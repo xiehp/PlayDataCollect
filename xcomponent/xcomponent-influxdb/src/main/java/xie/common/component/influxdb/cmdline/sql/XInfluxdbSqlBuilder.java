@@ -25,7 +25,8 @@ public class XInfluxdbSqlBuilder {
 		}
 
 		// FROM SQL
-		querySql.append(" FROM \"" + parameter.getMeasurement() + "\"");
+		String fromSql = String.format(" FROM \"%s\".\"%s\".\"%s\"", parameter.getDatabase(), "autogen", parameter.getMeasurement());
+		querySql.append(fromSql);
 
 		// tags filter
 		Map<String, String> queryTagsMap = parameter.getTags();
@@ -82,14 +83,14 @@ public class XInfluxdbSqlBuilder {
 			}
 		}
 
-		// order by time
-		if (parameter.isOrderByTimeDescFlag()) {
-			querySql.append(" ORDER BY time DESC");
-		}
-
 		// Fill
 		if (XStringUtils.isNotBlank(parameter.getFill())) {
 			querySql.append(" FILL(" + parameter.getFill() + ")");
+		}
+
+		// order by time
+		if (parameter.isOrderByTimeDescFlag()) {
+			querySql.append(" ORDER BY time DESC");
 		}
 
 		// limit

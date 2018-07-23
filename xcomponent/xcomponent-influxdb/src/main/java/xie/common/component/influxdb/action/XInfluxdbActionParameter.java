@@ -150,6 +150,9 @@ public class XInfluxdbActionParameter {
 		return groupByTime;
 	}
 
+	/**
+	 * 1m,2m,1h,1d,1w...
+	 */
 	public void setGroupByTime(String groupByTime) {
 		this.groupByTime = groupByTime;
 	}

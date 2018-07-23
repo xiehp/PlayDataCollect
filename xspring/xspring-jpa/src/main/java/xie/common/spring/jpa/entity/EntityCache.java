@@ -151,6 +151,16 @@ public class EntityCache {
 
 	/**
 	 * 根据传入的cacheId获取缓存，如果缓存不存在，则调用回调函数
+	 *
+	 * @param fun 回调函数
+	 * @return 缓存值
+	 */
+	public <RR> RR get(Supplier<RR> fun) {
+		return get(fun.toString(), fun);
+	}
+
+	/**
+	 * 根据传入的cacheId获取缓存，如果缓存不存在，则调用回调函数
 	 * 
 	 * @param cacheId 缓存ID
 	 * @param fun 回调函数

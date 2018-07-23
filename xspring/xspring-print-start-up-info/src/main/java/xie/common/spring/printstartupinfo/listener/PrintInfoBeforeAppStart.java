@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import xie.common.spring.printstartupinfo.PrintInfoOnStartProperties;
 import xie.common.spring.utils.InfoProperties;
 import xie.common.spring.utils.SpringUtil;
+import xie.common.utils.log.XLog;
 
 import javax.annotation.Resource;
 
@@ -26,8 +27,10 @@ public class PrintInfoBeforeAppStart extends XApplicationListener<ApplicationEnv
 
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+		XLog.info(this, "PrintInfoBeforeAppStart start!");
 		if (printInfoOnStartProperties == null || !printInfoOnStartProperties.isNoPrintInfoBeforeAppStart()) {
 			SpringUtil.printNowProfilesListByEnvironment(event.getEnvironment(), infoProperties);
 		}
+		XLog.info(this, "PrintInfoBeforeAppStart end!");
 	}
 }

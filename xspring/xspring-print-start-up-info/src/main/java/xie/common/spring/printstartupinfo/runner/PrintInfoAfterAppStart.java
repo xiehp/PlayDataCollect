@@ -8,6 +8,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 import xie.common.spring.printstartupinfo.PrintInfoOnStartProperties;
 import xie.common.spring.utils.SpringUtil;
+import xie.common.utils.log.XLog;
 
 import javax.annotation.Resource;
 
@@ -27,9 +28,11 @@ public class PrintInfoAfterAppStart implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
+		XLog.info(this, "PrintInfoAfterAppStart begin!");
 		if (printInfoOnStartProperties == null || !printInfoOnStartProperties.isNoPrintInfoAfterAppStart()) {
 			springUtil.printNowProfilesListByEnvironment();
 		}
+		XLog.info(this, "PrintInfoAfterAppStart end!");
 	}
 
 }
