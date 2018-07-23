@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+cd packagePlayDataCollect/PlayDataCollect
 export MAVEN_OPTS="-Xmx512m"
 mvn clean package -Dmaven.test.skip
 cd ..
