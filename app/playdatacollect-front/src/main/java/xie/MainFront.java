@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import xie.common.component.influxdb.action.XInfluxdbAction;
+import xie.common.utils.date.XDateUtil;
 import xie.component.httpclient.XHttpClientUtils;
 import xie.playdatacollect.core.db.service.MetricService;
 import xie.playdatacollect.core.db.service.TagService;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 @SpringBootApplication
 @RestController
@@ -81,7 +83,8 @@ public class MainFront {
 
 	public static void main(String[] args) {
 		// 设置时区
-		System.setProperty("user.timezone","Asia/Shanghai");
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+		System.out.println(XDateUtil.formatTime(new Date().getTime(), "HH:mm:ss"));
 
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");
