@@ -1,18 +1,30 @@
 package xie.common.utils.java;
 
-import org.slf4j.Logger;
-import xie.common.utils.log.XLog;
+import xie.common.utils.date.XDateUtil;
 
 import java.lang.management.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.logging.Logger;
 
 public class JVMResource {
-	private final Logger logger = XLog.getLog(this.getClass().getName());
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	public static void main(String[] args) {
+
+		// 设置时区
+		System.setProperty("user.timezone","Asia/Shanghai");
+		System.setProperty("user.timezone","America/Bahia");
+
+
+		System.out.println(XDateUtil.formatTime(new Date().getTime(), "HH:mm:ss"));
+
+
 		new JVMResource().printAllSummary();
 		new JVMResource().printBaseSummary();
 	}
@@ -52,6 +64,7 @@ public class JVMResource {
 		logger.info(String.format("heapUsage:  %s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
 		logger.info(String.format("threads:    Live %d, Daemon %d, Peak %d, Total %d", threads.getThreadCount(), threads.getDaemonThreadCount(), threads.getPeakThreadCount(), threads.getTotalStartedThreadCount()));
 		logger.info(String.format("class:      Loaded %s, Unloaded %s, total %s", cl.getLoadedClassCount(), cl.getUnloadedClassCount(), cl.getTotalLoadedClassCount()));
+		logger.info(String.format("locale:     lang:%s, timeZone:%s", Locale.getDefault(), TimeZone.getDefault().getID()));
 	}
 
 	public void printBaseSummary() {
@@ -63,6 +76,7 @@ public class JVMResource {
 		logger.info(String.format("os:         %s %s, %s %s, %s %s ", os.getName(), os.getVersion(), "cpuCore", os.getAvailableProcessors(), "arch", os.getArch()));
 		logger.info(String.format("jvm:        %s %s, %s %s", System.getProperty("java.version"), runtime.getVmVendor(), runtime.getVmName(), runtime.getVmVersion()));
 		logger.info(String.format("heapUsage:  %s %d%s, %s %d%s, %s %d%s", "used", heapUsage.getUsed() / Mb, "MB", "committed", heapUsage.getCommitted() / Mb, "MB", "max", heapUsage.getMax() / Mb, "MB"));
+		logger.info(String.format("locale:     lang:%s, timeZone:%s", Locale.getDefault(), TimeZone.getDefault().getID()));
 	}
 
 	protected String printSizeInKb(double size) {
