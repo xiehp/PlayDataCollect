@@ -38,4 +38,8 @@ public class ProgramService extends BasePlayCollectService<ProgramEntity, String
 
 		return save(programEntity);
 	}
+
+	public ProgramEntity findByCode(Long programCode) {
+		return baseDao.findByCode(programCode);
+	}
 }

@@ -40,4 +40,5 @@ public abstract class BasePlayCollectService<M extends BaseEntity, ID extends Se
 //		System.out.println();
 		return entity;
 	}
+
 }

@@ -80,6 +80,9 @@ public class MainFront {
 
 
 	public static void main(String[] args) {
+		// 设置时区
+		System.setProperty("user.timezone","Asia/Shanghai");
+
 		// 完全不使用开发辅助工具热重启
 		//System.setProperty("spring.devtools.restart.enabled", "false");
 		ConfigurableApplicationContext run = SpringApplication.run(MainFront.class, args);

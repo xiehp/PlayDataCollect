@@ -41,8 +41,8 @@ public class ProgramMoveUtilsTest {
 	@Test
 	public void do_moveProgram() throws ParseException, XInfluxdbException {
 		programMoveUtils.moveProgram(
-				"ce66a348-03e9-4a5e-8802-3dfa7a4b675d",
-				"c7694ad3-bec3-4e5a-8e9e-d76d1cad66c3");
+				"91721170-f503-49b0-b9e6-a71c3cd1bb98",
+				"7bec85f3-6260-4ab7-aade-2ee74d3799f9");
 	}
 
 	@Test

@@ -10,6 +10,7 @@ import xie.common.component.influxdb.action.XInfluxdbActionParameter;
 import xie.common.spring.jpa.entity.EntityCache;
 import xie.common.utils.constant.XConst;
 import xie.common.utils.date.XDateUtil;
+import xie.playdatacollect.common.PlayDataConst;
 import xie.playdatacollect.core.db.entity.program.ProgramEntity;
 import xie.playdatacollect.core.db.service.program.ProgramService;
 import xie.playdatacollect.front.controller.vo.IndexPlayDataVo;
@@ -113,11 +114,11 @@ public class ControllerUtils {
 		Instant nowYearInstant = XDateUtil.truncateYear(Instant.now()).plusSeconds(1);
 
 		List<MPlayData> nowPlayDataList = getMaxPlayCountData("base_data", Instant.now().minus(20, ChronoUnit.DAYS), Instant.now());
-		List<MPlayData> hourPlayDataList = getMaxPlayCountData(null, null, nowHourInstant);
-		List<MPlayData> dayPlayDataList = getMaxPlayCountData(null, null, nowDayInstant);
-		List<MPlayData> weekPlayDataList = getMaxPlayCountData(null, null, nowWeekInstant);
-		List<MPlayData> monthPlayDataList = getMaxPlayCountData(null, null, nowMonthInstant);
-		List<MPlayData> yearPlayDataList = getMaxPlayCountData(null, null, nowYearInstant);
+		List<MPlayData> hourPlayDataList = getMaxPlayCountData(nowHourInstant);
+		List<MPlayData> dayPlayDataList = getMaxPlayCountData(nowDayInstant);
+		List<MPlayData> weekPlayDataList = getMaxPlayCountData(nowWeekInstant);
+		List<MPlayData> monthPlayDataList = getMaxPlayCountData(nowMonthInstant);
+		List<MPlayData> yearPlayDataList = getMaxPlayCountData(nowYearInstant);
 
 //		// 以名字命名的时，天，周年的时间分组数据
 //		Map<String, List<MHourPlayData>> hourPlayDataMap = getPlayDataMap(hourPlayDataList);
@@ -266,12 +267,20 @@ public class ControllerUtils {
 				, XConst.SECOND_01_MIN * 1000);
 	}
 
+	public List<MPlayData> getMaxPlayCountData(Instant endInstant) {
+		return getMaxPlayCountData(null, null, endInstant);
+	}
+
+	public List<MPlayData> getMaxPlayCountData(String measurementName, Instant startInstant, Instant endInstant) {
+		return getMaxPlayCountData(measurementName, startInstant, endInstant, null, null);
+	}
+
 	/**
 	 * 获得到截至时间为止的最大播放数
 	 *
 	 * @param endInstant 截止时间
 	 */
-	public List<MPlayData> getMaxPlayCountData(String measurementName, Instant startInstant, Instant endInstant) {
+	public List<MPlayData> getMaxPlayCountData(String measurementName, Instant startInstant, Instant endInstant, String groupByTimeSql, String filterProgramName) {
 		return entityCache.get("getMaxPlayCountData" + "_" + XDateUtil.convertToStringUTC(endInstant, "yyyyMMddHHmmss"),
 				() -> {
 					XInfluxdbActionParameter parameter = new XInfluxdbActionParameter();
@@ -281,12 +290,15 @@ public class ControllerUtils {
 						parameter.setMeasurement("hour_base_data");
 					}
 					parameter.setSelectSql(" SELECT MAX(\"播放数\") as \"播放数\" ");
-//					parameter.addTag("名字", "LOST SONG 失落的歌谣");
-//					parameter.addTag("类型", PlayDataConst.SOURCE_TYPE_PROGRAM);
+					if (filterProgramName != null) {
+						parameter.addTag("名字", filterProgramName);
+					}
+					parameter.addTag("类型", PlayDataConst.SOURCE_TYPE_PROGRAM);
 					parameter.setStartInstant(startInstant);
 					parameter.setEndInstant(endInstant);
 					parameter.addGroupByTagName("*");
-//					parameter.setFill(XInfluxdbActionParameter.FILL_LINEAR);
+					parameter.setGroupByTime(groupByTimeSql);
+					parameter.setFill(XInfluxdbActionParameter.FILL_LINEAR);
 					parameter.setOrderByTimeDescFlag(true);
 //					parameter.setLimit(50);
 //					parameter.setSLimit(10);

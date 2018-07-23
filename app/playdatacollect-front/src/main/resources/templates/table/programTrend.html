@@ -22,8 +22,8 @@
 	<!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>-->
 
 	<!-- layui -->
-	<link rel="stylesheet" th:href="@{/static/plugin/layui/css/layui.css}" href="../static/static/plugin/layui/css/layui.css">
-	<script th:src="@{/static/plugin/layui/layui.all.js}" src="../static/static/plugin/layui/layui.all.js"></script>
+	<link rel="stylesheet" th:href="@{/static/plugin/layui/css/layui.css}" href="../../static/static/plugin/layui/css/layui.css">
+	<script th:src="@{/static/plugin/layui/css/layui.css}" src="../../static/static/plugin/layui/layui.all.js"></script>
 
 	<style>
 		.count-div span:nth-of-type(1) {
@@ -76,7 +76,7 @@
 					<h1 class="panel-title">近期新番播放量总览</h1>
 					ps:
 					<div class="count-div">
-						<span>更新日期</span>
+						<span>当前日期</span>
 						<br/>
 						<span>当前播放量</span>
 						<br/>
@@ -108,7 +108,6 @@
 								<td align="center" th:text="${info.index+1}">序号</td>
 								<td>
 									<span th:text="${program.fullName}">节目名字</span>
-									<a th:href="'/table/programTrend/' + ${program.code}"><span th:text="${program.code}">节目Code</span></a>
 								</td>
 								<td>
 									<div th:replace="::playCountDiv(${'all'}, ${program.fullName})">同bilibili模板</div>
@@ -116,7 +115,7 @@
 								<td>
 									<div th:fragment="playCountDiv(site, programFullName)" th:with="playDataVo=${indexSiteXNameVo.getValue(site, programFullName)}">
 										<div class="count-div" th:if="${playDataVo ne null}">
-											<span th:text="${playDataVo.nowPlayTime eq null ? '-' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}">更新日期</span>
+											<span th:text="${playDataVo.nowPlayTime eq null ? '-' : #dates.format(playDataVo.nowPlayTime, 'yyyy-MM-dd HH:mm:ss')}">口口当前日期</span>
 											<br/>
 											<span th:text="${(playDataVo.formatCount(playDataVo.nowPlayCount))}">当前播放量</span>
 											<br/>
